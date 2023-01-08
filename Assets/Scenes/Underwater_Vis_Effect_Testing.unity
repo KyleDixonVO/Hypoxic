@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 1113424573}
   - component: {fileID: 1113424576}
   - component: {fileID: 1113424577}
+  - component: {fileID: 1113424578}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -442,7 +443,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113424572}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1113424574
 Camera:
   m_ObjectHideFlags: 0
@@ -467,7 +468,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 8
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -475,12 +476,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -494,7 +495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113424572}
   m_LocalRotation: {x: 0.036802035, y: -0, z: -0, w: 0.99932265}
-  m_LocalPosition: {x: 0, y: 2, z: -5.96}
+  m_LocalPosition: {x: 0, y: 2.14, z: -7.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -508,7 +509,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113424572}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -568,7 +569,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113424572}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08f446814b9bc534781941733745f3c3, type: 3}
   m_Name: 
@@ -578,6 +579,19 @@ MonoBehaviour:
   _noiseScale: 2.5
   _noiseFrequency: 11.2
   _noiseSpeed: 9
+--- !u!114 &1113424578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113424572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555b72f25428189479db595ea66590ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mat: {fileID: 2100000, guid: b3efbe099223bbb4a90f48b1e4dbcc1c, type: 2}
 --- !u!1 &1155805129
 GameObject:
   m_ObjectHideFlags: 0
