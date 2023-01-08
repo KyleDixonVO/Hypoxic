@@ -6,6 +6,7 @@ Shader "PeerPlay/Underwater"
         _NoiseScale("Noise Scale", float) = 1
         _NoiseFrequency("Noise Frequency", float) = 1
         _NoiseSpeed("Noise Speed", float) = 1
+        _PixelOffset("Pixel Offset", float) = 0.005
     }
         SubShader
         {
@@ -21,8 +22,9 @@ Shader "PeerPlay/Underwater"
                 #include "UnityCG.cginc"
                
 #include "noiseSimplex.cginc"
+#define M_PI 3.1415926535897932384626433832795
 
-                uniform float _NoiseFrequency, _NoiseScale, _NoiseSpeed;
+                uniform float _NoiseFrequency, _NoiseScale, _NoiseSpeed, _PixelOffset;
 
             struct appdata
             {
@@ -53,7 +55,8 @@ Shader "PeerPlay/Underwater"
                 float3 spos = float3(i.scrPos.x, i.scrPos.y, 0) * _NoiseFrequency;
                 spos.z += _Time.x * _NoiseSpeed;
                 float noise = _NoiseScale * ((snoise(spos) + 1) / 2);
-                fixed4 col = fixed4(noise,noise,noise,1);
+                float4 noiseToDirection = float4(cos(noise*M_PI * 2), sin(noise*M_PI*2), 0, 0);
+                fixed4 col = tex2Dproj(_MainTex, i.scrPos + (normalize(noiseToDirection) * _PixelOffset));
                 return col;
             }
             ENDCG

@@ -26,8 +26,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NoiseFrequency: 1
+    - _NoiseFrequency: 6.3
     - _NoiseScale: 1
-    - _NoiseSpeed: 1
+    - _NoiseSpeed: 10
     m_Colors: []
   m_BuildTextureStacks: []
