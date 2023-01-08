@@ -7,6 +7,8 @@ public class FogEffect : MonoBehaviour
 {
     public Material _mat;
     public Color _fogColor;
+    public float _depthStart;
+    public float _depthDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,8 @@ public class FogEffect : MonoBehaviour
     void Update()
     {
         _mat.SetColor("_FogColor", _fogColor);
+        _mat.SetFloat("_DepthStart", _depthStart);
+        _mat.SetFloat("_DepthDistance", _depthDistance);
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)

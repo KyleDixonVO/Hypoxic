@@ -427,8 +427,8 @@ GameObject:
   - component: {fileID: 1113424574}
   - component: {fileID: 1113424573}
   - component: {fileID: 1113424576}
-  - component: {fileID: 1113424577}
   - component: {fileID: 1113424578}
+  - component: {fileID: 1113424577}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -468,7 +468,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 8
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -495,7 +495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113424572}
   m_LocalRotation: {x: 0.036802035, y: -0, z: -0, w: 0.99932265}
-  m_LocalPosition: {x: 0, y: 2.12, z: -6.3}
+  m_LocalPosition: {x: 0, y: 2.14, z: -6.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -580,6 +580,8 @@ MonoBehaviour:
   _noiseScale: 2.5
   _noiseFrequency: 11.2
   _noiseSpeed: 9
+  _depthStart: 0
+  _depthDistance: 5
 --- !u!114 &1113424578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,6 +596,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mat: {fileID: 2100000, guid: b3efbe099223bbb4a90f48b1e4dbcc1c, type: 2}
   _fogColor: {r: 0.010457456, g: 0.018969124, b: 0.047169805, a: 0}
+  _depthStart: 0
+  _depthDistance: 10
 --- !u!1 &1155805129
 GameObject:
   m_ObjectHideFlags: 0
