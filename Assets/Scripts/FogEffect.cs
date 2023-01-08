@@ -6,6 +6,7 @@ using UnityEngine;
 public class FogEffect : MonoBehaviour
 {
     public Material _mat;
+    public Color _fogColor;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class FogEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        _mat.SetColor("_FogColor", _fogColor);
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)

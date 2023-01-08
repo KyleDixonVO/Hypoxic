@@ -50,7 +50,8 @@ Shader "PeerPlay/FogEffect"
             {
                 float depthValue = Linear01Depth(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
                 fixed4 fogColor = _FogColor * depthValue;
-                return fogColor;
+                fixed4 col = tex2Dproj(_MainTex, i.scrPos);
+                return lerp(col,fogColor,depthValue);
             }
             ENDCG
         }
