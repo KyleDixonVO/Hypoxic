@@ -303,7 +303,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             if (inWater)
             {
                 Debug.Log("In Water");
-                Debug.Log("Timer:" + timer);
+                //Debug.Log("Timer:" + timer);
                 timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : isRunning ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
@@ -313,7 +313,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             else
             {
                 Debug.Log("In Atmosphere");
-                Debug.Log("Timer:" + timer);
+                //Debug.Log("Timer:" + timer);
                 timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isRunning ? runBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
@@ -507,6 +507,8 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (other.gameObject.CompareTag("Water"))
         {
             this.inWater = true;
+            this.gameObject.transform.GetComponentInChildren<FogEffect>().enabled = true;
+            this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().enabled = true;
         }
     }
 
@@ -515,6 +517,8 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (other.gameObject.CompareTag("Water"))
         {
             this.inWater = false;
+            this.gameObject.transform.GetComponentInChildren<FogEffect>().enabled = false;
+            this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().enabled = false;
         }
     }
 
