@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public bool isDoorOpen;
+    [Header("Open / Close Bools")]
+    public bool isDoorOpening;
     public bool isDoorOpenable;
+    public bool isPlayerInside;
 
-    float speed = 0.25f;
+    [Header("Serialized Variables")]
+    [SerializeField]
+    float speed = 0.35f;
+    [SerializeField]
+    float maxTimeOpen = 13f;
+    float timeOpen;
 
     Vector3 closePos;
     Vector3 openPos;
@@ -22,32 +27,53 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if is interacted with run OpendDoor()
-
-        //TEMP
-        if (Input.GetMouseButtonDown(0) && isDoorOpen == false && isDoorOpenable == true)
+        // if is interacted with set isDoorOpen to true
+        // TEMP opening with Left Mouse
+        if (Input.GetMouseButtonDown(0) && isDoorOpening == false && isDoorOpenable == true)
         {
-            isDoorOpen = true;
+            isDoorOpening = true;
         }
 
-        if (isDoorOpen == true) OpenDoor();
+        if (isDoorOpening == true) MoveDoor(openPos); // I'll probably LeanTween this later
+        else if (!isDoorOpening) MoveDoor(closePos);
+
+        if (isPlayerInside && Vector3.Distance(transform.position, closePos) < 0.1f)
+        {
+            Debug.Log("LOAD SCENE");
+            isPlayerInside = false;
+        }
         
     }
 
-    void OpenDoor()
-    {
-        // open door
+    // ----------------------------------- cycle the airlock ------------------------------------- \\
 
-        Debug.Log("Open");
-        float distance = Vector3.Distance(transform.position, openPos);
+    void MoveDoor(Vector3 position)
+    {       
+        float distance = Vector3.Distance(transform.position, position);
+
         if (distance > 0.1f)
         {
-            transform.position = Vector3.Lerp(transform.position, openPos, speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, position, speed * Time.deltaTime);
+        }
+        else if (isPlayerInside && isDoorOpening)
+        {
+            CountDown(5f);
+            Debug.Log("CLOSING W/ PLAYER");
+        }
+        else if (distance < 0.1f && isDoorOpening) // if player doesn't enter airlock auto close it
+        {
+            Debug.Log("CLOSING");
+            CountDown(0f);
         }
     }
 
-    void CloseDoor()
+    void CountDown(float maxTime)
     {
-
+        timeOpen -= Time.deltaTime;
+        if (timeOpen <= maxTime)
+        {
+            timeOpen = maxTimeOpen;
+            isDoorOpening = false;          
+        }
     }
 }
