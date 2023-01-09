@@ -16,14 +16,14 @@ public class CameraShake : MonoBehaviour
 
     public float PerlinNoise(float x, float y)
     {
-        return ((Mathf.PerlinNoise(x, y) * 2.0f) - 1f);
+        return ((Mathf.PerlinNoise(x, y)));
     }
 
-    public Vector3 PerlinHeadBob(float mainVar, float varY, float frequency, float amplitude)
+    public Vector3 PerlinHeadBob(float mainVar, float varY, float frequency, float amplitude, float lowerBobBound, float upperBobBound)
     {
         Vector3 deltaPos;
         deltaPos.x = 0.0f;
-        deltaPos.y = PerlinNoise(mainVar * frequency, varY) * amplitude;
+        deltaPos.y = Mathf.Clamp(Mathf.Sin(mainVar) + (PerlinNoise(mainVar * frequency, varY) * amplitude), lowerBobBound, upperBobBound);
         deltaPos.z = 0.0f;
         return deltaPos;
     }

@@ -55,7 +55,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float jumpForce = 8.0f;
     [SerializeField] private float gravity = 30f;
     [SerializeField] private float waterJumpForce = 5.0f;
-    [SerializeField] private float waterGravity = 20.0f;
+    [SerializeField] private float waterGravity = 15.0f;
 
     [Header("Crouch Settings")]
     [SerializeField] private float crouchHeight = 0.5f;
@@ -67,19 +67,23 @@ public class FirstPersonController_Sam : MonoBehaviour
     private bool duringCrouchAnimation;
 
     [Header("Headbob Settings")]
-    [SerializeField] private float crouchBobSpeed = 8f;
-    [SerializeField] private float crouchBobAmount = 0.05f;
-    [SerializeField] private float walkBobSpeed = 11.1f;
-    [SerializeField] private float walkBobAmount = 0.065f;
-    [SerializeField] private float runBobSpeed = 16f;
-    [SerializeField] private float runBobAmount = 0.1f;
-    [SerializeField] private float waterCrouchBobSpeed = 6f;
-    [SerializeField] private float waterCrouchBobAmount = 0.03f;
-    [SerializeField] private float waterWalkBobSpeed = 8.1f;
-    [SerializeField] private float waterWalkBobAmount = 0.045f;
-    [SerializeField] private float waterRunBobSpeed = 12f;
-    [SerializeField] private float waterRunBobAmount = 0.08f;
-    private float defaultYPos = 0;
+    [SerializeField] private float crouchBobSpeed = 6f;
+    [SerializeField] private float walkBobSpeed = 9f;
+    [SerializeField] private float runBobSpeed = 12f;
+    [SerializeField] private float waterCrouchBobSpeed = 3f;
+    [SerializeField] private float waterWalkBobSpeed = 6f;
+    [SerializeField] private float waterRunBobSpeed = 9f;
+
+    [SerializeField] private float crouchBobAmount = 0.15f;
+    [SerializeField] private float walkBobAmount = 0.3f;
+    [SerializeField] private float runBobAmount = 0.45f;
+    [SerializeField] private float waterCrouchBobAmount = 0.15f;
+    [SerializeField] private float waterWalkBobAmount = 0.3f;
+    [SerializeField] private float waterRunBobAmount = 0.45f;
+
+    [SerializeField] private float lowerBobLimit = 0.5f;
+    [SerializeField] private float upperBobLimit = 0.9f;
+    [SerializeField] private float defaultYPos = 0;
     private float timer;
 
     [Header("Zoom Settings")]
@@ -92,7 +96,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float baseStepSpeed = 0.55f;
     [SerializeField] private float crouchStepMultiplier = 1.5f;
     [SerializeField] private float RunStepMultiplier = 0.6f;
-    [SerializeField] private float waterWalkSpeed = 1.8f;
+    [SerializeField] private float waterStepSpeed = 1.8f;
     [SerializeField] private float waterCrouchStepMultiplier = 2.3f;
     [SerializeField] private float waterRunStepMultiplier = 1.2f;
     [SerializeField] private AudioSource footstepAudioSource = default;
@@ -100,7 +104,13 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private AudioClip[] metalFootstepClips = default;
     [SerializeField] private AudioClip[] grassFootstepClips = default;
     private float footstepTimer = 0f;
-    private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterWalkSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : isRunning ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
+
+    [Header("Suit Settings")]
+    [SerializeField] private float maxSuitPower = 100.0f;
+    [SerializeField] private float drainPerSecond = 0.67f;
+    [SerializeField] private float sprintDrainPerSecond = 1.0f;
+    [SerializeField] private float drainPerDash = 5.0f;
+    private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : isRunning ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
 
     // Sliding Settings
     private Vector3 hitPointNormal;
@@ -248,53 +258,69 @@ public class FirstPersonController_Sam : MonoBehaviour
         
         if (!characterController.isGrounded) return;
 
-        timer += Time.deltaTime;
-
         if (Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
         {
+            //timer += Time.deltaTime;
+            //if (inWater)
+            //{
+            //    Debug.Log("In water");
+            //    if (isCrouching)
+            //    {
+            //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, waterCrouchBobSpeed, waterCrouchBobAmount, lowerBobLimit, upperBobLimit);
+            //        Debug.Log("waterCrouchBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
+            //    }
+            //    else if (isRunning)
+            //    {
+            //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, waterRunBobSpeed, waterRunBobAmount, lowerBobLimit, upperBobLimit);
+            //        Debug.Log("waterRunBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
+            //    }
+            //    else
+            //    {
+            //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, waterWalkBobSpeed, waterWalkBobAmount, lowerBobLimit, upperBobLimit);
+            //        Debug.Log("waterWalkBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
+            //    }
+            //}
+            //else
+            //{
+            //    Debug.Log("In Atmosphere");
+            //    if (isCrouching)
+            //    {
+            //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, crouchBobSpeed, crouchBobAmount, lowerBobLimit, upperBobLimit);
+            //        Debug.Log("CrouchBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
+            //    }
+            //    else if (isRunning)
+            //    {
+            //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, runBobSpeed, runBobAmount, lowerBobLimit, upperBobLimit);
+            //        Debug.Log("RunBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
+            //    }
+            //    else
+            //    {
+            //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, walkBobSpeed, walkBobAmount, lowerBobLimit, upperBobLimit);
+            //        Debug.Log("WalkBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
+            //    }
+            //}
+
             if (inWater)
             {
-                Debug.Log("In water");
-                if (isCrouching)
-                {
-                    playerCamera.gameObject.transform.position += cameraShake.PerlinHeadBob(timer, 1.0f, waterCrouchBobSpeed, waterCrouchBobAmount);
-                    Debug.Log("waterCrouchBob");
-                }
-                else if (isRunning)
-                {
-                    playerCamera.gameObject.transform.position += cameraShake.PerlinHeadBob(timer, 1.0f, waterRunBobSpeed, waterRunBobAmount);
-                    Debug.Log("waterRunBob");
-                }
-                else
-                {
-                    playerCamera.gameObject.transform.position += cameraShake.PerlinHeadBob(timer, 1.0f, waterWalkBobSpeed, waterWalkBobAmount);
-                    Debug.Log("waterWalkBob");
-                }
+                Debug.Log("In Water");
+                Debug.Log("Timer:" + timer);
+                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : isRunning ? waterRunBobSpeed : waterWalkBobSpeed);
+                playerCamera.transform.localPosition = new Vector3(
+                    playerCamera.transform.localPosition.x,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : isRunning ? waterRunBobAmount : waterWalkBobAmount))/2,
+                    playerCamera.transform.localPosition.z);
             }
             else
             {
                 Debug.Log("In Atmosphere");
-                if (isCrouching)
-                {
-                    playerCamera.gameObject.transform.position += cameraShake.PerlinHeadBob(timer, 1.0f, crouchBobSpeed, crouchBobAmount);
-                    Debug.Log("CrouchBob");
-                }
-                else if (isRunning)
-                {
-                    playerCamera.gameObject.transform.position += cameraShake.PerlinHeadBob(timer, 1.0f, runBobSpeed, runBobAmount);
-                    Debug.Log("RunBob");
-                }
-                else
-                {
-                    playerCamera.gameObject.transform.position += cameraShake.PerlinHeadBob(timer, 1.0f, walkBobSpeed, walkBobAmount);
-                    Debug.Log("WalkBob");
-                }
+                Debug.Log("Timer:" + timer);
+                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isRunning ? runBobSpeed : walkBobSpeed);
+                playerCamera.transform.localPosition = new Vector3(
+                    playerCamera.transform.localPosition.x,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : isRunning ? runBobAmount : walkBobAmount))/2,
+                    playerCamera.transform.localPosition.z);
             }
 
-            //playerCamera.transform.localPosition = new Vector3(
-            //    playerCamera.transform.localPosition.x,
-            //    defaultYPos + Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : isRunning ? runBobAmount : walkBobAmount),
-            //    playerCamera.transform.localPosition.z);
         }
     }
 
