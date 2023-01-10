@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [Header("LevelManager")]
+    public Level_Manager LM;
+
     [Header("Open / Close Bools")]
     public bool isDoorOpening;
     public bool isDoorOpenable;
@@ -25,19 +28,12 @@ public class Door : MonoBehaviour
     {
         timeOpen = maxTimeOpen;
         closePos = transform.position;
-        openPos = new Vector3(transform.position.x + 2.5f, transform.position.y, transform.position.z);
+        openPos = new Vector3(transform.position.x + 4.5f, transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if is interacted with set isDoorOpen to true
-        // TEMP opening with Left Mouse
-        if (Input.GetMouseButtonDown(0) && isDoorOpening == false && isDoorOpenable == true)
-        {
-            StartCoroutine(OpenDoorDelay());
-        }
-
         if (isDoorOpening == true) MoveDoor(openPos); // I'll probably LeanTween this later
         else if (!isDoorOpening) MoveDoor(closePos);
 
@@ -45,7 +41,21 @@ public class Door : MonoBehaviour
         {
             Debug.Log("LOAD SCENE"); // Load a new Scene here
             isPlayerInside = false;
+            LM.LoadMainHab();
         }      
+    }
+
+    // -------------------------------------- Open Door ----------------------------------------- \\
+
+    // the OpenDoor() Meathod is called from other scripts to start the 
+    // open door process
+    public void OpenDoor()
+    {
+        // if is interacted with set isDoorOpen to true
+        if (isDoorOpening == false && isDoorOpenable == true)
+        {
+            StartCoroutine(OpenDoorDelay());
+        }
     }
 
     // ----------------------------------- cycle the airlock ------------------------------------- \\
@@ -60,7 +70,7 @@ public class Door : MonoBehaviour
         }
         else if (isPlayerInside && isDoorOpening)
         {
-            CountDown(5f);
+            CountDown(8f);
         }
         else if (distance < 0.05f && isDoorOpening) // if player doesn't enter airlock auto close it
         {
@@ -68,10 +78,10 @@ public class Door : MonoBehaviour
         }
     }
 
-    void CountDown(float maxTime) // counts down how long the airlock will stay open for
+    void CountDown(float waitTimeReduction) // counts down how long the airlock will stay open for
     {
         timeOpen -= Time.deltaTime;
-        if (timeOpen <= maxTime)
+        if (timeOpen <= waitTimeReduction)
         {
             timeOpen = maxTimeOpen;
             isDoorOpening = false;                         

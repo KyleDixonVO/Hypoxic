@@ -17,16 +17,16 @@ public class DoorTrigger : MonoBehaviour
     void Update()
     {
         //TEMP Close
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        /*if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("player is in");
             exteriorDoor.isPlayerInside = true;
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.tag == "Player")
         {
             exteriorDoor.isPlayerInside = true;
         }
