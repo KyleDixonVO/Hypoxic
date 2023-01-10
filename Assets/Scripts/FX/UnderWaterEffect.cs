@@ -7,7 +7,6 @@ public class UnderWaterEffect : MonoBehaviour
 
 {
     public Material _mat;
-
     [Range(0.001f, 0.1f)]
     public float _pixelOffset;
     [Range(0.1f, 20f)]
@@ -19,11 +18,12 @@ public class UnderWaterEffect : MonoBehaviour
 
     public float _depthStart;
     public float _depthDistance;
+    public bool effectActive;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        effectActive = false;
     }
 
     // Update is called once per frame
@@ -40,6 +40,13 @@ public class UnderWaterEffect : MonoBehaviour
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+        if (!effectActive)
+        {
+            Graphics.Blit(source, destination);
+            Debug.Log("Water FX Disabled");
+            return;
+        }
+
         Graphics.Blit(source, destination, _mat);
     }
 }

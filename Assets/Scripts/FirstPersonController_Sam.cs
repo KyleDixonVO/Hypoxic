@@ -106,10 +106,17 @@ public class FirstPersonController_Sam : MonoBehaviour
     private float footstepTimer = 0f;
 
     [Header("Suit Settings")]
-    [SerializeField] private float maxSuitPower = 100.0f;
+    public float maxSuitPower = 100.0f;
+    public float suitPower;
     [SerializeField] private float drainPerSecond = 0.67f;
     [SerializeField] private float sprintDrainPerSecond = 1.0f;
     [SerializeField] private float drainPerDash = 5.0f;
+    [SerializeField] private float suffocationDamage = 1.0f;
+
+    [Header("Player Stats")]
+    [SerializeField] private float maxPlayerHealth = 100.0f;
+    [SerializeField] private float playerHealth = 100.0f;
+
     private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : isRunning ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
 
     // Sliding Settings
@@ -176,6 +183,11 @@ public class FirstPersonController_Sam : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void Start()
+    {
+        suitPower = maxSuitPower;
+    }
+
     private void Update()
     {
         if (canMove)
@@ -191,6 +203,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             if (useFootsteps)   { HandleFootsteps();                                    }
 
             ApplyFinalMovement();
+            EnergyDrain();
         }
     }
 
@@ -502,13 +515,38 @@ public class FirstPersonController_Sam : MonoBehaviour
         zoomRoutine = null;
     }
 
+    private void EnergyDrain()
+    {
+        if (!inWater) return;
+        if (suitPower <= 0)
+        {
+            suitPower = 0;
+            TakeDamage(suffocationDamage);
+        }
+        suitPower -= drainPerSecond * Time.deltaTime;
+
+        if (!isRunning) return;
+        suitPower -= sprintDrainPerSecond * Time.deltaTime;
+    }
+
+    private void TakeDamage(float damage)
+    {
+        if (playerHealth <= 0)
+        {
+            playerHealth = 0;
+            return;
+        }
+
+        playerHealth -= damage;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Water"))
         {
             this.inWater = true;
-            this.gameObject.transform.GetComponentInChildren<FogEffect>().enabled = true;
-            this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+            this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = true;
+            this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = true;
         }
     }
 
@@ -517,8 +555,8 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (other.gameObject.CompareTag("Water"))
         {
             this.inWater = false;
-            this.gameObject.transform.GetComponentInChildren<FogEffect>().enabled = false;
-            this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().enabled = false;
+            this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
+            this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
         }
     }
 
