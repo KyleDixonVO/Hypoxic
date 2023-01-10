@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -13,6 +14,8 @@ public class Door : MonoBehaviour
     [SerializeField]
     float maxTimeOpen = 13f;
     float timeOpen;
+    [SerializeField]
+    float timeToOpen = 10f;
 
     Vector3 closePos;
     Vector3 openPos;
@@ -20,6 +23,7 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        timeOpen = maxTimeOpen;
         closePos = transform.position;
         openPos = new Vector3(transform.position.x + 2.5f, transform.position.y, transform.position.z);
     }
@@ -31,18 +35,17 @@ public class Door : MonoBehaviour
         // TEMP opening with Left Mouse
         if (Input.GetMouseButtonDown(0) && isDoorOpening == false && isDoorOpenable == true)
         {
-            isDoorOpening = true;
+            StartCoroutine(OpenDoorDelay());
         }
 
         if (isDoorOpening == true) MoveDoor(openPos); // I'll probably LeanTween this later
         else if (!isDoorOpening) MoveDoor(closePos);
 
-        if (isPlayerInside && Vector3.Distance(transform.position, closePos) < 0.1f)
+        if (isPlayerInside && Vector3.Distance(transform.position, closePos) < 0.05f)
         {
-            Debug.Log("LOAD SCENE");
+            Debug.Log("LOAD SCENE"); // Load a new Scene here
             isPlayerInside = false;
-        }
-        
+        }      
     }
 
     // ----------------------------------- cycle the airlock ------------------------------------- \\
@@ -51,29 +54,34 @@ public class Door : MonoBehaviour
     {       
         float distance = Vector3.Distance(transform.position, position);
 
-        if (distance > 0.1f)
+        if (distance > 0.05f)
         {
             transform.position = Vector3.Lerp(transform.position, position, speed * Time.deltaTime);
         }
         else if (isPlayerInside && isDoorOpening)
         {
             CountDown(5f);
-            Debug.Log("CLOSING W/ PLAYER");
         }
-        else if (distance < 0.1f && isDoorOpening) // if player doesn't enter airlock auto close it
+        else if (distance < 0.05f && isDoorOpening) // if player doesn't enter airlock auto close it
         {
-            Debug.Log("CLOSING");
             CountDown(0f);
         }
     }
 
-    void CountDown(float maxTime)
+    void CountDown(float maxTime) // counts down how long the airlock will stay open for
     {
         timeOpen -= Time.deltaTime;
         if (timeOpen <= maxTime)
         {
             timeOpen = maxTimeOpen;
-            isDoorOpening = false;          
+            isDoorOpening = false;                         
         }
+    }    
+
+    IEnumerator OpenDoorDelay()
+    {
+        Debug.Log("Door Opening...");
+        yield return new WaitForSeconds(timeToOpen);
+        isDoorOpening = true;
     }
 }
