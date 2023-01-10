@@ -73,6 +73,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float waterCrouchBobSpeed = 3f;
     [SerializeField] private float waterWalkBobSpeed = 6f;
     [SerializeField] private float waterRunBobSpeed = 9f;
+    [SerializeField] private float dashSpeed = 15f;
 
     [SerializeField] private float crouchBobAmount = 0.15f;
     [SerializeField] private float walkBobAmount = 0.3f;
@@ -545,7 +546,7 @@ public class FirstPersonController_Sam : MonoBehaviour
         playerHealth -= damage;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Water"))
         {
