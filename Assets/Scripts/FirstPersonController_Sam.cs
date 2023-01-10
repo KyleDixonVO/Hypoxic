@@ -114,8 +114,8 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float suffocationDamage = 1.0f;
 
     [Header("Player Stats")]
-    [SerializeField] private float maxPlayerHealth = 100.0f;
-    [SerializeField] private float playerHealth = 100.0f;
+    public float maxPlayerHealth = 100.0f;
+    public float playerHealth = 100.0f;
 
     private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : isRunning ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
 
@@ -186,6 +186,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     private void Start()
     {
         suitPower = maxSuitPower;
+        playerHealth = maxPlayerHealth;
     }
 
     private void Update()
@@ -521,7 +522,8 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (suitPower <= 0)
         {
             suitPower = 0;
-            TakeDamage(suffocationDamage);
+            Debug.Log("Suit Power Depleted");
+            TakeDamage(suffocationDamage * Time.deltaTime);
         }
         suitPower -= drainPerSecond * Time.deltaTime;
 
@@ -531,12 +533,15 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private void TakeDamage(float damage)
     {
+        Debug.Log("Taking Damage");
         if (playerHealth <= 0)
         {
+            Debug.Log("Player Health Depleted");
             playerHealth = 0;
             return;
         }
 
+        if (damage <= 0) return;
         playerHealth -= damage;
     }
 
