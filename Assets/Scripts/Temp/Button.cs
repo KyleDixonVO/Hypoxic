@@ -32,7 +32,7 @@ public class Button : MonoBehaviour
         }
         else
         {
-            if (other.tag == "Player" && Input.GetKey(KeyCode.E))
+            if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorScript.isDoorOpening == false)
             {
                 Debug.LogWarning("LoadScene");
                 LM.LoadOutside();

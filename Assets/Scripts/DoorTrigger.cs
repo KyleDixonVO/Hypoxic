@@ -25,7 +25,6 @@ public class DoorTrigger : MonoBehaviour
             exteriorDoor.isPlayerInside = true;
         }*/
         timer += Time.deltaTime;
-        Debug.LogWarning(timer);
     }
 
     private void OnTriggerEnter(Collider other)
