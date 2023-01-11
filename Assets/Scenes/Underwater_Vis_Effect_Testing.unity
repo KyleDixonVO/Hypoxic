@@ -1059,6 +1059,7 @@ MonoBehaviour:
   maxSuitPower: 100
   suitPower: 0
   drainPerSecond: 0.67
+  rechargePerSecond: 2
   sprintDrainPerSecond: 1
   drainPerDash: 5
   suffocationDamage: 1

@@ -491,10 +491,13 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private IEnumerator CrouchStand()
     {
-        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1.0f))
-        { yield break; }
-        
-        duringCrouchAnimation = true;
+        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1.0f, ~(LayerMask.GetMask("PostProcessing", "Water"))))
+        {
+            Debug.Log("CrouchBlocked");
+            yield return null;
+        }
+
+            duringCrouchAnimation = true;
 
         float timeElapsed = 0;
         float targetHeight = isCrouching ? standingHeight : crouchHeight;
@@ -509,6 +512,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+        
         characterController.height = targetHeight;
         characterController.center = targetCenter;
 
