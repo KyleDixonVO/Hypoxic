@@ -8,8 +8,9 @@ public class UI_Manager : MonoBehaviour
 {
 
     public static UI_Manager ui_Manager;
-    [SerializeField]
-    private Slider suitPower;
+    [SerializeField] private Slider suitPower;
+    [SerializeField] private Slider healthSlider;
+
 
     private void Awake()
     {
@@ -26,6 +27,8 @@ public class UI_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthSlider.maxValue = FirstPersonController_Sam.fpsSam.maxPlayerHealth;
+        healthSlider.value = healthSlider.maxValue;
         suitPower.maxValue = FirstPersonController_Sam.fpsSam.maxSuitPower;
         suitPower.value = suitPower.maxValue;
     }
@@ -33,6 +36,7 @@ public class UI_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthSlider.value = FirstPersonController_Sam.fpsSam.playerHealth;
         suitPower.value = FirstPersonController_Sam.fpsSam.suitPower;
     }
 }
