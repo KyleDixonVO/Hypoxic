@@ -9,4 +9,9 @@ public class Level_Manager : MonoBehaviour
     {
         SceneManager.LoadScene("Edmund-TransitionTest");
     }
+
+    public void LoadOutside()
+    {
+        SceneManager.LoadScene("Edmund-Test");
+    }
 }

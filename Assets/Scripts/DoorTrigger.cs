@@ -7,6 +7,8 @@ public class DoorTrigger : MonoBehaviour
     public GameObject airlock;
     Door exteriorDoor;
 
+    float timer = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,13 +24,20 @@ public class DoorTrigger : MonoBehaviour
             Debug.Log("player is in");
             exteriorDoor.isPlayerInside = true;
         }*/
+        timer += Time.deltaTime;
+        Debug.LogWarning(timer);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && timer > 5f)
         {
             exteriorDoor.isPlayerInside = true;
+            timer = 0;
+        }
+        else if (timer < 5f)
+        {
+            exteriorDoor.isDoorOpening = true;
         }
     }
 
