@@ -113,6 +113,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     public float maxSuitPower = 100.0f;
     public float suitPower;
     [SerializeField] private float drainPerSecond = 0.67f;
+    [SerializeField] private float rechargePerSecond = 2.0f;
     [SerializeField] private float sprintDrainPerSecond = 1.0f;
     [SerializeField] private float drainPerDash = 5.0f;
     [SerializeField] private float suffocationDamage = 1.0f;
@@ -215,6 +216,7 @@ public class FirstPersonController_Sam : MonoBehaviour
 
             ApplyFinalMovement();
             EnergyDrain();
+            RechargeSuit();
         }
     }
 
@@ -591,6 +593,13 @@ public class FirstPersonController_Sam : MonoBehaviour
 
         if (!isRunning) return;
         suitPower -= sprintDrainPerSecond * Time.deltaTime;
+    }
+
+    private void RechargeSuit()
+    {
+        if (inWater || suitPower == maxSuitPower) return;
+        suitPower += rechargePerSecond * Time.deltaTime;
+        if (suitPower > maxSuitPower) suitPower = maxSuitPower;
     }
 
     private void TakeDamage(float damage)
