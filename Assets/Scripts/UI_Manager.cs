@@ -55,10 +55,6 @@ public class UI_Manager : MonoBehaviour
         NewGame
     }
 
-    
-
-
-
     private void Awake()
     {
         if (ui_Manager == null)
@@ -86,9 +82,15 @@ public class UI_Manager : MonoBehaviour
 
     void CheckActiveCanvas()
     {
+        Debug.Log(activeCanvas);
         for (int i = 0; i < canvasArray.Length; i++)
         {
-            if (i == (int)activeCanvas) continue;
+            if (i == (int)activeCanvas)
+            {
+                canvasArray[i].gameObject.SetActive(true);
+                continue;
+            }
+
             if (activeCanvas == ActiveUI.Pause && i == (int)ActiveUI.Gameplay) continue;
             canvasArray[i].gameObject.SetActive(false);
         }
