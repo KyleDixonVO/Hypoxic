@@ -18,6 +18,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     #region Settings
 
     [Header("Functional Settings")]
+    [SerializeField] private bool isDashing = false;
     [SerializeField] public bool inWater = false;
     [SerializeField] private bool canRun = true;
     [SerializeField] private bool canJump = true;
@@ -44,6 +45,9 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float suitRunSpeed = 6.5f;
     [SerializeField] private float suitCrouchSpeed = 1.5f;
     [SerializeField] private float suitSlopeSpeed = 8.5f;
+    [SerializeField] private float dashSpeed = 15f;
+    [SerializeField] private float dashLength = 0.2f;
+    private float dashTimer;
 
     [Header("Look Settings")]
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
@@ -73,7 +77,6 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float waterCrouchBobSpeed = 3f;
     [SerializeField] private float waterWalkBobSpeed = 6f;
     [SerializeField] private float waterRunBobSpeed = 9f;
-    [SerializeField] private float dashSpeed = 15f;
 
     [SerializeField] private float crouchBobAmount = 0.15f;
     [SerializeField] private float walkBobAmount = 0.3f;
@@ -117,6 +120,12 @@ public class FirstPersonController_Sam : MonoBehaviour
     [Header("Player Stats")]
     public float maxPlayerHealth = 100.0f;
     public float playerHealth = 100.0f;
+
+    [Header("Spotlight Settings")]
+    [SerializeField] private float poweredRange = 60.0f;
+    [SerializeField] private float unpoweredRange = 20.0f;
+    [SerializeField] public Color poweredColor;
+    [SerializeField] public Color unpoweredColor;
 
     private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : isRunning ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
 
@@ -224,7 +233,7 @@ public class FirstPersonController_Sam : MonoBehaviour
         currentInput *= (currentInput.x != 0.0f && currentInput.y != 0.0f) ? 0.7071f : 1.0f;
 
         // Sets the required speed multiplier
-        if (inWater) currentInput *= (isCrouching ? suitCrouchSpeed : isRunning ? suitRunSpeed : suitWalkSpeed);
+        if (inWater) currentInput *= (isCrouching ? suitCrouchSpeed : (isRunning && suitPower > 0) ? suitRunSpeed : suitWalkSpeed);
         else currentInput *= (isCrouching ? crouchSpeed : isRunning ? runSpeed : walkSpeed);
 
         float moveDirectionY = moveDirection.y;
@@ -319,10 +328,10 @@ public class FirstPersonController_Sam : MonoBehaviour
             {
                 Debug.Log("In Water");
                 //Debug.Log("Timer:" + timer);
-                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : isRunning ? waterRunBobSpeed : waterWalkBobSpeed);
+                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && suitPower > 0) ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
-                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : isRunning ? waterRunBobAmount : waterWalkBobAmount))/2,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && suitPower > 0) ? waterRunBobAmount : waterWalkBobAmount))/2,
                     playerCamera.transform.localPosition.z);
             }
             else
@@ -469,6 +478,11 @@ public class FirstPersonController_Sam : MonoBehaviour
             }
         }
 
+        // dashing
+        UnderwaterDash();
+        
+        
+
         // applies movement based on all inputs
         characterController.Move(moveDirection * Time.deltaTime);
     }
@@ -517,6 +531,46 @@ public class FirstPersonController_Sam : MonoBehaviour
         zoomRoutine = null;
     }
 
+    private void UnderwaterDash()
+    {
+        if (suitPower <= 0) return;
+        if (Input.GetButtonDown("Dash"))
+        {
+            Debug.Log("Dash Input Pressed");
+            isDashing = true;
+        }
+
+        if (!inWater) 
+        {
+            isDashing = false;
+            dashTimer = 0;
+            return;
+        }
+        else if (!isDashing)
+        {
+            dashTimer = 0;
+            return;
+        }
+        else
+        {
+            //Debug.Log(dashTimer);
+            dashTimer += Time.deltaTime;
+        }
+
+        if (dashTimer < dashLength && isDashing)
+        {
+            Debug.Log("Dashing");
+            Debug.Log(currentInput.x + " " + currentInput.y);
+            moveDirection = ((transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y)) * dashSpeed;
+        }
+        else
+        {
+            suitPower -= drainPerDash;
+            isDashing = false;
+            return;
+        }
+    }
+
     private void EnergyDrain()
     {
         if (!inWater) return;
@@ -525,6 +579,13 @@ public class FirstPersonController_Sam : MonoBehaviour
             suitPower = 0;
             Debug.Log("Suit Power Depleted");
             TakeDamage(suffocationDamage * Time.deltaTime);
+            this.gameObject.transform.GetComponentInChildren<Light>().color = unpoweredColor;
+            this.gameObject.transform.GetComponentInChildren<Light>().range = unpoweredRange;
+        }
+        else
+        {
+            this.gameObject.transform.GetComponentInChildren<Light>().color = poweredColor;
+            this.gameObject.transform.GetComponentInChildren<Light>().range = poweredRange;
         }
         suitPower -= drainPerSecond * Time.deltaTime;
 
