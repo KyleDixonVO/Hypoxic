@@ -177,6 +177,7 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (fpsSam == null)
         {
             fpsSam = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if (fpsSam != null && fpsSam != this)
         {

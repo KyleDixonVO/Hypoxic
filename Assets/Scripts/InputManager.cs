@@ -36,6 +36,7 @@ public class InputManager : MonoBehaviour
         else if (inputManager == null)
         {
             inputManager = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         if (gameManager == null)
         {
             gameManager = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if (gameManager != this && gameManager != null)
         {
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadMainMenu();
+        if (gameManager == this) LoadMainMenu();
     }
 
     // Update is called once per frame
@@ -40,26 +41,31 @@ public class GameManager : MonoBehaviour
         EvaluateState();
     }
 
-    void LoadMainMenu()
+    public void LoadMainMenu()
     {
         _gameState = gameStates.menu;
         SceneManager.LoadScene("MainMenu");
     }
 
-    void LoadGameplay()
+    public void LoadGameplay()
     {
         _gameState = gameStates.gameplay;
         SceneManager.LoadScene("Gameplay");
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
         _gameState = gameStates.paused;
     }
 
-    void LoadCutscene()
+    public void LoadCutscene()
     {
         _gameState = gameStates.cutscene;
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
     void EvaluateState()
