@@ -22,8 +22,10 @@ namespace UnderwaterHorror
         [Header("GameObjects")]
         [SerializeField] protected GameObject playerObj;
 
-        [Header("Lists")]
+        [Header("PatrolSettings")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
+        [Header("Place desired patrol point here")]
+        [SerializeField] protected GameObject currentPatrolPoint;
 
         [Header("NavMesh")]
         [SerializeField] protected NavMeshAgent agent;
@@ -34,13 +36,14 @@ namespace UnderwaterHorror
         [SerializeField] protected float attackSpeed;
         [SerializeField] protected float searchingSpeed;
 
+
         // Update is called once per frame
         protected void Update()
         {
             switch (enemyState)
             {
                 case EnemyState.patrolling:
-                    // Patrols to determined points randomly
+                    PatrolManager();
                     if (SpottedPlayer() == true)
                     {
                         enemyState = EnemyState.chasing;
@@ -56,7 +59,6 @@ namespace UnderwaterHorror
                     break;
 
                 case EnemyState.chasing:
-                    // Chases after player
                     ChaseManager();
                     if (LostPlayer() == true)
                     {
@@ -84,7 +86,18 @@ namespace UnderwaterHorror
 
         void PatrolManager()
         {
-            
+            agent.speed = patrolSpeed;
+            // Follow patrol points in random order
+            agent.SetDestination(currentPatrolPoint.transform.position);
+
+            float distCheck = Vector3.Distance(currentPatrolPoint.transform.position, this.gameObject.transform.position);
+
+            if (distCheck < 0.5)
+            {
+                int randomPoint = Random.Range(0, patrolPoints.Count);
+                currentPatrolPoint = patrolPoints[randomPoint];
+                Debug.Log("point: " + randomPoint);
+            }
         }
 
         void ChaseManager()

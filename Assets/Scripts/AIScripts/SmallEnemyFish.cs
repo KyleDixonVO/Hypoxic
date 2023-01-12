@@ -9,7 +9,7 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         protected void Start()
         {
-            enemyState = EnemyState.chasing;
+            enemyState = EnemyState.patrolling;
         }
 
     }
