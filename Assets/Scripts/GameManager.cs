@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _gameState = gameStates.menu;
+        Data_Manager.dataManager.LoadGlobalData();
         Level_Manager.LM.LoadMainMenu();
         RandomSoundsManager.RSM.LoadVolumePrefs();
         UI_Manager.ui_Manager.SetOptionsSliderValues();
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
     void EvaluateState()
     {
         gameState = _gameState;
-        Debug.Log("Gamestate: " + _gameState);
+        //Debug.Log("Gamestate: " + _gameState);
         switch (_gameState) 
         {
             case gameStates.gameplay:
@@ -77,7 +78,10 @@ public class GameManager : MonoBehaviour
                 break;
 
             case gameStates.menu:
-                RandomSoundsManager.RSM.UpdateVolumePrefs();
+                if (UI_Manager.ui_Manager.OptionsOpen())
+                {
+                    RandomSoundsManager.RSM.UpdateVolumePrefs();
+                }
                 break;
         }
 

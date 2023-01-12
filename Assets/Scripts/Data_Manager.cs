@@ -42,6 +42,7 @@ public class Data_Manager : MonoBehaviour
     //saves out volume prefs
     public void SaveGlobalData()
     {
+        Debug.Log("Saving Global Data");
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream globalFile = File.Create(Application.persistentDataPath + "/globalData.dat");
         saving = true;
@@ -50,7 +51,7 @@ public class Data_Manager : MonoBehaviour
         globalData.masterVolume = mastervolume;
         globalData.musicVolume = musicVolume;
         globalData.SFXVolume = SFXVolume;
-        Debug.Log(musicVolume + "  " + SFXVolume);
+        //Debug.Log(musicVolume + "  " + SFXVolume + " " + mastervolume);
 
 
         binaryFormatter.Serialize(globalFile, globalData);
@@ -63,6 +64,7 @@ public class Data_Manager : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/globalData.dat"))
         {
+            Debug.Log("Loading Global Data");
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream globalFile = File.Open(Application.persistentDataPath + "/globalData.dat", FileMode.Open);
             GlobalData globalData = (GlobalData)binaryFormatter.Deserialize(globalFile);
@@ -71,6 +73,7 @@ public class Data_Manager : MonoBehaviour
             mastervolume = globalData.masterVolume;
             musicVolume = globalData.musicVolume;
             SFXVolume = globalData.SFXVolume;
+            //Debug.Log(musicVolume + "  " + SFXVolume + " " + mastervolume);
         }
     }
 

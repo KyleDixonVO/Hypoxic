@@ -62,7 +62,6 @@ public class RandomSoundsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         FindObjRefs();
         PlayMusic();
         PlayRandomSound();
@@ -83,13 +82,18 @@ public class RandomSoundsManager : MonoBehaviour
     public void UpdateVolumePrefs()
     {
         if (!UI_Manager.ui_Manager.OptionsOpen()) return;
+        if (musicAudio.isPlaying) musicAudio.Pause();
+        if (randomSoundsAudio) randomSoundsAudio.Pause();
+
         masterVolume = UI_Manager.ui_Manager.sliderMaster.value;
         musicVolume = UI_Manager.ui_Manager.sliderMusic.value;
         sfxVolume = UI_Manager.ui_Manager.sliderSFX.value;
+        Debug.Log("Master: " + masterVolume + "Music: " + musicVolume + "SFX: " + sfxVolume);
     }
 
     public void SaveVolumePrefs()
     {
+        Debug.Log("Saving Volume Prefs");
         Data_Manager.dataManager.musicVolume = musicVolume;
         Data_Manager.dataManager.mastervolume = masterVolume;
         Data_Manager.dataManager.SFXVolume = sfxVolume;
@@ -98,7 +102,7 @@ public class RandomSoundsManager : MonoBehaviour
     void PlayMusic()
     {
         if (musicAudio == null) return;
-        if (musicAudio.isPlaying == true) return;
+        if (musicAudio.isPlaying == true || UI_Manager.ui_Manager.OptionsOpen()) return;
 
         if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = gameplayAmbiance;
         else if (GameManager.gameManager.gameState == GameManager.gameStates.menu && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = titleMusic;

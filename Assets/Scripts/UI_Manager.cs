@@ -164,9 +164,9 @@ public class UI_Manager : MonoBehaviour
 
     public void UpdateOptionsSliderText()
     {
-        textMasterSlider.text = "Master Vol: " + sliderMaster.value;
-        textMusicSlider.text = "Music Vol: " + sliderMusic.value;
-        textSFXSlider.text = "SFX Vol: " + sliderSFX.value;
+        textMasterSlider.text = "Master Vol: " + ((int)(sliderMaster.value * 100)).ToString();
+        textMusicSlider.text = "Music Vol: " + ((int)(sliderMusic.value * 100)).ToString();
+        textSFXSlider.text = "SFX Vol: " + ((int)(sliderSFX.value * 100)).ToString();
     }
 
     public void SetOptionsSliderValues()
