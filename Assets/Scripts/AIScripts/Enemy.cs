@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace UnderwaterHorror
 {
-    public class Enemy : EnemyStats
+    public class Enemy : MonoBehaviour
     {
         public bool isAlive;
         protected enum EnemyState
@@ -23,9 +23,14 @@ namespace UnderwaterHorror
 
         [Header("Scripts")]
         [SerializeField] protected EnemyFOV _enemyFOV;
+        [SerializeField] protected EnemyStats _enemyStats;
 
         [Header("GameObjects")]
+        [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
         [SerializeField] protected GameObject playerObj;
+
+        [Header("Place desired patrol point here")]
+        [SerializeField] protected GameObject currentPatrolPoint;
         
         [Header("NavMesh")]
         [SerializeField] protected NavMeshAgent agent;
@@ -33,26 +38,9 @@ namespace UnderwaterHorror
         [Header("FOVRaycast")]
         [SerializeField] protected LayerMask layerMasks;
 
-        [Header("PatrolSettings")]
-        [SerializeField] protected float patrolSpeed;
+        [Header("Colliders")]
         [SerializeField] protected BoxCollider patrolCollider;
-        [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
-        [Header("Place desired patrol point here")]
-        [SerializeField] protected GameObject currentPatrolPoint;
-        [SerializeField] protected int patrolRandomWaitTimerWeight;
-        protected float patrolRandomWaitTimer;
-
-        [Header("ChasingSettings")]
-        [SerializeField] protected float chaseSpeed;
         [SerializeField] protected SphereCollider chaseCollider;
-
-        [Header("SearchingSettings")]
-        [SerializeField] protected float searchingSpeed;
-        [SerializeField] protected float startSearchingTime;
-        protected float searchingTime;
-
-        [Header("AttackingSettings")]
-        [SerializeField] protected float attackSpeed;
 
         protected Vector3 playerPreviousLocation;
 
@@ -87,10 +75,10 @@ namespace UnderwaterHorror
 
                 case EnemyState.attacking:
                     // attacks player when in range
+                    break;
                     
             
                 case EnemyState.searching:
-                    // Searches where player was last seen
                     SearchingManager();
                     if (SpottedPlayer() == true)
                     {
@@ -105,14 +93,20 @@ namespace UnderwaterHorror
 
                 case EnemyState.dying:
                     // Starts dying animation
-                    agent.isStopped = true;
+                    DyingManager();
+                    
                     break;
+            }
+
+            if (_enemyStats.health <= 0)
+            {
+                enemyState = EnemyState.dying;
             }
         }
 
         void PatrollingManager()
         {
-            agent.speed = patrolSpeed;
+            agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
             agent.SetDestination(currentPatrolPoint.transform.position);
 
@@ -120,7 +114,7 @@ namespace UnderwaterHorror
 
             if (distCheck < 0.5)
             {
-                if (patrolRandomWaitTimer <= 0)
+                if (_enemyStats.patrolRandomWaitTimer <= 0)
                 {
                     int randomPoint = Random.Range(0, patrolPoints.Count);
                     currentPatrolPoint = patrolPoints[randomPoint];
@@ -128,12 +122,12 @@ namespace UnderwaterHorror
                 }
                 else
                 {
-                    patrolRandomWaitTimer -= Time.deltaTime;
+                    _enemyStats.patrolRandomWaitTimer -= Time.deltaTime;
                 }
             }
             else
             {
-                patrolRandomWaitTimer = Random.Range(0, patrolRandomWaitTimerWeight);
+                _enemyStats.patrolRandomWaitTimer = Random.Range(0, _enemyStats.patrolRandomWaitTimerWeight);
             }
 
             // POV Colliders
@@ -143,7 +137,7 @@ namespace UnderwaterHorror
 
         void ChasingManager()
         {
-            agent.speed = chaseSpeed;
+            agent.speed = _enemyStats.chaseSpeed;
             // Chases after the players position
             agent.SetDestination(playerObj.transform.position);
 
@@ -156,7 +150,7 @@ namespace UnderwaterHorror
 
         void SearchingManager()
         {
-            agent.speed = searchingSpeed;
+            agent.speed = _enemyStats.searchingSpeed;
             // Goes to last spot the player was before searching
 
             float distCheck = Vector3.Distance(playerPreviousLocation, this.gameObject.transform.position);
@@ -164,15 +158,15 @@ namespace UnderwaterHorror
             if (distCheck < 0.5)
             {
                 agent.SetDestination(playerPreviousLocation);
-                searchingTime = startSearchingTime;
+                _enemyStats.searchingTime = _enemyStats.startSearchingTime;
             }
 
             else if (distCheck > 0.5)
             {
                 // Searching Movement...
-                searchingTime -= Time.time;
+                _enemyStats.searchingTime -= Time.time;
 
-                if (searchingTime <= 0)
+                if (_enemyStats.searchingTime <= 0)
                 {
                     enemyState = EnemyState.patrolling;
                 }
@@ -181,6 +175,17 @@ namespace UnderwaterHorror
             // POV Colliders
             patrolCollider.enabled = true;
             chaseCollider.enabled = false;
+        }
+
+        void DyingManager()
+        {
+            agent.isStopped = true;
+            _enemyStats.dyingTime -= Time.deltaTime;
+
+            if (_enemyStats.dyingTime <= 0)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         protected bool SpottedPlayer()
@@ -202,12 +207,6 @@ namespace UnderwaterHorror
                     return false;
                 }
             }
-            return false;
-        }
-
-        protected bool LostPlayer()
-        {
-            // If player leaves sight
             return false;
         }
     }

@@ -926,6 +926,7 @@ GameObject:
   - component: {fileID: 446939083}
   - component: {fileID: 446939080}
   - component: {fileID: 446939078}
+  - component: {fileID: 446939085}
   - component: {fileID: 446939077}
   - component: {fileID: 446939084}
   m_Layer: 8
@@ -969,26 +970,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d73d3a395e271409950d51daac54a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 0
   _enemyFOV: {fileID: 36342110}
-  playerObj: {fileID: 936928190}
-  agent: {fileID: 446939077}
-  layerMasks:
-    serializedVersion: 2
-    m_Bits: 136
-  patrolSpeed: 1
-  patrolCollider: {fileID: 36342111}
+  _enemyStats: {fileID: 446939085}
   patrolPoints:
   - {fileID: 792813079}
   - {fileID: 1524150304}
   - {fileID: 1783834563}
   - {fileID: 1826828789}
+  playerObj: {fileID: 936928190}
   currentPatrolPoint: {fileID: 792813079}
-  patrolRandomWaitTimerWeight: 3
-  chaseSpeed: 4.5
+  agent: {fileID: 446939077}
+  layerMasks:
+    serializedVersion: 2
+    m_Bits: 136
+  patrolCollider: {fileID: 36342111}
   chaseCollider: {fileID: 332589439}
-  searchingSpeed: 4
-  startSearchingTime: 3
-  attackSpeed: 1
 --- !u!65 &446939080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1035,6 +1032,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &446939085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446939076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e55258046c2a304ebbf8dd7783325f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  patrolSpeed: 1
+  patrolRandomWaitTimerWeight: 3
+  patrolRandomWaitTimer: 0
+  chaseSpeed: 4.5
+  searchingSpeed: 4
+  startSearchingTime: 2
+  searchingTime: 0
+  attackSpeed: 0
+  dyingTime: 3
 --- !u!1 &614372788
 GameObject:
   m_ObjectHideFlags: 0
