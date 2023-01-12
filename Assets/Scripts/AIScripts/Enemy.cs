@@ -19,16 +19,24 @@ namespace UnderwaterHorror
 
         protected EnemyState enemyState;
 
+        [Header("Scripts")]
+        [SerializeField] protected EnemyFOV _enemyFOV;
+
         [Header("GameObjects")]
         [SerializeField] protected GameObject playerObj;
+
+        [Header("NavMesh")]
+        [SerializeField] protected NavMeshAgent agent;
+
+        [Header("FOVRaycast")]
+        [SerializeField] protected LayerMask layerMasks;
+
+
 
         [Header("PatrolSettings")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
         [Header("Place desired patrol point here")]
         [SerializeField] protected GameObject currentPatrolPoint;
-
-        [Header("NavMesh")]
-        [SerializeField] protected NavMeshAgent agent;
 
         [Header("Stats")]
         [SerializeField] protected float patrolSpeed;
@@ -110,6 +118,23 @@ namespace UnderwaterHorror
         protected bool SpottedPlayer()
         {
             // If sight touches player
+            if (_enemyFOV.playerInFOV)
+            {
+                Debug.Log("InsidePOV");
+                Vector3 raycastDir = playerObj.transform.position;
+                if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
+                {
+                    Debug.Log("NotBlocked");
+                    return true;
+
+                }
+
+                else
+                {
+                    Debug.Log("Blocked");
+                    return false;
+                }
+            }
             return false;
         }
 
