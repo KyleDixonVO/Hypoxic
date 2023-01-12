@@ -5,8 +5,9 @@ using UnityEngine.AI;
 
 namespace UnderwaterHorror
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : EnemyStats
     {
+        public bool isAlive;
         protected enum EnemyState
         {
             patrolling,
@@ -14,6 +15,7 @@ namespace UnderwaterHorror
             chasing,
             attacking,
             searching,
+            fleeing,
             dying
         }
 
@@ -24,26 +26,35 @@ namespace UnderwaterHorror
 
         [Header("GameObjects")]
         [SerializeField] protected GameObject playerObj;
-
+        
         [Header("NavMesh")]
         [SerializeField] protected NavMeshAgent agent;
 
         [Header("FOVRaycast")]
         [SerializeField] protected LayerMask layerMasks;
 
-
-
         [Header("PatrolSettings")]
+        [SerializeField] protected float patrolSpeed;
+        [SerializeField] protected BoxCollider patrolCollider;
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
         [Header("Place desired patrol point here")]
         [SerializeField] protected GameObject currentPatrolPoint;
+        [SerializeField] protected int patrolRandomWaitTimerWeight;
+        protected float patrolRandomWaitTimer;
 
-        [Header("Stats")]
-        [SerializeField] protected float patrolSpeed;
+        [Header("ChasingSettings")]
         [SerializeField] protected float chaseSpeed;
-        [SerializeField] protected float attackSpeed;
-        [SerializeField] protected float searchingSpeed;
+        [SerializeField] protected SphereCollider chaseCollider;
 
+        [Header("SearchingSettings")]
+        [SerializeField] protected float searchingSpeed;
+        [SerializeField] protected float startSearchingTime;
+        protected float searchingTime;
+
+        [Header("AttackingSettings")]
+        [SerializeField] protected float attackSpeed;
+
+        protected Vector3 playerPreviousLocation;
 
         // Update is called once per frame
         protected void Update()
@@ -51,8 +62,8 @@ namespace UnderwaterHorror
             switch (enemyState)
             {
                 case EnemyState.patrolling:
-                    PatrolManager();
-                    if (SpottedPlayer() == true)
+                    PatrollingManager();
+                    if (SpottedPlayer())
                     {
                         enemyState = EnemyState.chasing;
                     }
@@ -67,8 +78,8 @@ namespace UnderwaterHorror
                     break;
 
                 case EnemyState.chasing:
-                    ChaseManager();
-                    if (LostPlayer() == true)
+                    ChasingManager();
+                    if (SpottedPlayer() == false)
                     {
                         enemyState = EnemyState.searching;
                     }
@@ -76,23 +87,30 @@ namespace UnderwaterHorror
 
                 case EnemyState.attacking:
                     // attacks player when in range
-                
+                    
             
                 case EnemyState.searching:
                     // Searches where player was last seen
+                    SearchingManager();
                     if (SpottedPlayer() == true)
                     {
                         enemyState = EnemyState.chasing;
                     }
                     break;
 
+                case EnemyState.fleeing:
+                    // Enemy flees for determined time
+
+                    break;
+
                 case EnemyState.dying:
                     // Starts dying animation
+                    agent.isStopped = true;
                     break;
             }
         }
 
-        void PatrolManager()
+        void PatrollingManager()
         {
             agent.speed = patrolSpeed;
             // Follow patrol points in random order
@@ -102,17 +120,67 @@ namespace UnderwaterHorror
 
             if (distCheck < 0.5)
             {
-                int randomPoint = Random.Range(0, patrolPoints.Count);
-                currentPatrolPoint = patrolPoints[randomPoint];
-                Debug.Log("point: " + randomPoint);
+                if (patrolRandomWaitTimer <= 0)
+                {
+                    int randomPoint = Random.Range(0, patrolPoints.Count);
+                    currentPatrolPoint = patrolPoints[randomPoint];
+                    Debug.Log("point: " + randomPoint);
+                }
+                else
+                {
+                    patrolRandomWaitTimer -= Time.deltaTime;
+                }
             }
+            else
+            {
+                patrolRandomWaitTimer = Random.Range(0, patrolRandomWaitTimerWeight);
+            }
+
+            // POV Colliders
+            patrolCollider.enabled = true;
+            chaseCollider.enabled = false;
         }
 
-        void ChaseManager()
+        void ChasingManager()
         {
             agent.speed = chaseSpeed;
             // Chases after the players position
             agent.SetDestination(playerObj.transform.position);
+
+            // Tracks player's previous location
+            playerPreviousLocation = playerObj.transform.position;
+
+            patrolCollider.enabled = false;
+            chaseCollider.enabled = true;
+        }
+
+        void SearchingManager()
+        {
+            agent.speed = searchingSpeed;
+            // Goes to last spot the player was before searching
+
+            float distCheck = Vector3.Distance(playerPreviousLocation, this.gameObject.transform.position);
+
+            if (distCheck < 0.5)
+            {
+                agent.SetDestination(playerPreviousLocation);
+                searchingTime = startSearchingTime;
+            }
+
+            else if (distCheck > 0.5)
+            {
+                // Searching Movement...
+                searchingTime -= Time.time;
+
+                if (searchingTime <= 0)
+                {
+                    enemyState = EnemyState.patrolling;
+                }
+            }
+
+            // POV Colliders
+            patrolCollider.enabled = true;
+            chaseCollider.enabled = false;
         }
 
         protected bool SpottedPlayer()
@@ -126,7 +194,6 @@ namespace UnderwaterHorror
                 {
                     Debug.Log("NotBlocked");
                     return true;
-
                 }
 
                 else
