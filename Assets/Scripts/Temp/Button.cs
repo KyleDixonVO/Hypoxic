@@ -7,7 +7,6 @@ public class Button : MonoBehaviour
     public GameObject door;
     private Door doorScript;
     public bool test;
-    public Level_Manager LM;
 
     // This is bad and TEMP,
     // basically when the player is in this trigger and presses
@@ -35,7 +34,7 @@ public class Button : MonoBehaviour
             if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorScript.isDoorOpening == false)
             {
                 Debug.LogWarning("LoadScene");
-                LM.LoadOutside();
+                Level_Manager.LM.LoadGameplay();
             }
         }
 

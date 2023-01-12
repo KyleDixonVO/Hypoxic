@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [Header("LevelManager")]
-    public Level_Manager LM;
-
     [Header("Open / Close Bools")]
     public bool isDoorOpening;
     public bool isDoorOpenable;
@@ -41,7 +38,7 @@ public class Door : MonoBehaviour
         {
             Debug.Log("LOAD SCENE"); // Load a new Scene here
             isPlayerInside = false;
-            LM.LoadMainHab();
+            Level_Manager.LM.LoadMainHab();
         }      
     }
 

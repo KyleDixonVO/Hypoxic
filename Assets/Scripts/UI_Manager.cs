@@ -82,7 +82,7 @@ public class UI_Manager : MonoBehaviour
 
     void CheckActiveCanvas()
     {
-        Debug.Log(activeCanvas);
+        //Debug.Log(activeCanvas);
         for (int i = 0; i < canvasArray.Length; i++)
         {
             if (i == (int)activeCanvas)
@@ -111,6 +111,10 @@ public class UI_Manager : MonoBehaviour
                 break;
 
             case ActiveUI.Pause:
+                //if (!InputManager.inputManager.escapePressed)
+                //{
+                //    SwitchGameplay();
+                //}
                 break;
 
             case ActiveUI.Options:
@@ -150,7 +154,7 @@ public class UI_Manager : MonoBehaviour
     }
 
     //do not make public
-    private void SwitchMainMenu()
+    public void SwitchMainMenu()
     {
         activeCanvas = ActiveUI.MainMenu;
     }

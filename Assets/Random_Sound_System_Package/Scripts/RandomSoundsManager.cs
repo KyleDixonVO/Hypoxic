@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RandomSoundsManager : MonoBehaviour
 {
+    public static RandomSoundsManager RSM;
+
     [Header("AuidoClips")]
     public AudioClip soundOne;
 
@@ -31,6 +33,19 @@ public class RandomSoundsManager : MonoBehaviour
     public bool playAudio = false;
     public bool touchingWall = false;
 
+    private void Awake()
+    {
+        if (RSM == null)
+        {
+            RSM = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else if (RSM != null && RSM != this)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
         randomSoundsObj.GetComponent<SphereCollider>();
@@ -40,6 +55,7 @@ public class RandomSoundsManager : MonoBehaviour
     void Update()
     {
         // When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
+        FindObjRefs();
         if (randomSoundsAudio.isPlaying != true)
         {
             if (probability == 0)
@@ -80,6 +96,13 @@ public class RandomSoundsManager : MonoBehaviour
     {
         if (Physics.CheckSphere(terrainCheck.position, terrainCheckRadius, terrainLayerMask)) return true;
         return false;
+    }
+
+    void FindObjRefs()
+    {
+        if (playerObj != null && randomSoundsObj != null) return;
+        playerObj = GameObject.Find("Player");
+        randomSoundsObj = GameObject.Find("RandomSoundsHolder");
     }
 
     void OnDrawGizmos()

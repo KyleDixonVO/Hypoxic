@@ -226,6 +226,20 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     }
 
+    public void LockPlayerMovement()
+    {
+        canMove = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void UnlockPlayerMovement()
+    {
+        canMove = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void HandleMovementInput()
     {
         // Read inputs
