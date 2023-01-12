@@ -20,6 +20,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [Header("Functional Settings")]
     [SerializeField] private bool isDashing = false;
     [SerializeField] public bool inWater = false;
+    [SerializeField] public bool carryingHeavyObj = false;
     [SerializeField] private bool canRun = true;
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canCrouch = true;
@@ -128,7 +129,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] public Color poweredColor;
     [SerializeField] public Color unpoweredColor;
 
-    private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : isRunning ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
+    private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater && !carryingHeavyObj) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : (isRunning && !carryingHeavyObj) ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
 
     // Sliding Settings
     private Vector3 hitPointNormal;
@@ -250,8 +251,8 @@ public class FirstPersonController_Sam : MonoBehaviour
         currentInput *= (currentInput.x != 0.0f && currentInput.y != 0.0f) ? 0.7071f : 1.0f;
 
         // Sets the required speed multiplier
-        if (inWater) currentInput *= (isCrouching ? suitCrouchSpeed : (isRunning && suitPower > 0) ? suitRunSpeed : suitWalkSpeed);
-        else currentInput *= (isCrouching ? crouchSpeed : isRunning ? runSpeed : walkSpeed);
+        if (inWater) currentInput *= (isCrouching ? suitCrouchSpeed : (isRunning && suitPower > 0 && !carryingHeavyObj) ? suitRunSpeed : suitWalkSpeed);
+        else currentInput *= (isCrouching ? crouchSpeed : (isRunning && !carryingHeavyObj) ? runSpeed : walkSpeed);
 
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
@@ -345,20 +346,20 @@ public class FirstPersonController_Sam : MonoBehaviour
             {
                 Debug.Log("In Water");
                 //Debug.Log("Timer:" + timer);
-                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && suitPower > 0) ? waterRunBobSpeed : waterWalkBobSpeed);
+                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
-                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && suitPower > 0) ? waterRunBobAmount : waterWalkBobAmount))/2,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && suitPower > 0 && !carryingHeavyObj) ? waterRunBobAmount : waterWalkBobAmount))/2,
                     playerCamera.transform.localPosition.z);
             }
             else
             {
                 Debug.Log("In Atmosphere");
                 //Debug.Log("Timer:" + timer);
-                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isRunning ? runBobSpeed : walkBobSpeed);
+                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
-                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : isRunning ? runBobAmount : walkBobAmount))/2,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : (isRunning && !carryingHeavyObj) ? runBobAmount : walkBobAmount))/2,
                     playerCamera.transform.localPosition.z);
             }
 
