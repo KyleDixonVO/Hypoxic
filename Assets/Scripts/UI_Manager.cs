@@ -151,6 +151,7 @@ public class UI_Manager : MonoBehaviour
                 break;
 
             case ActiveUI.Options:
+                UpdateOptionsSliderText();
                 break;
 
             case ActiveUI.Credits:
@@ -159,6 +160,20 @@ public class UI_Manager : MonoBehaviour
             case ActiveUI.NewGame:
                 break;
         }
+    }
+
+    public void UpdateOptionsSliderText()
+    {
+        textMasterSlider.text = "Master Vol: " + sliderMaster.value;
+        textMusicSlider.text = "Music Vol: " + sliderMusic.value;
+        textSFXSlider.text = "SFX Vol: " + sliderSFX.value;
+    }
+
+    public void SetOptionsSliderValues()
+    {
+        sliderMaster.value = RandomSoundsManager.RSM.masterVolume;
+        sliderSFX.value = RandomSoundsManager.RSM.sfxVolume;
+        sliderMusic.value = RandomSoundsManager.RSM.musicVolume;
     }
 
     public bool OptionsOpen()
