@@ -13,8 +13,13 @@ public class HarpoonGun : MonoBehaviour
     int currentAmmo;
     [SerializeField]
     int maxAmmo;
+    [SerializeField]
+    float reloadTime = 5f;
+    [SerializeField]
+    float reloadProgress;
     [Header("Booleans")]
     public bool isEquiped;
+    bool canShoot;
 
     // We might want to put items like this on a diffrent rendering plane / canvas to prevent
     // clipping with the enviroment - Edmund
@@ -22,36 +27,68 @@ public class HarpoonGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        canShoot = true;
+        isEquiped = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0)
+        // RELOAD COUTER
+        if (reloadProgress <= 0)
+        {
+            reloadProgress = 0;
+            canShoot = true;
+        }
+        else if (reloadProgress > 0 && isEquiped)
+        {
+            reloadProgress -= Time.deltaTime;
+        }
+
+        // SHOOTING
+        if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
         {
             ShootHarpoon();
-            // harpoon sound
-            if (currentAmmo != 0)
-            {
-                currentAmmo--;
-            }           
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
         {
             // no ammo sound
         }
 
+        // TEMP PUT ITEM AWAY
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (isEquiped) 
+            {
+                isEquiped = false;
+                gameObject.GetComponent<Renderer>().enabled = false;
+                if (reloadProgress != 0) reloadProgress = reloadTime;
+            } 
+            else if (!isEquiped)
+            {
+                isEquiped = true;
+                gameObject.GetComponent<Renderer>().enabled = true;
+            }            
+        }
+
         // update HUD
+        Debug.LogWarning("time to reload: " + reloadProgress);
     }
 
     void ShootHarpoon()
     {
         Debug.LogWarning("BANG");
+        canShoot = false;
+        reloadProgress = reloadTime;
+
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
         {
+            // harpoon sound
+            currentAmmo--;
+
             Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * range, Color.red);
+
             if (hit.transform.tag == "Enemy")
             {
                 // run ai behavior / kill ai
