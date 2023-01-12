@@ -6,8 +6,15 @@ public class RandomSoundsManager : MonoBehaviour
 {
     public static RandomSoundsManager RSM;
 
+    [Header("SoundPrefs")]
+    public float masterVolume;
+    public float musicVolume;
+    public float sfxVolume;
+
     [Header("AuidoClips")]
     public AudioClip soundOne;
+    public AudioClip titleMusic;
+    public AudioClip gameplayAmbiance;
 
     [Header("GameObjects")]
     public GameObject playerObj;
@@ -15,6 +22,7 @@ public class RandomSoundsManager : MonoBehaviour
 
     [Header("Components")]
     public AudioSource randomSoundsAudio;
+    public AudioSource musicAudio;
 
     [Header("Spherecast")]
     public Transform terrainCheck;
@@ -54,15 +62,62 @@ public class RandomSoundsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
+
         FindObjRefs();
+        PlayMusic();
+        PlayRandomSound();
+    }
+
+    private void FixedUpdate()
+    {
+        probability = Random.Range(0, probabilityWeight);
+    }
+
+    public void LoadVolumePrefs()
+    {
+        masterVolume = Data_Manager.dataManager.mastervolume;
+        musicVolume = Data_Manager.dataManager.musicVolume;
+        sfxVolume = Data_Manager.dataManager.SFXVolume;
+    }
+
+    public void UpdateVolumePrefs()
+    {
+        if (!UI_Manager.ui_Manager.OptionsOpen()) return;
+        masterVolume = UI_Manager.ui_Manager.sliderMaster.value;
+        musicVolume = UI_Manager.ui_Manager.sliderMusic.value;
+        sfxVolume = UI_Manager.ui_Manager.sliderSFX.value;
+    }
+
+    public void SaveVolumePrefs()
+    {
+        Data_Manager.dataManager.musicVolume = musicVolume;
+        Data_Manager.dataManager.mastervolume = masterVolume;
+        Data_Manager.dataManager.SFXVolume = sfxVolume;
+    }
+
+    void PlayMusic()
+    {
+        if (musicAudio == null) return;
+        if (musicAudio.isPlaying == true) return;
+
+        if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = gameplayAmbiance;
+        else if (GameManager.gameManager.gameState == GameManager.gameStates.menu && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = titleMusic;
+
+        musicAudio.volume = (musicVolume * masterVolume);
+        musicAudio.Play();
+    }
+
+    void PlayRandomSound()
+    {
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+        // When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
         if (randomSoundsAudio.isPlaying != true)
         {
             if (probability == 0)
             {
                 MangeRandomPosition();
                 randomSoundsAudio.clip = soundOne;
-                randomSoundsAudio.PlayOneShot(soundOne);
+                randomSoundsAudio.PlayOneShot(soundOne, (sfxVolume * masterVolume));
             }
 
             if (IsTouchingTerrain() == true)
@@ -71,11 +126,6 @@ public class RandomSoundsManager : MonoBehaviour
                 //playAudio = false;
             }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        probability = Random.Range(0, probabilityWeight);
     }
 
     void MangeRandomPosition()
@@ -100,6 +150,7 @@ public class RandomSoundsManager : MonoBehaviour
 
     void FindObjRefs()
     {
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
         if (playerObj != null && randomSoundsObj != null) return;
         playerObj = GameObject.Find("Player");
         randomSoundsObj = GameObject.Find("RandomSoundsHolder");

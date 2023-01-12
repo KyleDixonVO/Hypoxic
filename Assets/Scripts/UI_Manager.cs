@@ -27,14 +27,17 @@ public class UI_Manager : MonoBehaviour
     [Header("Options Assets")]
     private ActiveUI canvasReturnFromOptions;
     [SerializeField] private TMP_Text textOptionsTitle;
+    [SerializeField] private TMP_Text textMasterSlider;
+    [SerializeField] private TMP_Text textMusicSlider;
+    [SerializeField] private TMP_Text textSFXSlider;
     [SerializeField] private Button buttonOptionsBack;
-    [SerializeField] private Slider sliderMaster;
-    [SerializeField] private Slider sliderMusic;
-    [SerializeField] private Slider sliderSFX;
+    [SerializeField] public Slider sliderMaster;
+    [SerializeField] public Slider sliderMusic;
+    [SerializeField] public Slider sliderSFX;
 
     [Header("Credits Assets")]
-    public TMP_Text textCreditsTitle;
-    public TMP_Text textCreditsBody;
+    [SerializeField] private TMP_Text textCreditsTitle;
+    [SerializeField] private TMP_Text textCreditsBody;
 
     [Header("New Game Assets")]
     [SerializeField] private TMP_Text textNewGame;
@@ -72,12 +75,42 @@ public class UI_Manager : MonoBehaviour
     void Start()
     {
         activeCanvas = ActiveUI.MainMenu;
+        FindReferences();
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckActiveCanvas();
+    }
+
+    void FindReferences()
+    {
+        textStartTitle = GameObject.Find("TextStartTitle").GetComponent<TMP_Text>();
+        buttonStartGame = GameObject.Find("ButtonStartGame").GetComponent<Button>();
+        buttonNewGame = GameObject.Find("ButtonNewGame").GetComponent<Button>();
+        buttonOptions = GameObject.Find("ButtonOptions").GetComponent<Button>();
+        buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
+
+        textPauseTitle = GameObject.Find("TextPauseTitle").GetComponent<TMP_Text>();
+        buttonResumeGame = GameObject.Find("ButtonResumeGame").GetComponent<Button>();
+        buttonExitGame = GameObject.Find("ButtonExitGame").GetComponent<Button>();
+
+        textOptionsTitle = GameObject.Find("TextOptionsTitle").GetComponent<TMP_Text>();
+        textMasterSlider = GameObject.Find("TextMasterSlider").GetComponent<TMP_Text>();
+        textMusicSlider = GameObject.Find("TextMusicSlider").GetComponent<TMP_Text>();
+        textSFXSlider = GameObject.Find("TextSFXSlider").GetComponent<TMP_Text>();
+        buttonOptionsBack = GameObject.Find("ButtonOptionsBack").GetComponent<Button>();
+        sliderMaster = GameObject.Find("SliderMaster").GetComponent<Slider>();
+        sliderMusic = GameObject.Find("SliderMusic").GetComponent<Slider>();
+        sliderSFX = GameObject.Find("SliderSFX").GetComponent<Slider>();
+
+        textCreditsTitle = GameObject.Find("TextCreditsTitle").GetComponent<TMP_Text>();
+        textCreditsBody = GameObject.Find("TextCreditsBody").GetComponent<TMP_Text>();
+
+        textNewGame = GameObject.Find("TextNewGame").GetComponent<TMP_Text>();
+        buttonCancelNG = GameObject.Find("ButtonCancelNG").GetComponent<Button>();
+        buttonConfirmNG = GameObject.Find("ButtonConfirmNG").GetComponent<Button>();
     }
 
     void CheckActiveCanvas()
@@ -128,6 +161,13 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    public bool OptionsOpen()
+    {
+        if (activeCanvas == ActiveUI.Options) return true;
+        return false;
+    }
+
+   //public for use on buttons
     public void SwitchGameplay()
     {
         activeCanvas = ActiveUI.Gameplay;
@@ -153,7 +193,6 @@ public class UI_Manager : MonoBehaviour
         activeCanvas = ActiveUI.NewGame;
     }
 
-    //do not make public
     public void SwitchMainMenu()
     {
         activeCanvas = ActiveUI.MainMenu;

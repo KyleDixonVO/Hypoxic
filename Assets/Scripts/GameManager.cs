@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         _gameState = gameStates.menu;
         Level_Manager.LM.LoadMainMenu();
+        RandomSoundsManager.RSM.LoadVolumePrefs();
     }
 
     // Update is called once per frame
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case gameStates.menu:
-                
+                RandomSoundsManager.RSM.UpdateVolumePrefs();
                 break;
         }
 
