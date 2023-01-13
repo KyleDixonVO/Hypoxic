@@ -953,7 +953,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603dbbcab3e12cc4492ffca20bdc5924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDashing: 0
   inWater: 0
+  carryingHeavyObj: 0
   canRun: 1
   canJump: 1
   canCrouch: 1
@@ -975,6 +977,8 @@ MonoBehaviour:
   suitRunSpeed: 6.5
   suitCrouchSpeed: 1.5
   suitSlopeSpeed: 8.5
+  dashSpeed: 15
+  dashLength: 0.2
   lookSpeedX: 2
   lookSpeedY: 2
   upperLookLimit: 70
@@ -1015,14 +1019,6 @@ MonoBehaviour:
   woodFootstepClips: []
   metalFootstepClips: []
   grassFootstepClips: []
-  maxSuitPower: 100
-  suitPower: 0
-  drainPerSecond: 0.67
-  sprintDrainPerSecond: 1
-  drainPerDash: 5
-  suffocationDamage: 1
-  maxPlayerHealth: 100
-  playerHealth: 0
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
   interactionLayer:
@@ -1608,6 +1604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b8a47cd586867449e7ab4a4407d65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openScenes: []
 --- !u!114 &1736680046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1925,6 +1922,10 @@ PrefabInstance:
     - target: {fileID: 6595079340013354444, guid: 504408cdb7972d24aa577dcaea70b801, type: 3}
       propertyPath: m_Name
       value: Airlock (NoLoad)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595079340013354444, guid: 504408cdb7972d24aa577dcaea70b801, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6595079340013354445, guid: 504408cdb7972d24aa577dcaea70b801, type: 3}
       propertyPath: m_RootOrder

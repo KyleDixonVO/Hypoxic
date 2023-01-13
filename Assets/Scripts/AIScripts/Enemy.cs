@@ -47,6 +47,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         protected void Update()
         {
+            FindPlayerRef();
             switch (enemyState)
             {
                 case EnemyState.patrolling:
@@ -187,6 +188,12 @@ namespace UnderwaterHorror
             {
                 this.gameObject.SetActive(false);
             }
+        }
+
+        void FindPlayerRef()
+        {
+            if (playerObj != null) return;
+            playerObj = GameObject.Find("Player");
         }
 
         protected bool SpottedPlayer()
