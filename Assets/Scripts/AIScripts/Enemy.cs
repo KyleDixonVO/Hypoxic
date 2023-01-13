@@ -179,6 +179,7 @@ namespace UnderwaterHorror
 
         void DyingManager()
         {
+            // Death Time
             agent.isStopped = true;
             _enemyStats.dyingTime -= Time.deltaTime;
 
@@ -197,13 +198,13 @@ namespace UnderwaterHorror
                 Vector3 raycastDir = playerObj.transform.position;
                 if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
                 {
-                    Debug.Log("NotBlocked");
+                    //Debug.Log("NotBlocked");
                     return true;
                 }
 
                 else
                 {
-                    Debug.Log("Blocked");
+                    //Debug.Log("Blocked");
                     return false;
                 }
             }
