@@ -7,12 +7,10 @@ namespace UnderwaterHorror
     public class SmallEnemyFish : Enemy
     {
         // Start is called before the first frame update
-        protected void Start()
+        void Start()
         {
             isAlive = true;
             enemyState = EnemyState.patrolling;
-        }
-        
-        
+        }       
     }
 }

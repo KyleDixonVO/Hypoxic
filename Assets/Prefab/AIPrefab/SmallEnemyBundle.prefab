@@ -479,6 +479,7 @@ MonoBehaviour:
   startSearchingTime: 4
   searchingTime: 0
   attackSpeed: 0
+  fleeingTime: 0
   dyingTime: 3
 --- !u!195 &4565852538049996983
 NavMeshAgent:
@@ -531,7 +532,7 @@ GameObject:
   - component: {fileID: 4565852538460446252}
   - component: {fileID: 4565852538166345229}
   m_Layer: 8
-  m_Name: POV
+  m_Name: FOV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
