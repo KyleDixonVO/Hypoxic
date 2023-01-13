@@ -24,6 +24,9 @@ public class InputManager : MonoBehaviour
     private bool _dPressed;
     public bool dPressed;
 
+    private bool _capsPressed;
+    public bool capsPressed;
+
     private void Awake()
     {
         if (inputManager != null && inputManager != this)
@@ -100,12 +103,22 @@ public class InputManager : MonoBehaviour
             _dPressed = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.CapsLock))
+        {
+            _capsPressed = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.CapsLock))
+        {
+            _capsPressed = false;
+        }
+
         escapePressed = _escapePressed;
         spacePressed = _spacedPressed;
         wPressed = _wPressed;
         sPressed = _sPressed;
         dPressed = _dPressed;
         aPressed = _aPressed;
+        capsPressed = _capsPressed;
     }
 
 
