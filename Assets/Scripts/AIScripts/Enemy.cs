@@ -142,7 +142,8 @@ namespace UnderwaterHorror
             agent.SetDestination(playerObj.transform.position);
 
             // Tracks player's previous location
-            playerPreviousLocation = playerObj.transform.position;
+            playerPreviousLocation = playerObj.transform.position;           
+            //---------------------------------------------------------
 
             patrolCollider.enabled = false;
             chaseCollider.enabled = true;
@@ -154,17 +155,19 @@ namespace UnderwaterHorror
             // Goes to last spot the player was before searching
 
             float distCheck = Vector3.Distance(playerPreviousLocation, this.gameObject.transform.position);
+            agent.SetDestination(playerPreviousLocation);
 
-            if (distCheck < 0.5)
-            {
-                agent.SetDestination(playerPreviousLocation);
+            if (distCheck > 1)
+            {                
+                //Debug.Log(playerPreviousLocation);
+                //Debug.Log(this.gameObject.transform.position);
                 _enemyStats.searchingTime = _enemyStats.startSearchingTime;
             }
 
-            else if (distCheck > 0.5)
+            else
             {
                 // Searching Movement...
-                _enemyStats.searchingTime -= Time.time;
+                _enemyStats.searchingTime -= Time.deltaTime;
 
                 if (_enemyStats.searchingTime <= 0)
                 {

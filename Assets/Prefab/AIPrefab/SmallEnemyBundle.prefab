@@ -474,9 +474,9 @@ MonoBehaviour:
   patrolSpeed: 1
   patrolRandomWaitTimerWeight: 3
   patrolRandomWaitTimer: 0
-  chaseSpeed: 7.73
+  chaseSpeed: 4.5
   searchingSpeed: 4
-  startSearchingTime: 2
+  startSearchingTime: 4
   searchingTime: 0
   attackSpeed: 0
   dyingTime: 3
