@@ -15,8 +15,7 @@ namespace UnderwaterHorror
             chasing,
             attacking,
             searching,
-            fleeing,
-            dying
+            defeated
         }
 
         protected EnemyState enemyState;
@@ -48,6 +47,7 @@ namespace UnderwaterHorror
         protected void Update()
         {
             FindPlayerRef();
+                   
             switch (enemyState)
             {
                 case EnemyState.patrolling:
@@ -87,21 +87,15 @@ namespace UnderwaterHorror
                     }
                     break;
 
-                case EnemyState.fleeing:
-                    // Enemy flees for determined time
-
-                    break;
-
-                case EnemyState.dying:
+                case EnemyState.defeated:
                     // Starts dying animation
-                    DyingManager();
-                    
+                    DefeatedManager();                    
                     break;
             }
 
             if (_enemyStats.health <= 0)
             {
-                enemyState = EnemyState.dying;
+                enemyState = EnemyState.defeated;
             }
         }
 
@@ -110,8 +104,17 @@ namespace UnderwaterHorror
             agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
             agent.SetDestination(currentPatrolPoint.transform.position);
+            
+            // Fixes find Dest bug 
+            Vector3 pointPos = currentPatrolPoint.transform.position;
+            Vector3 agentPos = this.agent.transform.position;
 
-            float distCheck = Vector3.Distance(currentPatrolPoint.transform.position, this.gameObject.transform.position);
+            Vector3 pointPosDest = new Vector3(pointPos.x, 0, pointPos.z);
+            Vector3 agentPosDest = new Vector3(agentPos.x, 0, agentPos.z);
+            //--------------------------------------------------------------
+
+            float distCheck = Vector3.Distance(pointPosDest, agentPosDest);
+            Debug.Log(distCheck);
 
             if (distCheck < 0.5)
             {
@@ -119,7 +122,6 @@ namespace UnderwaterHorror
                 {
                     int randomPoint = Random.Range(0, patrolPoints.Count);
                     currentPatrolPoint = patrolPoints[randomPoint];
-                    Debug.Log("point: " + randomPoint);
                 }
                 else
                 {
@@ -143,7 +145,8 @@ namespace UnderwaterHorror
             agent.SetDestination(playerObj.transform.position);
 
             // Tracks player's previous location
-            playerPreviousLocation = playerObj.transform.position;
+            playerPreviousLocation = playerObj.transform.position;           
+            //---------------------------------------------------------
 
             patrolCollider.enabled = false;
             chaseCollider.enabled = true;
@@ -151,21 +154,31 @@ namespace UnderwaterHorror
 
         void SearchingManager()
         {
-            agent.speed = _enemyStats.searchingSpeed;
+            agent.speed = _enemyStats.searchingMovementSpeed;
             // Goes to last spot the player was before searching
 
-            float distCheck = Vector3.Distance(playerPreviousLocation, this.gameObject.transform.position);
+            // Fixes find Dest bug 
+            Vector3 previousPos = playerPreviousLocation;
+            Vector3 agentPos = this.agent.transform.position;
 
-            if (distCheck < 0.5)
-            {
-                agent.SetDestination(playerPreviousLocation);
+            Vector3 previousPosDest = new Vector3(previousPos.x, 0, previousPos.z);
+            Vector3 agentPosDest = new Vector3(agentPos.x, 0, agentPos.z);
+            // ------------------------------------------------------------------------
+
+            float distCheck = Vector3.Distance(previousPosDest, agentPosDest);
+            agent.SetDestination(playerPreviousLocation);
+
+            if (distCheck > 1)
+            {                
+                //Debug.Log(playerPreviousLocation);
+                //Debug.Log(this.gameObject.transform.position);
                 _enemyStats.searchingTime = _enemyStats.startSearchingTime;
             }
 
-            else if (distCheck > 0.5)
+            else
             {
                 // Searching Movement...
-                _enemyStats.searchingTime -= Time.time;
+                _enemyStats.searchingTime -= Time.deltaTime;
 
                 if (_enemyStats.searchingTime <= 0)
                 {
@@ -178,11 +191,13 @@ namespace UnderwaterHorror
             chaseCollider.enabled = false;
         }
 
-        void DyingManager()
+        // DefeatedManager will be differen't for the two enemies
+        virtual protected void DefeatedManager()
         {
             // Death Time
             agent.isStopped = true;
             _enemyStats.dyingTime -= Time.deltaTime;
+            isAlive = false;
 
             if (_enemyStats.dyingTime <= 0)
             {
