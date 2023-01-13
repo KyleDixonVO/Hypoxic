@@ -344,7 +344,7 @@ public class FirstPersonController_Sam : MonoBehaviour
 
             if (inWater)
             {
-                Debug.Log("In Water");
+                //Debug.Log("In Water");
                 //Debug.Log("Timer:" + timer);
                 timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
@@ -354,7 +354,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             }
             else
             {
-                Debug.Log("In Atmosphere");
+                //Debug.Log("In Atmosphere");
                 //Debug.Log("Timer:" + timer);
                 timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
@@ -555,7 +555,7 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private void UnderwaterDash()
     {
-        if (suitPower <= 0) return;
+        if (suitPower <= 0 || carryingHeavyObj) return;
         if (Input.GetButtonDown("Dash"))
         {
             Debug.Log("Dash Input Pressed");
