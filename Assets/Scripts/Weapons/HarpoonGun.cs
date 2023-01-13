@@ -99,4 +99,15 @@ public class HarpoonGun : MonoBehaviour
             }
         }
     }
+
+    public void GetAmmo(int ammoAmmount)
+    {
+        // range checks
+        if (ammoAmmount > 6) ammoAmmount = 6;
+        else if (ammoAmmount <= 0) return;
+
+        // get ammo
+        currentAmmo += ammoAmmount;
+        if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
+    }
 }
