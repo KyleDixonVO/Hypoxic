@@ -7,6 +7,9 @@ public class ElectroProd : Weapon
     // Start is called before the first frame update
     void Start()
     {
+        // set weapon stats
+
+        // set bools
         canShoot = true;
         isEquiped = false;
     }
