@@ -65,6 +65,7 @@ public class RandomSoundsManager : MonoBehaviour
         FindObjRefs();
         PlayMusic();
         PlayRandomSound();
+        StopSoundsIndoors();
     }
 
     private void FixedUpdate()
@@ -113,7 +114,7 @@ public class RandomSoundsManager : MonoBehaviour
 
     void PlayRandomSound()
     {
-        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
         // When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
         if (randomSoundsAudio.isPlaying != true)
         {
@@ -158,6 +159,17 @@ public class RandomSoundsManager : MonoBehaviour
         if (playerObj != null && randomSoundsObj != null) return;
         playerObj = GameObject.Find("Player");
         randomSoundsObj = GameObject.Find("RandomSoundsHolder");
+    }
+
+    void StopSoundsIndoors()
+    {
+        if (FirstPersonController_Sam.fpsSam != null)
+        {
+            if (FirstPersonController_Sam.fpsSam.inWater) return;
+        }
+        
+        randomSoundsAudio.Stop();
+        musicAudio.Stop();
     }
 
     void OnDrawGizmos()

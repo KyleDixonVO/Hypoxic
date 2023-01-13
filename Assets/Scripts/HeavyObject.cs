@@ -22,7 +22,7 @@ public class HeavyObject : MonoBehaviour
 
     void ToggleObjectPickup()
     {
-        Debug.Log(InputManager.inputManager.eCycled);
+        //Debug.Log(InputManager.inputManager.eCycled);
         if (InputManager.inputManager.eCycled == false) return;
         if (Vector3.Distance(
             this.transform.position, FirstPersonController_Sam.fpsSam.transform.position) < 2.5

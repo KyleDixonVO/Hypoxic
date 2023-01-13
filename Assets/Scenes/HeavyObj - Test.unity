@@ -1010,6 +1010,7 @@ GameObject:
   - component: {fileID: 2024274777}
   - component: {fileID: 2024274776}
   - component: {fileID: 2024274775}
+  - component: {fileID: 2024274781}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1095,19 +1096,6 @@ MonoBehaviour:
   woodFootstepClips: []
   metalFootstepClips: []
   grassFootstepClips: []
-  maxSuitPower: 100
-  suitPower: 0
-  drainPerSecond: 0.67
-  rechargePerSecond: 2
-  sprintDrainPerSecond: 1
-  drainPerDash: 5
-  suffocationDamage: 1
-  maxPlayerHealth: 100
-  playerHealth: 0
-  poweredRange: 60
-  unpoweredRange: 20
-  poweredColor: {r: 0.9009434, g: 1, b: 0.9877109, a: 0}
-  unpoweredColor: {r: 1, g: 0, b: 0, a: 0}
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
   interactionLayer:
@@ -1212,3 +1200,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2024274781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024274774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0791b4b569bd0aa4d913d20b7ca71b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSuitPower: 100
+  suitPower: 0
+  drainPerSecond: 0.67
+  rechargePerSecond: 2
+  sprintDrainPerSecond: 1
+  drainPerDash: 5
+  suffocationDamage: 1
+  maxPlayerHealth: 100
+  playerHealth: 100
+  poweredRange: 60
+  unpoweredRange: 20
+  poweredColor: {r: 0.7122642, g: 0.98634154, b: 1, a: 0}
+  unpoweredColor: {r: 1, g: 0, b: 0, a: 0}

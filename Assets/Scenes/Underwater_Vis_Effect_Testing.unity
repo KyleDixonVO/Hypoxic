@@ -524,8 +524,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69080b1230c8354792a6f0528176113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textStartTitle: {fileID: 0}
+  buttonStartGame: {fileID: 0}
+  buttonNewGame: {fileID: 0}
+  buttonOptions: {fileID: 0}
+  buttonExit: {fileID: 0}
   suitPower: {fileID: 1929543408}
   healthSlider: {fileID: 986574965}
+  textPauseTitle: {fileID: 0}
+  buttonResumeGame: {fileID: 0}
+  buttonExitGame: {fileID: 0}
+  textOptionsTitle: {fileID: 0}
+  textMasterSlider: {fileID: 0}
+  textMusicSlider: {fileID: 0}
+  textSFXSlider: {fileID: 0}
+  buttonOptionsBack: {fileID: 0}
+  sliderMaster: {fileID: 0}
+  sliderMusic: {fileID: 0}
+  sliderSFX: {fileID: 0}
+  textCreditsTitle: {fileID: 0}
+  textCreditsBody: {fileID: 0}
+  textNewGame: {fileID: 0}
+  buttonConfirmNG: {fileID: 0}
+  buttonCancelNG: {fileID: 0}
+  activeCanvas: 0
+  canvasArray: []
 --- !u!4 &211305599
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,6 +1056,7 @@ GameObject:
   - component: {fileID: 726044123}
   - component: {fileID: 726044122}
   - component: {fileID: 726044121}
+  - component: {fileID: 726044127}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1054,6 +1078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDashing: 0
   inWater: 0
+  carryingHeavyObj: 0
   canRun: 1
   canJump: 1
   canCrouch: 1
@@ -1117,19 +1142,6 @@ MonoBehaviour:
   woodFootstepClips: []
   metalFootstepClips: []
   grassFootstepClips: []
-  maxSuitPower: 100
-  suitPower: 0
-  drainPerSecond: 0.67
-  rechargePerSecond: 2
-  sprintDrainPerSecond: 1
-  drainPerDash: 5
-  suffocationDamage: 1
-  maxPlayerHealth: 100
-  playerHealth: 0
-  poweredRange: 60
-  unpoweredRange: 20
-  poweredColor: {r: 0.9009434, g: 1, b: 0.9877109, a: 0}
-  unpoweredColor: {r: 1, g: 0, b: 0, a: 0}
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
   interactionLayer:
@@ -1234,6 +1246,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &726044127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726044120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0791b4b569bd0aa4d913d20b7ca71b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSuitPower: 100
+  suitPower: 0
+  drainPerSecond: 0.67
+  rechargePerSecond: 2
+  sprintDrainPerSecond: 1
+  drainPerDash: 5
+  suffocationDamage: 1
+  maxPlayerHealth: 100
+  playerHealth: 100
+  poweredRange: 60
+  unpoweredRange: 20
+  poweredColor: {r: 0, g: 0, b: 0, a: 0}
+  unpoweredColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &809750677
 GameObject:
   m_ObjectHideFlags: 0

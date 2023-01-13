@@ -135,12 +135,12 @@ public class UI_Manager : MonoBehaviour
                 break;
 
             case ActiveUI.Gameplay:
-                if (FirstPersonController_Sam.fpsSam == null) return;
-                healthSlider.maxValue = FirstPersonController_Sam.fpsSam.maxPlayerHealth;
-                suitPower.maxValue = FirstPersonController_Sam.fpsSam.maxSuitPower;
+                if (PlayerStats.playerStats == null) return;
+                healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
+                suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;
 
-                healthSlider.value = FirstPersonController_Sam.fpsSam.playerHealth;
-                suitPower.value = FirstPersonController_Sam.fpsSam.suitPower;
+                healthSlider.value = PlayerStats.playerStats.playerHealth;
+                suitPower.value = PlayerStats.playerStats.suitPower;
                 break;
 
             case ActiveUI.Pause:
