@@ -3,10 +3,14 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [Header("LevelManager")]
+    public Level_Manager LM;
+
     [Header("Open / Close Bools")]
     public bool isDoorOpening;
     public bool isDoorOpenable;
     public bool isPlayerInside;
+    public bool noLoad;
 
     [Header("Serialized Variables")]
     [SerializeField]
@@ -16,6 +20,9 @@ public class Door : MonoBehaviour
     float timeOpen;
     [SerializeField]
     float timeToOpen = 10f;
+
+    [Header("Other Door")]
+    public Door otherDoor;
 
     Vector3 closePos;
     Vector3 openPos;
@@ -38,7 +45,12 @@ public class Door : MonoBehaviour
         {
             Debug.Log("LOAD SCENE"); // Load a new Scene here
             isPlayerInside = false;
-            Level_Manager.LM.LoadMainHab();
+
+            if (!noLoad)LM.LoadMainHab();
+            else if (noLoad)
+            {
+                otherDoor.isDoorOpening = true;
+            }
         }      
     }
 
