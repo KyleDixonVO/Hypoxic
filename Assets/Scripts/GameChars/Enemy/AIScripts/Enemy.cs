@@ -103,11 +103,13 @@ namespace UnderwaterHorror
             // Follow patrol points in random order
             agent.SetDestination(currentPatrolPoint.transform.position);
             
+            // Fixes find Dest bug 
             Vector3 pointPos = currentPatrolPoint.transform.position;
             Vector3 agentPos = this.agent.transform.position;
 
             Vector3 pointPosDest = new Vector3(pointPos.x, 0, pointPos.z);
             Vector3 agentPosDest = new Vector3(agentPos.x, 0, agentPos.z);
+            //--------------------------------------------------------------
 
             float distCheck = Vector3.Distance(pointPosDest, agentPosDest);
             Debug.Log(distCheck);
@@ -153,7 +155,15 @@ namespace UnderwaterHorror
             agent.speed = _enemyStats.searchingMovementSpeed;
             // Goes to last spot the player was before searching
 
-            float distCheck = Vector3.Distance(playerPreviousLocation, this.agent.transform.position);
+            // Fixes find Dest bug 
+            Vector3 previousPos = playerPreviousLocation;
+            Vector3 agentPos = this.agent.transform.position;
+
+            Vector3 previousPosDest = new Vector3(previousPos.x, 0, previousPos.z);
+            Vector3 agentPosDest = new Vector3(agentPos.x, 0, agentPos.z);
+            // ------------------------------------------------------------------------
+
+            float distCheck = Vector3.Distance(previousPosDest, agentPosDest);
             agent.SetDestination(playerPreviousLocation);
 
             if (distCheck > 1)

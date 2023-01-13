@@ -1700,7 +1700,8 @@ MonoBehaviour:
   startSearchingTime: 4
   searchingTime: 0
   attackSpeed: 0
-  fleeingTime: 3
+  fleeingSpeed: 6
+  fleeingTime: 6
   dyingTime: 3
 --- !u!114 &989501693
 MonoBehaviour:

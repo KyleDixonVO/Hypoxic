@@ -18,9 +18,8 @@ namespace UnderwaterHorror
             // Fleeing Time
             _enemyStats.fleeingTime -= Time.deltaTime;
 
-            // Opposite Directron from player
-            Vector3 oppositeDir = -playerObj.transform.position;
-            agent.SetDestination(oppositeDir);
+            agent.speed = _enemyStats.fleeingSpeed;
+            agent.SetDestination(-playerObj.transform.position + transform.position);
 
             // Enemy may despawn after fleeing in the future
 
@@ -31,7 +30,7 @@ namespace UnderwaterHorror
                 _enemyStats.health = 1;
 
                 // Magic number for max fleeingTime
-                _enemyStats.fleeingTime = 2;
+                _enemyStats.fleeingTime = 6;
             }
         }
     }
