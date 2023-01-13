@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HarpoonGun : Weapon
+public class ElectroProd : Weapon
 {
-    // We might want to put items like this on a diffrent rendering plane / canvas to prevent
-    // clipping with the enviroment - Edmund
-
     // Start is called before the first frame update
     void Start()
     {
         canShoot = true;
-        isEquiped = true;
+        isEquiped = false;
     }
 
     // Update is called once per frame
