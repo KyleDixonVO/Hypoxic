@@ -177,6 +177,7 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (fpsSam == null)
         {
             fpsSam = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if (fpsSam != null && fpsSam != this)
         {
@@ -223,6 +224,20 @@ public class FirstPersonController_Sam : MonoBehaviour
     private void LateUpdate()
     {
 
+    }
+
+    public void LockPlayerMovement()
+    {
+        canMove = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void UnlockPlayerMovement()
+    {
+        canMove = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void HandleMovementInput()
@@ -328,7 +343,7 @@ public class FirstPersonController_Sam : MonoBehaviour
 
             if (inWater)
             {
-                Debug.Log("In Water");
+                //Debug.Log("In Water");
                 //Debug.Log("Timer:" + timer);
                 timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && suitPower > 0) ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
@@ -338,7 +353,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             }
             else
             {
-                Debug.Log("In Atmosphere");
+                //Debug.Log("In Atmosphere");
                 //Debug.Log("Timer:" + timer);
                 timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isRunning ? runBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
@@ -491,10 +506,13 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private IEnumerator CrouchStand()
     {
-        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1.0f))
-        { yield break; }
-        
-        duringCrouchAnimation = true;
+        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1.0f, ~(LayerMask.GetMask("PostProcessing", "Water"))))
+        {
+            Debug.Log("CrouchBlocked");
+            yield return null;
+        }
+
+            duringCrouchAnimation = true;
 
         float timeElapsed = 0;
         float targetHeight = isCrouching ? standingHeight : crouchHeight;
@@ -509,6 +527,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+        
         characterController.height = targetHeight;
         characterController.center = targetCenter;
 

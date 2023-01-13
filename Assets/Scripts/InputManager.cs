@@ -29,26 +29,32 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        if (inputManager != null && inputManager != this)
-        {
-            Destroy(this.gameObject);
-        }        
-        else if (inputManager == null)
+        if (inputManager == null)
         {
             inputManager = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (inputManager != null && inputManager != this)
+        {
+            Destroy(this.gameObject);
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _escapePressed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateInputs();
+    }
+
+    public void ResetEscape()
+    {
+        _escapePressed = false;
     }
 
     void UpdateInputs()

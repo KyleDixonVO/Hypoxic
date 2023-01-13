@@ -39,7 +39,7 @@ public class FogEffect : MonoBehaviour
         if (!effectActive)
         {
             Graphics.Blit(source, destination);
-            Debug.Log("Fog Disabled");
+            //Debug.Log("Fog Disabled");
             return;
         }
 

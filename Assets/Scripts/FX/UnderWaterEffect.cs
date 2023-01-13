@@ -43,7 +43,7 @@ public class UnderWaterEffect : MonoBehaviour
         if (!effectActive)
         {
             Graphics.Blit(source, destination);
-            Debug.Log("Water FX Disabled");
+            //Debug.Log("Water FX Disabled");
             return;
         }
 
