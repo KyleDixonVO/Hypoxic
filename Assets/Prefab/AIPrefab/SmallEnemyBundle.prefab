@@ -121,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4565852536953833480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.16, y: 0, z: -16.23}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -475,10 +475,11 @@ MonoBehaviour:
   patrolRandomWaitTimerWeight: 3
   patrolRandomWaitTimer: 0
   chaseSpeed: 4.5
-  searchingSpeed: 4
+  searchingMovementSpeed: 0
   startSearchingTime: 4
   searchingTime: 0
   attackSpeed: 0
+  fleeingSpeed: 0
   fleeingTime: 0
   dyingTime: 3
 --- !u!195 &4565852538049996983
