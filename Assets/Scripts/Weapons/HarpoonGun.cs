@@ -72,7 +72,7 @@ public class HarpoonGun : MonoBehaviour
         }
 
         // update HUD
-        Debug.LogWarning("time to reload: " + reloadProgress);
+       // Debug.LogWarning("time to reload: " + reloadProgress);
     }
 
     void ShootHarpoon()
@@ -89,13 +89,11 @@ public class HarpoonGun : MonoBehaviour
 
             Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * range, Color.red);
 
-            if (hit.transform.tag == "Enemy")
+            if (hit.transform.gameObject.layer == 8) // layer 8 == Enemy
             {
-                // run ai behavior / kill ai
-            }
-            else
-            {
-                Debug.LogWarning("hit:" + hit);
+                Debug.LogWarning("hit enemy");
+                EnemyStats stats = hit.transform.GetComponent<EnemyStats>();
+                stats.health = 0;
             }
         }
     }
