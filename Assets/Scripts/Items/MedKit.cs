@@ -13,7 +13,10 @@ public class MedKit : Item
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Alpha0))
+        {
+
+        }
     }
 
     override protected void ApplyEffect()

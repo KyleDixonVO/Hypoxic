@@ -11,7 +11,7 @@ public class BatteryPack : Item
     void Start()
     {
         // set refs
-        playerStats = GameObject.Find("Player");
+        playerStats = GameObject.Find("Player(w/items)");
         PS = playerStats.GetComponent<PlayerStats>();
 
         usageTime = 2;
