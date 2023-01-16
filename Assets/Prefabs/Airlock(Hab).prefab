@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6123737662926634286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5031030091492940464}
+  m_Layer: 0
+  m_Name: OpenPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5031030091492940464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123737662926634286}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 4.5, y: 1.75, z: 1.5}
+  m_LocalScale: {x: 5, y: 0.10000001, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8626322558343826806}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7476942429555893215
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,7 +66,7 @@ Transform:
   - {fileID: 8626322558899719803}
   - {fileID: 8626322559132755533}
   m_Father: {fileID: 8626322558343826806}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8626322558343826805
 GameObject:
@@ -67,6 +98,7 @@ Transform:
   m_Children:
   - {fileID: 8626322558974005875}
   - {fileID: 8626322559900971909}
+  - {fileID: 5031030091492940464}
   - {fileID: 8626322559661777221}
   - {fileID: 8626322559144380131}
   - {fileID: 3196937177668540264}
@@ -378,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 8626322559144380130}
-  test: 1
+  openDoor: 0
   LM: {fileID: 0}
 --- !u!1 &8626322559132755532
 GameObject:
@@ -510,7 +542,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8626322558343826806}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &8626322559144380142
 MeshFilter:
@@ -592,9 +624,12 @@ MonoBehaviour:
   isDoorOpening: 1
   isDoorOpenable: 1
   isPlayerInside: 0
+  noLoad: 0
   speed: 0.35
   maxTimeOpen: 13
   timeToOpen: 10
+  otherDoor: {fileID: 0}
+  openPos: {fileID: 6123737662926634286}
 --- !u!1 &8626322559558080801
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +857,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8626322558343826806}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &8626322559661777220
 MeshFilter:
@@ -904,9 +939,12 @@ MonoBehaviour:
   isDoorOpening: 0
   isDoorOpenable: 0
   isPlayerInside: 0
+  noLoad: 0
   speed: 0.35
   maxTimeOpen: 13
   timeToOpen: 10
+  otherDoor: {fileID: 0}
+  openPos: {fileID: 6123737662926634286}
 --- !u!1 &8626322559889509925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,5 +1153,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 8626322559144380130}
-  test: 0
+  openDoor: 0
   LM: {fileID: 0}
