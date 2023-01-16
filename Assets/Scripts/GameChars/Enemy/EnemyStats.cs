@@ -9,7 +9,6 @@ namespace UnderwaterHorror
     {
         [Header("HealthSettings")]
         public int health = 5;
-
         [Header("PatrolSettings")]
         public float patrolSpeed;
         public int patrolRandomWaitTimerWeight;
@@ -35,6 +34,16 @@ namespace UnderwaterHorror
         public float fleeingTime;
         [Header("SmallEnemyFish")]
         public float dyingTime;
+
+        public void TakeDamage(int playerAttack)
+        {
+            health = -playerAttack;
+
+            if (health <= 0)
+            {
+                health = 0;          
+            }
+        }
     }
 
 }

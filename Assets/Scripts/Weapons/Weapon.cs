@@ -2,77 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+namespace UnderwaterHorror
 {
-    [Header("Refrences")]
-    public Camera playerCamera;
-    [Header("Weapon Values")]
-    [SerializeField]
-    protected float range;
-    [SerializeField]
-    protected int currentAmmo;
-    [SerializeField]
-    protected int maxAmmo;
-    [SerializeField]
-    protected float reloadTime = 5f;
-    [SerializeField]
-    protected float reloadProgress;
-    [Header("Booleans")]
-    public bool isEquiped;
-    protected bool canShoot;
-
-
-    void Update()
+    public class Weapon : MonoBehaviour
     {
-        // update HUD
-        // Debug.LogWarning("time to reload: " + reloadProgress);
-    }
+        [Header("Refrences")]
+        public Camera playerCamera;
+        [Header("Weapon Values")]
+        [SerializeField]
+        protected float range;
+        [SerializeField]
+        protected int currentAmmo;
+        [SerializeField]
+        protected int maxAmmo;
+        [SerializeField]
+        protected float reloadTime = 5f;
+        [SerializeField]
+        protected float reloadProgress;
+        [Header("Booleans")]
+        public bool isEquiped;
+        protected bool canShoot;
 
-    protected void ShootWeapon()
-    {
-        Debug.LogWarning("BANG");
-        canShoot = false;
-        reloadProgress = reloadTime;
 
-        RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
+        void Update()
         {
-            // harpoon sound
-            Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * range, Color.red);
+            // update HUD
+            // Debug.LogWarning("time to reload: " + reloadProgress);
+        }
 
-            if (hit.transform.gameObject.layer == 8) // layer 8 == Enemy
+        protected void ShootWeapon()
+        {
+            Debug.LogWarning("BANG");
+            canShoot = false;
+            reloadProgress = reloadTime;
+
+            RaycastHit hit;
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
             {
-                Debug.LogWarning("hit enemy");
-                EnemyStats stats = hit.transform.GetComponent<EnemyStats>();
-                stats.health = 0;
+                // harpoon sound
+                Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * range, Color.red);
+
+                if (hit.transform.gameObject.layer == 8) // layer 8 == Enemy
+                {
+                    Debug.LogWarning("hit enemy");
+                    EnemyStats stats = hit.transform.GetComponent<EnemyStats>();
+                    stats.TakeDamage(1);
+                }
             }
+            currentAmmo--;
         }
-        currentAmmo--;
+
+        /*protected void EquipUnequip() // TEMP PUT ITEM AWAY
+        {
+            if (isEquiped)
+            {
+                isEquiped = false;
+                gameObject.GetComponent<Renderer>().enabled = false;
+                if (reloadProgress != 0) reloadProgress = reloadTime;
+            }
+            else if (!isEquiped)
+            {
+                isEquiped = true;
+                gameObject.GetComponent<Renderer>().enabled = true;
+            }
+        }*/
+
+        public void GetAmmo(int ammoAmmount)
+        {
+            // range checks
+            if (ammoAmmount > maxAmmo) ammoAmmount = maxAmmo;
+            else if (ammoAmmount <= 0) return;
+
+            // get ammo
+            currentAmmo += ammoAmmount;
+            if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
+        }
     }
 
-    /*protected void EquipUnequip() // TEMP PUT ITEM AWAY
-    {
-        if (isEquiped)
-        {
-            isEquiped = false;
-            gameObject.GetComponent<Renderer>().enabled = false;
-            if (reloadProgress != 0) reloadProgress = reloadTime;
-        }
-        else if (!isEquiped)
-        {
-            isEquiped = true;
-            gameObject.GetComponent<Renderer>().enabled = true;
-        }
-    }*/
-
-    public void GetAmmo(int ammoAmmount)
-    {
-        // range checks
-        if (ammoAmmount > maxAmmo) ammoAmmount = maxAmmo;
-        else if (ammoAmmount <= 0) return;
-
-        // get ammo
-        currentAmmo += ammoAmmount;
-        if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
-    }
 }
