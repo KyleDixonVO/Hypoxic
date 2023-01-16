@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     protected float range;
     [SerializeField]
+    protected int damage;
+    [SerializeField]
     protected int currentAmmo;
     [SerializeField]
     protected int maxAmmo;
@@ -28,7 +30,7 @@ public class Weapon : MonoBehaviour
         // Debug.LogWarning("time to reload: " + reloadProgress);
     }
 
-    protected void ShootWeapon()
+    protected void ShootWeapon(int damage)
     {
         Debug.LogWarning("BANG");
         canShoot = false;
@@ -44,7 +46,7 @@ public class Weapon : MonoBehaviour
             {
                 Debug.LogWarning("hit enemy");
                 EnemyStats stats = hit.transform.GetComponent<EnemyStats>();
-                stats.health = 0;
+                stats.health -= damage;
             }
         }
         currentAmmo--;

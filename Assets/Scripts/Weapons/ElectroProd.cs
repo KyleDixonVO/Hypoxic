@@ -8,6 +8,7 @@ public class ElectroProd : Weapon
     void Start()
     {
         // set weapon stats
+        damage = 8;
         range = 2;
         maxAmmo = 3;
         currentAmmo = 3;
@@ -35,7 +36,7 @@ public class ElectroProd : Weapon
         // SHOOTING
         if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
         {
-            ShootWeapon();
+            ShootWeapon(damage);
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
         {

@@ -11,6 +11,7 @@ public class HarpoonGun : Weapon
     void Start()
     {
         // set weapon stats
+        damage = 5;
         range = 15;
         maxAmmo = 6;
         currentAmmo = 6;
@@ -38,7 +39,7 @@ public class HarpoonGun : Weapon
         // SHOOTING
         if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
         {
-            ShootWeapon();
+            ShootWeapon(damage);
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
         {
