@@ -24,31 +24,42 @@ public class InputManager : MonoBehaviour
     private bool _dPressed;
     public bool dPressed;
 
+    private bool _ePressed;
+    public bool ePressed;
+    public bool eCycled;
+
     private bool _capsPressed;
     public bool capsPressed;
 
     private void Awake()
     {
-        if (inputManager != null && inputManager != this)
-        {
-            Destroy(this.gameObject);
-        }        
-        else if (inputManager == null)
+        if (inputManager == null)
         {
             inputManager = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (inputManager != null && inputManager != this)
+        {
+            Destroy(this.gameObject);
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _escapePressed = false;
+        eCycled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateInputs();
+    }
+
+    public void ResetEscape()
+    {
+        _escapePressed = false;
     }
 
     void UpdateInputs()
@@ -112,6 +123,18 @@ public class InputManager : MonoBehaviour
             _capsPressed = false;
         }
 
+        if (Input.GetKey(KeyCode.E))
+        {
+            _ePressed = true;
+            //Debug.Log(_ePressed);
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            _ePressed = false;
+            //Debug.Log(_ePressed);
+            eCycled = true;
+        }
+
         escapePressed = _escapePressed;
         spacePressed = _spacedPressed;
         wPressed = _wPressed;
@@ -119,6 +142,7 @@ public class InputManager : MonoBehaviour
         dPressed = _dPressed;
         aPressed = _aPressed;
         capsPressed = _capsPressed;
+        ePressed = _ePressed;
     }
 
 

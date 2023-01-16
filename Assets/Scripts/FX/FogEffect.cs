@@ -24,14 +24,6 @@ public class FogEffect : MonoBehaviour
         _mat.SetFloat("_DepthStart", _depthStart);
         _mat.SetFloat("_DepthDistance", _depthDistance);
 
-        if (effectActive)
-        {
-            this.gameObject.transform.GetComponentInChildren<Light>().enabled = true;
-        }
-        else
-        {
-            this.gameObject.transform.GetComponentInChildren<Light>().enabled = false;
-        }
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)

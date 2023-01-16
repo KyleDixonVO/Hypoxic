@@ -20,6 +20,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [Header("Functional Settings")]
     [SerializeField] private bool isDashing = false;
     [SerializeField] public bool inWater = false;
+    [SerializeField] public bool carryingHeavyObj = false;
     [SerializeField] private bool canRun = true;
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canCrouch = true;
@@ -109,26 +110,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private AudioClip[] grassFootstepClips = default;
     private float footstepTimer = 0f;
 
-    [Header("Suit Settings")]
-    public float maxSuitPower = 100.0f;
-    public float suitPower;
-    [SerializeField] private float drainPerSecond = 0.67f;
-    [SerializeField] private float rechargePerSecond = 2.0f;
-    [SerializeField] private float sprintDrainPerSecond = 1.0f;
-    [SerializeField] private float drainPerDash = 5.0f;
-    [SerializeField] private float suffocationDamage = 1.0f;
-
-    [Header("Player Stats")]
-    public float maxPlayerHealth = 100.0f;
-    public float playerHealth = 100.0f;
-
-    [Header("Spotlight Settings")]
-    [SerializeField] private float poweredRange = 60.0f;
-    [SerializeField] private float unpoweredRange = 20.0f;
-    [SerializeField] public Color poweredColor;
-    [SerializeField] public Color unpoweredColor;
-
-    private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : isRunning ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
+    private float GetCurrentOffset => (isCrouching && inWater) ? baseStepSpeed * waterCrouchStepMultiplier : (isRunning && inWater && !carryingHeavyObj) ? baseStepSpeed * waterRunStepMultiplier : inWater ? baseStepSpeed * waterStepSpeed : isCrouching ? baseStepSpeed * crouchStepMultiplier : (isRunning && !carryingHeavyObj) ? baseStepSpeed * RunStepMultiplier : baseStepSpeed ;
 
     // Sliding Settings
     private Vector3 hitPointNormal;
@@ -177,6 +159,7 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (fpsSam == null)
         {
             fpsSam = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if (fpsSam != null && fpsSam != this)
         {
@@ -196,8 +179,7 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private void Start()
     {
-        suitPower = maxSuitPower;
-        playerHealth = maxPlayerHealth;
+
     }
 
     private void Update()
@@ -216,13 +198,27 @@ public class FirstPersonController_Sam : MonoBehaviour
 
             ApplyFinalMovement();
             EnergyDrain();
-            RechargeSuit();
+            PlayerStats.playerStats.RechargeSuit();
         }
     }
 
     private void LateUpdate()
     {
 
+    }
+
+    public void LockPlayerMovement()
+    {
+        canMove = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void UnlockPlayerMovement()
+    {
+        canMove = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void HandleMovementInput()
@@ -235,8 +231,8 @@ public class FirstPersonController_Sam : MonoBehaviour
         currentInput *= (currentInput.x != 0.0f && currentInput.y != 0.0f) ? 0.7071f : 1.0f;
 
         // Sets the required speed multiplier
-        if (inWater) currentInput *= (isCrouching ? suitCrouchSpeed : (isRunning && suitPower > 0) ? suitRunSpeed : suitWalkSpeed);
-        else currentInput *= (isCrouching ? crouchSpeed : isRunning ? runSpeed : walkSpeed);
+        if (inWater) currentInput *= (isCrouching ? suitCrouchSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? suitRunSpeed : suitWalkSpeed);
+        else currentInput *= (isCrouching ? crouchSpeed : (isRunning && !carryingHeavyObj) ? runSpeed : walkSpeed);
 
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
@@ -330,20 +326,20 @@ public class FirstPersonController_Sam : MonoBehaviour
             {
                 //Debug.Log("In Water");
                 //Debug.Log("Timer:" + timer);
-                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && suitPower > 0) ? waterRunBobSpeed : waterWalkBobSpeed);
+                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
-                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && suitPower > 0) ? waterRunBobAmount : waterWalkBobAmount))/2,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobAmount : waterWalkBobAmount))/2,
                     playerCamera.transform.localPosition.z);
             }
             else
             {
                 //Debug.Log("In Atmosphere");
                 //Debug.Log("Timer:" + timer);
-                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isRunning ? runBobSpeed : walkBobSpeed);
+                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
-                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : isRunning ? runBobAmount : walkBobAmount))/2,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : (isRunning && !carryingHeavyObj) ? runBobAmount : walkBobAmount))/2,
                     playerCamera.transform.localPosition.z);
             }
 
@@ -491,10 +487,13 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private IEnumerator CrouchStand()
     {
-        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1.0f))
-        { yield break; }
-        
-        duringCrouchAnimation = true;
+        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1.0f, ~(LayerMask.GetMask("PostProcessing", "Water"))))
+        {
+            Debug.Log("CrouchBlocked");
+            yield return null;
+        }
+
+            duringCrouchAnimation = true;
 
         float timeElapsed = 0;
         float targetHeight = isCrouching ? standingHeight : crouchHeight;
@@ -509,6 +508,7 @@ public class FirstPersonController_Sam : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+        
         characterController.height = targetHeight;
         characterController.center = targetCenter;
 
@@ -535,7 +535,7 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private void UnderwaterDash()
     {
-        if (suitPower <= 0) return;
+        if (PlayerStats.playerStats.suitPower <= 0 || carryingHeavyObj) return;
         if (Input.GetButtonDown("Dash"))
         {
             Debug.Log("Dash Input Pressed");
@@ -567,7 +567,7 @@ public class FirstPersonController_Sam : MonoBehaviour
         }
         else
         {
-            suitPower -= drainPerDash;
+            PlayerStats.playerStats.SuitDashDrain();
             isDashing = false;
             return;
         }
@@ -576,44 +576,10 @@ public class FirstPersonController_Sam : MonoBehaviour
     private void EnergyDrain()
     {
         if (!inWater) return;
-        if (suitPower <= 0)
-        {
-            suitPower = 0;
-            Debug.Log("Suit Power Depleted");
-            TakeDamage(suffocationDamage * Time.deltaTime);
-            this.gameObject.transform.GetComponentInChildren<Light>().color = unpoweredColor;
-            this.gameObject.transform.GetComponentInChildren<Light>().range = unpoweredRange;
-        }
-        else
-        {
-            this.gameObject.transform.GetComponentInChildren<Light>().color = poweredColor;
-            this.gameObject.transform.GetComponentInChildren<Light>().range = poweredRange;
-        }
-        suitPower -= drainPerSecond * Time.deltaTime;
+        PlayerStats.playerStats.SuitPowerLogic();
 
         if (!isRunning) return;
-        suitPower -= sprintDrainPerSecond * Time.deltaTime;
-    }
-
-    private void RechargeSuit()
-    {
-        if (inWater || suitPower == maxSuitPower) return;
-        suitPower += rechargePerSecond * Time.deltaTime;
-        if (suitPower > maxSuitPower) suitPower = maxSuitPower;
-    }
-
-    private void TakeDamage(float damage)
-    {
-        Debug.Log("Taking Damage");
-        if (playerHealth <= 0)
-        {
-            Debug.Log("Player Health Depleted");
-            playerHealth = 0;
-            return;
-        }
-
-        if (damage <= 0) return;
-        playerHealth -= damage;
+        PlayerStats.playerStats.SuitSprintDrain();
     }
 
     private void OnTriggerStay(Collider other)
