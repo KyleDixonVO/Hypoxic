@@ -6,26 +6,40 @@ public class Item : MonoBehaviour
 {
     [Header("Usage Timers")]
     [SerializeField]
-    float usageTime;
+    protected float usageTime;
     [SerializeField]
-    float usageProgress;
+    protected float usageProgress;
+
+    [Header("Refs")]
+    protected GameObject playerStats;
+    protected PlayerStats PS;
 
     [Header("bools")]
     [SerializeField]
-    bool isEquiped;
+    protected bool isEquiped;
+    [SerializeField]
+    protected bool beingUsed;
 
     protected void TimeToEffect()
-    {
-        if (usageProgress <= 0)
+    {      
+        if (usageProgress <= 0) // Apply effect
         {
             usageProgress = 0;
-            // apply effect
+            // activets ApplyEffect()
             ApplyEffect();
+            beingUsed = false;
         }
-        else if (usageProgress > 0 && isEquiped)
+        else if (usageProgress > 0 && isEquiped) // Timer
         {
             usageProgress -= Time.deltaTime;
         }
+        else if (!isEquiped) // stop timer if unequiped
+        {
+            beingUsed = false;
+            usageProgress = usageTime;
+        }
+
+
     }
 
     virtual protected void ApplyEffect()

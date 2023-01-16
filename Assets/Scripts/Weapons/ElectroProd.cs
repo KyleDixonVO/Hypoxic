@@ -38,9 +38,21 @@ public class ElectroProd : Weapon
             // no ammo sound
         }
 
+        //TEMP
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            isEquiped = true;
+            gameObject.GetComponent<Renderer>().enabled = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1) | Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            isEquiped = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            EquipUnequip();
+            //EquipUnequip();
         }
     }
 }

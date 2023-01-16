@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour
         currentAmmo--;
     }
 
-    protected void EquipUnequip() // TEMP PUT ITEM AWAY
+    /*protected void EquipUnequip() // TEMP PUT ITEM AWAY
     {
         if (isEquiped)
         {
@@ -63,7 +63,7 @@ public class Weapon : MonoBehaviour
             isEquiped = true;
             gameObject.GetComponent<Renderer>().enabled = true;
         }
-    }
+    }*/
 
     public void GetAmmo(int ammoAmmount)
     {
