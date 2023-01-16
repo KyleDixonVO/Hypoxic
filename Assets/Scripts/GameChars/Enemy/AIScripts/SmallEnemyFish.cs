@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UnderwaterHorror
 {
+    //Code by Tobias
     public class SmallEnemyFish : Enemy
     {
         // Start is called before the first frame update
