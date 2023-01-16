@@ -114,7 +114,7 @@ public class RandomSoundsManager : MonoBehaviour
 
     void PlayRandomSound()
     {
-        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
+        //if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
         // When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
         if (randomSoundsAudio.isPlaying != true)
         {
@@ -155,7 +155,7 @@ public class RandomSoundsManager : MonoBehaviour
 
     void FindObjRefs()
     {
-        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+        //if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
         if (playerObj != null && randomSoundsObj != null) return;
         playerObj = GameObject.Find("Player");
         randomSoundsObj = GameObject.Find("RandomSoundsHolder");
