@@ -11,6 +11,10 @@ public class HarpoonGun : Weapon
     void Start()
     {
         // set weapon stats
+        range = 15;
+        maxAmmo = 6;
+        currentAmmo = 6;
+        reloadTime = 5;
 
         // set bools
         canShoot = true;

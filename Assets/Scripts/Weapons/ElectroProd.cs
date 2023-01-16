@@ -8,6 +8,10 @@ public class ElectroProd : Weapon
     void Start()
     {
         // set weapon stats
+        range = 2;
+        maxAmmo = 3;
+        currentAmmo = 3;
+        reloadTime = 2;
 
         // set bools
         canShoot = true;

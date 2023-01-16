@@ -11,7 +11,9 @@ public class Item : MonoBehaviour
     protected float usageProgress;
 
     [Header("Refs")]
+    [SerializeField]
     protected GameObject playerStats;
+    [SerializeField]
     protected PlayerStats PS;
 
     [Header("bools")]
@@ -19,6 +21,11 @@ public class Item : MonoBehaviour
     protected bool isEquiped;
     [SerializeField]
     protected bool beingUsed;
+
+    private void Start()
+    {
+
+    }
 
     protected void TimeToEffect()
     {      
@@ -38,8 +45,6 @@ public class Item : MonoBehaviour
             beingUsed = false;
             usageProgress = usageTime;
         }
-
-
     }
 
     virtual protected void ApplyEffect()
