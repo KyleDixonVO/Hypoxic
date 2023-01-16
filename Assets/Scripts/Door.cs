@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [Header("LevelManager")]
-    public Level_Manager LM;
 
     [Header("Open / Close Bools")]
     public bool isDoorOpening;
     public bool isDoorOpenable;
     public bool isPlayerInside;
+    public bool noLoad;
 
     [Header("Serialized Variables")]
     [SerializeField]
@@ -20,28 +19,35 @@ public class Door : MonoBehaviour
     [SerializeField]
     float timeToOpen = 10f;
 
+    [Header("Other Door")]
+    public Door otherDoor;
+
     Vector3 closePos;
-    Vector3 openPos;
+    public GameObject openPos;
 
     // Start is called before the first frame update
     void Start()
     {
         timeOpen = maxTimeOpen;
-        closePos = transform.position;
-        openPos = new Vector3(transform.position.x + 4.5f, transform.position.y, transform.position.z);
+        closePos = transform.position;       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isDoorOpening == true) MoveDoor(openPos); // I'll probably LeanTween this later
+        if (isDoorOpening == true) MoveDoor(openPos.transform.position); // I'll probably LeanTween this later
         else if (!isDoorOpening) MoveDoor(closePos);
 
         if (isPlayerInside && Vector3.Distance(transform.position, closePos) < 0.05f)
         {
             Debug.Log("LOAD SCENE"); // Load a new Scene here
             isPlayerInside = false;
-            LM.LoadMainHab();
+
+            if (!noLoad)Level_Manager.LM.LoadMainHab();
+            else if (noLoad)
+            {
+                otherDoor.isDoorOpening = true;
+            }
         }      
     }
 
@@ -86,7 +92,7 @@ public class Door : MonoBehaviour
             timeOpen = maxTimeOpen;
             isDoorOpening = false;                         
         }
-    }    
+    }
 
     IEnumerator OpenDoorDelay()
     {
