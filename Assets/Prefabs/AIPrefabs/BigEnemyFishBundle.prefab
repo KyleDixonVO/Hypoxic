@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4569025669275324558}
   - component: {fileID: 5684931417474138327}
   - component: {fileID: 7771284461164871585}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackRadius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 1662200382841185864}
   - component: {fileID: 1662200382841185870}
   - component: {fileID: 1662200382841185865}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1662200383350158991}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PatrolPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1662200383356199600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1662200383452659240}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigEnemyFishBundle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 1662200383709298145}
   - component: {fileID: 1662200383709298144}
   - component: {fileID: 3697138312611891628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,8 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e55258046c2a304ebbf8dd7783325f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  patrolSpeed: 1
+  health: 1
+  patrolSpeed: 2
   patrolRandomWaitTimerWeight: 3
   patrolRandomWaitTimer: 0
   chaseSpeed: 5
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 1662200383849593898}
   - component: {fileID: 1662200383849593896}
   - component: {fileID: 1662200383849593899}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 1662200384039547316}
   - component: {fileID: 1662200384039547306}
   - component: {fileID: 1662200384039547317}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1662200384073609433}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GlowingEyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 1662200384221301493}
   - component: {fileID: 1662200384221301492}
   - component: {fileID: 1662200384221301495}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: GlowingEyeRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,7 +766,7 @@ GameObject:
   - component: {fileID: 1662200384297165503}
   - component: {fileID: 1662200384297165501}
   - component: {fileID: 1662200384297165500}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 1662200384727621057}
   - component: {fileID: 1662200384727621056}
   - component: {fileID: 1662200384727621059}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: GlowingEyeLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -944,7 +944,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2981399923401031244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyTriggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1031,9 +1031,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4628291405817432262, guid: bf71f65667d90d3429fcca827c8551f3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf71f65667d90d3429fcca827c8551f3, type: 3}
       propertyPath: m_Name
       value: seaCreature
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bf71f65667d90d3429fcca827c8551f3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534728807300733529, guid: bf71f65667d90d3429fcca827c8551f3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8257264024779934816, guid: bf71f65667d90d3429fcca827c8551f3, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf71f65667d90d3429fcca827c8551f3, type: 3}

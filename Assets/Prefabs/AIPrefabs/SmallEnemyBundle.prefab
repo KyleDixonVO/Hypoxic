@@ -165,7 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4565852536953833481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SmallEnemyBundle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 4565852536974747475}
   - component: {fileID: 4565852536974747473}
   - component: {fileID: 4565852536974747472}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4565852537788936374}
   - component: {fileID: 4565852537788936372}
   - component: {fileID: 4565852537788936375}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 4565852537810953866}
   - component: {fileID: 4565852537810953861}
   - component: {fileID: 4565852537810953860}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e55258046c2a304ebbf8dd7783325f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 1
   patrolSpeed: 1
   patrolRandomWaitTimerWeight: 3
   patrolRandomWaitTimer: 0
@@ -748,7 +748,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4565852538525116982}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PatrolPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 4565852538912098666}
   - component: {fileID: 4565852538912098664}
   - component: {fileID: 4565852538912098667}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: point
   m_TagString: Untagged
   m_Icon: {fileID: 0}

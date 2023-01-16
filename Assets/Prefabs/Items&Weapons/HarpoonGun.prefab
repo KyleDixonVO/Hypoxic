@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
   range: 15
-  damage: 5
+  damage: 1
   currentAmmo: 6
   maxAmmo: 6
   reloadTime: 5
