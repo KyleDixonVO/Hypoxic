@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HarpoonGun : Weapon
+public class ElectroProd : Weapon
 {
-    // We might want to put items like this on a diffrent rendering plane / canvas to prevent
-    // clipping with the enviroment - Edmund
-
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +11,7 @@ public class HarpoonGun : Weapon
 
         // set bools
         canShoot = true;
-        isEquiped = true;
+        isEquiped = false;
     }
 
     // Update is called once per frame
@@ -42,12 +39,12 @@ public class HarpoonGun : Weapon
         }
 
         //TEMP
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             isEquiped = true;
             gameObject.GetComponent<Renderer>().enabled = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) | Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha1) | Input.GetKeyDown(KeyCode.Alpha3))
         {
             isEquiped = false;
             gameObject.GetComponent<Renderer>().enabled = false;
