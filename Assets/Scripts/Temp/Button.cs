@@ -27,6 +27,7 @@ public class Button : MonoBehaviour
             {
                 Debug.LogWarning("Press");
                 doorScript.OpenDoor();
+                openDoor = true;
             }
         }
         else

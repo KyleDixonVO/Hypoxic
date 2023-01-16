@@ -94,11 +94,6 @@ public class Door : MonoBehaviour
         }
     }
 
-    void FindLevelManagerRef()
-    {
-
-    }
-
     IEnumerator OpenDoorDelay()
     {
         Debug.Log("Door Opening...");

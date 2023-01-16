@@ -64,7 +64,7 @@ public class Level_Manager : MonoBehaviour
     public void LoadOutside()
     {
         if (IsSceneOpen("Outside")) return;
-        //Debug.Log("Loading Outside");
+        Debug.Log("Loading Outside");
         SceneManager.LoadScene("Outside");
     }
 

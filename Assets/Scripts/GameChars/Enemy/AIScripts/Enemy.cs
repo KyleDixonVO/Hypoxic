@@ -114,7 +114,7 @@ namespace UnderwaterHorror
             //--------------------------------------------------------------
 
             float distCheck = Vector3.Distance(pointPosDest, agentPosDest);
-            Debug.Log(distCheck);
+            //Debug.Log(distCheck);
 
             if (distCheck < 0.5)
             {
