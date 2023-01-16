@@ -189,8 +189,8 @@ MonoBehaviour:
   speed: 0.35
   maxTimeOpen: 13
   timeToOpen: 10
-  otherDoor: {fileID: 0}
-  openPos: {fileID: 6595079339387360670}
+  otherDoor: {fileID: 6595079340046061133}
+  openPos: {fileID: 2373141667010204750}
 --- !u!1 &6595079340013354444
 GameObject:
   m_ObjectHideFlags: 0
