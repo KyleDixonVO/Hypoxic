@@ -261,7 +261,7 @@ namespace UnderwaterHorror
         {
             if (_enemyAttackRadius.playerInRadius)
             {
-                Debug.Log("InsideRadius");
+                //Debug.Log("InsideRadius");
                 return true;
             }
 
