@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [Header("LevelManager")]
-    public Level_Manager LM;
 
     [Header("Open / Close Bools")]
     public bool isDoorOpening;
@@ -46,7 +44,7 @@ public class Door : MonoBehaviour
             Debug.Log("LOAD SCENE"); // Load a new Scene here
             isPlayerInside = false;
 
-            if (!noLoad)LM.LoadMainHab();
+            if (!noLoad)Level_Manager.LM.LoadMainHab();
             else if (noLoad)
             {
                 otherDoor.isDoorOpening = true;
@@ -95,7 +93,12 @@ public class Door : MonoBehaviour
             timeOpen = maxTimeOpen;
             isDoorOpening = false;                         
         }
-    }    
+    }
+
+    void FindLevelManagerRef()
+    {
+
+    }
 
     IEnumerator OpenDoorDelay()
     {
