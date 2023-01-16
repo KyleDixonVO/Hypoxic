@@ -26,7 +26,7 @@ public class RepairObject : MonoBehaviour
 
     void Repair()
     {
-        Debug.Log(Vector3.Distance(this.gameObject.transform.position, repairDestination));
+        //Debug.Log(Vector3.Distance(this.gameObject.transform.position, repairDestination));
         if (Vector3.Distance(this.gameObject.transform.position, repairDestination) < repairDistance && InputManager.inputManager.rPressed && this.GetComponent<HeavyObject>().isHeld)
         {
             elapsedRepairTime += Time.deltaTime;

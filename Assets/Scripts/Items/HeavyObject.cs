@@ -69,6 +69,9 @@ public class HeavyObject : MonoBehaviour
 
    public void ForceDropObject()
    {
+        FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
+        InputManager.inputManager.eCycled = true;
         _isHeld = false;
+        UpdateObjectParent();
    }
 }
