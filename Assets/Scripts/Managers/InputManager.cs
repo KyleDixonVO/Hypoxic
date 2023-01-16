@@ -28,6 +28,9 @@ public class InputManager : MonoBehaviour
     public bool ePressed;
     public bool eCycled;
 
+    private bool _rPressed;
+    public bool rPressed;
+
     private bool _capsPressed;
     public bool capsPressed;
 
@@ -135,6 +138,15 @@ public class InputManager : MonoBehaviour
             eCycled = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _rPressed = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.R))
+        {
+            _rPressed = false;
+        }
+
         escapePressed = _escapePressed;
         spacePressed = _spacedPressed;
         wPressed = _wPressed;
@@ -143,6 +155,7 @@ public class InputManager : MonoBehaviour
         aPressed = _aPressed;
         capsPressed = _capsPressed;
         ePressed = _ePressed;
+        rPressed = _rPressed;
     }
 
 
