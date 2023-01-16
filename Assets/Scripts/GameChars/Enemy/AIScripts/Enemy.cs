@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 namespace UnderwaterHorror
 {
+    //Code by Tobias
     public class Enemy : MonoBehaviour
     {
         public bool isAlive;
@@ -22,6 +23,7 @@ namespace UnderwaterHorror
 
         [Header("Scripts")]
         [SerializeField] protected EnemyFOV _enemyFOV;
+        [SerializeField] protected EnemyAttackRadius _enemyAttackRadius;
         [SerializeField] protected EnemyStats _enemyStats;
 
         [Header("GameObjects")]
@@ -46,10 +48,14 @@ namespace UnderwaterHorror
         // Update is called once per frame
         protected void Update()
         {
+            // Made by Kyle
+            //-----------------------------------
             FindPlayerRef();
-                   
+            //-----------------------------------
+
             switch (enemyState)
             {
+                //-----------------------------------------  
                 case EnemyState.patrolling:
                     PatrollingManager();
                     if (SpottedPlayer())
@@ -57,7 +63,7 @@ namespace UnderwaterHorror
                         enemyState = EnemyState.chasing;
                     }
                     break;
-
+                //-----------------------------------------  
                 case EnemyState.alerted:
                     // Looks Direction it was alerted to after a delay
                     if (SpottedPlayer() == true)
@@ -65,20 +71,30 @@ namespace UnderwaterHorror
                         enemyState = EnemyState.chasing;
                     }
                     break;
-
+                //-----------------------------------------  
                 case EnemyState.chasing:
                     ChasingManager();
                     if (SpottedPlayer() == false)
                     {
                         enemyState = EnemyState.searching;
+                    }                       
+                    else if (CanAttackPlayer())
+                    {
+                        enemyState = EnemyState.attacking;
                     }
                     break;
-
+                //-----------------------------------------  
                 case EnemyState.attacking:
+                    // Will still chase player
+                    ChasingManager();
                     // attacks player when in range
-                    break;
-                    
-            
+                    AttackingManager();
+                    if (CanAttackPlayer() == false)
+                    {
+                        enemyState = EnemyState.chasing;
+                    }
+                    break;                   
+                //-----------------------------------------          
                 case EnemyState.searching:
                     SearchingManager();
                     if (SpottedPlayer() == true)
@@ -86,11 +102,12 @@ namespace UnderwaterHorror
                         enemyState = EnemyState.chasing;
                     }
                     break;
-
+                //-----------------------------------------  
                 case EnemyState.defeated:
                     // Starts dying animation
                     DefeatedManager();                    
                     break;
+                //-----------------------------------------  
             }
 
             if (_enemyStats.health <= 0)
@@ -114,7 +131,7 @@ namespace UnderwaterHorror
             //--------------------------------------------------------------
 
             float distCheck = Vector3.Distance(pointPosDest, agentPosDest);
-            Debug.Log(distCheck);
+            //Debug.Log(distCheck);
 
             if (distCheck < 0.5)
             {
@@ -152,10 +169,20 @@ namespace UnderwaterHorror
             chaseCollider.enabled = true;
         }
 
+        void AttackingManager()
+        {
+            _enemyStats.timeToAttack -= Time.deltaTime;
+            if (_enemyStats.timeToAttack <= 0)
+            {
+                playerObj.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
+                _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
+            }
+        }
+
         void SearchingManager()
         {
             agent.speed = _enemyStats.searchingMovementSpeed;
-            // Goes to last spot the player was before searching
+
 
             // Fixes find Dest bug 
             Vector3 previousPos = playerPreviousLocation;
@@ -166,13 +193,15 @@ namespace UnderwaterHorror
             // ------------------------------------------------------------------------
 
             float distCheck = Vector3.Distance(previousPosDest, agentPosDest);
-            agent.SetDestination(playerPreviousLocation);
+
+            // Goes to last spot the player was last scene
+            agent.SetDestination(playerPreviousLocation); //<--- playerPreviousLocation gets set in ChasingManager 
 
             if (distCheck > 1)
             {                
                 //Debug.Log(playerPreviousLocation);
                 //Debug.Log(this.gameObject.transform.position);
-                _enemyStats.searchingTime = _enemyStats.startSearchingTime;
+                _enemyStats.searchingTime = _enemyStats.searchingTimeStart;
             }
 
             else
@@ -191,9 +220,10 @@ namespace UnderwaterHorror
             chaseCollider.enabled = false;
         }
 
-        // DefeatedManager will be differen't for the two enemies
         virtual protected void DefeatedManager()
         {
+            // DefeatedManager will be differen't for the two enemies
+
             // Death Time
             agent.isStopped = true;
             _enemyStats.dyingTime -= Time.deltaTime;
@@ -203,12 +233,6 @@ namespace UnderwaterHorror
             {
                 this.gameObject.SetActive(false);
             }
-        }
-
-        void FindPlayerRef()
-        {
-            if (playerObj != null) return;
-            playerObj = GameObject.Find("Player");
         }
 
         protected bool SpottedPlayer()
@@ -232,5 +256,30 @@ namespace UnderwaterHorror
             }
             return false;
         }
+
+        protected bool CanAttackPlayer()
+        {
+            if (_enemyAttackRadius.playerInRadius)
+            {
+                Debug.Log("InsideRadius");
+                return true;
+            }
+
+            else
+            {
+                // Resets enemy attack
+                _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
+            }
+            return false;
+        }
+
+        // Made by Kyle
+        //--------------------------------------------------------
+        void FindPlayerRef()
+        {
+            if (playerObj != null) return;
+            playerObj = GameObject.Find("Player");
+        }
+        //--------------------------------------------------------
     }
 }
