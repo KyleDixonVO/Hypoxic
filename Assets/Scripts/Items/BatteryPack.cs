@@ -10,10 +10,6 @@ public class BatteryPack : Item
 
     void Start()
     {
-        // set refs
-        playerStats = GameObject.Find("Player(w/items)");
-        PS = playerStats.GetComponent<PlayerStats>();
-
         usageTime = 2;
         usageProgress = usageTime;
     }
@@ -46,12 +42,12 @@ public class BatteryPack : Item
 
     protected override void ApplyEffect()
     {      
-        PS.suitPower += powerGain;
+        PlayerStats.playerStats.suitPower += powerGain;
         Debug.LogWarning("works");
 
-        if (PS.suitPower > PS.maxSuitPower)
+        if (PlayerStats.playerStats.suitPower > PlayerStats.playerStats.maxSuitPower)
         {
-            PS.suitPower = PS.maxSuitPower;
+            PlayerStats.playerStats.suitPower = PlayerStats.playerStats.maxSuitPower;
         }
 
         // deactivates the object not allowing it to be used
