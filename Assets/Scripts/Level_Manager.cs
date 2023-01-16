@@ -56,16 +56,16 @@ public class Level_Manager : MonoBehaviour
 
     public void LoadMainHab()
     {
-        if (IsSceneOpen("Edmund-TransitionTest")) return;
+        if (IsSceneOpen("DemoBuildingInside")) return;
         //Debug.Log("Loading Main Hab");
-        SceneManager.LoadScene("Edmund-TransitionTest");
+        SceneManager.LoadScene("DemoBuildingInside");
     }
 
     public void LoadOutside()
     {
-        if (IsSceneOpen("Edmund-Test")) return;
+        if (IsSceneOpen("Outside")) return;
         //Debug.Log("Loading Outside");
-        SceneManager.LoadScene("Edmund-Test");
+        SceneManager.LoadScene("Outside");
     }
 
     public void LoadMainMenu()
@@ -78,12 +78,12 @@ public class Level_Manager : MonoBehaviour
     public void LoadGameplay()
     {
         
-        if (IsSceneOpen("Gameplay")) return;
+        if (IsSceneOpen("Outside")) return;
         //Debug.Log("Loading Gameplay");
-        SceneManager.LoadScene("Gameplay");
-        if (IsSceneOpen("Edmund-Test")) return;
+        SceneManager.LoadScene("Outside");
+        //if (IsSceneOpen("DemoBuildingInside")) return;
         //Debug.Log("Loading Edmund-Test");
-        LoadSceneAdditive("Edmund-Test");
+        //LoadSceneAdditive("DemoBuildingInside");
     }
 
     public void ExitGame()

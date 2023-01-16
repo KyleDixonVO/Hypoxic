@@ -26,11 +26,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DepthDistance: 5
+    - _DepthDistance: 0
     - _DepthStart: 0
-    - _NoiseFrequency: 11.2
-    - _NoiseScale: 2.5
-    - _NoiseSpeed: 9
-    - _PixelOffset: 0.001
+    - _NoiseFrequency: 0
+    - _NoiseScale: 0
+    - _NoiseSpeed: 0
+    - _PixelOffset: 0.0164
     m_Colors: []
   m_BuildTextureStacks: []

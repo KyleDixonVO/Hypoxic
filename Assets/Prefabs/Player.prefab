@@ -388,13 +388,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1332587735617128729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555b72f25428189479db595ea66590ee, type: 3}
+  m_Script: {fileID: 11500000, guid: bbbec4ecd41a6604b902f4189bf966c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mat: {fileID: 2100000, guid: b3efbe099223bbb4a90f48b1e4dbcc1c, type: 2}
-  _fogColor: {r: 0.010457456, g: 0.018969124, b: 0.047169805, a: 0}
+  _mat: {fileID: 2100000, guid: c364d49a53feb6a4ca7c04126489a4b2, type: 2}
+  _pixelOffset: 0
+  _noiseScale: 0
+  _noiseFrequency: 0
+  _noiseSpeed: 0
   _depthStart: 0
-  _depthDistance: 10
+  _depthDistance: 0
   effectActive: 0
 --- !u!114 &1332587735617128730
 MonoBehaviour:
@@ -405,16 +408,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1332587735617128729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08f446814b9bc534781941733745f3c3, type: 3}
+  m_Script: {fileID: 11500000, guid: b6c77156c928fdc40b4fb217cf34654a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mat: {fileID: 2100000, guid: c364d49a53feb6a4ca7c04126489a4b2, type: 2}
-  _pixelOffset: 0.001
-  _noiseScale: 2.5
-  _noiseFrequency: 10
-  _noiseSpeed: 9
-  _depthStart: 5
-  _depthDistance: 5
+  _mat: {fileID: 2100000, guid: b3efbe099223bbb4a90f48b1e4dbcc1c, type: 2}
+  _fogColor: {r: 0, g: 0, b: 0, a: 0}
+  _depthStart: 0
+  _depthDistance: 0
   effectActive: 0
 --- !u!114 &1332587735617128731
 MonoBehaviour:
