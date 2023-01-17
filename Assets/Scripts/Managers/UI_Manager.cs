@@ -18,6 +18,7 @@ public class UI_Manager : MonoBehaviour
     [Header("Gameplay Assets")]
     [SerializeField] private Slider suitPower;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private Image playerHitEffect;
 
     [Header("Pause Assets")]
     [SerializeField] private TMP_Text textPauseTitle;
@@ -111,6 +112,8 @@ public class UI_Manager : MonoBehaviour
         textNewGame = GameObject.Find("TextNewGame").GetComponent<TMP_Text>();
         buttonCancelNG = GameObject.Find("ButtonCancelNG").GetComponent<Button>();
         buttonConfirmNG = GameObject.Find("ButtonConfirmNG").GetComponent<Button>();
+
+        playerHitEffect = GameObject.Find("playerHitEffect").GetComponent<Image>();
     }
 
     void CheckActiveCanvas()
@@ -211,5 +214,11 @@ public class UI_Manager : MonoBehaviour
     public void SwitchMainMenu()
     {
         activeCanvas = ActiveUI.MainMenu;
+    }
+
+    public void PlayerHitEffectON(bool isON)
+    {
+        if (isON) playerHitEffect.enabled = true;
+        if (isON == false) playerHitEffect.enabled = false;
     }
 }

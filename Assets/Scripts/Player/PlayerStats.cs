@@ -19,6 +19,12 @@ public class PlayerStats : MonoBehaviour
     public float maxPlayerHealth = 100.0f;
     public float playerHealth = 100.0f;
 
+    [Header("Player UI Settings")]
+    // Timer for hit effect
+    public float startPlayerHitTimer = 0.5f;
+    private float playerHitEffectTimer;
+    private bool playerHit;
+
     [Header("Spotlight Settings")]
     [SerializeField] public float poweredRange = 60.0f;
     [SerializeField] public float unpoweredRange = 20.0f;
@@ -44,8 +50,7 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         suitPower = maxSuitPower;
-        playerHealth = maxPlayerHealth;
-        
+        playerHealth = maxPlayerHealth;      
     }
 
     // Update is called once per frame
@@ -53,6 +58,7 @@ public class PlayerStats : MonoBehaviour
     {
         FindSpotlightRef();
         ToggleSuitSpotlight();
+        ManagePlayerHitEffect();
     }
 
     public void FindSpotlightRef()
@@ -91,16 +97,20 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("Taking Damage");
-        if (playerHealth <= 0)
+        if (playerHit == false)
         {
-            Debug.Log("Player Health Depleted");
-            playerHealth = 0;
-            return;
-        }
+            playerHit = true;
+            Debug.Log("Taking Damage");
+            if (playerHealth <= 0)
+            {
+                Debug.Log("Player Health Depleted");
+                playerHealth = 0;
+                return;
+            }
 
-        if (damage <= 0) return;
-        playerHealth -= damage;
+            if (damage <= 0) return;
+            playerHealth -= damage;
+        }
     }
 
     public void RechargeSuit()
@@ -119,6 +129,21 @@ public class PlayerStats : MonoBehaviour
         else
         {
             suitSpotlight.enabled = false;
+        }
+    }
+
+    public void ManagePlayerHitEffect()
+    {
+        if (playerHit)
+        {
+            UI_Manager.ui_Manager.PlayerHitEffectON(true);
+            playerHitEffectTimer -= Time.deltaTime;
+            if (playerHitEffectTimer <= 0)
+            {
+                UI_Manager.ui_Manager.PlayerHitEffectON(false);
+                playerHit = false;
+                playerHitEffectTimer = startPlayerHitTimer;
+            }
         }
     }
 }
