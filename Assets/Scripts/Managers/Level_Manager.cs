@@ -59,6 +59,7 @@ public class Level_Manager : MonoBehaviour
         if (IsSceneOpen("DemoBuildingInside")) return;
         //Debug.Log("Loading Main Hab");
         SceneManager.LoadScene("DemoBuildingInside");
+        FirstPersonController_Sam.fpsSam.IndoorTransition();
     }
 
     public void LoadOutside()

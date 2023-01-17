@@ -596,10 +596,15 @@ public class FirstPersonController_Sam : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Water"))
         {
-            this.inWater = false;
-            this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
-            this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
+            IndoorTransition();
         }
+    }
+
+    public void IndoorTransition()
+    {
+        this.inWater = false;
+        this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
+        this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
     }
 
 

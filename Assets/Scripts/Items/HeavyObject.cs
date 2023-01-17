@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HeavyObject : MonoBehaviour
 {
-    [SerializeField] private bool isHeld = false;
+    [SerializeField] private bool _isHeld = false;
+    public bool isHeld;
     [SerializeField] private Vector3 heldPos;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class HeavyObject : MonoBehaviour
         ToggleObjectPickup();
         UpdateObjectParent();
         UpdateHeldLocalPosition();
+        isHeld = _isHeld;
     }
 
     void ToggleObjectPickup()
@@ -27,18 +29,18 @@ public class HeavyObject : MonoBehaviour
         if (Vector3.Distance(
             this.transform.position, FirstPersonController_Sam.fpsSam.transform.position) < 2.5
             && InputManager.inputManager.ePressed
-            && !isHeld
+            && !_isHeld
             && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
         {
             Debug.Log("Picked up heavy object");
-            isHeld = true;
+            _isHeld = true;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
             InputManager.inputManager.eCycled = false;
         }
-        else if (isHeld && InputManager.inputManager.ePressed)
+        else if (_isHeld && InputManager.inputManager.ePressed)
         {
             Debug.Log("Dropped heavy object");
-            isHeld = false;
+            _isHeld = false;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
             InputManager.inputManager.eCycled = false;
         }
@@ -47,11 +49,11 @@ public class HeavyObject : MonoBehaviour
 
     void UpdateObjectParent()
     {
-        if (isHeld && this.gameObject.transform.parent == null)
+        if (_isHeld && this.gameObject.transform.parent == null)
         {
             this.gameObject.transform.parent = FirstPersonController_Sam.fpsSam.transform;
         }
-        else if (!isHeld)
+        else if (!_isHeld)
         {
             this.gameObject.transform.parent = null;
         }
@@ -64,4 +66,12 @@ public class HeavyObject : MonoBehaviour
             this.gameObject.transform.localPosition = heldPos;
         }
     }
+
+   public void ForceDropObject()
+   {
+        FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
+        InputManager.inputManager.eCycled = true;
+        _isHeld = false;
+        UpdateObjectParent();
+   }
 }

@@ -35,17 +35,22 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(isDoorOpening);
         if (isDoorOpening == true) MoveDoor(openPos.transform.position); // I'll probably LeanTween this later
         else if (!isDoorOpening) MoveDoor(closePos);
 
         if (isPlayerInside && Vector3.Distance(transform.position, closePos) < 0.05f)
         {
-            Debug.Log("LOAD SCENE"); // Load a new Scene here
             isPlayerInside = false;
 
-            if (!noLoad)Level_Manager.LM.LoadMainHab();
+            if (!noLoad)
+            {
+                Debug.Log("LOAD SCENE"); // Load a new Scene here
+                Level_Manager.LM.LoadMainHab();
+            }
             else if (noLoad)
             {
+                Debug.Log("NO LOAD, CYCLING AIRLOCK");
                 otherDoor.isDoorOpening = true;
             }
         }      
@@ -90,6 +95,7 @@ public class Door : MonoBehaviour
         if (timeOpen <= waitTimeReduction)
         {
             timeOpen = maxTimeOpen;
+            Debug.Log("Countdown setting isDoorOpening False");
             isDoorOpening = false;                         
         }
     }
@@ -98,6 +104,7 @@ public class Door : MonoBehaviour
     {
         Debug.Log("Door Opening...");
         yield return new WaitForSeconds(timeToOpen);
+        Debug.Log("Door delay coroutine setting isDoorOpening True");
         isDoorOpening = true;
     }
 }
