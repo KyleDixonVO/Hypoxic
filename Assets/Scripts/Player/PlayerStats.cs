@@ -18,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Player Stats")]
     public float maxPlayerHealth = 100.0f;
     public float playerHealth = 100.0f;
+    private bool isDead;
 
     [Header("Spotlight Settings")]
     [SerializeField] public float poweredRange = 60.0f;
@@ -45,6 +46,7 @@ public class PlayerStats : MonoBehaviour
     {
         suitPower = maxSuitPower;
         playerHealth = maxPlayerHealth;
+        isDead = false;
         
     }
 
@@ -96,6 +98,9 @@ public class PlayerStats : MonoBehaviour
         {
             Debug.Log("Player Health Depleted");
             playerHealth = 0;
+            isDead = true;
+            if (FirstPersonController_Sam.fpsSam == null) return;
+            FirstPersonController_Sam.fpsSam.LockPlayerMovement();
             return;
         }
 
@@ -120,5 +125,17 @@ public class PlayerStats : MonoBehaviour
         {
             suitSpotlight.enabled = false;
         }
+    }
+
+    public void ResetRun()
+    {
+        playerHealth = maxPlayerHealth;
+        suitPower = maxSuitPower;
+        isDead = false;
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 }
