@@ -17,6 +17,9 @@
         },
         {
             "m_Id": "3145a5cb42c549aea9f891ae5bba6619"
+        },
+        {
+            "m_Id": "593f0183bacd4e578ce2951ff0bd741b"
         }
     ],
     "m_Keywords": [],
@@ -104,6 +107,9 @@
         },
         {
             "m_Id": "66260855a56d433b8042996ac4ecfc63"
+        },
+        {
+            "m_Id": "6e61a1f35f794e0fa325deee39b99e07"
         }
     ],
     "m_GroupDatas": [],
@@ -275,6 +281,20 @@
                     "m_Id": "995b4a609d41427f84ae92d2be3d9f87"
                 },
                 "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "6e61a1f35f794e0fa325deee39b99e07"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "8605e98706e84b5b983b699530a0f4c3"
+                },
+                "m_SlotId": 0
             }
         },
         {
@@ -1180,6 +1200,33 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "593f0183bacd4e578ce2951ff0bd741b",
+    "m_Guid": {
+        "m_GuidSerialized": "0a677c8d-fb74-4d7c-8d39-a0af9918fee6"
+    },
+    "m_Name": "Smoothness",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Smoothness",
+    "m_DefaultReferenceName": "_Smoothness",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 5.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "5a4b9fdd46d14a999ac4b2482c4a4f15",
@@ -1404,6 +1451,41 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "6e61a1f35f794e0fa325deee39b99e07",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -283.0000305175781,
+            "y": 366.0,
+            "width": 140.00003051757813,
+            "height": 34.000030517578128
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "e4306af8ff65473ca574e03e70bfd902"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "593f0183bacd4e578ce2951ff0bd741b"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "6fa662eac1c44051ac48c06fdfebdcbc",
     "m_Id": 0,
@@ -1446,6 +1528,9 @@
         },
         {
             "m_Id": "3145a5cb42c549aea9f891ae5bba6619"
+        },
+        {
+            "m_Id": "593f0183bacd4e578ce2951ff0bd741b"
         }
     ]
 }
@@ -1949,7 +2034,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"953f8798896e837459b5aefaf461d963\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"4ac1cecb1bb6fd5468cf6d54d2ca720d\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -2054,7 +2139,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
     "m_StageCapability": 2,
-    "m_Value": 0.30000001192092898,
+    "m_Value": 5.0,
     "m_DefaultValue": 0.5,
     "m_Labels": []
 }
@@ -2425,6 +2510,21 @@
         "m_Guid": ""
     },
     "m_DefaultType": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "e4306af8ff65473ca574e03e70bfd902",
+    "m_Id": 0,
+    "m_DisplayName": "Smoothness",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
