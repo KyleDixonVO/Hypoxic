@@ -7,7 +7,6 @@ public class Button : MonoBehaviour
     public GameObject door;
     private Door doorScript;
     public bool openDoor;
-    public Level_Manager LM;
 
     // This is bad and TEMP,
     // basically when the player is in this trigger and presses
@@ -22,22 +21,30 @@ public class Button : MonoBehaviour
 
     private void OnTriggerStay(Collider other) // while in trigger if 'E' is pressed do the thing
     {
-        if (!openDoor)
+        if (other.tag != "Player") return;
+        if (InputManager.inputManager.ePressed)
         {
-            if (other.tag == "Player" && Input.GetKey(KeyCode.E))
+            if (doorScript.isDoorOpening) return;
+            if (doorScript.otherDoor != null)
+            {
+                if (doorScript.otherDoor.isDoorOpening) return;
+            }
+            if (!openDoor)
             {
                 Debug.LogWarning("Press");
                 doorScript.OpenDoor();
+                openDoor = true;
             }
-        }
-        else
-        {
-            if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorScript.isDoorOpening == false)
+            else if (!doorScript.noLoad)
             {
                 Debug.LogWarning("LoadScene");
-                LM.LoadOutside();
+                Level_Manager.LM.LoadOutside();
+                openDoor = false;
+            }
+            else
+            {
+                openDoor = false;
             }
         }
-
     }
 }

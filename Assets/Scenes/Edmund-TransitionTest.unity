@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b8a47cd586867449e7ab4a4407d65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openScenes: []
 --- !u!4 &18203453
 Transform:
   m_ObjectHideFlags: 0
@@ -964,9 +965,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3824a5626e641b94c8b0e1a2562769b0, type: 2}
+    - target: {fileID: 8626322559144380143, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
+      propertyPath: openPos
+      value: 
+      objectReference: {fileID: 8626322558600036373}
     - target: {fileID: 8626322559900971904, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
+--- !u!1 &8626322558600036373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6123737662926634286, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
+  m_PrefabInstance: {fileID: 8626322558600036372}
+  m_PrefabAsset: {fileID: 0}

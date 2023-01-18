@@ -2,112 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HarpoonGun : MonoBehaviour
+namespace UnderwaterHorror
 {
-    [Header("Refrences")]
-    public Camera playerCamera;
-    [Header("Weapon Values")]
-    [SerializeField]
-    float range;
-    [SerializeField]
-    int currentAmmo;
-    [SerializeField]
-    int maxAmmo;
-    [SerializeField]
-    float reloadTime = 5f;
-    [SerializeField]
-    float reloadProgress;
-    [Header("Booleans")]
-    public bool isEquiped;
-    bool canShoot;
-
-    // We might want to put items like this on a diffrent rendering plane / canvas to prevent
-    // clipping with the enviroment - Edmund
-
-    // Start is called before the first frame update
-    void Start()
+    public class HarpoonGun : Weapon
     {
-        canShoot = true;
-        isEquiped = true;
-    }
+        // We might want to put items like this on a diffrent rendering plane / canvas to prevent
+        // clipping with the enviroment - Edmund
 
-    // Update is called once per frame
-    void Update()
-    {
-        // RELOAD COUTER
-        if (reloadProgress <= 0)
+        // Start is called before the first frame update
+        void Start()
         {
-            reloadProgress = 0;
+            // set weapon stats
+            damage = 5;
+            range = 15;
+            maxAmmo = 6;
+            currentAmmo = 6;
+            reloadTime = 5;
+
+            // set bools
             canShoot = true;
-        }
-        else if (reloadProgress > 0 && isEquiped)
-        {
-            reloadProgress -= Time.deltaTime;
+            isEquiped = true;
         }
 
-        // SHOOTING
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
+        // Update is called once per frame
+        void Update()
         {
-            ShootHarpoon();
-        }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
-        {
-            // no ammo sound
-        }
-
-        // TEMP PUT ITEM AWAY
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (isEquiped) 
+            // RELOAD COUTER
+            if (reloadProgress <= 0)
             {
-                isEquiped = false;
-                gameObject.GetComponent<Renderer>().enabled = false;
-                if (reloadProgress != 0) reloadProgress = reloadTime;
-            } 
-            else if (!isEquiped)
+                reloadProgress = 0;
+                canShoot = true;
+            }
+            else if (reloadProgress > 0 && isEquiped)
+            {
+                reloadProgress -= Time.deltaTime;
+            }
+
+            // SHOOTING
+            if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
+            {
+                ShootWeapon(damage);
+            }
+            else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
+            {
+                // no ammo sound
+            }
+
+            //TEMP
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 isEquiped = true;
                 gameObject.GetComponent<Renderer>().enabled = true;
-            }            
-        }
-
-        // update HUD
-        Debug.LogWarning("time to reload: " + reloadProgress);
-    }
-
-    void ShootHarpoon()
-    {
-        Debug.LogWarning("BANG");
-        canShoot = false;
-        reloadProgress = reloadTime;
-
-        RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
-        {
-            // harpoon sound
-            currentAmmo--;
-
-            Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * range, Color.red);
-
-            if (hit.transform.tag == "Enemy")
-            {
-                // run ai behavior / kill ai
             }
-            else
+            else if (Input.GetKeyDown(KeyCode.Alpha2) | Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Debug.LogWarning("hit:" + hit);
+                isEquiped = false;
+                gameObject.GetComponent<Renderer>().enabled = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                //EquipUnequip();
             }
         }
     }
 
-    public void GetAmmo(int ammoAmmount)
-    {
-        // range checks
-        if (ammoAmmount > 6) ammoAmmount = 6;
-        else if (ammoAmmount <= 0) return;
-
-        // get ammo
-        currentAmmo += ammoAmmount;
-        if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
-    }
 }
