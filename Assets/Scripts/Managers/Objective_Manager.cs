@@ -22,7 +22,7 @@ public class Objective_Manager : MonoBehaviour
     [Header("Objectives")]
     [SerializeField] private bool objectiveOneComplete = false;
     [SerializeField] private bool objectiveTwoComplete = false;
-    [SerializeField] private bool objectiveThreeComplete = false;
+    [SerializeField] private bool objectiveThreeComplete = true;
     [SerializeField] private bool finalObjectiveComplete = false;
     [SerializeField] private int numberOfObjectivesComplete = 0;
     [SerializeField] private int savedObjectivesComplete = 0;
@@ -89,7 +89,7 @@ public class Objective_Manager : MonoBehaviour
         numberOfObjectivesComplete = 0;
         objectiveOneComplete = false;
         objectiveTwoComplete = false;
-        objectiveThreeComplete = false;
+        objectiveThreeComplete = true;
         finalObjectiveComplete = false;
         savedObjectivesComplete = 0;
     }
