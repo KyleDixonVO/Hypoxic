@@ -64,6 +64,12 @@ public class GameManager : MonoBehaviour
                     GamestatePause();
                     FirstPersonController_Sam.fpsSam.LockPlayerMovement();
                 }
+                if (PlayerStats.playerStats == null || Objective_Manager.objective_Manager == null) return;
+                if (PlayerStats.playerStats.IsDead() || Objective_Manager.objective_Manager.GameWon())
+                {
+                    _gameState = gameStates.menu;
+                    Cursor.lockState = CursorLockMode.None;
+                }
                 break;
 
             case gameStates.paused:
@@ -81,6 +87,17 @@ public class GameManager : MonoBehaviour
                 if (UI_Manager.ui_Manager.OptionsOpen())
                 {
                     RandomSoundsManager.RSM.UpdateVolumePrefs();
+                }
+                if (PlayerStats.playerStats == null) return;
+                if (PlayerStats.playerStats.IsDead())
+                {
+                    UI_Manager.ui_Manager.SwitchGameOverWin();
+                    UI_Manager.ui_Manager.SwitchDeathText();
+                }
+                else if (Objective_Manager.objective_Manager.GameWon())
+                {
+                    UI_Manager.ui_Manager.SwitchGameOverWin();
+                    UI_Manager.ui_Manager.SwitchWinText();
                 }
                 break;
         }
@@ -104,6 +121,7 @@ public class GameManager : MonoBehaviour
         if (FirstPersonController_Sam.fpsSam != null)
         {
             FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
+            FirstPersonController_Sam.fpsSam.EnableCharacterController();
         }
     }
 
@@ -122,6 +140,35 @@ public class GameManager : MonoBehaviour
         UI_Manager.ui_Manager.SwitchGameplay();
         _gameState = gameStates.gameplay;
         FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
+    }
+
+    //public void LoadLastSave()
+    //{
+    //    //loads players last save
+    //}
+
+    //public void SaveGame()
+    //{
+    //    //saves the game when at a checkpoint
+    //}
+
+    //public void GameOver()
+    //{
+    //    //ends the game when a player dies, for prototype and possibly an optional iron man mode?
+
+    //}
+
+    //public void WinGame()
+    //{
+        
+    //}
+
+    public void ResetForNewRun()
+    {
+        FirstPersonController_Sam.fpsSam.ResetRun();
+        PlayerStats.playerStats.ResetRun();
+        FirstPersonController_Sam.fpsSam.DisableCharacterController();
+        Objective_Manager.objective_Manager.ResetRun();
     }
 
 

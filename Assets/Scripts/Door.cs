@@ -106,4 +106,13 @@ public class Door : MonoBehaviour
         Debug.Log("Door delay coroutine setting isDoorOpening True");
         isDoorOpening = true;
     }
+
+    public void ResetRun()
+    {
+        timeOpen = maxTimeOpen;
+        closePos = transform.position;
+        isDoorOpenable = true;
+        isDoorOpening = false;
+        isPlayerInside = false;
+    }
 }

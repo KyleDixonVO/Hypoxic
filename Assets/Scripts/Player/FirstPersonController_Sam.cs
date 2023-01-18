@@ -49,6 +49,8 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashLength = 0.2f;
     private float dashTimer;
+    [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 0.71f, -20.95f);
+    [SerializeField] private Vector3 LastSavePos;
 
     [Header("Look Settings")]
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
@@ -605,6 +607,39 @@ public class FirstPersonController_Sam : MonoBehaviour
         this.inWater = false;
         this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
         this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
+    }
+
+    public void ResetRun()
+    {
+        isDashing = false;
+        inWater = false;
+        carryingHeavyObj = false;
+        canRun = true;
+        canJump = true;
+        canCrouch = true;
+        canUseHeadbob = true;
+        canSlideOnSlopes = true;
+        canZoom = true;
+        canInteract = true;
+        useFootsteps = true;
+        canMove = true;
+        this.gameObject.GetComponent<CharacterController>().enabled = false;
+        Physics.autoSyncTransforms = true;
+        this.gameObject.transform.position = NewGamePos;
+        Physics.autoSyncTransforms = false;
+        this.gameObject.GetComponent<CharacterController>().enabled = true;
+    }
+
+    public void DisableCharacterController()
+    {
+        if (this.gameObject.GetComponent<CharacterController>().enabled == false) return;
+        this.gameObject.GetComponent<CharacterController>().enabled = false;
+    }
+
+    public void EnableCharacterController()
+    {
+        if (this.gameObject.GetComponent<CharacterController>().enabled == true) return;
+        this.gameObject.GetComponent<CharacterController>().enabled = true;
     }
 
 

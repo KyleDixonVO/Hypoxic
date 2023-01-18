@@ -29,6 +29,7 @@ namespace UnderwaterHorror
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
         [SerializeField] protected GameObject playerObj;
+        [SerializeField] protected GameObject attackAnimation;
 
         [Header("Place desired patrol point here")]
         [SerializeField] protected GameObject currentPatrolPoint;
@@ -43,6 +44,8 @@ namespace UnderwaterHorror
         [SerializeField] protected BoxCollider patrolCollider;
         [SerializeField] protected SphereCollider chaseCollider;
 
+        [SerializeField] private Vector3 NewGamePos;
+        [SerializeField] private Vector3 SaveGamePos;
         protected Vector3 playerPreviousLocation;
 
         // Update is called once per frame
@@ -133,7 +136,7 @@ namespace UnderwaterHorror
             float distCheck = Vector3.Distance(pointPosDest, agentPosDest);
             //Debug.Log(distCheck);
 
-            if (distCheck < 0.5)
+            if (distCheck < 6)
             {
                 if (_enemyStats.patrolRandomWaitTimer <= 0)
                 {
@@ -176,6 +179,15 @@ namespace UnderwaterHorror
             {
                 playerObj.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
+
+                // Turns animation on
+                //attackAnimation.SetActive(true);
+            }
+
+            else
+            {
+                // Turns animation off
+                //attackAnimation.SetActive(false);
             }
         }
 
@@ -261,7 +273,7 @@ namespace UnderwaterHorror
         {
             if (_enemyAttackRadius.playerInRadius)
             {
-                //Debug.Log("InsideRadius");
+                Debug.Log("InsideRadius");
                 return true;
             }
 
@@ -269,8 +281,9 @@ namespace UnderwaterHorror
             {
                 // Resets enemy attack
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
+                Debug.Log("Outside radius");
+                return false;
             }
-            return false;
         }
 
         // Made by Kyle
@@ -279,6 +292,16 @@ namespace UnderwaterHorror
         {
             if (playerObj != null) return;
             playerObj = GameObject.Find("Player");
+        }
+
+        void ResetRun()
+        {
+            this.gameObject.transform.position = NewGamePos;
+        }
+
+        void ReloadToSave()
+        {
+            this.gameObject.transform.position = SaveGamePos;
         }
         //--------------------------------------------------------
     }
