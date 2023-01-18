@@ -10,11 +10,13 @@ namespace UnderwaterHorror
         public bool playerInRadius = false;
         private void OnTriggerStay(Collider other)
         {
+            if (other.tag != "Player") return;
             playerInRadius = true;
         }
 
         private void OnTriggerExit(Collider other)
         {
+            if (other.tag != "Player") return;
             playerInRadius = false;
         }
     }
