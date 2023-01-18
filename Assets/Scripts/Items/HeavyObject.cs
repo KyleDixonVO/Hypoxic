@@ -7,6 +7,7 @@ public class HeavyObject : MonoBehaviour
     [SerializeField] private bool _isHeld = false;
     public bool isHeld;
     [SerializeField] private Vector3 heldPos;
+    [SerializeField] private Vector3 heldRot;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class HeavyObject : MonoBehaviour
 
     void ToggleObjectPickup()
     {
-        //Debug.Log(InputManager.inputManager.eCycled);
+        Debug.Log(InputManager.inputManager.eCycled);
         if (InputManager.inputManager.eCycled == false) return;
         if (Vector3.Distance(
             this.transform.position, FirstPersonController_Sam.fpsSam.transform.position) < 2.5
@@ -64,6 +65,7 @@ public class HeavyObject : MonoBehaviour
         if (this.gameObject.transform.parent != null)
         {
             this.gameObject.transform.localPosition = heldPos;
+            this.gameObject.transform.eulerAngles = heldRot;
         }
     }
 

@@ -118,7 +118,7 @@ public class UI_Manager : MonoBehaviour
         buttonCancelNG = GameObject.Find("ButtonCancelNG").GetComponent<Button>();
         buttonConfirmNG = GameObject.Find("ButtonConfirmNG").GetComponent<Button>();
 
-        playerHitEffect = GameObject.Find("playerHitEffect").GetComponent<Image>();
+        //playerHitEffect = GameObject.Find("playerHitEffect").GetComponent<Image>();
         textGameOver = GameObject.Find("TextGameOver").GetComponent<TMP_Text>();
         buttonClearGameOver = GameObject.Find("ButtonClearGameOver").GetComponent<Button>();
     }
