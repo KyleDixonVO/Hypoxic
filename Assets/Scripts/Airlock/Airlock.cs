@@ -20,10 +20,12 @@ public class Airlock : MonoBehaviour
     [SerializeField] bool isOpenable = true;
     public bool playerPresent = false;
     [SerializeField] bool isLoad;
+    bool canLoad;
 
     [Header("Values")]
     [SerializeField] float openWaitTime = 10f;
     [SerializeField] float closeWaitTime = 20f;
+    float countDownProgress = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,32 +33,55 @@ public class Airlock : MonoBehaviour
         // Set close pos
         rightClosePos = doorRight.transform.position;
         leftClosePos = doorLeft.transform.position;
+
+        // set variables
     }
 
     // --------------------------------------- Door Controls --------------------------------------- \\
     // Update is called once per frame
     void Update()
     {
-        if (isOpening && playerPresent) // player is inside - close immediatly
+        if (isLoad) // activates timer so the player present trigger doesn't activate immidetly
+        {
+            countDownProgress -= Time.deltaTime;
+
+            if (countDownProgress <= 0)
+            {
+                canLoad = true;
+                countDownProgress = 0;
+            }
+            else if (countDownProgress >= 0 && !isOpening && playerPresent)
+            {
+                Debug.Log("inside");
+                StartCoroutine(OpenDelay(0f));
+            }
+
+            //Debug.Log(countDownProgress);
+        }
+
+        // door closing
+        if (isOpening && playerPresent && countDownProgress <= 0) // player is inside - close immediatly
         {
             CloseDoor(0f);
         }
-        else if (IsOpen() && isOpening) CloseDoor(closeWaitTime); // door is open - wait to close
-        else if (playerPresent && IsClosed() && isLoad) // player is inside and the door is closed - Load scene
+        else if (IsOpen() && isOpening) // door is open - wait to close
         {
+            CloseDoor(closeWaitTime);
+        }  
+        else if (playerPresent && IsClosed() && isLoad && canLoad) // player is inside and the door is closed - Load scene
+        {
+            Debug.Log("Load Scene");
             // LOAD SCENE
         }
-
     }
 
     public void OpenDoor()
     {
-        StartCoroutine(OpenDelay());
+        StartCoroutine(OpenDelay(openWaitTime));
     }
 
     void CloseDoor(float waitTime)
-    {
-        isOpening = false;
+    {       
         StartCoroutine(CloseDelay(waitTime));
     }
 
@@ -82,9 +107,9 @@ public class Airlock : MonoBehaviour
     }
 
     // ---------------------------------------- Coroutines ----------------------------------------- \\
-    IEnumerator OpenDelay()
+    IEnumerator OpenDelay(float waitTime)
     {
-        yield return new WaitForSeconds(openWaitTime);
+        yield return new WaitForSeconds(waitTime);
 
         LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
         LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
@@ -94,8 +119,13 @@ public class Airlock : MonoBehaviour
     IEnumerator CloseDelay(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-
+        isOpening = false;
         LeanTween.move(doorRight, rightClosePos, 2f);
         LeanTween.move(doorLeft, leftClosePos, 2f);
+    }
+
+    void Timer(float countDownProgress)
+    {
+
     }
 }
