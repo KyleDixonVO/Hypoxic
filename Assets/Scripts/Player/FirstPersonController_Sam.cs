@@ -154,6 +154,9 @@ public class FirstPersonController_Sam : MonoBehaviour
 
     private float rotationX = 0;
 
+    [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 0.71f, -20.95f);
+    [SerializeField] private Vector3 LastSavePos;
+
     private void Awake()
     {
         if (fpsSam == null)
@@ -598,8 +601,36 @@ public class FirstPersonController_Sam : MonoBehaviour
         this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
     }
 
+    public void ResetRun()
+    {
+        isDashing = false;
+        inWater = false;
+        carryingHeavyObj = false;
+        canRun = true;
+        canJump = true;
+        canCrouch = true;
+        canUseHeadbob = true;
+        canSlideOnSlopes = true;
+        canZoom = true;
+        canInteract = true;
+        useFootsteps = true;
+        canMove = true;
+        this.gameObject.GetComponent<CharacterController>().enabled = false;
+        Physics.autoSyncTransforms = true;
+        this.gameObject.transform.position = NewGamePos;
+        Physics.autoSyncTransforms = false;
+        this.gameObject.GetComponent<CharacterController>().enabled = true;
+    }
 
+    public void DisableCharacterController()
+    {
+        if (this.gameObject.GetComponent<CharacterController>().enabled == false) return;
+        this.gameObject.GetComponent<CharacterController>().enabled = false;
+    }
 
-
-
+    public void EnableCharacterController()
+    {
+        if (this.gameObject.GetComponent<CharacterController>().enabled == true) return;
+        this.gameObject.GetComponent<CharacterController>().enabled = true;
+    }
 }
