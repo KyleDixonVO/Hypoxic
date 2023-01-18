@@ -115,7 +115,7 @@ public class RandomSoundsManager : MonoBehaviour
     void PlayRandomSound()
     {
         if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
-        //When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
+        // When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
         if (randomSoundsAudio.isPlaying != true)
         {
             if (probability == 0)

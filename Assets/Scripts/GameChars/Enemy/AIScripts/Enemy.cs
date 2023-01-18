@@ -29,7 +29,6 @@ namespace UnderwaterHorror
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
         [SerializeField] protected GameObject playerObj;
-        [SerializeField] protected GameObject attackAnimation;
 
         [Header("Place desired patrol point here")]
         [SerializeField] protected GameObject currentPatrolPoint;
@@ -136,7 +135,7 @@ namespace UnderwaterHorror
             float distCheck = Vector3.Distance(pointPosDest, agentPosDest);
             //Debug.Log(distCheck);
 
-            if (distCheck < 6)
+            if (distCheck < 0.5)
             {
                 if (_enemyStats.patrolRandomWaitTimer <= 0)
                 {
@@ -179,15 +178,6 @@ namespace UnderwaterHorror
             {
                 playerObj.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
-
-                // Turns animation on
-                //attackAnimation.SetActive(true);
-            }
-
-            else
-            {
-                // Turns animation off
-                //attackAnimation.SetActive(false);
             }
         }
 
@@ -273,7 +263,7 @@ namespace UnderwaterHorror
         {
             if (_enemyAttackRadius.playerInRadius)
             {
-                Debug.Log("InsideRadius");
+                //Debug.Log("InsideRadius");
                 return true;
             }
 
@@ -281,9 +271,8 @@ namespace UnderwaterHorror
             {
                 // Resets enemy attack
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
-                Debug.Log("Outside radius");
-                return false;
             }
+            return false;
         }
 
         // Made by Kyle
