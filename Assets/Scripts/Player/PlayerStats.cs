@@ -18,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Player Stats")]
     public float maxPlayerHealth = 100.0f;
     public float playerHealth = 100.0f;
+    private bool isDead;
 
     [Header("Player UI Settings")]
     // Timer for hit effect
@@ -50,7 +51,8 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         suitPower = maxSuitPower;
-        playerHealth = maxPlayerHealth;      
+        playerHealth = maxPlayerHealth;
+        isDead = false;
     }
 
     // Update is called once per frame
@@ -105,13 +107,17 @@ public class PlayerStats : MonoBehaviour
             {
                 Debug.Log("Player Health Depleted");
                 playerHealth = 0;
+                isDead = true;
+                if (FirstPersonController_Sam.fpsSam == null) return;
+                FirstPersonController_Sam.fpsSam.LockPlayerMovement();
                 return;
             }
+        }
 
             if (damage <= 0) return;
             playerHealth -= damage;
-        }
     }
+    
 
     public void RechargeSuit()
     {
@@ -145,5 +151,18 @@ public class PlayerStats : MonoBehaviour
                 playerHitEffectTimer = startPlayerHitTimer;
             }
         }
+
+    }
+    
+    public void ResetRun()
+    {
+        playerHealth = maxPlayerHealth;
+        suitPower = maxSuitPower;
+        isDead = false;
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 }

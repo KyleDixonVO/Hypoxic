@@ -45,18 +45,23 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private Button buttonConfirmNG;
     [SerializeField] private Button buttonCancelNG;
 
+    [Header("Game Over / Win Assets")]
+    [SerializeField] private TMP_Text textGameOver;
+    [SerializeField] private Button buttonClearGameOver;
+
     [Header("General Variables")]
     [SerializeField] private ActiveUI activeCanvas;
     [SerializeField] private Canvas[] canvasArray;
 
     public enum ActiveUI
-    { 
+    {
         MainMenu,
         Gameplay,
         Pause,
         Options,
         Credits,
-        NewGame
+        NewGame,
+        GameOverWin
     }
 
     private void Awake()
@@ -114,6 +119,8 @@ public class UI_Manager : MonoBehaviour
         buttonConfirmNG = GameObject.Find("ButtonConfirmNG").GetComponent<Button>();
 
         playerHitEffect = GameObject.Find("playerHitEffect").GetComponent<Image>();
+        textGameOver = GameObject.Find("TextGameOver").GetComponent<TMP_Text>();
+        buttonClearGameOver = GameObject.Find("ButtonClearGameOver").GetComponent<Button>();
     }
 
     void CheckActiveCanvas()
@@ -134,7 +141,7 @@ public class UI_Manager : MonoBehaviour
         switch (activeCanvas)
         {
             case ActiveUI.MainMenu:
-                
+
                 break;
 
             case ActiveUI.Gameplay:
@@ -185,7 +192,7 @@ public class UI_Manager : MonoBehaviour
         return false;
     }
 
-   //public for use on buttons
+    //public for use on buttons
     public void SwitchGameplay()
     {
         activeCanvas = ActiveUI.Gameplay;
@@ -220,5 +227,20 @@ public class UI_Manager : MonoBehaviour
     {
         if (isON) playerHitEffect.enabled = true;
         if (isON == false) playerHitEffect.enabled = false;
+    }
+    
+    public void SwitchGameOverWin()
+    {
+        activeCanvas = ActiveUI.GameOverWin;
+    }
+
+    public void SwitchDeathText()
+    {
+        textGameOver.text = "Game Over";
+    }
+
+    public void SwitchWinText()
+    {
+        textGameOver.text = "You Won!";
     }
 }

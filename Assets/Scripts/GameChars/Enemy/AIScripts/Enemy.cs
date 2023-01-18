@@ -44,6 +44,8 @@ namespace UnderwaterHorror
         [SerializeField] protected BoxCollider patrolCollider;
         [SerializeField] protected SphereCollider chaseCollider;
 
+        [SerializeField] private Vector3 NewGamePos;
+        [SerializeField] private Vector3 SaveGamePos;
         protected Vector3 playerPreviousLocation;
 
         // Update is called once per frame
@@ -290,6 +292,16 @@ namespace UnderwaterHorror
         {
             if (playerObj != null) return;
             playerObj = GameObject.Find("Player");
+        }
+
+        void ResetRun()
+        {
+            this.gameObject.transform.position = NewGamePos;
+        }
+
+        void ReloadToSave()
+        {
+            this.gameObject.transform.position = SaveGamePos;
         }
         //--------------------------------------------------------
     }

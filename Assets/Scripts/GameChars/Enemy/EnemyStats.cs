@@ -44,6 +44,11 @@ namespace UnderwaterHorror
                 health = 0;          
             }
         }
+
+        public void ResetRun()
+        {
+            health = 5;
+        }
     }
 
 }
