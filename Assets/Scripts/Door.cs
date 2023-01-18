@@ -109,7 +109,7 @@ public class Door : MonoBehaviour
 
     public void ResetRun()
     {
-        timeOpen = maxTimeOpen;
+        //timeOpen = maxTimeOpen;
         closePos = transform.position;
         isDoorOpenable = true;
         isDoorOpening = false;
