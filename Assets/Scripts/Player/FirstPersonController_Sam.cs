@@ -49,8 +49,6 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashLength = 0.2f;
     private float dashTimer;
-    [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 0.71f, -20.95f);
-    [SerializeField] private Vector3 LastSavePos;
 
     [Header("Look Settings")]
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
@@ -107,8 +105,8 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float waterCrouchStepMultiplier = 2.3f;
     [SerializeField] private float waterRunStepMultiplier = 1.2f;
     [SerializeField] private AudioSource footstepAudioSource = default;
-    [SerializeField] private AudioClip[] woodFootstepClips = default;
-    [SerializeField] private AudioClip[] metalFootstepClips = default;
+    [SerializeField] private AudioClip[] outsideFootstepClips = default;
+    [SerializeField] private AudioClip[] insideFootstepClips = default;
     [SerializeField] private AudioClip[] grassFootstepClips = default;
     private float footstepTimer = 0f;
 
@@ -155,6 +153,9 @@ public class FirstPersonController_Sam : MonoBehaviour
     private Vector2 currentInput;
 
     private float rotationX = 0;
+
+    [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 0.71f, -20.95f);
+    [SerializeField] private Vector3 LastSavePos;
 
     private void Awake()
     {
@@ -416,25 +417,16 @@ public class FirstPersonController_Sam : MonoBehaviour
         {
             if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 3))
             {
-                
-
-                switch (hit.collider.tag)
+                switch (inWater)
                 {
-                    case "Footsteps/Wood":
-                        if (woodFootstepClips.Length == 0) return;
-                        footstepAudioSource.PlayOneShot(woodFootstepClips[Random.Range(0, woodFootstepClips.Length - 1)]);
+                    case true:
+                        if (outsideFootstepClips.Length == 0) return;
+                        footstepAudioSource.PlayOneShot(outsideFootstepClips[Random.Range(0, outsideFootstepClips.Length - 1)]);
                         break;
-                    case "Footsteps/Metal":
-                        if (metalFootstepClips.Length == 0) return;
-                        footstepAudioSource.PlayOneShot(metalFootstepClips[Random.Range(0, metalFootstepClips.Length - 1)]);
-                        break;
-                    case "Footsteps/Grass":
-                        if (grassFootstepClips.Length == 0) return;
-                        footstepAudioSource.PlayOneShot(grassFootstepClips[Random.Range(0, grassFootstepClips.Length - 1)]);
-                        break;
-                    default:
-                        if (metalFootstepClips.Length == 0) return;
-                        footstepAudioSource.PlayOneShot(metalFootstepClips[Random.Range(0, metalFootstepClips.Length - 1)]);
+
+                    case false:
+                        if (insideFootstepClips.Length == 0) return;
+                        footstepAudioSource.PlayOneShot(insideFootstepClips[Random.Range(0, insideFootstepClips.Length - 1)]);
                         break;
                 }
             }
@@ -641,9 +633,4 @@ public class FirstPersonController_Sam : MonoBehaviour
         if (this.gameObject.GetComponent<CharacterController>().enabled == true) return;
         this.gameObject.GetComponent<CharacterController>().enabled = true;
     }
-
-
-
-
-
 }
