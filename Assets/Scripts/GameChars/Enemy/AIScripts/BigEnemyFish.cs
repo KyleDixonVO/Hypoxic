@@ -20,7 +20,7 @@ namespace UnderwaterHorror
             _enemyStats.fleeingTime -= Time.deltaTime;
 
             agent.speed = _enemyStats.fleeingSpeed;
-            agent.SetDestination(-playerObj.transform.position + transform.position);
+            agent.SetDestination(playerObj.transform.position - transform.position);
 
             // Enemy may despawn after fleeing in the future
 

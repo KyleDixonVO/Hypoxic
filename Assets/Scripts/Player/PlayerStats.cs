@@ -52,6 +52,7 @@ public class PlayerStats : MonoBehaviour
     {
         suitPower = maxSuitPower;
         playerHealth = maxPlayerHealth;
+        playerHitEffectTimer = startPlayerHitTimer;
         isDead = false;
     }
 
@@ -102,8 +103,8 @@ public class PlayerStats : MonoBehaviour
     {
         //if (playerHit == false)
         //{
-        //playerHit = true;
         //Debug.Log("Taking Damage");
+        playerHit = true;
         if (damage <= 0) return;
         Debug.Log("Taking Damage: " + damage);
         playerHealth -= damage;
@@ -144,6 +145,7 @@ public class PlayerStats : MonoBehaviour
 
     public void ManagePlayerHitEffect()
     {
+        // Shows the player hit effect on screen for a set amount of time
         if (UI_Manager.ui_Manager == null) return;
         if (playerHit)
         {
