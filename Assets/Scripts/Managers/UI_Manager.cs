@@ -19,6 +19,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private Slider suitPower;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Image playerHitEffect;
+    [SerializeField] private TMP_Text textToolTipE;
+    [SerializeField] private TMP_Text textToolTipR;
 
     [Header("Pause Assets")]
     [SerializeField] private TMP_Text textPauseTitle;
@@ -98,6 +100,10 @@ public class UI_Manager : MonoBehaviour
         buttonOptions = GameObject.Find("ButtonOptions").GetComponent<Button>();
         buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
 
+        playerHitEffect = GameObject.Find("playerHitEffect").GetComponent<Image>();
+        textToolTipE = GameObject.Find("TextToolTipE").GetComponent<TMP_Text>();
+        textToolTipR = GameObject.Find("TextToolTipR").GetComponent<TMP_Text>();
+
         textPauseTitle = GameObject.Find("TextPauseTitle").GetComponent<TMP_Text>();
         buttonResumeGame = GameObject.Find("ButtonResumeGame").GetComponent<Button>();
         buttonExitGame = GameObject.Find("ButtonExitGame").GetComponent<Button>();
@@ -118,7 +124,6 @@ public class UI_Manager : MonoBehaviour
         buttonCancelNG = GameObject.Find("ButtonCancelNG").GetComponent<Button>();
         buttonConfirmNG = GameObject.Find("ButtonConfirmNG").GetComponent<Button>();
 
-        //playerHitEffect = GameObject.Find("playerHitEffect").GetComponent<Image>();
         textGameOver = GameObject.Find("TextGameOver").GetComponent<TMP_Text>();
         buttonClearGameOver = GameObject.Find("ButtonClearGameOver").GetComponent<Button>();
     }
@@ -190,6 +195,17 @@ public class UI_Manager : MonoBehaviour
     {
         if (activeCanvas == ActiveUI.Options) return true;
         return false;
+    }
+
+    public void ToggleGameplayTooltips()
+    {
+        if (FirstPersonController_Sam.fpsSam == null) return;
+        if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) return;
+        if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
+        {
+            textToolTipR.gameObject.SetActive(true);
+        }
+        else textToolTipR.gameObject.SetActive(false);
     }
 
     //public for use on buttons
