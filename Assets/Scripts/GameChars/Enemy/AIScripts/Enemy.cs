@@ -56,6 +56,10 @@ namespace UnderwaterHorror
             FindPlayerRef();
             //-----------------------------------
 
+            // Makes it so the enemy can bite you immediatly on contact
+            // But have to recharge after a single bite
+            _enemyStats.timeToAttack -= Time.deltaTime;
+
             switch (enemyState)
             {
                 //-----------------------------------------  
@@ -174,7 +178,6 @@ namespace UnderwaterHorror
 
         void AttackingManager()
         {
-            _enemyStats.timeToAttack -= Time.deltaTime;
             if (_enemyStats.timeToAttack <= 0)
             {
                 playerObj.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
@@ -279,8 +282,6 @@ namespace UnderwaterHorror
 
             else
             {
-                // Resets enemy attack
-                _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
                 Debug.Log("Outside radius");
                 return false;
             }
