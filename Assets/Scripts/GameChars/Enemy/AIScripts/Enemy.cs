@@ -57,6 +57,15 @@ namespace UnderwaterHorror
 
             // Makes it so the enemy can bite you immediatly on contact
             // But have to recharge after a single bite
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) 
+            {
+                agent.isStopped = true;
+                return;
+            }
+            else
+            {
+                agent.isStopped = false;
+            }
             _enemyStats.timeToAttack -= Time.deltaTime;
 
             switch (enemyState)
