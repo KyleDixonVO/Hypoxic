@@ -1355,7 +1355,7 @@ MonoBehaviour:
     m_Bits: 8
   maxSoundRange: 10
   minSoundRange: -5
-  probabilityWeight: 1
+  probabilityWeight: 75000
   probability: 0
   playAudio: 0
   touchingWall: 0

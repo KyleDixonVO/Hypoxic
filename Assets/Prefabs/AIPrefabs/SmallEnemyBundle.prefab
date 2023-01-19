@@ -183,8 +183,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4565852536949667200}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.193, z: 0.522}
-  m_LocalScale: {x: 0.9, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.329, z: -0.021}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4565852538499039861}
@@ -197,7 +197,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4565852536949667200}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4565852536949667207
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -617,6 +617,8 @@ MonoBehaviour:
     m_Bits: 136
   patrolCollider: {fileID: 4565852538460446253}
   chaseCollider: {fileID: 4565852538166345229}
+  NewGamePos: {x: 0, y: 0, z: 0}
+  SaveGamePos: {x: 0, y: 0, z: 0}
 --- !u!114 &4565852538049996991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  patrolSpeed: 1
+  patrolSpeed: 3
   patrolRandomWaitTimerWeight: 6
   patrolRandomWaitTimer: 0
   chaseSpeed: 4.5
@@ -642,7 +644,7 @@ MonoBehaviour:
   timeToAttack: 0
   fleeingSpeed: 0
   fleeingTime: 0
-  dyingTime: 3
+  dyingTime: 1
 --- !u!195 &4565852538049996983
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -749,8 +751,8 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4565852538460446254}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: -2}
@@ -779,7 +781,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4565852538499039860}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -787,7 +789,7 @@ Transform:
   - {fileID: 4565852536949667201}
   m_Father: {fileID: 4565852538049996985}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4565852538499039867
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -795,7 +797,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4565852538499039860}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4565852538499039866
 MeshRenderer:
   m_ObjectHideFlags: 0
