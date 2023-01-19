@@ -12,6 +12,17 @@ namespace UnderwaterHorror
         {
             isAlive = true;
             enemyState = EnemyState.patrolling;
-        }       
+        }
+
+        // Edmund's Audio... yikes - Edmund
+        override protected void PlayAttackSound()
+        {
+            AM.PlaySoundSmallBite(source);
+        }
+
+        protected override void PlayAgroSound()
+        {
+            // TBA
+        }
     }
 }

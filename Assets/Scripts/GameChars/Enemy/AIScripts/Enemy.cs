@@ -48,12 +48,21 @@ namespace UnderwaterHorror
         [SerializeField] private Vector3 SaveGamePos;
         protected Vector3 playerPreviousLocation;
 
+        // lil addon by edmund
+        [Header("Refrences")]
+        [SerializeField] protected AudioSource source;
+        [SerializeField] GameObject audioMannager;
+        protected RandomSoundsManager AM;
+        
+        // --------------------
+
         // Update is called once per frame
         protected void Update()
         {
             // Made by Kyle
             //-----------------------------------
             FindPlayerRef();
+            FindAudioManager(); // Edmund
             //-----------------------------------
 
             // Makes it so the enemy can bite you immediatly on contact
@@ -67,6 +76,7 @@ namespace UnderwaterHorror
                     PatrollingManager();
                     if (SpottedPlayer())
                     {
+                        PlayAgroSound();
                         enemyState = EnemyState.chasing;
                     }
                     break;
@@ -74,7 +84,7 @@ namespace UnderwaterHorror
                 case EnemyState.alerted:
                     // Looks Direction it was alerted to after a delay
                     if (SpottedPlayer() == true)
-                    {
+                    {                        
                         enemyState = EnemyState.chasing;
                     }
                     break;
@@ -179,9 +189,9 @@ namespace UnderwaterHorror
         void AttackingManager()
         {
             if (_enemyStats.timeToAttack <= 0)
-            {
+            {                               
                 playerObj.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
-                _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
+                _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;               
 
                 // Turns animation on
                 //attackAnimation.SetActive(true);
@@ -305,5 +315,26 @@ namespace UnderwaterHorror
             this.gameObject.transform.position = SaveGamePos;
         }
         //--------------------------------------------------------
+
+        // Edmund Time
+        // -------------------------------------------------------
+        void FindAudioManager()
+        {
+            if (audioMannager != null) return;
+            audioMannager = GameObject.Find("AudioManager");
+            AM = audioMannager.GetComponent<RandomSoundsManager>();
+            //Debug.LogWarning("Found AM");
+        }
+
+        virtual protected void PlayAttackSound()
+        {
+
+        }
+
+        virtual protected void PlayAgroSound()
+        {
+
+        }
+        // -------------------------------------------------------
     }
 }

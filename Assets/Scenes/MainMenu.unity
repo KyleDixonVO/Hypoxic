@@ -1344,6 +1344,9 @@ MonoBehaviour:
   soundOne: {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
   titleMusic: {fileID: 0}
   gameplayAmbiance: {fileID: 0}
+  bigBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
+  bigAgro: {fileID: 8300000, guid: 06f77e2d9a70ea9468a07b3395c83ca1, type: 3}
+  smallBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
   playerObj: {fileID: 0}
   randomSoundsObj: {fileID: 1124360023}
   randomSoundsAudio: {fileID: 1124360025}
