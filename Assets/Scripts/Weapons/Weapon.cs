@@ -25,6 +25,8 @@ namespace UnderwaterHorror
         [Header("Booleans")]
         public bool isEquiped;
         protected bool canShoot;
+        [Header("SFX")]
+        [SerializeField] GameObject bloodSFX;
 
 
         void Update()
@@ -50,6 +52,10 @@ namespace UnderwaterHorror
                     Debug.LogWarning("hit enemy");
                     EnemyStats stats = hit.transform.GetComponent<EnemyStats>();
                     stats.TakeDamage(damage);
+
+                    GameObject blood = Instantiate(bloodSFX);
+                    blood.transform.position = hit.point;
+                    StartCoroutine(waitTime(blood));
                 }
             }
             currentAmmo--;
@@ -79,6 +85,12 @@ namespace UnderwaterHorror
             // get ammo
             currentAmmo += ammoAmmount;
             if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
+        }
+
+        IEnumerator waitTime(GameObject sfx)
+        {
+            yield return new WaitForSeconds(2f);
+            Destroy(sfx);
         }
     }
 
