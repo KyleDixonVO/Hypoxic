@@ -11,7 +11,7 @@ public class Door : MonoBehaviour
 
     [Header("Serialized Variables")]
     [SerializeField]
-    float speed = 0.35f;
+    float speed = 1f;
     [SerializeField]
     float maxTimeOpen = 13f;
     float countDownProgress;
