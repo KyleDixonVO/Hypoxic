@@ -55,7 +55,7 @@ public class HeavyObject : MonoBehaviour
         }
         else if (!_isHeld)
         {
-            this.gameObject.transform.parent = null;
+            this.gameObject.transform.parent = ObjectiveParent.objectiveParent.transform;
         }
     }
 

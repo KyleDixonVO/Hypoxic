@@ -28,16 +28,16 @@ public class Object_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindHeavyObjects();
+        //FindHeavyObjects();
         if (FirstPersonController_Sam.fpsSam == null || heavyObjects.Count == 0) return;
-        WithinPickupRange();
+        //WithinPickupRange();
     }
 
     public bool WithinPickupRange()
     {
-        for (int i = 0; i < heavyObjects.Count; i++)
+        for (int i = 0; i < GameObject.FindObjectsOfType<HeavyObject>().Length; i++)
         {
-            if (heavyObjects[i].WithinPickupRange()) return true;   
+            if (GameObject.FindObjectsOfType<HeavyObject>()[i].WithinPickupRange()) return true;   
         }
         return false;
     }
