@@ -5,7 +5,8 @@ using UnityEngine;
 public class Object_Manager : MonoBehaviour
 {
     public static Object_Manager object_Manager;
-    [SerializeField] List<Object> objects = new List<Object>();
+    [SerializeField] List<HeavyObject> heavyObjects = new List<HeavyObject>();
+    [SerializeField] List<RepairTarget> repairTargets = new List<RepairTarget>();
     private void Awake()
     {
         if (object_Manager == null)
@@ -27,16 +28,28 @@ public class Object_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (FirstPersonController_Sam.fpsSam == null || objects.Count == 0) return;
+        FindHeavyObjects();
+        if (FirstPersonController_Sam.fpsSam == null || heavyObjects.Count == 0) return;
+        WithinPickupRange();
     }
 
     public bool WithinPickupRange()
     {
-        for (int i = 0; i < objects.Count; i++)
+        for (int i = 0; i < heavyObjects.Count; i++)
         {
-            if (objects[i].GetType() != typeof(HeavyObject)) continue;
-            if ((HeavyObject)objects[i].WithinPickupRange()) return true;
-            return false;
+            if (heavyObjects[i].WithinPickupRange()) return true;   
+        }
+        return false;
+    }
+
+    public void FindHeavyObjects()
+    {
+        for (int i = 0; i < GameObject.FindObjectsOfType<HeavyObject>().Length; i++)
+        {
+            if (!heavyObjects.Contains(GameObject.FindObjectsOfType<HeavyObject>()[i]))
+            {
+                heavyObjects.Add(GameObject.FindObjectsOfType<HeavyObject>()[i]);
+            }
         }
     }
 }

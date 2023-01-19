@@ -7,6 +7,7 @@ using TMPro;
 public class UI_Manager : MonoBehaviour
 {
     public static UI_Manager ui_Manager;
+    public bool tooltipActiveElsewhere = false;
 
     [Header("Main Menu Assets")]
     [SerializeField] private TMP_Text textStartTitle;
@@ -21,6 +22,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private Image playerHitEffect;
     [SerializeField] private TMP_Text textToolTipE;
     [SerializeField] private TMP_Text textToolTipR;
+    [SerializeField] private TMP_Text textObjectives;
 
     [Header("Pause Assets")]
     [SerializeField] private TMP_Text textPauseTitle;
@@ -100,9 +102,10 @@ public class UI_Manager : MonoBehaviour
         buttonOptions = GameObject.Find("ButtonOptions").GetComponent<Button>();
         buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
 
-        playerHitEffect = GameObject.Find("playerHitEffect").GetComponent<Image>();
+        playerHitEffect = GameObject.Find("PlayerHitEffect").GetComponent<Image>();
         textToolTipE = GameObject.Find("TextToolTipE").GetComponent<TMP_Text>();
         textToolTipR = GameObject.Find("TextToolTipR").GetComponent<TMP_Text>();
+        textObjectives = GameObject.Find("TextObjectives").GetComponent<TMP_Text>();
 
         textPauseTitle = GameObject.Find("TextPauseTitle").GetComponent<TMP_Text>();
         buttonResumeGame = GameObject.Find("ButtonResumeGame").GetComponent<Button>();
@@ -150,6 +153,8 @@ public class UI_Manager : MonoBehaviour
                 break;
 
             case ActiveUI.Gameplay:
+                ToggleGameplayTooltips();
+                textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
                 if (PlayerStats.playerStats == null) return;
                 healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
                 suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;
@@ -199,13 +204,36 @@ public class UI_Manager : MonoBehaviour
 
     public void ToggleGameplayTooltips()
     {
+        if (tooltipActiveElsewhere) return;
+        if (Object_Manager.object_Manager.WithinPickupRange()) ActivatePrimaryInteractText();
+        else DisablePrimaryInteractText();
+
         if (FirstPersonController_Sam.fpsSam == null) return;
-        if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) return;
-        if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
+        if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) DisableSecondaryInteractText();
+        else if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
         {
-            textToolTipR.gameObject.SetActive(true);
+            ActivateSecondaryInteractText();
         }
-        else textToolTipR.gameObject.SetActive(false);
+    }
+
+    public void ActivatePrimaryInteractText()
+    {
+        textToolTipE.gameObject.SetActive(true);
+    }
+
+    public void DisablePrimaryInteractText()
+    {
+        textToolTipE.gameObject.SetActive(false);
+    }
+
+    public void ActivateSecondaryInteractText()
+    {
+        textToolTipR.gameObject.SetActive(true);
+    }
+
+    public void DisableSecondaryInteractText()
+    {
+        textToolTipR.gameObject.SetActive(false);
     }
 
     //public for use on buttons
