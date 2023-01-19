@@ -28,7 +28,6 @@ namespace UnderwaterHorror
 
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
-        [SerializeField] protected GameObject playerObj;
         [SerializeField] protected GameObject attackAnimation;
 
         [Header("Place desired patrol point here")]
@@ -166,10 +165,10 @@ namespace UnderwaterHorror
         {
             agent.speed = _enemyStats.chaseSpeed;
             // Chases after the players position
-            agent.SetDestination(playerObj.transform.position);
+            agent.SetDestination(FirstPersonController_Sam.fpsSam.transform.position);
 
             // Tracks player's previous location
-            playerPreviousLocation = playerObj.transform.position;           
+            playerPreviousLocation = FirstPersonController_Sam.fpsSam.transform.position;           
             //---------------------------------------------------------
 
             patrolCollider.enabled = false;
@@ -180,7 +179,7 @@ namespace UnderwaterHorror
         {
             if (_enemyStats.timeToAttack <= 0)
             {
-                playerObj.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
+                FirstPersonController_Sam.fpsSam.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
 
                 // Turns animation on
@@ -256,7 +255,7 @@ namespace UnderwaterHorror
             if (_enemyFOV.playerInFOV)
             {
                 Debug.Log("InsidePOV");
-                Vector3 raycastDir = playerObj.transform.position;
+                Vector3 raycastDir = FirstPersonController_Sam.fpsSam.transform.position;
                 if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
                 {
                     //Debug.Log("NotBlocked");
@@ -291,8 +290,7 @@ namespace UnderwaterHorror
         //--------------------------------------------------------
         void FindPlayerRef()
         {
-            if (playerObj != null) return;
-            playerObj = GameObject.Find("Player");
+            if (FirstPersonController_Sam.fpsSam != null) return;
         }
 
         void ResetRun()
