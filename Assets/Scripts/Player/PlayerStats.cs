@@ -18,12 +18,13 @@ public class PlayerStats : MonoBehaviour
     [Header("Player Stats")]
     public float maxPlayerHealth = 100.0f;
     public float playerHealth = 100.0f;
+    private bool isDead;
 
     [Header("Player UI Settings")]
     // Timer for hit effect
     public float startPlayerHitTimer = 0.5f;
     private float playerHitEffectTimer;
-    private bool playerHit;
+    private bool playerHit = false;
 
     [Header("Spotlight Settings")]
     [SerializeField] public float poweredRange = 60.0f;
@@ -50,7 +51,9 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         suitPower = maxSuitPower;
-        playerHealth = maxPlayerHealth;      
+        playerHealth = maxPlayerHealth;
+        playerHitEffectTimer = startPlayerHitTimer;
+        isDead = false;
     }
 
     // Update is called once per frame
@@ -58,6 +61,7 @@ public class PlayerStats : MonoBehaviour
     {
         FindSpotlightRef();
         ToggleSuitSpotlight();
+
         ManagePlayerHitEffect();
     }
 
@@ -97,21 +101,28 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (playerHit == false)
+        //if (playerHit == false)
+        //{
+        //Debug.Log("Taking Damage");
+        playerHit = true;
+        if (damage <= 0) return;
+        Debug.Log("Taking Damage: " + damage);
+        playerHealth -= damage;
+
+        if (playerHealth <= 0)
         {
-            playerHit = true;
-            Debug.Log("Taking Damage");
-            if (playerHealth <= 0)
-            {
                 Debug.Log("Player Health Depleted");
                 playerHealth = 0;
+                isDead = true;
+                if (FirstPersonController_Sam.fpsSam == null) return;
+                FirstPersonController_Sam.fpsSam.LockPlayerMovement();
                 return;
-            }
-
-            if (damage <= 0) return;
-            playerHealth -= damage;
         }
+        //}
+
+
     }
+    
 
     public void RechargeSuit()
     {
@@ -134,6 +145,8 @@ public class PlayerStats : MonoBehaviour
 
     public void ManagePlayerHitEffect()
     {
+        // Shows the player hit effect on screen for a set amount of time
+        if (UI_Manager.ui_Manager == null) return;
         if (playerHit)
         {
             UI_Manager.ui_Manager.PlayerHitEffectON(true);
@@ -145,5 +158,18 @@ public class PlayerStats : MonoBehaviour
                 playerHitEffectTimer = startPlayerHitTimer;
             }
         }
+
+    }
+    
+    public void ResetRun()
+    {
+        playerHealth = maxPlayerHealth;
+        suitPower = maxSuitPower;
+        isDead = false;
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 }

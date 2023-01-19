@@ -25,7 +25,7 @@ namespace UnderwaterHorror
         [Header("AttackingSettings")]
         public float attackPower;
         public float timeToAttackStart;
-        [HideInInspector] public float timeToAttack;
+        public float timeToAttack;
 
         [Header("DefeatedSettings")]
         // BigEnemyFish not effected by dying time/SmallEnemyFish not effected by fleeing time.
@@ -43,6 +43,11 @@ namespace UnderwaterHorror
             {
                 health = 0;          
             }
+        }
+
+        public void ResetRun()
+        {
+            health = 5;
         }
     }
 

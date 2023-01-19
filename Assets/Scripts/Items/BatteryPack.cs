@@ -17,25 +17,30 @@ public class BatteryPack : Item
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            isEquiped = true;
-            gameObject.GetComponent<Renderer>().enabled = true;
+            Equip();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha1))
         {
-            isEquiped = false;
-            gameObject.GetComponent<Renderer>().enabled = false;
+            Unequip();
+        }
+
+        if (beingUsed)
+        {
+            TimeToEffect();
+        }
+
+        if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
+        {
+            Unequip();
+            return;
         }
 
         if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0))
         {
             beingUsed = true;
-            TimeToEffect();
-        }
-
-        if (beingUsed)
-        {
             TimeToEffect();
         }
     }
