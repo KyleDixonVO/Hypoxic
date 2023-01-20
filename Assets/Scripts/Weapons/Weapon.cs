@@ -87,6 +87,18 @@ namespace UnderwaterHorror
             if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
         }
 
+        protected void Unequip()
+        {
+            isEquiped = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
+        protected void Equip()
+        {
+            isEquiped = true;
+            gameObject.GetComponent<Renderer>().enabled = true;
+        }
+
         IEnumerator waitTime(GameObject sfx)
         {
             yield return new WaitForSeconds(2f);

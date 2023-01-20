@@ -41,15 +41,16 @@ public class Button : MonoBehaviour
             {
                 if (!openDoor)
                 {
-                    Debug.LogWarning("Press");
-                    doorScript.OpenDoor();
-                    openDoor = true;
-                }
-                else
-                {
                     Debug.LogWarning("LoadScene");
                     Level_Manager.LM.LoadOutside();
                     openDoor = false;
+                    
+                }
+                else
+                {
+                    Debug.LogWarning("Press");
+                    doorScript.OpenDoor();
+                    openDoor = true;
                 }
             }
             else
