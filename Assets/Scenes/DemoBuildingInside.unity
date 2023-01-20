@@ -2261,12 +2261,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8626322558974005884, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
+      propertyPath: IntToExt
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8626322559144380143, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8626322559144380143, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
       propertyPath: timeToOpen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8626322559900971910, guid: 40b0093be535f634daecfae8bc4a6393, type: 3}
+      propertyPath: IntToExt
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14008,7 +14016,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh126982
+  m_Name: pb_Mesh55240
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22100,7 +22108,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1322164217
 GameObject:
@@ -46194,7 +46202,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2062674817
 GameObject:
@@ -48001,7 +48009,7 @@ Transform:
   - {fileID: 4076696756452300351}
   - {fileID: 8640490291839628380}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &294056465960211149
 Transform:
@@ -50654,7 +50662,7 @@ Transform:
   - {fileID: 1222344283}
   - {fileID: 1106672097}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &4250695932308614886
 MeshRenderer:
@@ -51995,7 +52003,7 @@ Transform:
   - {fileID: 1226001088}
   - {fileID: 280394619}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6491283981111353136
 GameObject:
