@@ -22,12 +22,17 @@ public class Objective_Manager : MonoBehaviour
     [Header("Objectives")]
     [SerializeField] private bool objectiveOneComplete = false;
     [SerializeField] private bool objectiveTwoComplete = false;
-    [SerializeField] private bool objectiveThreeComplete = false;
+    [SerializeField] private bool objectiveThreeComplete = true;
     [SerializeField] private bool finalObjectiveComplete = false;
     [SerializeField] private int numberOfObjectivesComplete = 0;
     [SerializeField] private int savedObjectivesComplete = 0;
     [SerializeField] private int objectivesToWin = 4;
     [SerializeField] private bool gameWon;
+    [SerializeField] private string textObjectiveOne = " - Repair Red Oxygen Pipe ";
+    [SerializeField] private string textObjectiveTwo = " - Repair Green Oxygen Pipe ";
+    [SerializeField] private string textFinalObjective = " - Return to the Elevator ";
+    private string outgoingText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -89,8 +94,27 @@ public class Objective_Manager : MonoBehaviour
         numberOfObjectivesComplete = 0;
         objectiveOneComplete = false;
         objectiveTwoComplete = false;
-        objectiveThreeComplete = false;
+        objectiveThreeComplete = true;
         finalObjectiveComplete = false;
         savedObjectivesComplete = 0;
+    }
+
+    public string AssignObjectiveText()
+    {
+        outgoingText = "Objectives: ";
+
+        if (!objectiveOneComplete)
+        {
+            outgoingText += "\r\n" + textObjectiveOne;
+        }
+        if (!objectiveTwoComplete)
+        {
+            outgoingText += "\r\n" + textObjectiveTwo;
+        }
+        if(objectiveOneComplete && objectiveTwoComplete)
+        {
+            outgoingText += textFinalObjective;
+        }
+        return outgoingText;
     }
 }

@@ -22,6 +22,8 @@ public class Button : MonoBehaviour
     private void OnTriggerStay(Collider other) // while in trigger if 'E' is pressed do the thing
     {
         if (other.tag != "Player") return;
+        UI_Manager.ui_Manager.tooltipActiveElsewhere = true;
+        UI_Manager.ui_Manager.ActivatePrimaryInteractText();
         if (InputManager.inputManager.ePressed)
         {
             if (doorScript.isDoorOpening) return;
@@ -55,5 +57,12 @@ public class Button : MonoBehaviour
                 openDoor = false;
             }
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag != "Player") return;
+        UI_Manager.ui_Manager.tooltipActiveElsewhere = false;
+        UI_Manager.ui_Manager.DisablePrimaryInteractText();
     }
 }

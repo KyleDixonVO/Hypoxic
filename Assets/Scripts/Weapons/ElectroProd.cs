@@ -24,6 +24,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             // RELOAD COUTER
             if (reloadProgress <= 0)
             {
@@ -45,16 +46,20 @@ namespace UnderwaterHorror
                 // no ammo sound
             }
 
+            if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
+            {
+                Unequip();
+                return;
+            }
+
             //TEMP
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                isEquiped = true;
-                gameObject.GetComponent<Renderer>().enabled = true;
+                Equip();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha1) | Input.GetKeyDown(KeyCode.Alpha3))
             {
-                isEquiped = false;
-                gameObject.GetComponent<Renderer>().enabled = false;
+                Unequip();
             }
 
             if (Input.GetKeyDown(KeyCode.Q))

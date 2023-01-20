@@ -9,6 +9,8 @@ public class RepairObject : MonoBehaviour
     [SerializeField] float elapsedRepairTime;
     [SerializeField] float repairDistance = 2.0f;
     [SerializeField] bool repaired = false;
+    [SerializeField] int objectiveNumber;
+
     public RepairTarget targetObject;
 
     // Start is called before the first frame update
@@ -27,7 +29,7 @@ public class RepairObject : MonoBehaviour
     void Repair()
     {
         //Debug.Log(Vector3.Distance(this.gameObject.transform.position, repairDestination));
-        if (Vector3.Distance(this.gameObject.transform.position, repairDestination) < repairDistance && InputManager.inputManager.rPressed && this.GetComponent<HeavyObject>().isHeld)
+        if (WithinRepairRange() && InputManager.inputManager.rPressed && this.GetComponent<HeavyObject>().isHeld)
         {
             elapsedRepairTime += Time.deltaTime;
             Debug.Log(elapsedRepairTime / repairTime);
@@ -50,7 +52,33 @@ public class RepairObject : MonoBehaviour
             targetObject.RepairedObject();
             this.GetComponent<HeavyObject>().ForceDropObject();
             this.gameObject.SetActive(false);
+            CompleteAssignedObjective();
         }
+    }
+
+    void CompleteAssignedObjective()
+    {
+        switch (objectiveNumber) 
+        {
+            case 1:
+                Objective_Manager.objective_Manager.ObjectiveOneComplete();
+                break;
+
+            case 2:
+                Objective_Manager.objective_Manager.ObjectiveTwoComplete();
+                break;
+
+            case 3:
+                Objective_Manager.objective_Manager.ObjectiveThreeComplete();
+                break;
+        }
+
+    }
+
+    public bool WithinRepairRange()
+    {
+        if (Vector3.Distance(this.gameObject.transform.position, repairDestination) < repairDistance) return true;
+        return false;
     }
 
 }
