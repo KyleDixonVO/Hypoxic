@@ -660,8 +660,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 4.3733683, z: 50}
-  m_Center: {x: 0, y: -1.6866846, z: -1.6556282}
+  m_Size: {x: 22, y: 4.3733683, z: 57.19714}
+  m_Center: {x: 0, y: -1.6866846, z: -5.254198}
 --- !u!135 &1662200383955835662
 SphereCollider:
   m_ObjectHideFlags: 0
