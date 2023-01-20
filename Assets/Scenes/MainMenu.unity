@@ -7320,7 +7320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectiveOneComplete: 0
   objectiveTwoComplete: 0
-  objectiveThreeComplete: 0
+  objectiveThreeComplete: 1
   finalObjectiveComplete: 0
   numberOfObjectivesComplete: 0
   savedObjectivesComplete: 0
