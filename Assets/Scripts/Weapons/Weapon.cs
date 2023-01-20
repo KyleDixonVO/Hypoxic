@@ -96,7 +96,7 @@ namespace UnderwaterHorror
         protected void Equip()
         {
             isEquiped = true;
-            gameObject.GetComponent<Renderer>().enabled = false;
+            gameObject.GetComponent<Renderer>().enabled = true;
         }
 
         IEnumerator waitTime(GameObject sfx)
