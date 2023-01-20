@@ -407,6 +407,12 @@ MonoBehaviour:
     m_Bits: 0
   patrolCollider: {fileID: 1662200383955835663}
   chaseCollider: {fileID: 1662200383955835662}
+<<<<<<< HEAD
+=======
+  NewGamePos: {x: 0, y: 0, z: 0}
+  SaveGamePos: {x: 0, y: 0, z: 0}
+  source: {fileID: 391243210286070982}
+>>>>>>> Review
 --- !u!114 &1662200383709298150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,6 +631,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   m_Size: {x: 9, y: 4.3733683, z: 28.311256}
   m_Center: {x: 0, y: -1.6866846, z: -1.6556282}
@@ -632,6 +639,10 @@ BoxCollider:
   m_Size: {x: 15, y: 4.3733683, z: 56.493557}
   m_Center: {x: 0, y: -1.6866846, z: -4.9024067}
 >>>>>>> Stashed changes
+=======
+  m_Size: {x: 22, y: 4.3733683, z: 57.19714}
+  m_Center: {x: 0, y: -1.6866846, z: -5.254198}
+>>>>>>> Review
 --- !u!135 &1662200383955835662
 SphereCollider:
   m_ObjectHideFlags: 0

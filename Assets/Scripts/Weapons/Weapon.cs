@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnderwaterHorror;
 
 namespace UnderwaterHorror
 {
@@ -24,6 +25,8 @@ namespace UnderwaterHorror
         [Header("Booleans")]
         public bool isEquiped;
         protected bool canShoot;
+        [Header("SFX")]
+        [SerializeField] GameObject bloodSFX;
 
 
         void Update()
@@ -49,6 +52,10 @@ namespace UnderwaterHorror
                     Debug.LogWarning("hit enemy");
                     EnemyStats stats = hit.transform.GetComponent<EnemyStats>();
                     stats.TakeDamage(damage);
+
+                    GameObject blood = Instantiate(bloodSFX);
+                    blood.transform.position = hit.point;
+                    StartCoroutine(waitTime(blood));
                 }
             }
             currentAmmo--;
@@ -80,16 +87,10 @@ namespace UnderwaterHorror
             if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
         }
 
-        protected void Unequip()
+        IEnumerator waitTime(GameObject sfx)
         {
-            isEquiped = false;
-            gameObject.GetComponent<Renderer>().enabled = false;
-        }
-
-        protected void Equip()
-        {
-            isEquiped = true;
-            gameObject.GetComponent<Renderer>().enabled = false;
+            yield return new WaitForSeconds(2f);
+            Destroy(sfx);
         }
     }
 

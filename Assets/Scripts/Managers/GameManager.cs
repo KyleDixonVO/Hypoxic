@@ -171,5 +171,10 @@ public class GameManager : MonoBehaviour
         Objective_Manager.objective_Manager.ResetRun();
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
 
 }
