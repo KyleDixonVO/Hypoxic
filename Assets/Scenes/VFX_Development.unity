@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 682fb52ff5549d7409c4d776d22382b0, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 6f4978a6b9cf7ab4a96c44f3bac5d15c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04726988, g: 0.14967135, b: 0.15432644, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465829, g: 0.49641728, b: 0.57482105, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158,8 +158,8 @@ Camera:
   m_GameObject: {fileID: 31333910}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.108179085, g: 0.12775345, b: 0.16037738, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31333910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.2, z: -10}
+  m_LocalPosition: {x: 0, y: 3.21, z: -9.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -223,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &538451416
 Light:
   m_ObjectHideFlags: 0
@@ -534,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1324072792
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -632,7 +632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1837320669
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -729,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 202445287390131050, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 202445287390131050, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -767,6 +767,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Blood
       objectReference: {fileID: 0}
+    - target: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!1001 &415903691456001978
@@ -786,7 +790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 415903691764928504, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.64
       objectReference: {fileID: 0}
     - target: {fileID: 415903691764928504, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_LocalPosition.z
@@ -824,9 +828,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 415903691764928507, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 415903691881551397, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_Name
       value: BubbleBurst_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 415903691979302143, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 415903691979302143, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 415903691979302143, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}

@@ -609,7 +609,6 @@ MonoBehaviour:
   - {fileID: 4565852536974747474}
   - {fileID: 4565852537788936369}
   - {fileID: 4565852537810953863}
-  playerObj: {fileID: 0}
   attackAnimation: {fileID: 1840199969621200955}
   currentPatrolPoint: {fileID: 4565852538912098661}
   agent: {fileID: 4565852538049996983}
@@ -827,8 +826,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 1, z: 8}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 6, y: 1, z: 10.092806}
+  m_Center: {x: 0, y: 0, z: -1.0464038}
 --- !u!114 &4565852538460446252
 MonoBehaviour:
   m_ObjectHideFlags: 0

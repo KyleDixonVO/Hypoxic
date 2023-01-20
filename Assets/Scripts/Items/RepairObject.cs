@@ -29,7 +29,7 @@ public class RepairObject : MonoBehaviour
     void Repair()
     {
         //Debug.Log(Vector3.Distance(this.gameObject.transform.position, repairDestination));
-        if (Vector3.Distance(this.gameObject.transform.position, repairDestination) < repairDistance && InputManager.inputManager.rPressed && this.GetComponent<HeavyObject>().isHeld)
+        if (WithinRepairRange() && InputManager.inputManager.rPressed && this.GetComponent<HeavyObject>().isHeld)
         {
             elapsedRepairTime += Time.deltaTime;
             Debug.Log(elapsedRepairTime / repairTime);
@@ -73,6 +73,12 @@ public class RepairObject : MonoBehaviour
                 break;
         }
 
+    }
+
+    public bool WithinRepairRange()
+    {
+        if (Vector3.Distance(this.gameObject.transform.position, repairDestination) < repairDistance) return true;
+        return false;
     }
 
 }

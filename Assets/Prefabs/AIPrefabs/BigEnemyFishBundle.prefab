@@ -432,13 +432,12 @@ MonoBehaviour:
   - {fileID: 1662200382841185867}
   - {fileID: 1662200384039547319}
   - {fileID: 1662200383849593909}
-  playerObj: {fileID: 0}
   attackAnimation: {fileID: 1018013313273068053}
   currentPatrolPoint: {fileID: 1662200384297165502}
   agent: {fileID: 1662200383709298145}
   layerMasks:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   patrolCollider: {fileID: 1662200383955835663}
   chaseCollider: {fileID: 1662200383955835662}
   NewGamePos: {x: 0, y: 0, z: 0}
@@ -662,8 +661,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 4.3733683, z: 50}
-  m_Center: {x: 0, y: -1.6866846, z: -1.6556282}
+  m_Size: {x: 22, y: 4.3733683, z: 57.19714}
+  m_Center: {x: 0, y: -1.6866846, z: -5.254198}
 --- !u!135 &1662200383955835662
 SphereCollider:
   m_ObjectHideFlags: 0

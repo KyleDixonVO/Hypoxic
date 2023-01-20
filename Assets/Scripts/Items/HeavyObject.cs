@@ -27,8 +27,7 @@ public class HeavyObject : MonoBehaviour
     {
         Debug.Log(InputManager.inputManager.eCycled);
         if (InputManager.inputManager.eCycled == false) return;
-        if (Vector3.Distance(
-            this.transform.position, FirstPersonController_Sam.fpsSam.transform.position) < 2.5
+        if (WithinPickupRange()
             && InputManager.inputManager.ePressed
             && !_isHeld
             && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
@@ -56,7 +55,7 @@ public class HeavyObject : MonoBehaviour
         }
         else if (!_isHeld)
         {
-            this.gameObject.transform.parent = null;
+            this.gameObject.transform.parent = ObjectiveParent.objectiveParent.transform;
         }
     }
 
@@ -76,4 +75,10 @@ public class HeavyObject : MonoBehaviour
         _isHeld = false;
         UpdateObjectParent();
    }
+
+    public bool WithinPickupRange()
+    {
+        if (Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position) < 2.5) return true;
+        return false;
+    }
 }
