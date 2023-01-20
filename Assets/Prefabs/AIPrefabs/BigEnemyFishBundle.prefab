@@ -432,13 +432,12 @@ MonoBehaviour:
   - {fileID: 1662200382841185867}
   - {fileID: 1662200384039547319}
   - {fileID: 1662200383849593909}
-  playerObj: {fileID: 0}
   attackAnimation: {fileID: 1018013313273068053}
   currentPatrolPoint: {fileID: 1662200384297165502}
   agent: {fileID: 1662200383709298145}
   layerMasks:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   patrolCollider: {fileID: 1662200383955835663}
   chaseCollider: {fileID: 1662200383955835662}
   NewGamePos: {x: 0, y: 0, z: 0}
