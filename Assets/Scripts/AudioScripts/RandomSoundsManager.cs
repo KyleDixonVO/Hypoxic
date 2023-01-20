@@ -16,6 +16,11 @@ public class RandomSoundsManager : MonoBehaviour
     public AudioClip titleMusic;
     public AudioClip gameplayAmbiance;
 
+    [Header("Monster Sounds")]
+    public AudioClip bigBite;
+    public AudioClip bigAgro;
+    public AudioClip smallBite;
+
     [Header("GameObjects")]
     public GameObject playerObj;
     public GameObject randomSoundsObj;
@@ -170,6 +175,23 @@ public class RandomSoundsManager : MonoBehaviour
         
         randomSoundsAudio.Stop();
         musicAudio.Stop();
+    }
+
+    public void PlaySoundBigAgro(AudioSource source)
+    {
+        source.PlayOneShot(bigAgro);
+        Debug.LogWarning("big mad");
+    }
+
+    public void PlaySoundBigBite(AudioSource source)
+    {
+        source.PlayOneShot(bigBite);
+        Debug.LogWarning("big bite");
+    }
+
+    public void PlaySoundSmallBite(AudioSource source)
+    {
+        source.PlayOneShot(smallBite);
     }
 
     void OnDrawGizmos()

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-
     [Header("Open / Close Bools")]
     public bool isDoorOpening;
     public bool isDoorOpenable;
@@ -12,10 +11,10 @@ public class Door : MonoBehaviour
 
     [Header("Serialized Variables")]
     [SerializeField]
-    float speed = 0.35f;
+    float speed = 1f;
     [SerializeField]
     float maxTimeOpen = 13f;
-    float timeOpen;
+    float countDownProgress;
     [SerializeField]
     float timeToOpen = 10f;
 
@@ -28,7 +27,7 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeOpen = maxTimeOpen;
+        countDownProgress = maxTimeOpen;
         closePos = transform.position;       
     }
 
@@ -81,20 +80,20 @@ public class Door : MonoBehaviour
         }
         else if (isPlayerInside && isDoorOpening)
         {
-            CountDown(8f);
+            CountDown(0f);
         }
         else if (distance < 0.05f && isDoorOpening) // if player doesn't enter airlock auto close it
         {
-            CountDown(0f);
+            CountDown(8f);
         }
     }
 
-    void CountDown(float waitTimeReduction) // counts down how long the airlock will stay open for
+    void CountDown(float waitTime) // counts down how long the airlock will stay open for
     {
-        timeOpen -= Time.deltaTime;
-        if (timeOpen <= waitTimeReduction)
+        countDownProgress -= Time.deltaTime;
+        if (countDownProgress <= waitTime)
         {
-            timeOpen = maxTimeOpen;
+            countDownProgress = maxTimeOpen;
             Debug.Log("Countdown setting isDoorOpening False");
             isDoorOpening = false;                         
         }
@@ -110,7 +109,7 @@ public class Door : MonoBehaviour
 
     public void ResetRun()
     {
-        timeOpen = maxTimeOpen;
+        //timeOpen = maxTimeOpen;
         closePos = transform.position;
         isDoorOpenable = true;
         isDoorOpening = false;

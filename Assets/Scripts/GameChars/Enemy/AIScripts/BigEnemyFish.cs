@@ -34,5 +34,16 @@ namespace UnderwaterHorror
                 _enemyStats.fleeingTime = 6;
             }
         }
+
+        // EDMUND
+        override protected void PlayAttackSound()
+        {
+            AM.PlaySoundBigBite(source);
+        }
+
+        protected override void PlayAgroSound()
+        {
+            AM.PlaySoundBigAgro(source);
+        }
     }
 }
