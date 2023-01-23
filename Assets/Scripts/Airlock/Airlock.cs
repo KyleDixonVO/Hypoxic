@@ -8,6 +8,7 @@ public class Airlock : MonoBehaviour
     public Level_Manager levelManager;
     [SerializeField] GameObject doorRight;
     [SerializeField] GameObject doorLeft;
+    [SerializeField] Airlock otherDoor;
 
     [Header("Door Positions")]
     [SerializeField] GameObject rightOpenPos;
@@ -35,43 +36,20 @@ public class Airlock : MonoBehaviour
         leftClosePos = doorLeft.transform.position;
 
         // set variables
+        if (!isLoad) countDownProgress = 0;
     }
 
     // --------------------------------------- Door Controls --------------------------------------- \\
     // Update is called once per frame
     void Update()
     {
-        if (isLoad) // activates timer so the player present trigger doesn't activate immidetly
+        if (isLoad)
         {
-            countDownProgress -= Time.deltaTime;
-
-            if (countDownProgress <= 0)
-            {
-                canLoad = true;
-                countDownProgress = 0;
-            }
-            else if (countDownProgress >= 0 && !isOpening && playerPresent)
-            {
-                Debug.Log("inside");
-                StartCoroutine(OpenDelay(0f));
-            }
-
-            //Debug.Log(countDownProgress);
+            IsLoadDoor();
         }
-
-        // door closing
-        if (isOpening && playerPresent && countDownProgress <= 0) // player is inside - close immediatly
-        {
-            CloseDoor(0f);
-        }
-        else if (IsOpen() && isOpening) // door is open - wait to close
-        {
-            CloseDoor(closeWaitTime);
-        }  
-        else if (playerPresent && IsClosed() && isLoad && canLoad) // player is inside and the door is closed - Load scene
-        {
-            Debug.Log("Load Scene");
-            // LOAD SCENE
+        else if (!isLoad)
+        {           
+            IsntLoadDoor();
         }
     }
 
@@ -83,6 +61,56 @@ public class Airlock : MonoBehaviour
     void CloseDoor(float waitTime)
     {       
         StartCoroutine(CloseDelay(waitTime));
+    }
+
+    // --------------------------------------- is load door ------------------------------------------ \\
+    void IsLoadDoor() 
+    {
+        countDownProgress -= Time.deltaTime;  // activates timer so the player present trigger doesn't activate immidetly
+
+        if (countDownProgress <= 0)
+        {
+            canLoad = true;
+            countDownProgress = 0;
+        }
+        else if (countDownProgress >= 0 && !isOpening && playerPresent)
+        {
+            Debug.Log("inside");
+            StartCoroutine(OpenDelay(0f));
+        }
+
+        // door closing
+        if (isOpening && playerPresent && countDownProgress <= 0) // player is inside - close immediatly
+        {
+            CloseDoor(0f);
+        }
+        else if (IsOpen() && isOpening) // door is open - wait to close
+        {
+            CloseDoor(closeWaitTime);
+        }
+        else if (playerPresent && IsClosed() && countDownProgress >= 5)
+        {
+            OpenDelay(0f);
+        }
+        else if (playerPresent && IsClosed() && isLoad && canLoad) // player is inside and the door is closed - Load scene
+        {
+            //Debug.Log("Load Scene");
+            if (Level_Manager.LM.IsSceneOpen("Outside")) Level_Manager.LM.LoadMainHab();
+            else if (Level_Manager.LM.IsSceneOpen("DemoBuildingInside")) Level_Manager.LM.LoadOutside();
+        }
+    }
+
+    // ------------------------------------- isn't load door ----------------------------------------- \\
+    void IsntLoadDoor()
+    {
+        if (isOpening && playerPresent && countDownProgress <= 0) // player is inside - close immediatly
+        {
+            CloseDoor(0f);            
+        }
+        else if (IsOpen() && isOpening) // door is open - wait to close
+        {
+            CloseDoor(closeWaitTime);
+        }
     }
 
     // --------------------------------- Door Open / Close Checks ------------------------------------ \\
