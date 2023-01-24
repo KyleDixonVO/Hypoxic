@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
                     FirstPersonController_Sam.fpsSam.LockPlayerMovement();
                 }
                 if (PlayerStats.playerStats == null || Objective_Manager.objective_Manager == null) return;
-                if (PlayerStats.playerStats.IsDead() || Objective_Manager.objective_Manager.GameWon())
+                if (PlayerStats.playerStats.IsDead() || Objective_Manager.objective_Manager.IfWonGame())
                 {
                     _gameState = gameStates.menu;
                     Cursor.lockState = CursorLockMode.None;
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
                     UI_Manager.ui_Manager.SwitchGameOverWin();
                     UI_Manager.ui_Manager.SwitchDeathText();
                 }
-                else if (Objective_Manager.objective_Manager.GameWon())
+                else if (Objective_Manager.objective_Manager.IfWonGame())
                 {
                     UI_Manager.ui_Manager.SwitchGameOverWin();
                     UI_Manager.ui_Manager.SwitchWinText();

@@ -19,18 +19,19 @@ public class Objective_Manager : MonoBehaviour
         }
     }
 
+    public enum Objectives 
+    { 
+        repairFirstPipe,
+        repairSecondPipe,
+        repairThirdPipe,
+        goToElevator
+    }
+
+    public Objectives objective;
+
     [Header("Objectives")]
-    [SerializeField] private bool objectiveOneComplete = false;
-    [SerializeField] private bool objectiveTwoComplete = false;
-    [SerializeField] private bool objectiveThreeComplete = true;
-    [SerializeField] private bool finalObjectiveComplete = false;
-    [SerializeField] private int numberOfObjectivesComplete = 0;
-    [SerializeField] private int savedObjectivesComplete = 0;
-    [SerializeField] private int objectivesToWin = 4;
-    [SerializeField] private bool gameWon;
-    [SerializeField] private string textObjectiveOne = " - Repair Red Oxygen Pipe ";
-    [SerializeField] private string textObjectiveTwo = " - Repair Green Oxygen Pipe ";
-    [SerializeField] private string textFinalObjective = " - Return to the Elevator ";
+    [SerializeField] private bool[] isObjectiveComplete;
+    [SerializeField] private string[] objectiveText;
     private string outgoingText;
 
 
@@ -43,77 +44,69 @@ public class Objective_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckObjectiveCompletion();
+        UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
     }
 
-    public void ObjectiveOneComplete()
+    public void UpdateObjectiveCompletion(int objectiveNumber)
     {
-        if (objectiveOneComplete) return;
-        objectiveOneComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    public void ObjectiveTwoComplete()
-    {
-        if (objectiveTwoComplete) return;
-        objectiveTwoComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    public void ObjectiveThreeComplete()
-    {
-        if (objectiveThreeComplete) return;
-        objectiveThreeComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    public void FinalObjectiveComplete()
-    {
-        if (!objectiveOneComplete || !objectiveTwoComplete || !objectiveThreeComplete) return;
-        if (finalObjectiveComplete) return;
-        finalObjectiveComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    void CheckObjectiveCompletion()
-    {
-        if (numberOfObjectivesComplete >= objectivesToWin)
+        if (objectiveNumber == (int)Objectives.goToElevator)
         {
-            gameWon = true;
-        }   
+            if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
+                || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
+                || !isObjectiveComplete[(int)Objectives.repairThirdPipe])
+                return;
+        }
+
+        if (isObjectiveComplete[objectiveNumber]) return;
+        isObjectiveComplete[objectiveNumber] = true;
     }
 
-    public bool GameWon()
+    public bool IfWonGame()
     {
-        return gameWon;
+        for (int i = 0; i < isObjectiveComplete.Length; i++)
+        {
+            if (!isObjectiveComplete[i]) return false;
+        }
+        return true;
+    }
+
+    private void ResetObjectives()
+    {
+        for (int i = 0; i < isObjectiveComplete.Length; i++)
+        {
+            isObjectiveComplete[i] = false;
+        }
+    }
+
+    public bool GetObjectiveState(Objectives objective)
+    {
+        if (isObjectiveComplete[(int)objective]) return true;
+        return false;
     }
 
     public void ResetRun()
     {
-        gameWon = false;
-        numberOfObjectivesComplete = 0;
-        objectiveOneComplete = false;
-        objectiveTwoComplete = false;
-        objectiveThreeComplete = true;
-        finalObjectiveComplete = false;
-        savedObjectivesComplete = 0;
+        ResetObjectives();
     }
 
     public string AssignObjectiveText()
     {
         outgoingText = "Objectives: ";
 
-        if (!objectiveOneComplete)
+        for (int i = 0; i < isObjectiveComplete.Length; i++)
         {
-            outgoingText += "\r\n" + textObjectiveOne;
-        }
-        if (!objectiveTwoComplete)
-        {
-            outgoingText += "\r\n" + textObjectiveTwo;
-        }
-        if(objectiveOneComplete && objectiveTwoComplete)
-        {
-            outgoingText += textFinalObjective;
+            if (!isObjectiveComplete[i] && i != (int)Objectives.goToElevator)
+            {
+                outgoingText += "\r\n" + objectiveText[i];
+            }
+            else if (i == (int)Objectives.goToElevator)
+            {
+                if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
+                || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
+                || !isObjectiveComplete[(int)Objectives.repairThirdPipe]) continue;
+
+                outgoingText += "\r\n" + objectiveText[i];
+            }
         }
         return outgoingText;
     }

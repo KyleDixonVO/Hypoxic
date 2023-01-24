@@ -9,7 +9,7 @@ public class RepairObject : MonoBehaviour
     [SerializeField] float elapsedRepairTime;
     [SerializeField] float repairDistance = 2.0f;
     [SerializeField] bool repaired = false;
-    [SerializeField] int objectiveNumber;
+    [SerializeField] Objective_Manager.Objectives objective;
 
     public RepairTarget targetObject;
 
@@ -52,27 +52,8 @@ public class RepairObject : MonoBehaviour
             targetObject.RepairedObject();
             this.GetComponent<HeavyObject>().ForceDropObject();
             this.gameObject.SetActive(false);
-            CompleteAssignedObjective();
+            Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)objective);
         }
-    }
-
-    void CompleteAssignedObjective()
-    {
-        switch (objectiveNumber) 
-        {
-            case 1:
-                Objective_Manager.objective_Manager.ObjectiveOneComplete();
-                break;
-
-            case 2:
-                Objective_Manager.objective_Manager.ObjectiveTwoComplete();
-                break;
-
-            case 3:
-                Objective_Manager.objective_Manager.ObjectiveThreeComplete();
-                break;
-        }
-
     }
 
     public bool WithinRepairRange()

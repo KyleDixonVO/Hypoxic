@@ -65,7 +65,8 @@ public class UI_Manager : MonoBehaviour
         Options,
         Credits,
         NewGame,
-        GameOverWin
+        GameOverWin,
+        PDA
     }
 
     private void Awake()
@@ -143,6 +144,11 @@ public class UI_Manager : MonoBehaviour
             }
 
             if (activeCanvas == ActiveUI.Pause && i == (int)ActiveUI.Gameplay) continue;
+            else if (activeCanvas == ActiveUI.Gameplay && InputManager.inputManager.tabPressed && i == (int)ActiveUI.PDA)
+            {
+                canvasArray[i].gameObject.SetActive(true);
+                continue;
+            }
             canvasArray[i].gameObject.SetActive(false);
         }
 
@@ -179,6 +185,7 @@ public class UI_Manager : MonoBehaviour
 
             case ActiveUI.NewGame:
                 break;
+
         }
     }
 

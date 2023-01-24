@@ -16,7 +16,7 @@ public class HeavyObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
+        //Debug.Log(Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
         ToggleObjectPickup();
         UpdateObjectParent();
         UpdateHeldLocalPosition();
@@ -25,7 +25,7 @@ public class HeavyObject : MonoBehaviour
 
     void ToggleObjectPickup()
     {
-        Debug.Log(InputManager.inputManager.eCycled);
+        //Debug.Log(InputManager.inputManager.eCycled);
         if (InputManager.inputManager.eCycled == false) return;
         if (WithinPickupRange()
             && InputManager.inputManager.ePressed
@@ -35,14 +35,14 @@ public class HeavyObject : MonoBehaviour
             Debug.Log("Picked up heavy object");
             _isHeld = true;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
-            InputManager.inputManager.eCycled = false;
+            //InputManager.inputManager.eCycled = false;
         }
         else if (_isHeld && InputManager.inputManager.ePressed)
         {
             Debug.Log("Dropped heavy object");
             _isHeld = false;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
-            InputManager.inputManager.eCycled = false;
+            //InputManager.inputManager.eCycled = false;
         }
         
     }
@@ -71,7 +71,7 @@ public class HeavyObject : MonoBehaviour
    public void ForceDropObject()
    {
         FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
-        InputManager.inputManager.eCycled = true;
+        //InputManager.inputManager.eCycled = true;
         _isHeld = false;
         UpdateObjectParent();
    }
