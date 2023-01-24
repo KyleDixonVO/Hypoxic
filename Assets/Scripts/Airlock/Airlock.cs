@@ -8,7 +8,8 @@ public class Airlock : MonoBehaviour
     public Level_Manager levelManager;
     [SerializeField] GameObject doorRight;
     [SerializeField] GameObject doorLeft;
-    [SerializeField] Airlock otherDoor;
+    [SerializeField] GameObject otherDoor;
+    Airlock otherAirlock;
 
     [Header("Door Positions")]
     [SerializeField] GameObject rightOpenPos;
@@ -37,6 +38,7 @@ public class Airlock : MonoBehaviour
 
         // set variables
         if (!isLoad) countDownProgress = 0;
+        if (otherDoor != null) otherAirlock = otherDoor.GetComponent<Airlock>();
     }
 
     // --------------------------------------- Door Controls --------------------------------------- \\
@@ -58,9 +60,9 @@ public class Airlock : MonoBehaviour
         StartCoroutine(OpenDelay(openWaitTime));
     }
 
-    void CloseDoor(float waitTime)
+    public void CloseDoor(float waitTime)
     {       
-        StartCoroutine(CloseDelay(waitTime));
+        StartCoroutine(CloseDelay(waitTime));       
     }
 
     // --------------------------------------- is load door ------------------------------------------ \\
@@ -103,14 +105,7 @@ public class Airlock : MonoBehaviour
     // ------------------------------------- isn't load door ----------------------------------------- \\
     void IsntLoadDoor()
     {
-        if (isOpening && playerPresent && countDownProgress <= 0) // player is inside - close immediatly
-        {
-            CloseDoor(0f);            
-        }
-        else if (IsOpen() && isOpening) // door is open - wait to close
-        {
-            CloseDoor(closeWaitTime);
-        }
+
     }
 
     // --------------------------------- Door Open / Close Checks ------------------------------------ \\

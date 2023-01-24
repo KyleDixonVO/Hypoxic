@@ -9,7 +9,6 @@ public class AirlockPlayerCheck : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") AL.playerPresent = true;
-
     }
 
     private void OnTriggerExit(Collider other)
