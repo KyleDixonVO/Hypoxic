@@ -617,10 +617,9 @@ public class FirstPersonController_Sam : MonoBehaviour
         useFootsteps = true;
         canMove = true;
         this.gameObject.GetComponent<CharacterController>().enabled = false;
-        Physics.autoSyncTransforms = true;
         this.gameObject.transform.position = NewGamePos;
-        Physics.autoSyncTransforms = false;
         this.gameObject.GetComponent<CharacterController>().enabled = true;
+        //Debug.Log(this.gameObject.GetComponent<CharacterController>().enabled);
     }
 
     public void DisableCharacterController()

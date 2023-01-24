@@ -142,15 +142,24 @@ public class GameManager : MonoBehaviour
         FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
     }
 
-    //public void LoadLastSave()
-    //{
-    //    //loads players last save
-    //}
+    public void LoadLastSave()
+    {
+        //loads players last save
+        Data_Manager.dataManager.LoadFromPlayerData();
+        Objective_Manager.objective_Manager.LoadObjectiveStates();
 
-    //public void SaveGame()
-    //{
-    //    //saves the game when at a checkpoint
-    //}
+        if (FirstPersonController_Sam.fpsSam == null) return;
+        FirstPersonController_Sam.fpsSam.LoadCharacterState();
+        PlayerStats.playerStats.LoadPlayerStats();
+        
+    }
+
+    public void SaveGame()
+    {
+        //saves the game when at a checkpoint
+        FirstPersonController_Sam.fpsSam.SaveCharacterState();
+        Data_Manager.dataManager.SaveToDataManager();
+    }
 
     //public void GameOver()
     //{
@@ -160,15 +169,16 @@ public class GameManager : MonoBehaviour
 
     //public void WinGame()
     //{
-        
+
     //}
 
     public void ResetForNewRun()
     {
+        Objective_Manager.objective_Manager.ResetRun();
+        InputManager.inputManager.ResetTab();
+        if (FirstPersonController_Sam.fpsSam == null) return;
         FirstPersonController_Sam.fpsSam.ResetRun();
         PlayerStats.playerStats.ResetRun();
-        FirstPersonController_Sam.fpsSam.DisableCharacterController();
-        Objective_Manager.objective_Manager.ResetRun();
     }
 
     public void ExitGame()

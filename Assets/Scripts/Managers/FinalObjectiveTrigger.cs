@@ -19,6 +19,6 @@ public class FinalObjectiveTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
-        Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)Objective_Manager.Objectives.repairFirstPipe);
+        Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)Objective_Manager.Objectives.goToElevator);
     }
 }

@@ -59,6 +59,7 @@ public class Objective_Manager : MonoBehaviour
 
         if (isObjectiveComplete[objectiveNumber]) return;
         isObjectiveComplete[objectiveNumber] = true;
+        Debug.Log(objectiveNumber + " " + isObjectiveComplete[objectiveNumber]);
     }
 
     public bool IfWonGame()
@@ -75,6 +76,7 @@ public class Objective_Manager : MonoBehaviour
         for (int i = 0; i < isObjectiveComplete.Length; i++)
         {
             isObjectiveComplete[i] = false;
+            Debug.Log(i + " " + isObjectiveComplete[i]);
         }
     }
 

@@ -2871,6 +2871,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 230024344}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ResetForNewRun
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &829570142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5516,6 +5528,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 230024344}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadLastSave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1210278338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7513,17 +7537,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e971b1ac908038541a89e2f2b2f214dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectiveOneComplete: 0
-  objectiveTwoComplete: 0
-  objectiveThreeComplete: 1
-  finalObjectiveComplete: 0
-  numberOfObjectivesComplete: 0
-  savedObjectivesComplete: 0
-  objectivesToWin: 4
-  gameWon: 0
-  textObjectiveOne: ' - Repair Red Oxygen Pipe '
-  textObjectiveTwo: ' - Repair Green Oxygen Pipe '
-  textFinalObjective: ' - Return to the Elevator '
+  objective: 0
+  isObjectiveComplete: 00000000
+  objectiveText:
+  - ' - Repair Red Oxygen Pipe '
+  - ' - Repair Green Oxygen Pipe '
+  - ' - Repair (COLOR) Oxygen Pipe'
+  - ' - Return to the Elevator '
 --- !u!4 &1668812122
 Transform:
   m_ObjectHideFlags: 0
@@ -8264,6 +8284,15 @@ MonoBehaviour:
   mastervolume: 0
   musicVolume: 0
   SFXVolume: 0
+  maxSuitPower: 100
+  suitPower: 0
+  maxPlayerHealth: 100
+  playerHealth: 100
+  objectives: 
+  inWater: 0
+  carryingHeavyObj: 0
+  playerPos: {x: 0, y: 0, z: 0}
+  playerRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1790296321
 Transform:
   m_ObjectHideFlags: 0

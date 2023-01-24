@@ -24,6 +24,7 @@ public class Data_Manager : MonoBehaviour
 
     //objectiveManager data
     public bool[] objectives;
+    public readonly int numberOfObjectives = 4;
 
     //firstPersonControllerSam data
     public bool inWater;
@@ -49,7 +50,7 @@ public class Data_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        objectives = new bool[numberOfObjectives];
     }
 
     // Update is called once per frame
@@ -100,60 +101,92 @@ public class Data_Manager : MonoBehaviour
         }
     }
 
-    public void LoadPlayerData()
+    public void LoadFromPlayerData()
     {
         if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
         {
+            Debug.Log("File found, loading player data");
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream playerFile = File.Open(Application.persistentDataPath + "/playerData.dat", FileMode.Open);
-            PlayerData playerData = (PlayerData)binaryFormatter.Deserialize(playerFile);
-            playerFile.Close();
+            if (playerFile.Length == 0)
+            {
+                playerFile.Close();
+                Debug.Log("File length 0");
+                //set stats to default if save is missing or unreadable
+                Debug.Log("File not found, resetting player stats to default");
+                ResetPlayerData();
+            }
+            else
+            {
+                playerFile.Position = 0;
+                PlayerData playerData = (PlayerData)binaryFormatter.Deserialize(playerFile);
+                playerFile.Close();
 
-            //set local playerData vars equal to loadedPlayerData
-            maxPlayerHealth = playerData.maxHealth;
-            playerHealth = playerData.health;
-            maxSuitPower = playerData.maxSuitPower;
-            suitPower = playerData.suitPower;
-            objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
-            objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
-            objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
-            objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
-            inWater = playerData.inWater;
-            carryingHeavyObj = playerData.carryingHeavyObj;
-            playerPos = playerData.playerPos;
-            playerRot = playerData.playerRot;
+                //set local playerData vars equal to loadedPlayerData
+                maxPlayerHealth = playerData.maxHealth;
+                playerHealth = playerData.health;
+                maxSuitPower = playerData.maxSuitPower;
+                suitPower = playerData.suitPower;
+                objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
+                objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
+                objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
+                objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
+                inWater = playerData.inWater;
+                carryingHeavyObj = playerData.carryingHeavyObj;
+                //playerPos = playerData.playerPos;
+                //playerRot = playerData.playerRot;
+            }
         }
         else
         {
             //set stats to default if save is missing or unreadable
+            Debug.Log("File not found, resetting player stats to default");
             ResetPlayerData();
         }
     }
 
-    public void SavePlayerData()
+    public void SaveToPlayerData()
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream playerFile = File.Create(Application.persistentDataPath + "/playerData.dat");
         saving = true;
         PlayerData playerData = new PlayerData();
 
-        //set stored values equal to current player stats
-        playerData.maxSuitPower = PlayerStats.playerStats.maxSuitPower;
-        playerData.suitPower = PlayerStats.playerStats.suitPower;
-        playerData.maxHealth = PlayerStats.playerStats.maxPlayerHealth;
-        playerData.health = PlayerStats.playerStats.playerHealth;
-        playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairFirstPipe);
-        playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairSecondPipe);
-        playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairThirdPipe);
-        playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.goToElevator);
-        playerData.inWater = FirstPersonController_Sam.fpsSam.inWater;
-        playerData.carryingHeavyObj = FirstPersonController_Sam.fpsSam.carryingHeavyObj;
-        playerData.playerRot = FirstPersonController_Sam.fpsSam.playerSavedRotation;
-        playerData.playerPos = FirstPersonController_Sam.fpsSam.playerSavedPosition;
+        playerData.maxSuitPower = maxSuitPower;
+        playerData.suitPower = suitPower;
+        playerData.maxHealth = maxPlayerHealth;
+        playerData.health = playerHealth;
+        playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
+        playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
+        playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
+        playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = objectives[(int)Objective_Manager.Objectives.goToElevator];
+        playerData.inWater = inWater;
+        playerData.carryingHeavyObj = carryingHeavyObj;
+        //playerData.playerRot = playerRot;
+        //playerData.playerPos = playerPos;
+
 
         binaryFormatter.Serialize(playerFile, playerData);
         playerFile.Close();
         saving = false;
+    }
+
+    public void SaveToDataManager()
+    {
+        objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairFirstPipe);
+        objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairSecondPipe);
+        objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairThirdPipe);
+        objectives[(int)Objective_Manager.Objectives.goToElevator] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.goToElevator);
+        if (PlayerStats.playerStats == null) return;
+        maxSuitPower = PlayerStats.playerStats.maxSuitPower;
+        suitPower = PlayerStats.playerStats.suitPower;
+        maxPlayerHealth = PlayerStats.playerStats.maxPlayerHealth;
+        playerHealth = PlayerStats.playerStats.playerHealth;
+        inWater = FirstPersonController_Sam.fpsSam.inWater;
+        carryingHeavyObj = FirstPersonController_Sam.fpsSam.carryingHeavyObj;
+        playerRot = FirstPersonController_Sam.fpsSam.playerSavedRotation;
+        playerPos = FirstPersonController_Sam.fpsSam.playerSavedPosition;
+        SaveToPlayerData();
     }
 
     public void ResetPlayerData()
@@ -166,18 +199,27 @@ public class Data_Manager : MonoBehaviour
         maxPlayerHealth = 100.0f;
         playerHealth = maxPlayerHealth;
 
-        //fpsSam data
         inWater = false;
         carryingHeavyObj = false;
 
-        //objectiveManager data
-        Objective_Manager.objective_Manager.ResetRun();
+        //fpsSam data
+        if (FirstPersonController_Sam.fpsSam != null)
+        {
+            FirstPersonController_Sam.fpsSam.ResetRun();
+        }
 
-        SavePlayerData();
+        //objectiveManager data
+        objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = false;
+        objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = false;
+        objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = false;
+        objectives[(int)Objective_Manager.Objectives.goToElevator] = false;
+
+        SaveToPlayerData();
     }
 
     public void UpdatePlayerStats()
     {
+        if (PlayerStats.playerStats == null) return;
         PlayerStats.playerStats.maxPlayerHealth = maxPlayerHealth;
         PlayerStats.playerStats.playerHealth = playerHealth;
         PlayerStats.playerStats.maxSuitPower = maxSuitPower;
@@ -188,13 +230,14 @@ public class Data_Manager : MonoBehaviour
     {
         for (int i = 0; i < objectives.Length; i++)
         {
-            if (!objectives[i]) return;
+            if (!objectives[i]) continue;
             Objective_Manager.objective_Manager.UpdateObjectiveCompletion(i);
         }
     }
 
     public void UpdateFPSSam()
     {
+        if (FirstPersonController_Sam.fpsSam == null) return;
         FirstPersonController_Sam.fpsSam.inWater = inWater;
         FirstPersonController_Sam.fpsSam.carryingHeavyObj = carryingHeavyObj;
         FirstPersonController_Sam.fpsSam.playerSavedPosition = playerPos;
@@ -233,7 +276,7 @@ public class PlayerData
     public float maxSuitPower;
 
     //Data from objectiveManager
-    public bool[] objectives;
+    public bool[] objectives = new bool[Data_Manager.dataManager.numberOfObjectives];
     public bool finalObjectiveComplete;
     public int numberOfObjectivesComplete;
     public int objectivesToWin;
@@ -241,6 +284,6 @@ public class PlayerData
     //Data from firstPersonController_Sam
     public bool inWater;
     public bool carryingHeavyObj;
-    public Vector3 playerPos;
-    public Quaternion playerRot;
+    //public Vector3 playerPos;
+    //public Quaternion playerRot;
 }
