@@ -110,4 +110,11 @@ public class Objective_Manager : MonoBehaviour
         }
         return outgoingText;
     }
+
+    public void LoadObjectiveStates()
+    {
+        Data_Manager.dataManager.UpdateObjectiveManager();
+    }
+
+
 }

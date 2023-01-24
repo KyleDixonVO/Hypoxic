@@ -23,19 +23,13 @@ public class Data_Manager : MonoBehaviour
     public float playerHealth;
 
     //objectiveManager data
+    public bool[] objectives;
 
     //firstPersonControllerSam data
-    public bool isDashing;
     public bool inWater;
     public bool carryingHeavyObj;
-    public bool canRun;
-    public bool canJump;
-    public bool canCrouch;
-    public bool canUseHeadbob;
-    public bool canSlideOnSlopes;
-    public bool canZoom;
-    public bool canInteract;
-    public bool useFootsteps;
+    public Vector3 playerPos;
+    public Quaternion playerRot;
 
 
 
@@ -116,7 +110,18 @@ public class Data_Manager : MonoBehaviour
             playerFile.Close();
 
             //set local playerData vars equal to loadedPlayerData
-
+            maxPlayerHealth = playerData.maxHealth;
+            playerHealth = playerData.health;
+            maxSuitPower = playerData.maxSuitPower;
+            suitPower = playerData.suitPower;
+            objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
+            objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
+            objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
+            objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
+            inWater = playerData.inWater;
+            carryingHeavyObj = playerData.carryingHeavyObj;
+            playerPos = playerData.playerPos;
+            playerRot = playerData.playerRot;
         }
         else
         {
@@ -141,17 +146,10 @@ public class Data_Manager : MonoBehaviour
         playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairSecondPipe);
         playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairThirdPipe);
         playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.goToElevator);
-        playerData.isDashing = isDashing;
-        playerData.inWater = inWater;
-        playerData.carryingHeavyObj = carryingHeavyObj;
-        playerData.canRun = canRun;
-        playerData.canCrouch = canCrouch;
-        playerData.canInteract = canInteract;
-        playerData.canJump = canJump;
-        playerData.canSlideOnSlopes = canSlideOnSlopes;
-        playerData.canUseHeadbob = canUseHeadbob;
-        playerData.canZoom = canZoom;
-        playerData.useFootsteps = useFootsteps;
+        playerData.inWater = FirstPersonController_Sam.fpsSam.inWater;
+        playerData.carryingHeavyObj = FirstPersonController_Sam.fpsSam.carryingHeavyObj;
+        playerData.playerRot = FirstPersonController_Sam.fpsSam.playerSavedRotation;
+        playerData.playerPos = FirstPersonController_Sam.fpsSam.playerSavedPosition;
 
         binaryFormatter.Serialize(playerFile, playerData);
         playerFile.Close();
@@ -161,31 +159,46 @@ public class Data_Manager : MonoBehaviour
     public void ResetPlayerData()
     {
         //reset player stats to default and then save stats
-
-        //place default references here
+        //place default data here
         //playerStats data
         maxSuitPower = 100.0f;
         suitPower = maxSuitPower;
         maxPlayerHealth = 100.0f;
-        playerHealth = 100.0f;
+        playerHealth = maxPlayerHealth;
 
         //fpsSam data
-        isDashing = false;
         inWater = false;
         carryingHeavyObj = false;
-        canRun = true;
-        canJump = true;
-        canCrouch = true;
-        canUseHeadbob = true;
-        canSlideOnSlopes = true;
-        canZoom = true;
-        canInteract = true;
-        useFootsteps = true;
 
         //objectiveManager data
         Objective_Manager.objective_Manager.ResetRun();
 
         SavePlayerData();
+    }
+
+    public void UpdatePlayerStats()
+    {
+        PlayerStats.playerStats.maxPlayerHealth = maxPlayerHealth;
+        PlayerStats.playerStats.playerHealth = playerHealth;
+        PlayerStats.playerStats.maxSuitPower = maxSuitPower;
+        PlayerStats.playerStats.suitPower = suitPower;
+    }
+
+    public void UpdateObjectiveManager()
+    {
+        for (int i = 0; i < objectives.Length; i++)
+        {
+            if (!objectives[i]) return;
+            Objective_Manager.objective_Manager.UpdateObjectiveCompletion(i);
+        }
+    }
+
+    public void UpdateFPSSam()
+    {
+        FirstPersonController_Sam.fpsSam.inWater = inWater;
+        FirstPersonController_Sam.fpsSam.carryingHeavyObj = carryingHeavyObj;
+        FirstPersonController_Sam.fpsSam.playerSavedPosition = playerPos;
+        FirstPersonController_Sam.fpsSam.playerSavedRotation = playerRot;
     }
 
     public void ResetGlobalPrefs()
@@ -226,16 +239,8 @@ public class PlayerData
     public int objectivesToWin;
 
     //Data from firstPersonController_Sam
-    public bool isDashing;
     public bool inWater;
     public bool carryingHeavyObj;
-    public bool canRun;
-    public bool canJump;
-    public bool canCrouch;
-    public bool canUseHeadbob;
-    public bool canSlideOnSlopes;
-    public bool canZoom;
-    public bool canInteract;
-    public bool useFootsteps;
-
+    public Vector3 playerPos;
+    public Quaternion playerRot;
 }

@@ -168,6 +168,11 @@ public class PlayerStats : MonoBehaviour
         isDead = false;
     }
 
+    private void LoadPlayerStats()
+    {
+        Data_Manager.dataManager.UpdatePlayerStats();
+    }
+
     public bool IsDead()
     {
         return isDead;

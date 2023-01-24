@@ -9,7 +9,6 @@ using UnityEngine;
 public class FirstPersonController_Sam : MonoBehaviour
 {
     public static FirstPersonController_Sam fpsSam;
-    private CameraShake cameraShake;
     public bool canMove { get; private set; } = true;
     private bool isRunning => canRun && Input.GetKey(runKey);
     private bool shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded;
@@ -49,6 +48,7 @@ public class FirstPersonController_Sam : MonoBehaviour
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashLength = 0.2f;
     private float dashTimer;
+
 
     [Header("Look Settings")]
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
@@ -155,7 +155,9 @@ public class FirstPersonController_Sam : MonoBehaviour
     private float rotationX = 0;
 
     [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 0.71f, -20.95f);
-    [SerializeField] private Vector3 LastSavePos;
+    public Vector3 playerSavedPosition;
+    public Quaternion playerSavedRotation;
+
 
     private void Awake()
     {
@@ -170,7 +172,6 @@ public class FirstPersonController_Sam : MonoBehaviour
         }
 
         playerCamera = GetComponentInChildren<Camera>();
-        cameraShake = GetComponentInChildren<CameraShake>();
         characterController = GetComponent<CharacterController>();
         defaultYPos = playerCamera.transform.localPosition.y;
         defaultFOV = playerCamera.fieldOfView;        
@@ -632,5 +633,18 @@ public class FirstPersonController_Sam : MonoBehaviour
     {
         if (this.gameObject.GetComponent<CharacterController>().enabled == true) return;
         this.gameObject.GetComponent<CharacterController>().enabled = true;
+    }
+
+    //use on buttons
+
+    public void SaveCharacterState()
+    {
+        playerSavedPosition = transform.position;
+        playerSavedRotation = transform.rotation;
+    }
+
+    public void LoadCharacterState()
+    {
+        Data_Manager.dataManager.UpdateFPSSam();
     }
 }
