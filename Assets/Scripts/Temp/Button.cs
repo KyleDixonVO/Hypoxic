@@ -21,11 +21,12 @@ namespace UnderwaterHorror
             doorScript = door.GetComponent<Door>();
         }
 
-        private void OnTriggerStay(Collider other) // while in trigger if 'E' is pressed do the thing
+        private void OnTriggerStay(Collider other) // while in trigger if 'E' is pressed do the thing // The thing will be done chef - Button
         {
             if (other.tag != "Player") return;
             UI_Manager.ui_Manager.tooltipActiveElsewhere = true;
             UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+
             if (InputManager.inputManager.ePressed)
             {
                 if (doorScript.isDoorOpening) return;
@@ -33,6 +34,7 @@ namespace UnderwaterHorror
                 {
                     if (doorScript.otherDoor.isDoorOpening) return;
                 }
+
                 if (!openDoor)
                 {
                     Debug.LogWarning("Press");
@@ -68,5 +70,4 @@ namespace UnderwaterHorror
             UI_Manager.ui_Manager.DisablePrimaryInteractText();
         }
     }
-
 }

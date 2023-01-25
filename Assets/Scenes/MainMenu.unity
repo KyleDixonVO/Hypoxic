@@ -1518,6 +1518,10 @@ MonoBehaviour:
   masterVolume: 10
   musicVolume: 10
   sfxVolume: 2
+  doorOpening: {fileID: 0}
+  doorOpened: {fileID: 0}
+  doorClosing: {fileID: 0}
+  doorClosed: {fileID: 0}
   randomAtmosphereSounds:
   - {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
   titleMusic: {fileID: 0}
@@ -1529,6 +1533,7 @@ MonoBehaviour:
   BigMonsterAudio: {fileID: 0}
   smallMonsterAudio: {fileID: 0}
   AtmosphereAudio: {fileID: 1124360025}
+  DoorAudio: {fileID: 0}
 --- !u!1 &523018475
 GameObject:
   m_ObjectHideFlags: 0
