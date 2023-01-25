@@ -1,30 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnderwaterHorror;
 
-namespace UnderwaterHorror
+public class MedKit : Item
 {
-    public class MedKit : Item
+    // Start is called before the first frame update
+    [SerializeField] float healthGain = 50f;
+
+    void Start()
     {
-        // Start is called before the first frame update
-        void Start()
+        usageTime = 2;
+        usageProgress = usageTime;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-        
+            Equip();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Unequip();
         }
 
-        // Update is called once per frame
-        void Update()
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (Input.GetKeyUp(KeyCode.Alpha0))
-            {
-
-            }
-        }
-
-        override protected void ApplyEffect()
-        {
-            // run code
+            beingUsed = true;
+            TimeToEffect();
+            Debug.Log("click");
         }
     }
 
+    override protected void ApplyEffect()
+    {
+        // run code
+        PlayerStats.playerStats.playerHealth += healthGain;
+        Debug.LogWarning("works");
+
+        if (PlayerStats.playerStats.playerHealth > PlayerStats.playerStats.maxPlayerHealth)
+        {
+            PlayerStats.playerStats.playerHealth = PlayerStats.playerStats.maxPlayerHealth;
+        }
+    }
 }
