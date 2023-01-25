@@ -69,6 +69,7 @@ namespace UnderwaterHorror
                     PatrollingManager();
                     if (HasLineOfSight() && WithinRange(_enemyStats.GetDetectionDistance(), transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
+                        Debug.LogWarning("Switching to chasing state from patrolling");
                         PlayAgroSound();
                         enemyState = EnemyState.chasing;
                     }
@@ -77,7 +78,8 @@ namespace UnderwaterHorror
                 case EnemyState.alerted:
                     // Looks Direction it was alerted to after a delay
                     if (HasLineOfSight() && WithinRange(_enemyStats.GetDetectionDistance(), transform.position, FirstPersonController_Sam.fpsSam.transform.position))
-                    {                        
+                    {
+                        Debug.LogWarning("Switching to chasing state from alerted");
                         enemyState = EnemyState.chasing;
                     }
                     break;
@@ -86,10 +88,12 @@ namespace UnderwaterHorror
                     ChasingManager();
                     if (!HasLineOfSight())
                     {
+                        Debug.LogWarning("Switching to searching state from chasing");
                         enemyState = EnemyState.searching;
                     }                       
                     else if (WithinRange(_enemyStats.attackStateRadius, transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
+                        Debug.LogWarning("Switching to attaking state from chasing");
                         enemyState = EnemyState.attacking;
                     }
                     break;
@@ -101,6 +105,7 @@ namespace UnderwaterHorror
                     AttackingManager();
                     if (!WithinRange(_enemyStats.attackStateRadius, transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
+                        Debug.LogWarning("Switching to chasing state from attacking");
                         enemyState = EnemyState.chasing;
                     }
                     break;
@@ -109,6 +114,7 @@ namespace UnderwaterHorror
                     SearchingManager();
                     if (HasLineOfSight())
                     {
+                        Debug.LogWarning("Switching to chasing state from searching");
                         enemyState = EnemyState.chasing;
                     }
                     break;
@@ -124,14 +130,19 @@ namespace UnderwaterHorror
             {
                 enemyState = EnemyState.defeated;
             }
+
+            Debug.Log(enemyState);
         }
 
         void PatrollingManager()
         {
             agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
-            agent.SetDestination(currentPatrolPoint.transform.position);
-            
+            if (agent.destination != currentPatrolPoint.transform.position)
+            {
+                agent.SetDestination(currentPatrolPoint.transform.position);
+            }
+
             // Fixes find Dest bug 
             Vector3 pointPos = currentPatrolPoint.transform.position;
             Vector3 agentPos = this.agent.transform.position;
@@ -195,8 +206,6 @@ namespace UnderwaterHorror
 
             if (!WithinRange(1, previousPos, agentPos))
             {                
-                //Debug.Log(playerPreviousLocation);
-                //Debug.Log(this.gameObject.transform.position);
                 _enemyStats.searchingTime = _enemyStats.searchingTimeStart;
             }
 
@@ -232,27 +241,31 @@ namespace UnderwaterHorror
 
         protected bool HasLineOfSight()
         {
-            
             Vector3 raycastDir = PlayerStats.playerStats.transform.position;
-            if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
+            Vector3 angleVector = FirstPersonController_Sam.fpsSam.transform.position - transform.position;
+            Debug.DrawLine(FirstPersonController_Sam.fpsSam.transform.position, this.transform.position);
+            Debug.DrawRay(this.transform.position, this.transform.forward * 100);
+            if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks) && Vector3.Angle(angleVector, this.transform.forward) < 30)
             {
-                //Debug.Log("NotBlocked");
+                Debug.Log("Has Line Of Sight " + Vector3.Angle(angleVector, this.transform.forward));
                 return true;
             }
 
             else
             {
-                //Debug.Log("Blocked");
+                Debug.Log("No Visual " + Vector3.Angle(angleVector, this.transform.forward));
                 return false;
             }
         }
 
         protected bool WithinRange(float rangeToCheck, Vector3 firstPos, Vector3 secondPos)
         {
-            if (rangeToCheck <= Vector3.Distance(firstPos, secondPos))
+            if (Vector3.Distance(firstPos, secondPos) < rangeToCheck)
             {
+                Debug.Log("Within Range " + Vector3.Distance(firstPos, secondPos) + " " + rangeToCheck + " " + _enemyStats.GetDetectionDistance());
                 return true;
             }
+            Debug.Log("Out Of Range" + Vector3.Distance(firstPos, secondPos) + " " + rangeToCheck + " " + _enemyStats.GetDetectionDistance());
             return false;
         }
 
