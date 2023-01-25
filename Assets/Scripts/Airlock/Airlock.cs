@@ -58,15 +58,11 @@ public class Airlock : MonoBehaviour
 
     public void OpenDoor()
     {
-        AudioManager.audioManager.DoorAudio.clip = AudioManager.audioManager.doorOpening;
-        AudioManager.audioManager.DoorAudio.PlayOneShot(AudioManager.audioManager.doorOpening, (AudioManager.audioManager.sfxVolume * AudioManager.audioManager.masterVolume));
         StartCoroutine(OpenDelay(openWaitTime));
     }
 
     public void CloseDoor(float waitTime)
     {
-        AudioManager.audioManager.DoorAudio.clip = AudioManager.audioManager.doorClosing;
-        AudioManager.audioManager.DoorAudio.PlayOneShot(AudioManager.audioManager.doorClosing, (AudioManager.audioManager.sfxVolume * AudioManager.audioManager.masterVolume));
         StartCoroutine(CloseDelay(waitTime));       
     }
 

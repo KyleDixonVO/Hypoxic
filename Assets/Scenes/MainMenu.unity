@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterVolume: 10
   musicVolume: 10
-  sfxVolume: 2
+  sfxVolume: 10
   doorOpening: {fileID: 0}
   doorOpened: {fileID: 0}
   doorClosing: {fileID: 0}

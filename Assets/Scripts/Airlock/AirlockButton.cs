@@ -14,6 +14,7 @@ namespace UnderwaterHorror
         {
             if (other.tag == "Player" && Input.GetKey(KeyCode.E) && !AL.isOpening)
             {
+                AudioManager.audioManager.playSound(this.gameObject.GetComponent<AudioSource>());
                 Debug.Log("Button pressed");
                 AL.OpenDoor();
             }

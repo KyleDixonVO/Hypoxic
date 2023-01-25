@@ -39,7 +39,6 @@ namespace UnderwaterHorror
         public AudioSource BigMonsterAudio;
         public AudioSource smallMonsterAudio;
         public AudioSource AtmosphereAudio;
-        public AudioSource DoorAudio;
 
         private void Awake()
         {
@@ -74,8 +73,9 @@ namespace UnderwaterHorror
 
         public void playSound(AudioSource source)
         {
+            if (source.isPlaying) return;
             source.volume = (sfxVolume * masterVolume);
-            source.PlayOneShot(source.clip);
+            source.Play();
             Debug.LogWarning("SoundPlayed");
         }
 
