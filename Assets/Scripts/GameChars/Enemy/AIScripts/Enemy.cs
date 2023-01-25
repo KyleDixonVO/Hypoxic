@@ -59,6 +59,15 @@ namespace UnderwaterHorror
         // Update is called once per frame
         protected void Update()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                agent.isStopped = true;
+                return;
+            }
+            else
+            {
+                agent.isStopped = false;
+            }
             // Made by Kyle
             //-----------------------------------
             FindPlayerRef();

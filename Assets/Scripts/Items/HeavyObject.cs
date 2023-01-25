@@ -16,7 +16,7 @@ public class HeavyObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
+        Debug.Log(Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
         ToggleObjectPickup();
         UpdateObjectParent();
         UpdateHeldLocalPosition();
@@ -55,7 +55,7 @@ public class HeavyObject : MonoBehaviour
         }
         else if (!_isHeld)
         {
-            this.gameObject.transform.parent = ObjectiveParent.objectiveParent.transform;
+            this.gameObject.transform.parent = null;
         }
     }
 
