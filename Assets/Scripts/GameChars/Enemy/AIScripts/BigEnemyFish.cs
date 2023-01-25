@@ -38,12 +38,12 @@ namespace UnderwaterHorror
         // EDMUND
         override protected void PlayAttackSound()
         {
-            AM.PlaySoundBigBite(source);
+            AudioManager.audioManager.PlaySoundBigBite(source);
         }
 
         protected override void PlayAgroSound()
         {
-            AM.PlaySoundBigAgro(source);
+            AudioManager.audioManager.PlaySoundBigAgro(source);
         }
     }
 }

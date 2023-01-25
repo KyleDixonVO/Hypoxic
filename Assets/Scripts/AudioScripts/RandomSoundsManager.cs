@@ -2,201 +2,111 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomSoundsManager : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public static RandomSoundsManager RSM;
-
-    [Header("SoundPrefs")]
-    public float masterVolume;
-    public float musicVolume;
-    public float sfxVolume;
-
-    [Header("AuidoClips")]
-    public AudioClip soundOne;
-    public AudioClip titleMusic;
-    public AudioClip gameplayAmbiance;
-
-    [Header("Monster Sounds")]
-    public AudioClip bigBite;
-    public AudioClip bigAgro;
-    public AudioClip smallBite;
-
-    [Header("GameObjects")]
-    public GameObject playerObj;
-    public GameObject randomSoundsObj;
-
-    [Header("Components")]
-    public AudioSource randomSoundsAudio;
-    public AudioSource musicAudio;
-
-    [Header("Spherecast")]
-    public Transform terrainCheck;
-    public float terrainCheckRadius = 2;
-    public LayerMask terrainLayerMask;
-
-    [Header("Settings")]
-    [Range(5f, 20f)]
-    public float maxSoundRange = 10f;
-    [Range(-5f, -20f)]
-    public float minSoundRange = -10f;
-    [Range(1f, 100000f)]
-    public int probabilityWeight;
-    public int probability;
-
-    public bool playAudio = false;
-    public bool touchingWall = false;
-
-    private void Awake()
+    // Code by Tobias
+    public class RandomSoundsManager : MonoBehaviour
     {
-        if (RSM == null)
+        [Header("GameObjects")]
+        public GameObject randomSoundsObj;
+
+        [Header("Spherecast")]
+        public Transform terrainCheck;
+        public float terrainCheckRadius = 2;
+        public LayerMask terrainLayerMask;
+
+        [Header("Settings")]
+        [Range(5f, 20f)]
+        public float maxSoundRange = 10f;
+        [Range(-5f, -20f)]
+        public float minSoundRange = -10f;
+        [Range(1f, 100000f)]
+        public int probabilityWeight;
+        public int probability;
+
+        public bool playAudio = false;
+        public bool touchingWall = false;
+
+        public AudioClip selectedAtmosphereSound;      
+
+        void Start()
         {
-            RSM = this;
-            DontDestroyOnLoad(this.gameObject);
+            randomSoundsObj.GetComponent<SphereCollider>();
         }
-        else if (RSM != null && RSM != this)
+
+        // Update is called once per frame
+        void Update()
         {
-            Destroy(this.gameObject);
+            PlayRandomSound();
+            ManageSoundRandomness();
         }
-    }
 
-    void Start()
-    {
-        randomSoundsObj.GetComponent<SphereCollider>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        FindObjRefs();
-        PlayMusic();
-        PlayRandomSound();
-        StopSoundsIndoors();
-    }
-
-    private void FixedUpdate()
-    {
-        probability = Random.Range(0, probabilityWeight);
-    }
-
-    public void LoadVolumePrefs()
-    {
-        masterVolume = Data_Manager.dataManager.mastervolume;
-        musicVolume = Data_Manager.dataManager.musicVolume;
-        sfxVolume = Data_Manager.dataManager.SFXVolume;
-    }
-
-    public void UpdateVolumePrefs()
-    {
-        if (!UI_Manager.ui_Manager.OptionsOpen()) return;
-        if (musicAudio.isPlaying) musicAudio.Pause();
-        if (randomSoundsAudio) randomSoundsAudio.Pause();
-
-        masterVolume = UI_Manager.ui_Manager.sliderMaster.value;
-        musicVolume = UI_Manager.ui_Manager.sliderMusic.value;
-        sfxVolume = UI_Manager.ui_Manager.sliderSFX.value;
-        Debug.Log("Master: " + masterVolume + "Music: " + musicVolume + "SFX: " + sfxVolume);
-    }
-
-    public void SaveVolumePrefs()
-    {
-        Debug.Log("Saving Volume Prefs");
-        Data_Manager.dataManager.musicVolume = musicVolume;
-        Data_Manager.dataManager.mastervolume = masterVolume;
-        Data_Manager.dataManager.SFXVolume = sfxVolume;
-    }
-
-    void PlayMusic()
-    {
-        if (musicAudio == null) return;
-        if (musicAudio.isPlaying == true || UI_Manager.ui_Manager.OptionsOpen()) return;
-
-        if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = gameplayAmbiance;
-        else if (GameManager.gameManager.gameState == GameManager.gameStates.menu && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = titleMusic;
-
-        musicAudio.volume = (musicVolume * masterVolume);
-        musicAudio.Play();
-    }
-
-    void PlayRandomSound()
-    {
-        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
-        //When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
-        if (randomSoundsAudio.isPlaying != true)
+        private void FixedUpdate()
         {
-            if (probability == 0)
-            {
-                MangeRandomPosition();
-                randomSoundsAudio.clip = soundOne;
-                randomSoundsAudio.PlayOneShot(soundOne, (sfxVolume * masterVolume));
-            }
+            probability = Random.Range(0, probabilityWeight);
+        }
 
-            if (IsTouchingTerrain() == true)
+        void ManageSoundRandomness()
+        {
+            if (AudioManager.audioManager.AtmosphereAudio.isPlaying != true)
             {
-                //audioHolder.Stop();
-                //playAudio = false;
+                // Starts numOfSounds at 0 in first loop
+                int numOfSounds = -1;
+                foreach (AudioClip clip in AudioManager.audioManager.randomAtmosphereSounds)
+                {
+                    numOfSounds++;
+                }
+                int randomSoundSelected = Random.Range(0, numOfSounds);
+                selectedAtmosphereSound = AudioManager.audioManager.randomAtmosphereSounds[randomSoundSelected];
             }
         }
-    }
 
-    void MangeRandomPosition()
-    {
-        Vector3 audioHolderPos = randomSoundsObj.transform.position;
-        Vector3 playerPos = playerObj.transform.position;
-
-        audioHolderPos.x = playerPos.x + Random.Range(minSoundRange + 1, maxSoundRange);
-        audioHolderPos.y = playerPos.y + Random.Range(minSoundRange + 1, maxSoundRange);
-        audioHolderPos.z = playerPos.z + Random.Range(minSoundRange + 1, maxSoundRange);
-
-        // Generates the max distance the sound can play.
-        randomSoundsAudio.maxDistance = playerPos.x + maxSoundRange * 2;
-        randomSoundsObj.transform.position = audioHolderPos;
-    }
-
-    bool IsTouchingTerrain()
-    {
-        if (Physics.CheckSphere(terrainCheck.position, terrainCheckRadius, terrainLayerMask)) return true;
-        return false;
-    }
-
-    void FindObjRefs()
-    {
-        //if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-        if (playerObj != null && randomSoundsObj != null) return;
-        playerObj = GameObject.Find("Player");
-        randomSoundsObj = GameObject.Find("RandomSoundsHolder");
-    }
-
-    void StopSoundsIndoors()
-    {
-        if (FirstPersonController_Sam.fpsSam != null)
+        void MangeRandomPosition()
         {
-            if (FirstPersonController_Sam.fpsSam.inWater) return;
+            Vector3 audioHolderPos = randomSoundsObj.transform.position;
+            Vector3 playerPos = PlayerStats.playerStats.gameObject.transform.position;
+
+            audioHolderPos.x = playerPos.x + Random.Range(minSoundRange + 1, maxSoundRange);
+            audioHolderPos.y = playerPos.y + Random.Range(minSoundRange + 1, maxSoundRange);
+            audioHolderPos.z = playerPos.z + Random.Range(minSoundRange + 1, maxSoundRange);
+
+            // Generates the max distance the sound can play.
+            AudioManager.audioManager.AtmosphereAudio.maxDistance = playerPos.x + maxSoundRange * 2;
+            randomSoundsObj.transform.position = audioHolderPos;
         }
-        
-        randomSoundsAudio.Stop();
-        musicAudio.Stop();
-    }
 
-    public void PlaySoundBigAgro(AudioSource source)
-    {
-        source.PlayOneShot(bigAgro);
-        Debug.LogWarning("big mad");
-    }
+        void PlayRandomSound()
+        {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
+            //When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
+            if (AudioManager.audioManager.AtmosphereAudio.isPlaying != true)
+            {
+                if (probability == 0)
+                {
+                    MangeRandomPosition();
+                    Debug.LogWarning("RandomSoundPlaying");
+                    AudioManager.audioManager.AtmosphereAudio.clip = selectedAtmosphereSound;
+                    AudioManager.audioManager.AtmosphereAudio.PlayOneShot(selectedAtmosphereSound, (AudioManager.audioManager.sfxVolume * AudioManager.audioManager.masterVolume));
+                }
 
-    public void PlaySoundBigBite(AudioSource source)
-    {
-        source.PlayOneShot(bigBite);
-        Debug.LogWarning("big bite");
-    }
+                if (IsTouchingTerrain() == true)
+                {
+                    //audioHolder.Stop();
+                    //playAudio = false;
+                }
+            }
+        }
 
-    public void PlaySoundSmallBite(AudioSource source)
-    {
-        source.PlayOneShot(smallBite);
-    }
+        bool IsTouchingTerrain()
+        {
+            if (Physics.CheckSphere(terrainCheck.position, terrainCheckRadius, terrainLayerMask)) return true;
+            return false;
+        }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, terrainCheckRadius);
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, terrainCheckRadius);
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace UnderwaterHorror
         // Edmund's Audio... yikes - Edmund
         override protected void PlayAttackSound()
         {
-            AM.PlaySoundSmallBite(source);
+            AudioManager.audioManager.PlaySoundSmallBite(source);
         }
 
         protected override void PlayAgroSound()
