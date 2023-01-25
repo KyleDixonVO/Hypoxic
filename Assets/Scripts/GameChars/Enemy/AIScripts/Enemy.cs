@@ -22,8 +22,6 @@ namespace UnderwaterHorror
         protected EnemyState enemyState;
 
         [Header("Scripts")]
-        [SerializeField] protected EnemyFOV _enemyFOV;
-        [SerializeField] protected EnemyAttackRadius _enemyAttackRadius;
         [SerializeField] protected EnemyStats _enemyStats;
 
         [Header("GameObjects")]
@@ -38,10 +36,6 @@ namespace UnderwaterHorror
 
         [Header("FOVRaycast")]
         [SerializeField] protected LayerMask layerMasks;
-
-        [Header("Colliders")]
-        [SerializeField] protected BoxCollider patrolCollider;
-        [SerializeField] protected SphereCollider chaseCollider;
 
         [SerializeField] private Vector3 NewGamePos;
         [SerializeField] private Vector3 SaveGamePos;
@@ -73,7 +67,7 @@ namespace UnderwaterHorror
                 //-----------------------------------------  
                 case EnemyState.patrolling:
                     PatrollingManager();
-                    if (SpottedPlayer())
+                    if (HasLineOfSight() && WithinRange(_enemyStats.GetDetectionDistance(), transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
                         PlayAgroSound();
                         enemyState = EnemyState.chasing;
@@ -82,7 +76,7 @@ namespace UnderwaterHorror
                 //-----------------------------------------  
                 case EnemyState.alerted:
                     // Looks Direction it was alerted to after a delay
-                    if (SpottedPlayer() == true)
+                    if (HasLineOfSight() && WithinRange(_enemyStats.GetDetectionDistance(), transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {                        
                         enemyState = EnemyState.chasing;
                     }
@@ -90,11 +84,11 @@ namespace UnderwaterHorror
                 //-----------------------------------------  
                 case EnemyState.chasing:
                     ChasingManager();
-                    if (SpottedPlayer() == false)
+                    if (!HasLineOfSight())
                     {
                         enemyState = EnemyState.searching;
                     }                       
-                    else if (CanAttackPlayer())
+                    else if (WithinRange(_enemyStats.attackStateRadius, transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
                         enemyState = EnemyState.attacking;
                     }
@@ -105,15 +99,15 @@ namespace UnderwaterHorror
                     ChasingManager();
                     // attacks player when in range
                     AttackingManager();
-                    if (CanAttackPlayer() == false)
+                    if (!WithinRange(_enemyStats.attackStateRadius, transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
                         enemyState = EnemyState.chasing;
                     }
-                    break;                   
+                    break;
                 //-----------------------------------------          
                 case EnemyState.searching:
                     SearchingManager();
-                    if (SpottedPlayer() == true)
+                    if (HasLineOfSight())
                     {
                         enemyState = EnemyState.chasing;
                     }
@@ -146,10 +140,7 @@ namespace UnderwaterHorror
             Vector3 agentPosDest = new Vector3(agentPos.x, 0, agentPos.z);
             //--------------------------------------------------------------
 
-            float distCheck = Vector3.Distance(pointPosDest, agentPosDest);
-            //Debug.Log(distCheck);
-
-            if (distCheck < 6)
+            if (WithinRange(6, pointPosDest, agentPosDest))
             {
                 if (_enemyStats.patrolRandomWaitTimer <= 0)
                 {
@@ -165,10 +156,6 @@ namespace UnderwaterHorror
             {
                 _enemyStats.patrolRandomWaitTimer = Random.Range(0, _enemyStats.patrolRandomWaitTimerWeight);
             }
-
-            // POV Colliders
-            patrolCollider.enabled = true;
-            chaseCollider.enabled = false;
         }
 
         void ChasingManager()
@@ -180,9 +167,6 @@ namespace UnderwaterHorror
             // Tracks player's previous location
             playerPreviousLocation = PlayerStats.playerStats.transform.position;           
             //---------------------------------------------------------
-
-            patrolCollider.enabled = false;
-            chaseCollider.enabled = true;
         }
 
         void AttackingManager()
@@ -191,15 +175,10 @@ namespace UnderwaterHorror
             {                               
                 PlayerStats.playerStats.TakeDamage(_enemyStats.attackPower);
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;               
-
-                // Turns animation on
-                //attackAnimation.SetActive(true);
             }
-
             else
             {
-                // Turns animation off
-                //attackAnimation.SetActive(false);
+
             }
         }
 
@@ -207,21 +186,14 @@ namespace UnderwaterHorror
         {
             agent.speed = _enemyStats.searchingMovementSpeed;
 
-
-            // Fixes find Dest bug 
-            Vector3 previousPos = playerPreviousLocation;
-            Vector3 agentPos = this.agent.transform.position;
-
-            Vector3 previousPosDest = new Vector3(previousPos.x, 0, previousPos.z);
-            Vector3 agentPosDest = new Vector3(agentPos.x, 0, agentPos.z);
+            Vector3 previousPos = new Vector3(playerPreviousLocation.x, 0, playerPreviousLocation.z);
+            Vector3 agentPos = new Vector3(agent.transform.position.x, 0, agent.transform.position.z);
             // ------------------------------------------------------------------------
-
-            float distCheck = Vector3.Distance(previousPosDest, agentPosDest);
 
             // Goes to last spot the player was last scene
             agent.SetDestination(playerPreviousLocation); //<--- playerPreviousLocation gets set in ChasingManager 
 
-            if (distCheck > 1)
+            if (!WithinRange(1, previousPos, agentPos))
             {                
                 //Debug.Log(playerPreviousLocation);
                 //Debug.Log(this.gameObject.transform.position);
@@ -238,10 +210,6 @@ namespace UnderwaterHorror
                     enemyState = EnemyState.patrolling;
                 }
             }
-
-            // POV Colliders
-            patrolCollider.enabled = true;
-            chaseCollider.enabled = false;
         }
 
         virtual protected void DefeatedManager()
@@ -259,45 +227,36 @@ namespace UnderwaterHorror
             }
         }
 
-        protected bool SpottedPlayer()
-        {
-            // If sight touches player
-            if (_enemyFOV.playerInFOV)
-            {
-                Debug.Log("InsidePOV");
-                Vector3 raycastDir = PlayerStats.playerStats.transform.position;
-                if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
-                {
-                    //Debug.Log("NotBlocked");
-                    return true;
-                }
+        // Made by Kyle
+        //--------------------------------------------------------
 
-                else
-                {
-                    //Debug.Log("Blocked");
-                    return false;
-                }
-            }
-            return false;
-        }
-
-        protected bool CanAttackPlayer()
+        protected bool HasLineOfSight()
         {
-            if (_enemyAttackRadius.playerInRadius)
+            
+            Vector3 raycastDir = PlayerStats.playerStats.transform.position;
+            if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
             {
-                Debug.Log("InsideRadius");
+                //Debug.Log("NotBlocked");
                 return true;
             }
 
             else
             {
-                Debug.Log("Outside radius");
+                //Debug.Log("Blocked");
                 return false;
             }
         }
 
-        // Made by Kyle
-        //--------------------------------------------------------
+        protected bool WithinRange(float rangeToCheck, Vector3 firstPos, Vector3 secondPos)
+        {
+            if (rangeToCheck <= Vector3.Distance(firstPos, secondPos))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //Don't call these yet, they aren't implemented properly
         void ResetRun()
         {
             this.gameObject.transform.position = NewGamePos;

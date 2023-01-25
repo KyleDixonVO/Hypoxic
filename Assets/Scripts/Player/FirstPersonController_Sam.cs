@@ -636,6 +636,18 @@ namespace UnderwaterHorror
             this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
 
+        public bool IsCrouching()
+        {
+            if (isCrouching) return true;
+            return false;
+        }
+
+        public bool IsRunning()
+        {
+            if (isRunning) return true;
+            return false;
+        }
+
         //use on buttons
 
         public void SaveCharacterState()
