@@ -35,14 +35,12 @@ public class HeavyObject : MonoBehaviour
             Debug.Log("Picked up heavy object");
             _isHeld = true;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
-            //InputManager.inputManager.eCycled = false;
         }
         else if (_isHeld && InputManager.inputManager.ePressed)
         {
             Debug.Log("Dropped heavy object");
             _isHeld = false;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
-            //InputManager.inputManager.eCycled = false;
         }
         
     }
@@ -64,7 +62,7 @@ public class HeavyObject : MonoBehaviour
         if (this.gameObject.transform.parent != null)
         {
             this.gameObject.transform.localPosition = heldPos;
-            this.gameObject.transform.eulerAngles = heldRot;
+            this.gameObject.transform.localEulerAngles = heldRot;
         }
     }
 

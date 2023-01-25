@@ -15,6 +15,7 @@ public class KillPlane : MonoBehaviour
         
     }
 
+    //Abosolutely obliterate the player on contact
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

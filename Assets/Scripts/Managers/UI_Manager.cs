@@ -170,10 +170,7 @@ public class UI_Manager : MonoBehaviour
                 break;
 
             case ActiveUI.Pause:
-                //if (!InputManager.inputManager.escapePressed)
-                //{
-                //    SwitchGameplay();
-                //}
+   
                 break;
 
             case ActiveUI.Options:
