@@ -4,287 +4,291 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UI_Manager : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public static UI_Manager ui_Manager;
-    public bool tooltipActiveElsewhere = false;
-
-    [Header("Main Menu Assets")]
-    [SerializeField] private TMP_Text textStartTitle;
-    [SerializeField] private Button buttonStartGame;
-    [SerializeField] private Button buttonNewGame;
-    [SerializeField] private Button buttonOptions;
-    [SerializeField] private Button buttonExit;
-
-    [Header("Gameplay Assets")]
-    [SerializeField] private Slider suitPower;
-    [SerializeField] private Slider healthSlider;
-    [SerializeField] private Image playerHitEffect;
-    [SerializeField] private TMP_Text textToolTipE;
-    [SerializeField] private TMP_Text textToolTipR;
-    [SerializeField] private TMP_Text textObjectives;
-
-    [Header("Pause Assets")]
-    [SerializeField] private TMP_Text textPauseTitle;
-    [SerializeField] private Button buttonResumeGame;
-    [SerializeField] private Button buttonExitGame;
-
-    [Header("Options Assets")]
-    private ActiveUI canvasReturnFromOptions;
-    [SerializeField] private TMP_Text textOptionsTitle;
-    [SerializeField] private TMP_Text textMasterSlider;
-    [SerializeField] private TMP_Text textMusicSlider;
-    [SerializeField] private TMP_Text textSFXSlider;
-    [SerializeField] private Button buttonOptionsBack;
-    [SerializeField] public Slider sliderMaster;
-    [SerializeField] public Slider sliderMusic;
-    [SerializeField] public Slider sliderSFX;
-
-    [Header("Credits Assets")]
-    [SerializeField] private TMP_Text textCreditsTitle;
-    [SerializeField] private TMP_Text textCreditsBody;
-
-    [Header("New Game Assets")]
-    [SerializeField] private TMP_Text textNewGame;
-    [SerializeField] private Button buttonConfirmNG;
-    [SerializeField] private Button buttonCancelNG;
-
-    [Header("Game Over / Win Assets")]
-    [SerializeField] private TMP_Text textGameOver;
-    [SerializeField] private Button buttonClearGameOver;
-
-    [Header("General Variables")]
-    [SerializeField] private ActiveUI activeCanvas;
-    [SerializeField] private Canvas[] canvasArray;
-
-    public enum ActiveUI
+    public class UI_Manager : MonoBehaviour
     {
-        MainMenu,
-        Gameplay,
-        Pause,
-        Options,
-        Credits,
-        NewGame,
-        GameOverWin
-    }
+        public static UI_Manager ui_Manager;
+        public bool tooltipActiveElsewhere = false;
 
-    private void Awake()
-    {
-        if (ui_Manager == null)
+        [Header("Main Menu Assets")]
+        [SerializeField] private TMP_Text textStartTitle;
+        [SerializeField] private Button buttonStartGame;
+        [SerializeField] private Button buttonNewGame;
+        [SerializeField] private Button buttonOptions;
+        [SerializeField] private Button buttonExit;
+
+        [Header("Gameplay Assets")]
+        [SerializeField] private Slider suitPower;
+        [SerializeField] private Slider healthSlider;
+        [SerializeField] private Image playerHitEffect;
+        [SerializeField] private TMP_Text textToolTipE;
+        [SerializeField] private TMP_Text textToolTipR;
+        [SerializeField] private TMP_Text textObjectives;
+
+        [Header("Pause Assets")]
+        [SerializeField] private TMP_Text textPauseTitle;
+        [SerializeField] private Button buttonResumeGame;
+        [SerializeField] private Button buttonExitGame;
+
+        [Header("Options Assets")]
+        private ActiveUI canvasReturnFromOptions;
+        [SerializeField] private TMP_Text textOptionsTitle;
+        [SerializeField] private TMP_Text textMasterSlider;
+        [SerializeField] private TMP_Text textMusicSlider;
+        [SerializeField] private TMP_Text textSFXSlider;
+        [SerializeField] private Button buttonOptionsBack;
+        [SerializeField] public Slider sliderMaster;
+        [SerializeField] public Slider sliderMusic;
+        [SerializeField] public Slider sliderSFX;
+
+        [Header("Credits Assets")]
+        [SerializeField] private TMP_Text textCreditsTitle;
+        [SerializeField] private TMP_Text textCreditsBody;
+
+        [Header("New Game Assets")]
+        [SerializeField] private TMP_Text textNewGame;
+        [SerializeField] private Button buttonConfirmNG;
+        [SerializeField] private Button buttonCancelNG;
+
+        [Header("Game Over / Win Assets")]
+        [SerializeField] private TMP_Text textGameOver;
+        [SerializeField] private Button buttonClearGameOver;
+
+        [Header("General Variables")]
+        [SerializeField] private ActiveUI activeCanvas;
+        [SerializeField] private Canvas[] canvasArray;
+
+        public enum ActiveUI
         {
-            ui_Manager = this;
-            DontDestroyOnLoad(gameObject);
+            MainMenu,
+            Gameplay,
+            Pause,
+            Options,
+            Credits,
+            NewGame,
+            GameOverWin
         }
-        else if (ui_Manager != null && ui_Manager != this)
+
+        private void Awake()
         {
-            Destroy(this.gameObject);
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        activeCanvas = ActiveUI.MainMenu;
-        FindReferences();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        CheckActiveCanvas();
-    }
-
-    void FindReferences()
-    {
-        textStartTitle = GameObject.Find("TextStartTitle").GetComponent<TMP_Text>();
-        buttonStartGame = GameObject.Find("ButtonStartGame").GetComponent<Button>();
-        buttonNewGame = GameObject.Find("ButtonNewGame").GetComponent<Button>();
-        buttonOptions = GameObject.Find("ButtonOptions").GetComponent<Button>();
-        buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
-
-        playerHitEffect = GameObject.Find("PlayerHitEffect").GetComponent<Image>();
-        textToolTipE = GameObject.Find("TextToolTipE").GetComponent<TMP_Text>();
-        textToolTipR = GameObject.Find("TextToolTipR").GetComponent<TMP_Text>();
-        textObjectives = GameObject.Find("TextObjectives").GetComponent<TMP_Text>();
-
-        textPauseTitle = GameObject.Find("TextPauseTitle").GetComponent<TMP_Text>();
-        buttonResumeGame = GameObject.Find("ButtonResumeGame").GetComponent<Button>();
-        buttonExitGame = GameObject.Find("ButtonExitGame").GetComponent<Button>();
-
-        textOptionsTitle = GameObject.Find("TextOptionsTitle").GetComponent<TMP_Text>();
-        textMasterSlider = GameObject.Find("TextMasterSlider").GetComponent<TMP_Text>();
-        textMusicSlider = GameObject.Find("TextMusicSlider").GetComponent<TMP_Text>();
-        textSFXSlider = GameObject.Find("TextSFXSlider").GetComponent<TMP_Text>();
-        buttonOptionsBack = GameObject.Find("ButtonOptionsBack").GetComponent<Button>();
-        sliderMaster = GameObject.Find("SliderMaster").GetComponent<Slider>();
-        sliderMusic = GameObject.Find("SliderMusic").GetComponent<Slider>();
-        sliderSFX = GameObject.Find("SliderSFX").GetComponent<Slider>();
-
-        textCreditsTitle = GameObject.Find("TextCreditsTitle").GetComponent<TMP_Text>();
-        textCreditsBody = GameObject.Find("TextCreditsBody").GetComponent<TMP_Text>();
-
-        textNewGame = GameObject.Find("TextNewGame").GetComponent<TMP_Text>();
-        buttonCancelNG = GameObject.Find("ButtonCancelNG").GetComponent<Button>();
-        buttonConfirmNG = GameObject.Find("ButtonConfirmNG").GetComponent<Button>();
-
-        textGameOver = GameObject.Find("TextGameOver").GetComponent<TMP_Text>();
-        buttonClearGameOver = GameObject.Find("ButtonClearGameOver").GetComponent<Button>();
-    }
-
-    void CheckActiveCanvas()
-    {
-        //Debug.Log(activeCanvas);
-        for (int i = 0; i < canvasArray.Length; i++)
-        {
-            if (i == (int)activeCanvas)
+            if (ui_Manager == null)
             {
-                canvasArray[i].gameObject.SetActive(true);
-                continue;
+                ui_Manager = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (ui_Manager != null && ui_Manager != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            activeCanvas = ActiveUI.MainMenu;
+            FindReferences();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            CheckActiveCanvas();
+        }
+
+        void FindReferences()
+        {
+            textStartTitle = GameObject.Find("TextStartTitle").GetComponent<TMP_Text>();
+            buttonStartGame = GameObject.Find("ButtonStartGame").GetComponent<Button>();
+            buttonNewGame = GameObject.Find("ButtonNewGame").GetComponent<Button>();
+            buttonOptions = GameObject.Find("ButtonOptions").GetComponent<Button>();
+            buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
+
+            playerHitEffect = GameObject.Find("PlayerHitEffect").GetComponent<Image>();
+            textToolTipE = GameObject.Find("TextToolTipE").GetComponent<TMP_Text>();
+            textToolTipR = GameObject.Find("TextToolTipR").GetComponent<TMP_Text>();
+            textObjectives = GameObject.Find("TextObjectives").GetComponent<TMP_Text>();
+
+            textPauseTitle = GameObject.Find("TextPauseTitle").GetComponent<TMP_Text>();
+            buttonResumeGame = GameObject.Find("ButtonResumeGame").GetComponent<Button>();
+            buttonExitGame = GameObject.Find("ButtonExitGame").GetComponent<Button>();
+
+            textOptionsTitle = GameObject.Find("TextOptionsTitle").GetComponent<TMP_Text>();
+            textMasterSlider = GameObject.Find("TextMasterSlider").GetComponent<TMP_Text>();
+            textMusicSlider = GameObject.Find("TextMusicSlider").GetComponent<TMP_Text>();
+            textSFXSlider = GameObject.Find("TextSFXSlider").GetComponent<TMP_Text>();
+            buttonOptionsBack = GameObject.Find("ButtonOptionsBack").GetComponent<Button>();
+            sliderMaster = GameObject.Find("SliderMaster").GetComponent<Slider>();
+            sliderMusic = GameObject.Find("SliderMusic").GetComponent<Slider>();
+            sliderSFX = GameObject.Find("SliderSFX").GetComponent<Slider>();
+
+            textCreditsTitle = GameObject.Find("TextCreditsTitle").GetComponent<TMP_Text>();
+            textCreditsBody = GameObject.Find("TextCreditsBody").GetComponent<TMP_Text>();
+
+            textNewGame = GameObject.Find("TextNewGame").GetComponent<TMP_Text>();
+            buttonCancelNG = GameObject.Find("ButtonCancelNG").GetComponent<Button>();
+            buttonConfirmNG = GameObject.Find("ButtonConfirmNG").GetComponent<Button>();
+
+            textGameOver = GameObject.Find("TextGameOver").GetComponent<TMP_Text>();
+            buttonClearGameOver = GameObject.Find("ButtonClearGameOver").GetComponent<Button>();
+        }
+
+        void CheckActiveCanvas()
+        {
+            //Debug.Log(activeCanvas);
+            for (int i = 0; i < canvasArray.Length; i++)
+            {
+                if (i == (int)activeCanvas)
+                {
+                    canvasArray[i].gameObject.SetActive(true);
+                    continue;
+                }
+
+                if (activeCanvas == ActiveUI.Pause && i == (int)ActiveUI.Gameplay) continue;
+                canvasArray[i].gameObject.SetActive(false);
             }
 
-            if (activeCanvas == ActiveUI.Pause && i == (int)ActiveUI.Gameplay) continue;
-            canvasArray[i].gameObject.SetActive(false);
+            switch (activeCanvas)
+            {
+                case ActiveUI.MainMenu:
+
+                    break;
+
+                case ActiveUI.Gameplay:
+                    ToggleGameplayTooltips();
+                    textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
+                    if (PlayerStats.playerStats == null) return;
+                    healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
+                    suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;
+
+                    healthSlider.value = PlayerStats.playerStats.playerHealth;
+                    suitPower.value = PlayerStats.playerStats.suitPower;
+                    break;
+
+                case ActiveUI.Pause:
+                    //if (!InputManager.inputManager.escapePressed)
+                    //{
+                    //    SwitchGameplay();
+                    //}
+                    break;
+
+                case ActiveUI.Options:
+                    UpdateOptionsSliderText();
+                    break;
+
+                case ActiveUI.Credits:
+                    break;
+
+                case ActiveUI.NewGame:
+                    break;
+            }
         }
 
-        switch (activeCanvas)
+        public void UpdateOptionsSliderText()
         {
-            case ActiveUI.MainMenu:
-
-                break;
-
-            case ActiveUI.Gameplay:
-                ToggleGameplayTooltips();
-                textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
-                if (PlayerStats.playerStats == null) return;
-                healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
-                suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;
-
-                healthSlider.value = PlayerStats.playerStats.playerHealth;
-                suitPower.value = PlayerStats.playerStats.suitPower;
-                break;
-
-            case ActiveUI.Pause:
-                //if (!InputManager.inputManager.escapePressed)
-                //{
-                //    SwitchGameplay();
-                //}
-                break;
-
-            case ActiveUI.Options:
-                UpdateOptionsSliderText();
-                break;
-
-            case ActiveUI.Credits:
-                break;
-
-            case ActiveUI.NewGame:
-                break;
+            textMasterSlider.text = "Master Vol: " + ((int)(sliderMaster.value * 100)).ToString();
+            textMusicSlider.text = "Music Vol: " + ((int)(sliderMusic.value * 100)).ToString();
+            textSFXSlider.text = "SFX Vol: " + ((int)(sliderSFX.value * 100)).ToString();
         }
-    }
 
-    public void UpdateOptionsSliderText()
-    {
-        textMasterSlider.text = "Master Vol: " + ((int)(sliderMaster.value * 100)).ToString();
-        textMusicSlider.text = "Music Vol: " + ((int)(sliderMusic.value * 100)).ToString();
-        textSFXSlider.text = "SFX Vol: " + ((int)(sliderSFX.value * 100)).ToString();
-    }
-
-    public void SetOptionsSliderValues()
-    {
-        sliderMaster.value = RandomSoundsManager.RSM.masterVolume;
-        sliderSFX.value = RandomSoundsManager.RSM.sfxVolume;
-        sliderMusic.value = RandomSoundsManager.RSM.musicVolume;
-    }
-
-    public bool OptionsOpen()
-    {
-        if (activeCanvas == ActiveUI.Options) return true;
-        return false;
-    }
-
-    public void ToggleGameplayTooltips()
-    {
-        if (tooltipActiveElsewhere) return;
-        if (Object_Manager.object_Manager.WithinPickupRange()) ActivatePrimaryInteractText();
-        else DisablePrimaryInteractText();
-
-        if (FirstPersonController_Sam.fpsSam == null) return;
-        if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) DisableSecondaryInteractText();
-        else if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
+        public void SetOptionsSliderValues()
         {
-            ActivateSecondaryInteractText();
+            sliderMaster.value = AudioManager.audioManager.masterVolume;
+            sliderSFX.value = AudioManager.audioManager.sfxVolume;
+            sliderMusic.value = AudioManager.audioManager.musicVolume;
         }
-    }
 
-    public void ActivatePrimaryInteractText()
-    {
-        textToolTipE.gameObject.SetActive(true);
-    }
+        public bool OptionsOpen()
+        {
+            if (activeCanvas == ActiveUI.Options) return true;
+            return false;
+        }
 
-    public void DisablePrimaryInteractText()
-    {
-        textToolTipE.gameObject.SetActive(false);
-    }
+        public void ToggleGameplayTooltips()
+        {
+            if (tooltipActiveElsewhere) return;
+            if (Object_Manager.object_Manager.WithinPickupRange()) ActivatePrimaryInteractText();
+            else DisablePrimaryInteractText();
 
-    public void ActivateSecondaryInteractText()
-    {
-        textToolTipR.gameObject.SetActive(true);
-    }
+            if (FirstPersonController_Sam.fpsSam == null) return;
+            if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) DisableSecondaryInteractText();
+            else if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
+            {
+                ActivateSecondaryInteractText();
+            }
+        }
 
-    public void DisableSecondaryInteractText()
-    {
-        textToolTipR.gameObject.SetActive(false);
-    }
+        public void ActivatePrimaryInteractText()
+        {
+            textToolTipE.gameObject.SetActive(true);
+        }
 
-    //public for use on buttons
-    public void SwitchGameplay()
-    {
-        activeCanvas = ActiveUI.Gameplay;
-    }
+        public void DisablePrimaryInteractText()
+        {
+            textToolTipE.gameObject.SetActive(false);
+        }
 
-    public void SwitchPause()
-    {
-        activeCanvas = ActiveUI.Pause;
-    }
+        public void ActivateSecondaryInteractText()
+        {
+            textToolTipR.gameObject.SetActive(true);
+        }
 
-    public void SwitchOptions()
-    {
-        activeCanvas = ActiveUI.Options;
-    }
+        public void DisableSecondaryInteractText()
+        {
+            textToolTipR.gameObject.SetActive(false);
+        }
 
-    public void SwitchCredits()
-    {
-        activeCanvas = ActiveUI.Credits;
-    }
+        //public for use on buttons
+        public void SwitchGameplay()
+        {
+            activeCanvas = ActiveUI.Gameplay;
+        }
 
-    public void SwitchNewGame()
-    {
-        activeCanvas = ActiveUI.NewGame;
-    }
+        public void SwitchPause()
+        {
+            activeCanvas = ActiveUI.Pause;
+        }
 
-    public void SwitchMainMenu()
-    {
-        activeCanvas = ActiveUI.MainMenu;
-    }
+        public void SwitchOptions()
+        {
+            activeCanvas = ActiveUI.Options;
+        }
 
-    public void PlayerHitEffectON(bool isON)
-    {
-        if (isON) playerHitEffect.enabled = true;
-        if (isON == false) playerHitEffect.enabled = false;
-    }
+        public void SwitchCredits()
+        {
+            activeCanvas = ActiveUI.Credits;
+        }
+
+        public void SwitchNewGame()
+        {
+            activeCanvas = ActiveUI.NewGame;
+        }
+
+        public void SwitchMainMenu()
+        {
+            activeCanvas = ActiveUI.MainMenu;
+        }
+
+        public void PlayerHitEffectON(bool isON)
+        {
+            if (isON) playerHitEffect.enabled = true;
+            if (isON == false) playerHitEffect.enabled = false;
+        }
     
-    public void SwitchGameOverWin()
-    {
-        activeCanvas = ActiveUI.GameOverWin;
+        public void SwitchGameOverWin()
+        {
+            activeCanvas = ActiveUI.GameOverWin;
+        }
+
+        public void SwitchDeathText()
+        {
+            textGameOver.text = "Game Over";
+        }
+
+        public void SwitchWinText()
+        {
+            textGameOver.text = "You Won!";
+        }
     }
 
-    public void SwitchDeathText()
-    {
-        textGameOver.text = "Game Over";
-    }
-
-    public void SwitchWinText()
-    {
-        textGameOver.text = "You Won!";
-    }
 }

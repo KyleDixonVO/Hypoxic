@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MedKit : Item
+namespace UnderwaterHorror
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MedKit : Item
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Alpha0))
+        // Start is called before the first frame update
+        void Start()
         {
+        
+        }
 
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.Alpha0))
+            {
+
+            }
+        }
+
+        override protected void ApplyEffect()
+        {
+            // run code
         }
     }
 
-    override protected void ApplyEffect()
-    {
-        // run code
-    }
 }

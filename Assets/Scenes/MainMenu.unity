@@ -1476,7 +1476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477514307}
-  - component: {fileID: 477514306}
+  - component: {fileID: 477514308}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -1484,42 +1484,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &477514306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477514305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6656f023a2e346143bf973953be732c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  masterVolume: 0
-  musicVolume: 0
-  sfxVolume: 0
-  soundOne: {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
-  titleMusic: {fileID: 0}
-  gameplayAmbiance: {fileID: 0}
-  bigBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
-  bigAgro: {fileID: 8300000, guid: 06f77e2d9a70ea9468a07b3395c83ca1, type: 3}
-  smallBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
-  playerObj: {fileID: 0}
-  randomSoundsObj: {fileID: 1124360023}
-  randomSoundsAudio: {fileID: 1124360025}
-  musicAudio: {fileID: 1087392431}
-  terrainCheck: {fileID: 1124360024}
-  terrainCheckRadius: 2
-  terrainLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  maxSoundRange: 10
-  minSoundRange: -5
-  probabilityWeight: 75000
-  probability: 0
-  playAudio: 0
-  touchingWall: 0
 --- !u!4 &477514307
 Transform:
   m_ObjectHideFlags: 0
@@ -1537,6 +1501,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &477514308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477514305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07379ef0e39e29a42be095a7bda93f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolume: 10
+  musicVolume: 10
+  sfxVolume: 2
+  randomAtmosphereSounds:
+  - {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
+  titleMusic: {fileID: 0}
+  gameplayAmbiance: {fileID: 8300000, guid: 4ee15832f7913394b9edc21e27d89f7e, type: 3}
+  bigBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
+  bigAgro: {fileID: 8300000, guid: 06f77e2d9a70ea9468a07b3395c83ca1, type: 3}
+  smallBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
+  musicAudio: {fileID: 1087392431}
+  BigMonsterAudio: {fileID: 0}
+  smallMonsterAudio: {fileID: 0}
+  AtmosphereAudio: {fileID: 1124360025}
 --- !u!1 &523018475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4747,13 +4737,14 @@ GameObject:
   - component: {fileID: 1124360027}
   - component: {fileID: 1124360026}
   - component: {fileID: 1124360025}
+  - component: {fileID: 1124360028}
   m_Layer: 0
   m_Name: RandomSoundsHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1124360024
 Transform:
   m_ObjectHideFlags: 0
@@ -4781,7 +4772,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4801,13 +4792,13 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.98482895
-      inSlope: -2.7280977
-      outSlope: -2.7280977
+      value: 0.26140976
+      inSlope: -0.21092771
+      outSlope: -0.21092771
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.071794875
+      outWeight: 0.34666666
     - serializedVersion: 3
       time: 1
       value: 0
@@ -4915,6 +4906,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1124360028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124360023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6656f023a2e346143bf973953be732c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomSoundsObj: {fileID: 1124360023}
+  terrainCheck: {fileID: 1124360024}
+  terrainCheckRadius: 2
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  maxSoundRange: 10
+  minSoundRange: -10
+  probabilityWeight: 0
+  probability: 0
+  playAudio: 0
+  touchingWall: 0
+  selectedAtmosphereSound: {fileID: 0}
 --- !u!1 &1153196448
 GameObject:
   m_ObjectHideFlags: 0
@@ -7092,7 +7108,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 477514306}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RandomSoundsManager, Assembly-CSharp
         m_MethodName: SaveVolumePrefs
         m_Mode: 1

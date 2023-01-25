@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8760564749732135611}
   m_Layer: 0
-  m_Name: Audio
+  m_Name: BigEnemyAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,6 +432,7 @@ MonoBehaviour:
   - {fileID: 1662200382841185867}
   - {fileID: 1662200384039547319}
   - {fileID: 1662200383849593909}
+  playerObj: {fileID: 0}
   attackAnimation: {fileID: 1018013313273068053}
   currentPatrolPoint: {fileID: 1662200384297165502}
   agent: {fileID: 1662200383709298145}
@@ -443,6 +444,7 @@ MonoBehaviour:
   NewGamePos: {x: 0, y: 0, z: 0}
   SaveGamePos: {x: 0, y: 0, z: 0}
   source: {fileID: 391243210286070982}
+  audioMannager: {fileID: 0}
 --- !u!114 &1662200383709298150
 MonoBehaviour:
   m_ObjectHideFlags: 0
