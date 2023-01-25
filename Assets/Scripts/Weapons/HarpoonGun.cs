@@ -27,7 +27,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            //if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             // RELOAD COUTER
             if (reloadProgress <= 0)
             {

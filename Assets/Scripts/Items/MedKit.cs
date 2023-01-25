@@ -27,6 +27,18 @@ public class MedKit : Item
             Unequip();
         }
 
+        
+        if (beingUsed) // might be able to send to item update()
+        {
+            TimeToEffect();
+        }
+
+        if (FirstPersonController_Sam.fpsSam.carryingHeavyObj) // might be able to send to item update()
+        {
+            Unequip();
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             beingUsed = true;
@@ -39,11 +51,14 @@ public class MedKit : Item
     {
         // run code
         PlayerStats.playerStats.playerHealth += healthGain;
-        Debug.LogWarning("works");
+       // Debug.LogWarning("works");
 
         if (PlayerStats.playerStats.playerHealth > PlayerStats.playerStats.maxPlayerHealth)
         {
             PlayerStats.playerStats.playerHealth = PlayerStats.playerStats.maxPlayerHealth;
         }
+
+        // deactivates the object not allowing it to be used
+        gameObject.SetActive(false);
     }
 }
