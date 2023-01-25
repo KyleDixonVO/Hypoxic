@@ -45,7 +45,7 @@ namespace UnderwaterHorror
             }
         }
 
-        private bool IsSceneOpen(string sceneName)
+        public bool IsSceneOpen(string sceneName)
         {
             for (int i =0; i < openScenes.Count; i++)
             {
