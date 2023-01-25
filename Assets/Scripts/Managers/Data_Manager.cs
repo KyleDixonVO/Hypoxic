@@ -5,8 +5,8 @@ using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace UnderwaterHorror
-{
+namespace UnderwaterHorror 
+{ 
     public class Data_Manager : MonoBehaviour
     {
         public static Data_Manager dataManager;
@@ -31,8 +31,18 @@ namespace UnderwaterHorror
         //firstPersonControllerSam data
         public bool inWater;
         public bool carryingHeavyObj;
-        public Vector3 playerPos;
-        public Quaternion playerRot;
+
+        //vector3 floats
+        public float playerPosX;
+        public float playerPosY;
+        public float playerPosZ;
+
+        //quaternion floats
+        public float playerRotW;
+        public float playerRotX;
+        public float playerRotY;
+        public float playerRotZ;
+
 
 
 
@@ -61,7 +71,7 @@ namespace UnderwaterHorror
         
         }
 
-        //saves out volume prefs
+        //saves out settings prefs
         public void SaveGlobalData()
         {
             Debug.Log("Saving Global Data");
@@ -70,18 +80,18 @@ namespace UnderwaterHorror
             saving = true;
             GlobalData globalData = new GlobalData();
 
+            //save settings here---------------------------------
             globalData.masterVolume = mastervolume;
             globalData.musicVolume = musicVolume;
             globalData.SFXVolume = SFXVolume;
-            //Debug.Log(musicVolume + "  " + SFXVolume + " " + mastervolume);
-
+            //---------------------------------------------------
 
             binaryFormatter.Serialize(globalFile, globalData);
             globalFile.Close();
             saving = false;
         }
 
-        //loads volume prefs
+        //loads settings prefs from globalData into Data_Manager
         public void LoadGlobalData()
         {
             if (File.Exists(Application.persistentDataPath + "/globalData.dat"))
@@ -92,10 +102,11 @@ namespace UnderwaterHorror
                 GlobalData globalData = (GlobalData)binaryFormatter.Deserialize(globalFile);
                 globalFile.Close();
 
+
+                //load settings here
                 mastervolume = globalData.masterVolume;
                 musicVolume = globalData.musicVolume;
                 SFXVolume = globalData.SFXVolume;
-                //Debug.Log(musicVolume + "  " + SFXVolume + " " + mastervolume);
             }
             else
             {
@@ -103,6 +114,7 @@ namespace UnderwaterHorror
             }
         }
 
+        //loads from playerData into Data_Manager
         public void LoadFromPlayerData()
         {
             if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
@@ -115,7 +127,6 @@ namespace UnderwaterHorror
                     playerFile.Close();
                     Debug.Log("File length 0");
                     //set stats to default if save is missing or unreadable
-                    Debug.Log("File not found, resetting player stats to default");
                     ResetPlayerData();
                 }
                 else
@@ -135,8 +146,7 @@ namespace UnderwaterHorror
                     objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
                     inWater = playerData.inWater;
                     carryingHeavyObj = playerData.carryingHeavyObj;
-                    //playerPos = playerData.playerPos;
-                    //playerRot = playerData.playerRot;
+                    RotPosToManager(playerData);
                 }
             }
             else
@@ -147,6 +157,7 @@ namespace UnderwaterHorror
             }
         }
 
+        //saves to playerData from Data_Manager
         public void SaveToPlayerData()
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -164,15 +175,14 @@ namespace UnderwaterHorror
             playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = objectives[(int)Objective_Manager.Objectives.goToElevator];
             playerData.inWater = inWater;
             playerData.carryingHeavyObj = carryingHeavyObj;
-            //playerData.playerRot = playerRot;
-            //playerData.playerPos = playerPos;
-
+            RotPosToPlayerData(playerData);
 
             binaryFormatter.Serialize(playerFile, playerData);
             playerFile.Close();
             saving = false;
         }
 
+        //saves to Data_Manager from source classes
         public void SaveToDataManager()
         {
             objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairFirstPipe);
@@ -186,9 +196,64 @@ namespace UnderwaterHorror
             playerHealth = PlayerStats.playerStats.playerHealth;
             inWater = FirstPersonController_Sam.fpsSam.inWater;
             carryingHeavyObj = FirstPersonController_Sam.fpsSam.carryingHeavyObj;
-            playerRot = FirstPersonController_Sam.fpsSam.playerSavedRotation;
-            playerPos = FirstPersonController_Sam.fpsSam.playerSavedPosition;
+            SavedPosToFloats();
+            SavedRotToFloats();
             SaveToPlayerData();
+        }
+
+        //converts vector3 to floats for serializing
+        public void SavedPosToFloats()
+        {
+            playerPosX = FirstPersonController_Sam.fpsSam.playerSavedPosition.x;
+            playerPosY = FirstPersonController_Sam.fpsSam.playerSavedPosition.y;
+            playerPosZ = FirstPersonController_Sam.fpsSam.playerSavedPosition.z;
+        }
+
+        //converts floats back to vector3 to pass into fpsSam
+        public void FloatsToSavedPos()
+        {
+            FirstPersonController_Sam.fpsSam.playerSavedPosition = new Vector3(playerPosX, playerPosY, playerPosZ);
+        }
+
+        //converts vector4 to floats for serializing
+        public void SavedRotToFloats()
+        {
+            playerRotW = FirstPersonController_Sam.fpsSam.playerSavedRotation.w;
+            playerRotX = FirstPersonController_Sam.fpsSam.playerSavedRotation.x;
+            playerRotY = FirstPersonController_Sam.fpsSam.playerSavedRotation.y;
+            playerRotZ = FirstPersonController_Sam.fpsSam.playerSavedRotation.z;
+        }
+
+        //converts floats back to vector4 to pass into fpsSam
+        public void FloatsToSavedRot()
+        {
+            FirstPersonController_Sam.fpsSam.playerSavedRotation = new Quaternion(playerRotW, playerRotY, playerRotZ, playerRotW);
+        }
+
+        //passing floats from Data_Manager to playerData
+        public void RotPosToPlayerData(PlayerData playerData)
+        {
+            playerData.playerRotW = playerRotW;
+            playerData.playerRotX = playerRotX;
+            playerData.playerRotY = playerRotY;
+            playerData.playerRotZ = playerRotZ;
+
+            playerData.playerPosX = playerPosX;
+            playerData.playerPosY = playerPosY;
+            playerData.playerPosZ = playerPosZ;
+        }
+
+        //passing floats from playerData to Data_Manager
+        public void RotPosToManager(PlayerData playerData)
+        {
+            playerRotW = playerData.playerRotW;
+            playerRotX = playerData.playerRotX;
+            playerRotY = playerData.playerRotY;
+            playerRotZ = playerData.playerRotZ;
+
+            playerPosX = playerData.playerPosX;
+            playerPosY = playerData.playerPosY;
+            playerPosZ = playerData.playerPosZ;
         }
 
         public void ResetPlayerData()
@@ -219,6 +284,7 @@ namespace UnderwaterHorror
             SaveToPlayerData();
         }
 
+        //passes Data_Manager references out to playerStats
         public void UpdatePlayerStats()
         {
             if (PlayerStats.playerStats == null) return;
@@ -228,6 +294,7 @@ namespace UnderwaterHorror
             PlayerStats.playerStats.suitPower = suitPower;
         }
 
+        //passes Data_Manager references out to Objective_Manager
         public void UpdateObjectiveManager()
         {
             for (int i = 0; i < objectives.Length; i++)
@@ -237,13 +304,14 @@ namespace UnderwaterHorror
             }
         }
 
+        //passes Data_Manager references out to fpsSam
         public void UpdateFPSSam()
         {
             if (FirstPersonController_Sam.fpsSam == null) return;
             FirstPersonController_Sam.fpsSam.inWater = inWater;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = carryingHeavyObj;
-            FirstPersonController_Sam.fpsSam.playerSavedPosition = playerPos;
-            FirstPersonController_Sam.fpsSam.playerSavedRotation = playerRot;
+            FloatsToSavedPos();
+            FloatsToSavedRot();
         }
 
         public void ResetGlobalPrefs()
@@ -256,7 +324,7 @@ namespace UnderwaterHorror
     }
 
 
-
+    //containers to store stats as files
     [Serializable]
     public class GlobalData
     {
@@ -266,7 +334,7 @@ namespace UnderwaterHorror
     }
 
 
-    //containers to store stats as files
+
     [Serializable]
     public class PlayerData
     {
@@ -286,8 +354,15 @@ namespace UnderwaterHorror
         //Data from firstPersonController_Sam
         public bool inWater;
         public bool carryingHeavyObj;
-        //public Vector3 playerPos;
-        //public Quaternion playerRot;
+
+        public float playerPosX;
+        public float playerPosY;
+        public float playerPosZ;
+
+        public float playerRotW;
+        public float playerRotX;
+        public float playerRotY;
+        public float playerRotZ;
     }
 
 }
