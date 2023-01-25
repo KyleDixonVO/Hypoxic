@@ -28,7 +28,6 @@ namespace UnderwaterHorror
 
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
-        [SerializeField] protected GameObject playerObj;
         [SerializeField] protected GameObject attackAnimation;
 
         [Header("Place desired patrol point here")]
@@ -51,10 +50,6 @@ namespace UnderwaterHorror
         // lil addon by edmund
         [Header("Refrences")]
         [SerializeField] protected AudioSource source;
-        [SerializeField] GameObject audioMannager;
-        protected RandomSoundsManager AM;
-        
-        // --------------------
 
         // Update is called once per frame
         protected void Update()
@@ -68,11 +63,6 @@ namespace UnderwaterHorror
             {
                 agent.isStopped = false;
             }
-            // Made by Kyle
-            //-----------------------------------
-            FindPlayerRef();
-            FindAudioManager(); // Edmund
-            //-----------------------------------
 
             // Makes it so the enemy can bite you immediatly on contact
             // But have to recharge after a single bite
@@ -185,10 +175,10 @@ namespace UnderwaterHorror
         {
             agent.speed = _enemyStats.chaseSpeed;
             // Chases after the players position
-            agent.SetDestination(playerObj.transform.position);
+            agent.SetDestination(PlayerStats.playerStats.gameObject.transform.position);
 
             // Tracks player's previous location
-            playerPreviousLocation = playerObj.transform.position;           
+            playerPreviousLocation = PlayerStats.playerStats.transform.position;           
             //---------------------------------------------------------
 
             patrolCollider.enabled = false;
@@ -199,7 +189,7 @@ namespace UnderwaterHorror
         {
             if (_enemyStats.timeToAttack <= 0)
             {                               
-                playerObj.GetComponent<PlayerStats>().TakeDamage(_enemyStats.attackPower);
+                PlayerStats.playerStats.TakeDamage(_enemyStats.attackPower);
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;               
 
                 // Turns animation on
@@ -275,7 +265,7 @@ namespace UnderwaterHorror
             if (_enemyFOV.playerInFOV)
             {
                 Debug.Log("InsidePOV");
-                Vector3 raycastDir = playerObj.transform.position;
+                Vector3 raycastDir = PlayerStats.playerStats.transform.position;
                 if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
                 {
                     //Debug.Log("NotBlocked");
@@ -308,12 +298,6 @@ namespace UnderwaterHorror
 
         // Made by Kyle
         //--------------------------------------------------------
-        void FindPlayerRef()
-        {
-            if (playerObj != null) return;
-            playerObj = GameObject.Find("Player");
-        }
-
         void ResetRun()
         {
             this.gameObject.transform.position = NewGamePos;
@@ -327,14 +311,6 @@ namespace UnderwaterHorror
 
         // Edmund Time
         // -------------------------------------------------------
-        void FindAudioManager()
-        {
-            if (audioMannager != null) return;
-            audioMannager = GameObject.Find("AudioManager");
-            AM = audioMannager.GetComponent<RandomSoundsManager>();
-            //Debug.LogWarning("Found AM");
-        }
-
         virtual protected void PlayAttackSound()
         {
 
