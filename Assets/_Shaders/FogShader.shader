@@ -15,8 +15,8 @@ Shader "PeerPlay/FogEffect"
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            #pragma vertex vert alpha
+            #pragma fragment frag alpha
 
             #include "UnityCG.cginc"
            sampler2D _CameraDepthTexture;

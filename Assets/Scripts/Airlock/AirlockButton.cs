@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnderwaterHorror
 {
-    public class AirlockButton : MonoBehaviour
+    public class AirlockButton : Interactable
     {
         public GameObject Door;
         [SerializeField]
@@ -14,9 +14,31 @@ namespace UnderwaterHorror
         {
             if (other.tag == "Player" && Input.GetKey(KeyCode.E) && !AL.isOpening)
             {
+                // Tobias was here
+                AudioManager.audioManager.playSound(this.gameObject.GetComponent<AudioSource>(),AudioManager.audioManager.doorButton);
+                //-------------------------------------------------------------------------------
+
                 Debug.Log("Button pressed");
                 AL.OpenDoor();
+                AL.isOpening = true;
             }
+
+        }
+
+        public override void OnInteract()
+        {
+            Debug.Log("Button pressed");
+            AL.OpenDoor();
+            AL.isOpening = true;
+        }
+
+        public override void OnFocus()
+        {
+            
+        }
+
+        public override void OnLoseFocus()
+        {
 
         }
     }

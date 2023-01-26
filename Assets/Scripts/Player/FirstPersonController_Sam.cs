@@ -379,7 +379,7 @@ namespace UnderwaterHorror
         {
             if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance))
             {
-                if (hit.collider.gameObject.layer == 7 && (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.GetInstanceID() ) )
+                if (hit.collider.gameObject.layer == 10 && (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.GetInstanceID() ) )
                 {
                     hit.collider.TryGetComponent(out currentInteractable);
 
@@ -402,8 +402,9 @@ namespace UnderwaterHorror
             // potential option for replacement; https://www.youtube.com/watch?v=5MbR2qJK8Tc
 
 
-            if (Input.GetKeyDown(interactKey) && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
+            if (Input.GetKeyDown(KeyCode.E) && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
             {            
+                // should incorporate Input.GetKeyDown(KeyCode.E) into input manager - Edmund
                 currentInteractable.OnInteract();
             }
         }
