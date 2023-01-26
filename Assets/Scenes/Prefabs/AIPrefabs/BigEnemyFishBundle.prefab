@@ -343,7 +343,10 @@ MonoBehaviour:
     m_Bits: 128
   NewGamePos: {x: 0, y: 0, z: 0}
   SaveGamePos: {x: 0, y: 0, z: 0}
-  source: {fileID: 0}
+  source: {fileID: 4895728834690974909}
+  isAware: 0
+  pointsListPopulated: 0
+  numberOfPointsNearPlayer: 3
 --- !u!114 &1662200383709298150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,21 +360,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  health: 1
+  health: 5
   patrolRadius: 6
   patrolSpeed: 3
   patrolRandomWaitTimerWeight: 1
   patrolRandomWaitTimer: 0
   chaseSpeed: 5.8
   searchingMovementSpeed: 5
-  searchingTimeStart: 2
+  searchingTimeStart: 6
   searchingTime: 0
   attackPower: 35
   timeToAttackStart: 1
-  timeToAttack: 0
+  timeToAttack: 2
+  alertCheckingTime: 5
+  elapsedAlertTime: 0
   fleeingSpeed: 12
   fleeingTime: 10
   elapsedFleeingTime: 0
+  awareTime: 30
+  elapsedAwareTime: 0
+  elapsedDyingTime: 0
   dyingTime: 3
   attackReach: 2
   attackStateRadius: 5
@@ -379,6 +387,7 @@ MonoBehaviour:
   walkingRadius: 14
   crouchingRadius: 8
   visionRayLength: 22
+  visionConeHalved: 45
 --- !u!195 &1662200383709298145
 NavMeshAgent:
   m_ObjectHideFlags: 0
