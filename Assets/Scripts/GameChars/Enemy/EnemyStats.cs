@@ -40,6 +40,9 @@ namespace UnderwaterHorror
         public float fleeingSpeed;
         public float fleeingTime;
         public float elapsedFleeingTime;
+        public float awareTime;
+        public float elapsedAwareTime;
+
         [Header("SmallEnemyFish")]
         public float elapsedDyingTime;
         public float dyingTime;

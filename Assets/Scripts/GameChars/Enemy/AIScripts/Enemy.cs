@@ -168,7 +168,7 @@ namespace UnderwaterHorror
             }
         }
 
-        void PatrollingManager()
+        virtual protected void PatrollingManager()
         {
             agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
@@ -181,7 +181,7 @@ namespace UnderwaterHorror
             Vector3 agentPos = new Vector3(agent.transform.position.x, 0, agent.transform.position.z);
             //--------------------------------------------------------------
 
-            if (!WithinRange(6, targetPos, agentPos))
+            if (!WithinRange(_enemyStats.patrolRadius, targetPos, agentPos))
             {
                 _enemyStats.patrolRandomWaitTimer = Random.Range(0, _enemyStats.patrolRandomWaitTimerWeight);
                 return;
