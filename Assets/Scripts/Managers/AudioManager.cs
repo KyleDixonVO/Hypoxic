@@ -14,6 +14,13 @@ namespace UnderwaterHorror
         public float musicVolume;
         public float sfxVolume;
 
+        [Header("DoorAudioClips")]
+        public AudioClip doorOpening;
+        public AudioClip doorOpened;
+        public AudioClip doorClosing;
+        public AudioClip doorClosed;
+        public AudioClip doorButton;
+
         [Header("AtmosphereAudioClips")]
         public List<AudioClip> randomAtmosphereSounds = new List<AudioClip>();
 
@@ -61,9 +68,17 @@ namespace UnderwaterHorror
         }
 
 
-        void StopMusic()
+        public void playSound(AudioSource source, AudioClip clip)
         {
-            musicAudio.Stop();
+            if (source.isPlaying) return;
+            source.clip = clip;
+            source.volume = (sfxVolume * masterVolume);
+            source.Play();
+            Debug.LogWarning("SoundPlayed");
+        }
+        public void StopSound(AudioSource source)
+        {
+            source.Stop();
         }
 
         // Made by Kyle 

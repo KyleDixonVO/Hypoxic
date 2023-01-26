@@ -14,6 +14,10 @@ namespace UnderwaterHorror
         {
             if (other.tag == "Player" && Input.GetKey(KeyCode.E) && !AL.isOpening)
             {
+                // Tobias was here
+                AudioManager.audioManager.playSound(this.gameObject.GetComponent<AudioSource>(),AudioManager.audioManager.doorButton);
+                //-------------------------------------------------------------------------------
+
                 Debug.Log("Button pressed");
                 AL.OpenDoor();
                 AL.isOpening = true;
