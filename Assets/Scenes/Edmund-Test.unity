@@ -1169,6 +1169,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108507643}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &123123307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5057137644828852380, guid: 65becdeaf091f9e46867763f5e351b0d, type: 3}
+  m_PrefabInstance: {fileID: 5057137643324024118}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37eda7890e2226c4c93afd289f48c060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &138366875
 GameObject:
   m_ObjectHideFlags: 0
@@ -3799,6 +3810,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &580117355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5057137645194798939, guid: 65becdeaf091f9e46867763f5e351b0d, type: 3}
+  m_PrefabInstance: {fileID: 5057137643324024118}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37eda7890e2226c4c93afd289f48c060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &582433672
 GameObject:
   m_ObjectHideFlags: 0
@@ -10338,6 +10360,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5057137643167580368, guid: 65becdeaf091f9e46867763f5e351b0d, type: 3}
+      propertyPath: exteriorAirlock
+      value: 
+      objectReference: {fileID: 123123307}
+    - target: {fileID: 5057137643167580368, guid: 65becdeaf091f9e46867763f5e351b0d, type: 3}
+      propertyPath: interiorAirlock
+      value: 
+      objectReference: {fileID: 580117355}
     - target: {fileID: 5057137643167580374, guid: 65becdeaf091f9e46867763f5e351b0d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -10364,7 +10394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057137645194798939, guid: 65becdeaf091f9e46867763f5e351b0d, type: 3}
       propertyPath: openWaitTime
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5057137645194798939, guid: 65becdeaf091f9e46867763f5e351b0d, type: 3}
       propertyPath: closeWaitTime
