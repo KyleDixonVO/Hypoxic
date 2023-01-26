@@ -30,6 +30,7 @@ public class Airlock : MonoBehaviour
     [SerializeField] float closeWaitTime = 20f;
     float countDownProgress = 5f;
 
+    AudioSource airlockAudioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +41,8 @@ public class Airlock : MonoBehaviour
         // set variables
         if (!isLoad) countDownProgress = 0;
         if (otherDoor != null) otherAirlock = otherDoor.GetComponent<Airlock>();
+
+        airlockAudioSource = this.gameObject.GetComponent<AudioSource>();
     }
 
     // --------------------------------------- Door Controls --------------------------------------- \\
@@ -58,6 +61,10 @@ public class Airlock : MonoBehaviour
 
     public void OpenDoor()
     {
+        // Tobias
+        this.airlockAudioSource.loop = true;
+        AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpening);
+        //-----------------------------------------------------------------------------------------
         StartCoroutine(OpenDelay(openWaitTime));
     }
 
@@ -114,7 +121,7 @@ public class Airlock : MonoBehaviour
     {
         if (Vector3.Distance(doorRight.transform.position, rightOpenPos.transform.position) < 0.05f
             && Vector3.Distance(doorLeft.transform.position, leftOpenPos.transform.position) < 0.05f)
-        {
+        {          
             return true;
         }
         else return false;
@@ -125,6 +132,9 @@ public class Airlock : MonoBehaviour
         if (Vector3.Distance(doorRight.transform.position, rightClosePos) < 0.05f
             && Vector3.Distance(doorLeft.transform.position, leftClosePos) < 0.05f)
         {
+            // Tobias
+            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosed);
+            //-----------------------------------------------------------------------------------------
             return true;
         }
         else return false;
@@ -134,7 +144,11 @@ public class Airlock : MonoBehaviour
     IEnumerator OpenDelay(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-
+        // Tobias opened door
+        AudioManager.audioManager.StopSound(airlockAudioSource);
+        AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpened);
+        airlockAudioSource.loop = false;
+        //-----------------------------------------------------------------------------------------
         LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
         LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
         isOpening = true;
@@ -143,6 +157,9 @@ public class Airlock : MonoBehaviour
     IEnumerator CloseDelay(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        // Tobias closed door
+        AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosing);
+        //-----------------------------------------------------------------------------------------
         isOpening = false;
         LeanTween.move(doorRight, rightClosePos, 2f);
         LeanTween.move(doorLeft, leftClosePos, 2f);

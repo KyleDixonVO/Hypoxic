@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirlockNoLoadTrigger : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public Airlock airlockToOpen;
-    public Airlock airlockToClose;
-
-    private void OnTriggerEnter(Collider other)
+    public class AirlockNoLoadTrigger : MonoBehaviour
     {
-        airlockToOpen.OpenDoor();
-        airlockToClose.CloseDoor(0f);
+        public Airlock airlockToOpen;
+        public Airlock airlockToClose;
+
+        private void OnTriggerEnter(Collider other)
+        {           
+            airlockToOpen.OpenDoor();
+            airlockToClose.CloseDoor(0f);
+        }
     }
 }
