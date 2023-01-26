@@ -8,11 +8,6 @@ namespace UnderwaterHorror
     public class BigEnemyFish : Enemy
     {
         // Start is called before the first frame update
-        void Start()
-        {
-            isAlive = true;
-            enemyState = EnemyState.patrolling;
-        }
 
         override protected void DefeatedManager()
         {
@@ -27,23 +22,10 @@ namespace UnderwaterHorror
             if (_enemyStats.fleeingTime <= 0)
             {
                 enemyState = EnemyState.patrolling;
-                // Magic number for max health
-                _enemyStats.health = 1;
-
-                // Magic number for max fleeingTime
-                _enemyStats.fleeingTime = 6;
+                _enemyStats.health = _enemyStats.maxHealth;
+                _enemyStats.elapsedFleeingTime = _enemyStats.fleeingTime;
             }
         }
 
-        // EDMUND
-        override protected void PlayAttackSound()
-        {
-            AudioManager.audioManager.PlaySoundBigBite(source);
-        }
-
-        protected override void PlayAgroSound()
-        {
-            AudioManager.audioManager.PlaySoundBigAgro(source);
-        }
     }
 }
