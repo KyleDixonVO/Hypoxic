@@ -2,45 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirlockNoLoadTrigger : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public Airlock exteriorAirlock;
-    public Airlock interiorAirlock;
-
-    private void OnTriggerEnter(Collider other) // why did it take me so long figure this out... - Edmund
+    public class AirlockNoLoadTrigger : MonoBehaviour
     {
-        if (other.tag == "Player") // detects which door is open and which is closed and opens/closes accordingly
-                                   // assumes that one is closed and one is open, God knows what happens if that isn't the case
-                                   // just don't let it happen. - Edmund
+        public Airlock exteriorAirlock;
+        public Airlock interiorAirlock;
+
+        private void OnTriggerEnter(Collider other) // why did it take me so long figure this out... - Edmund
         {
-            //Debug.Log("player present");
-            if (exteriorAirlock.isOpening)
+            if (other.tag == "Player") // detects which door is open and which is closed and opens/closes accordingly
+                                       // assumes that one is closed and one is open, God knows what happens if that isn't the case
+                                       // just don't let it happen. - Edmund
             {
-                exteriorAirlock.CloseDoor(0f);
-                interiorAirlock.OpenDoor();
+                //Debug.Log("player present");
+                if (exteriorAirlock.isOpening)
+                {
+                    exteriorAirlock.CloseDoor(0f);
+                    interiorAirlock.OpenDoor();
+                }
+                else if (interiorAirlock.isOpening)
+                {
+                    interiorAirlock.CloseDoor(0f);
+                    exteriorAirlock.OpenDoor();
+                }
             }
-            else if (interiorAirlock.isOpening)
-            {
-                interiorAirlock.CloseDoor(0f);
-                exteriorAirlock.OpenDoor();
-            }
+
         }
 
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
+        private void OnTriggerExit(Collider other)
         {
-            if (exteriorAirlock.isOpening)
+            if (other.tag == "Player")
             {
-                exteriorAirlock.CloseDoor(2f);
+                if (exteriorAirlock.isOpening)
+                {
+                    exteriorAirlock.CloseDoor(2f);
+                }
+                else if (interiorAirlock.isOpening)
+                {
+                    interiorAirlock.CloseDoor(2f);
+                }
             }
-            else if (interiorAirlock.isOpening)
-            {
-                interiorAirlock.CloseDoor(2f);
-            }
-        }
 
+        }
     }
 }

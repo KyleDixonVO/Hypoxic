@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirlockPlayerCheck : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public Airlock AL;
-
-    private void OnTriggerEnter(Collider other)
+    public class AirlockPlayerCheck : MonoBehaviour
     {
-        if (other.tag == "Player") AL.playerPresent = true;
-    }
+        public Airlock AL;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player") AL.playerPresent = false;
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player") AL.playerPresent = true;
+        }
 
-        AL.CloseDoor(2f);
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Player") AL.playerPresent = false;
+
+            AL.CloseDoor(2f);
+        }
     }
 }
