@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnderwaterHorror
 {
-    public class AirlockButton : MonoBehaviour
+    public class AirlockButton : Interactable
     {
         public GameObject Door;
         [SerializeField]
@@ -16,7 +16,25 @@ namespace UnderwaterHorror
             {
                 Debug.Log("Button pressed");
                 AL.OpenDoor();
+                AL.isOpening = true;
             }
+
+        }
+
+        public override void OnInteract()
+        {
+            Debug.Log("Button pressed");
+            AL.OpenDoor();
+            AL.isOpening = true;
+        }
+
+        public override void OnFocus()
+        {
+            
+        }
+
+        public override void OnLoseFocus()
+        {
 
         }
     }
