@@ -19,7 +19,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-           // if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 Equip();

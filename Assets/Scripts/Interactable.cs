@@ -6,12 +6,12 @@ public abstract class Interactable : MonoBehaviour
 {
     public virtual void Awake()
     {
-        gameObject.layer = 7;
+        gameObject.layer = 10;
     }
     
-    public abstract void OnInteract();
-    public abstract void OnFocus();
-    public abstract void OnLoseFocus();
+    public abstract void OnInteract(); 
+    public abstract void OnFocus(); // can run the tool tip here and or apply a highlight effect to the item - Edmund
+    public abstract void OnLoseFocus(); // can disable tool tip or effect on item - Edmund
 
 }
 

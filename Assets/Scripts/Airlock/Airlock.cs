@@ -113,7 +113,11 @@ public class Airlock : MonoBehaviour
     // ------------------------------------- isn't load door ----------------------------------------- \\
     void IsntLoadDoor()
     {
-
+        // this is delt in the AirlockNoLoadTrigger.cs file
+        if (IsOpen() && isOpening) // door is open - wait to close
+        {
+            CloseDoor(closeWaitTime);
+        }
     }
 
     // --------------------------------- Door Open / Close Checks ------------------------------------ \\
