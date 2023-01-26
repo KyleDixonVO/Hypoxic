@@ -35,9 +35,19 @@ namespace UnderwaterHorror
         [Header("SmallEnemyFish")]
         public float dyingTime;
 
+        [Header("Detection distances")]
+        //the actual range of the attack
+        public float attackReach = 1;
+        //how close can the enemy be before switching attack state
+        public float attackStateRadius = 4;
+        public float runningRadius = 14;
+        public float walkingRadius = 8;
+        public float crounchingRadius = 5;
+        public float visionRayLength = 10;
+
         public void TakeDamage(int playerAttack)
         {
-            health = -playerAttack;
+            health -= playerAttack;
 
             if (health <= 0)
             {
@@ -48,6 +58,22 @@ namespace UnderwaterHorror
         public void ResetRun()
         {
             health = 5;
+        }
+
+        public float GetDetectionDistance()
+        {
+            if (FirstPersonController_Sam.fpsSam.IsRunning())
+            {
+                return runningRadius;
+            }
+            else if (FirstPersonController_Sam.fpsSam.IsCrouching())
+            {
+                return crounchingRadius;
+            }
+            else
+            {
+                return walkingRadius;
+            }
         }
     }
 
