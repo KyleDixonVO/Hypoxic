@@ -148,25 +148,5 @@ namespace UnderwaterHorror
         }
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        // Made by Edmund
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
-        public void PlaySoundBigAgro(AudioSource source)
-        {
-            source.PlayOneShot(bigAgro);
-            Debug.LogWarning("big mad");
-        }
-
-        public void PlaySoundBigBite(AudioSource source)
-        {
-            source.PlayOneShot(bigBite);
-            Debug.LogWarning("big bite");
-        }
-
-        public void PlaySoundSmallBite(AudioSource source)
-        {
-            source.PlayOneShot(smallBite);
-        }
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

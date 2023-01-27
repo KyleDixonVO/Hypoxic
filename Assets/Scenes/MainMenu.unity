@@ -2970,45 +2970,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1638945312}
-        m_TargetAssemblyTypeName: Level_Manager, Assembly-CSharp
-        m_MethodName: LoadGameplay
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 92916745}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: SwitchGameplay
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 230024344}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GamestateGameplay
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 230024344}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ResetForNewRun
+        m_TargetAssemblyTypeName: UnderwaterHorror.UI_Manager, Assembly-CSharp
+        m_MethodName: SwitchNewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3272,7 +3236,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Cancel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4066,6 +4030,45 @@ MonoBehaviour:
       - m_Target: {fileID: 92916745}
         m_TargetAssemblyTypeName: UnderwaterHorror.UI_Manager, Assembly-CSharp
         m_MethodName: PlayUIButtonSound
+      - m_Target: {fileID: 230024344}
+        m_TargetAssemblyTypeName: UnderwaterHorror.GameManager, Assembly-CSharp
+        m_MethodName: ResetForNewRun
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 230024344}
+        m_TargetAssemblyTypeName: UnderwaterHorror.GameManager, Assembly-CSharp
+        m_MethodName: GamestateGameplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 92916745}
+        m_TargetAssemblyTypeName: UnderwaterHorror.UI_Manager, Assembly-CSharp
+        m_MethodName: SwitchGameplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1638945312}
+        m_TargetAssemblyTypeName: UnderwaterHorror.Level_Manager, Assembly-CSharp
+        m_MethodName: LoadOutside
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5678,8 +5681,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1638945312}
-        m_TargetAssemblyTypeName: Level_Manager, Assembly-CSharp
-        m_MethodName: LoadGameplay
+        m_TargetAssemblyTypeName: UnderwaterHorror.Level_Manager, Assembly-CSharp
+        m_MethodName: LoadOutside
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6320,6 +6323,7 @@ MonoBehaviour:
       - m_Target: {fileID: 92916745}
         m_TargetAssemblyTypeName: UnderwaterHorror.UI_Manager, Assembly-CSharp
         m_MethodName: PlayUIButtonSound
+        m_MethodName: SwitchMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8331,7 +8335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Confirm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
