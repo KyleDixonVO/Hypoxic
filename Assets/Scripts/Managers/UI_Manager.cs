@@ -141,17 +141,17 @@ namespace UnderwaterHorror
             {
                 if (i == (int)activeCanvas)
                 {
-                    canvasArray[i].gameObject.SetActive(true);
+                    canvasArray[i].enabled = true;
                     continue;
                 }
 
                 if (activeCanvas == ActiveUI.Pause && i == (int)ActiveUI.Gameplay) continue;
                 else if (activeCanvas == ActiveUI.Gameplay && InputManager.inputManager.tabPressed && i == (int)ActiveUI.PDA)
                 {
-                    canvasArray[i].gameObject.SetActive(true);
+                    canvasArray[i].enabled = true;
                     continue;
                 }
-                canvasArray[i].gameObject.SetActive(false);
+                canvasArray[i].enabled = false;
             }
 
             switch (activeCanvas)
@@ -296,6 +296,13 @@ namespace UnderwaterHorror
         {
             textGameOver.text = "You Won!";
         }
+
+        //  Tobias's Amazing Sound Powers
+        public void PlayUIButtonSound()
+        {
+            AudioManager.audioManager.playSound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.uIButton);
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
     }
 
 }

@@ -160,6 +160,8 @@ namespace UnderwaterHorror
         //saves to playerData from Data_Manager
         public void SaveToPlayerData()
         {
+            // Save does not work - Tobias
+            // Too bad - Who cares
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream playerFile = File.Create(Application.persistentDataPath + "/playerData.dat");
             saving = true;
