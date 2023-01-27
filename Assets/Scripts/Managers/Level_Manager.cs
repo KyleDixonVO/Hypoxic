@@ -78,17 +78,6 @@ namespace UnderwaterHorror
             SceneManager.LoadScene("MainMenu");
         }
 
-        public void LoadGameplay()
-        {
-        
-            if (IsSceneOpen("Outside")) return;
-            //Debug.Log("Loading Gameplay");
-            SceneManager.LoadScene("Outside");
-            //if (IsSceneOpen("DemoBuildingInside")) return;
-            //Debug.Log("Loading Edmund-Test");
-            //LoadSceneAdditive("DemoBuildingInside");
-        }
-
         public void ExitGame()
         {
             Application.Quit();
