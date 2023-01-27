@@ -8,8 +8,10 @@ namespace UnderwaterHorror
     public class EnemyStats : MonoBehaviour
     {
         [Header("HealthSettings")]
-        public int health = 5;
+        public int maxHealth = 5;
+        public int health;
         [Header("PatrolSettings")]
+        public float patrolRadius;
         public float patrolSpeed;
         public int patrolRandomWaitTimerWeight;
         [HideInInspector] public float patrolRandomWaitTimer;
@@ -29,21 +31,36 @@ namespace UnderwaterHorror
 
         [Header("DefeatedSettings")]
         // BigEnemyFish not effected by dying time/SmallEnemyFish not effected by fleeing time.
+
+        [Header("AlertedSettings")]
+        public float alertCheckingTime;
+        public float elapsedAlertTime;
+
         [Header("BigEnemyFish")]
         public float fleeingSpeed;
         public float fleeingTime;
+        public float elapsedFleeingTime;
+        public float awareTime;
+        public float elapsedAwareTime;
+
         [Header("SmallEnemyFish")]
+        public float elapsedDyingTime;
         public float dyingTime;
 
         [Header("Detection distances")]
         //the actual range of the attack
-        public float attackReach = 1;
+        public float attackReach;
         //how close can the enemy be before switching attack state
-        public float attackStateRadius = 4;
-        public float runningRadius = 14;
-        public float walkingRadius = 8;
-        public float crounchingRadius = 5;
-        public float visionRayLength = 10;
+        public float attackStateRadius;
+
+        //how far away can the player be while still being detected
+        //the player will alert enemies automatically while half of the radius distance away
+        public float runningRadius;
+        public float walkingRadius;
+        public float crouchingRadius;
+
+        public float visionRayLength;
+        public float visionConeHalved;
 
         public void TakeDamage(int playerAttack)
         {
@@ -57,7 +74,7 @@ namespace UnderwaterHorror
 
         public void ResetRun()
         {
-            health = 5;
+            health = maxHealth;
         }
 
         public float GetDetectionDistance()
@@ -68,7 +85,7 @@ namespace UnderwaterHorror
             }
             else if (FirstPersonController_Sam.fpsSam.IsCrouching())
             {
-                return crounchingRadius;
+                return crouchingRadius;
             }
             else
             {
