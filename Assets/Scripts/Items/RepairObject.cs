@@ -36,26 +36,20 @@ namespace UnderwaterHorror
                 elapsedRepairTime += Time.deltaTime;
                 Debug.Log(elapsedRepairTime / repairTime);
             }
-            else
-            {
-                elapsedRepairTime = 0;
-            }
+            else elapsedRepairTime = 0;
 
-            if (elapsedRepairTime >= repairTime)
-            {
-                repaired = true;
-            }
+            if (elapsedRepairTime < repairTime) return;
+            repaired = true;
+            
         }
 
         void CheckRepairStatus() 
         { 
-            if (repaired)
-            {
-                targetObject.RepairedObject();
-                this.GetComponent<HeavyObject>().ForceDropObject();
-                this.gameObject.SetActive(false);
-                Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)objective);
-            }
+            if (!repaired) return;
+            targetObject.RepairedObject();
+            this.GetComponent<HeavyObject>().ForceDropObject();
+            this.gameObject.SetActive(false);
+            Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)objective);
         }
 
         public bool WithinRepairRange()

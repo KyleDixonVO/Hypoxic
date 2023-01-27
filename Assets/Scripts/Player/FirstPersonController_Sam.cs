@@ -233,7 +233,6 @@ namespace UnderwaterHorror
             currentInput = new Vector2(Input.GetAxisRaw("Vertical"), Input.GetAxis("Horizontal"));
 
             // normalizes input when 2 directions are pressed at the same time
-            // TODO; find a more elegant solution to normalize, this is a bit of a hack method to normalize it estimates and is not 100% accurate.
             currentInput *= (currentInput.x != 0.0f && currentInput.y != 0.0f) ? 0.7071f : 1.0f;
 
             // Sets the required speed multiplier
@@ -282,74 +281,28 @@ namespace UnderwaterHorror
 
         private void HandleHeadBob()
         {
-            // TODO: find a better headbob system that feels more natural.
         
             if (!characterController.isGrounded) return;
 
-            if (Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
+            if (Mathf.Abs(moveDirection.x) < 0.1f || Mathf.Abs(moveDirection.z) < 0.1f) return;
+            
+            if (inWater)
             {
-                //timer += Time.deltaTime;
-                //if (inWater)
-                //{
-                //    Debug.Log("In water");
-                //    if (isCrouching)
-                //    {
-                //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, waterCrouchBobSpeed, waterCrouchBobAmount, lowerBobLimit, upperBobLimit);
-                //        Debug.Log("waterCrouchBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
-                //    }
-                //    else if (isRunning)
-                //    {
-                //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, waterRunBobSpeed, waterRunBobAmount, lowerBobLimit, upperBobLimit);
-                //        Debug.Log("waterRunBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
-                //    }
-                //    else
-                //    {
-                //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, waterWalkBobSpeed, waterWalkBobAmount, lowerBobLimit, upperBobLimit);
-                //        Debug.Log("waterWalkBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
-                //    }
-                //}
-                //else
-                //{
-                //    Debug.Log("In Atmosphere");
-                //    if (isCrouching)
-                //    {
-                //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, crouchBobSpeed, crouchBobAmount, lowerBobLimit, upperBobLimit);
-                //        Debug.Log("CrouchBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
-                //    }
-                //    else if (isRunning)
-                //    {
-                //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, runBobSpeed, runBobAmount, lowerBobLimit, upperBobLimit);
-                //        Debug.Log("RunBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
-                //    }
-                //    else
-                //    {
-                //        playerCamera.gameObject.transform.localPosition = cameraShake.PerlinHeadBob(timer, 1.0f, walkBobSpeed, walkBobAmount, lowerBobLimit, upperBobLimit);
-                //        Debug.Log("WalkBob." + " playerCam local pos: " + playerCamera.gameObject.transform.localPosition.y);
-                //    }
-                //}
-
-                if (inWater)
-                {
-                    //Debug.Log("In Water");
-                    //Debug.Log("Timer:" + timer);
-                    timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
-                    playerCamera.transform.localPosition = new Vector3(
-                        playerCamera.transform.localPosition.x,
-                        defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobAmount : waterWalkBobAmount))/2,
-                        playerCamera.transform.localPosition.z);
-                }
-                else
-                {
-                    //Debug.Log("In Atmosphere");
-                    //Debug.Log("Timer:" + timer);
-                    timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
-                    playerCamera.transform.localPosition = new Vector3(
-                        playerCamera.transform.localPosition.x,
-                        defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : (isRunning && !carryingHeavyObj) ? runBobAmount : walkBobAmount))/2,
-                        playerCamera.transform.localPosition.z);
-                }
-
+                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
+                playerCamera.transform.localPosition = new Vector3(
+                    playerCamera.transform.localPosition.x,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobAmount : waterWalkBobAmount))/2,
+                    playerCamera.transform.localPosition.z);
             }
+            else
+            {
+                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
+                playerCamera.transform.localPosition = new Vector3(
+                    playerCamera.transform.localPosition.x,
+                    defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : (isRunning && !carryingHeavyObj) ? runBobAmount : walkBobAmount))/2,
+                    playerCamera.transform.localPosition.z);
+            }
+            
         }
 
         private void HandleZoom()
@@ -398,13 +351,8 @@ namespace UnderwaterHorror
 
         private void HandleInteractionInput()
         {
-            // TODO: Research TAG vs Layermask, at the moment it seems like using a tag as verificatin is going to work better
-            // potential option for replacement; https://www.youtube.com/watch?v=5MbR2qJK8Tc
-
-
-            if (Input.GetKeyDown(KeyCode.E) && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
+            if (InputManager.inputManager.ePressed && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
             {            
-                // should incorporate Input.GetKeyDown(KeyCode.E) into input manager - Edmund
                 currentInteractable.OnInteract();
             }
         }
@@ -553,7 +501,6 @@ namespace UnderwaterHorror
             }
             else
             {
-                //Debug.Log(dashTimer);
                 dashTimer += Time.deltaTime;
             }
 
@@ -622,7 +569,6 @@ namespace UnderwaterHorror
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;
             this.gameObject.GetComponent<CharacterController>().enabled = true;
-            //Debug.Log(this.gameObject.GetComponent<CharacterController>().enabled);
         }
 
         public void DisableCharacterController()
