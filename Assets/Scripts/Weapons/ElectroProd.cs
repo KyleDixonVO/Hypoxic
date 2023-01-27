@@ -14,11 +14,14 @@ namespace UnderwaterHorror
             range = 2;
             maxAmmo = 3;
             currentAmmo = 3;
-            reloadTime = 2;
+            reloadTime = 5;
 
             // set bools
             canShoot = true;
-            isEquiped = false;
+            isEquiped = true;
+
+            // Tobias's Polymorph audio
+            weaponAudioSource = this.gameObject.GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
@@ -29,21 +32,25 @@ namespace UnderwaterHorror
             if (reloadProgress <= 0)
             {
                 reloadProgress = 0;
+                AudioManager.audioManager.StopSound(weaponAudioSource);
                 canShoot = true;
             }
             else if (reloadProgress > 0 && isEquiped)
             {
+                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.electricProdRecharge);
                 reloadProgress -= Time.deltaTime;
             }
 
             // SHOOTING
             if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
             {
+                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.electricProdShock);
                 ShootWeapon(damage);
             }
             else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
             {
                 // no ammo sound
+                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.electricProdNoCharge);
             }
 
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)

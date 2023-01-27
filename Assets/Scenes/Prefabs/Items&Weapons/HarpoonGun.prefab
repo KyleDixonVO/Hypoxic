@@ -118,3 +118,4 @@ MonoBehaviour:
   reloadTime: 5
   reloadProgress: 0
   isEquiped: 0
+  bloodSFX: {fileID: 0}

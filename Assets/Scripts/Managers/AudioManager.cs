@@ -35,6 +35,14 @@ namespace UnderwaterHorror
         [Header("SmallMonsterAudioClips")]
         public AudioClip smallBite;
 
+        [Header("WeaponAudioClips")]
+        public AudioClip electricProdShock;
+        public AudioClip electricProdRecharge;
+        public AudioClip electricProdNoCharge;
+        public AudioClip harpoonShot;
+        public AudioClip harpoonReloading;
+        public AudioClip harpoonNoAmmo;
+
         [Header("AudioSources")]
         public AudioSource musicAudio;
         public AudioSource BigMonsterAudio;

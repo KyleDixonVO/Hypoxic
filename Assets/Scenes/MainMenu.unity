@@ -1530,6 +1530,12 @@ MonoBehaviour:
   bigBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
   bigAgro: {fileID: 8300000, guid: 06f77e2d9a70ea9468a07b3395c83ca1, type: 3}
   smallBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
+  electricProdShock: {fileID: 8300000, guid: b9af852d809ee0d4ba4d6f22f5cbd49b, type: 3}
+  electricProdRecharge: {fileID: 8300000, guid: 646edb6bd42c6984b98fb499702c6378, type: 3}
+  electricProdNoCharge: {fileID: 8300000, guid: 2bb2f629943e38e459932ab628ec413d, type: 3}
+  harpoonShot: {fileID: 8300000, guid: de9fbb641e400b24da989536aba7f9de, type: 3}
+  harpoonReloading: {fileID: 8300000, guid: 1520678a42432ff4097b692bee378b45, type: 3}
+  harpoonNoAmmo: {fileID: 8300000, guid: 01869770ff5ae2e4c825c00189f94247, type: 3}
   musicAudio: {fileID: 1087392431}
   BigMonsterAudio: {fileID: 0}
   smallMonsterAudio: {fileID: 0}
