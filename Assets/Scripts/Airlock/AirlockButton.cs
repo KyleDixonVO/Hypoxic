@@ -22,7 +22,6 @@ namespace UnderwaterHorror
                 AL.OpenDoor();
                 AL.isOpening = true;
             }
-
         }
 
         public override void OnInteract()

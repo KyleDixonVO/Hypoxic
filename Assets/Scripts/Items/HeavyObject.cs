@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnderwaterHorror
 {
-    public class HeavyObject : MonoBehaviour
+    public class HeavyObject : Interactable
     {
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
@@ -20,34 +20,48 @@ namespace UnderwaterHorror
         void Update()
         {
             //Debug.Log(Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
-            ToggleObjectPickup();
+            //ToggleObjectPickup();
             UpdateObjectParent();
             UpdateHeldLocalPosition();
             isHeld = _isHeld;
         }
 
-        void ToggleObjectPickup()
+        // Interact system
+        public override void OnInteract()
         {
-            //Debug.Log(InputManager.inputManager.eCycled);
-            if (InputManager.inputManager.eCycled == false) return;
-            if (WithinPickupRange()
-                && InputManager.inputManager.ePressed
-                && !_isHeld
-                && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
+            if (Input.GetKeyUp(KeyCode.E))
             {
-                Debug.Log("Picked up heavy object");
-                _isHeld = true;
-                FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
-                //InputManager.inputManager.eCycled = false;
+                //Debug.Log(InputManager.inputManager.eCycled);
+                if (InputManager.inputManager.eCycled == false) return;
+                if (WithinPickupRange()
+                    && InputManager.inputManager.ePressed
+                    && !_isHeld
+                    && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
+                {
+                    Debug.Log("Picked up heavy object");
+                    _isHeld = true;
+                    FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
+                    //InputManager.inputManager.eCycled = false;
+                }
+                else if (_isHeld && InputManager.inputManager.ePressed)
+                {
+                    Debug.Log("Dropped heavy object");
+                    _isHeld = false;
+                    FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
+                    //InputManager.inputManager.eCycled = false;
+                }
             }
-            else if (_isHeld && InputManager.inputManager.ePressed)
-            {
-                Debug.Log("Dropped heavy object");
-                _isHeld = false;
-                FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
-                //InputManager.inputManager.eCycled = false;
-            }
-        
+ 
+        }
+
+        public override void OnFocus()
+        {
+            
+        }
+
+        public override void OnLoseFocus()
+        {
+            
         }
 
         void UpdateObjectParent()
