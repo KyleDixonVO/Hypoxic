@@ -3140,6 +3140,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 92916745}
+        m_TargetAssemblyTypeName: UnderwaterHorror.UI_Manager, Assembly-CSharp
+        m_MethodName: SwitchMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &891431932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4030,6 +4042,15 @@ MonoBehaviour:
       - m_Target: {fileID: 92916745}
         m_TargetAssemblyTypeName: UnderwaterHorror.UI_Manager, Assembly-CSharp
         m_MethodName: PlayUIButtonSound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 230024344}
         m_TargetAssemblyTypeName: UnderwaterHorror.GameManager, Assembly-CSharp
         m_MethodName: ResetForNewRun
@@ -5304,7 +5325,7 @@ MonoBehaviour:
     m_Bits: 128
   maxSoundRange: 10
   minSoundRange: -10
-  probabilityWeight: 0
+  probabilityWeight: 16565
   probability: 0
   playAudio: 0
   touchingWall: 0
@@ -6323,7 +6344,6 @@ MonoBehaviour:
       - m_Target: {fileID: 92916745}
         m_TargetAssemblyTypeName: UnderwaterHorror.UI_Manager, Assembly-CSharp
         m_MethodName: PlayUIButtonSound
-        m_MethodName: SwitchMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
