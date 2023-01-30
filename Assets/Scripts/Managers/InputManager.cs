@@ -34,6 +34,10 @@ public class InputManager : MonoBehaviour
     private bool _capsPressed;
     public bool capsPressed;
 
+    private bool _tabPressed;
+    public bool tabPressed;
+    private bool tabCycled;
+
     private void Awake()
     {
         if (inputManager == null)
@@ -52,6 +56,8 @@ public class InputManager : MonoBehaviour
     {
         _escapePressed = false;
         eCycled = true;
+        _tabPressed = false;
+        tabCycled = true;
     }
 
     // Update is called once per frame
@@ -63,6 +69,10 @@ public class InputManager : MonoBehaviour
     public void ResetEscape()
     {
         _escapePressed = false;
+    }
+    public void ResetTab()
+    {
+        _tabPressed = false;
     }
 
     void UpdateInputs()
@@ -128,13 +138,13 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.E))
         {
+            if (!eCycled) return;
             _ePressed = true;
-            //Debug.Log(_ePressed);
+            eCycled = false;
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
             _ePressed = false;
-            //Debug.Log(_ePressed);
             eCycled = true;
         }
 
@@ -147,6 +157,19 @@ public class InputManager : MonoBehaviour
             _rPressed = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log(_tabPressed);
+            if (!tabCycled) return;
+            _tabPressed = !_tabPressed;
+            tabCycled = false;
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            tabCycled = true;
+        }
+
+        tabPressed = _tabPressed;
         escapePressed = _escapePressed;
         spacePressed = _spacedPressed;
         wPressed = _wPressed;

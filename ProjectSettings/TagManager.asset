@@ -15,8 +15,8 @@ TagManager:
   - PostProcessing
   - Terrain
   - Enemy
-  - 
-  - 
+  - Minimap
+  - Interactable
   - 
   - 
   - 

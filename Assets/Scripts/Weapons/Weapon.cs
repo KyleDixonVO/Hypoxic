@@ -28,6 +28,8 @@ namespace UnderwaterHorror
         [Header("SFX")]
         [SerializeField] GameObject bloodSFX;
 
+        // Sound Polymorphism
+        protected AudioSource weaponAudioSource;
 
         void Update()
         {

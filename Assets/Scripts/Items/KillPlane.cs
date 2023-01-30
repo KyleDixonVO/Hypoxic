@@ -1,26 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class KillPlane : MonoBehaviour
+
+namespace UnderwaterHorror
 {
-    // Start is called before the first frame update
-    void Start()
+    public class KillPlane : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
+        // Start is called before the first frame update
+        void Start()
         {
-            Debug.Log("Entered KillPlane");
-            PlayerStats.playerStats.TakeDamage(10000);
+        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+        
+        }
+
+        //Abosolutely obliterate the player on contact
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                Debug.Log("Entered KillPlane");
+                PlayerStats.playerStats.TakeDamage(10000);
+            }
         }
     }
 }
