@@ -14,6 +14,9 @@ namespace UnderwaterHorror
         public float musicVolume;
         public float sfxVolume;
 
+        [Header("UIAudioClips")]
+        public AudioClip uIButton;
+
         [Header("DoorAudioClips")]
         public AudioClip doorOpening;
         public AudioClip doorOpened;
@@ -34,6 +37,14 @@ namespace UnderwaterHorror
 
         [Header("SmallMonsterAudioClips")]
         public AudioClip smallBite;
+
+        [Header("WeaponAudioClips")]
+        public AudioClip electricProdShock;
+        public AudioClip electricProdRecharge;
+        public AudioClip electricProdNoCharge;
+        public AudioClip harpoonShot;
+        public AudioClip harpoonReloading;
+        public AudioClip harpoonNoAmmo;
 
         [Header("AudioSources")]
         public AudioSource musicAudio;
@@ -57,7 +68,7 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-
+            
         }
 
         // Update is called once per frame
@@ -70,14 +81,17 @@ namespace UnderwaterHorror
 
         public void playSound(AudioSource source, AudioClip clip)
         {
+            // Play a sound through the code's gameObject's audioManager
             if (source.isPlaying) return;
             source.clip = clip;
             source.volume = (sfxVolume * masterVolume);
             source.Play();
             Debug.LogWarning("SoundPlayed");
         }
+
         public void StopSound(AudioSource source)
         {
+            // stop a sound through the code's gameObject's audioManager
             source.Stop();
         }
 
@@ -112,7 +126,7 @@ namespace UnderwaterHorror
         void PlayMusic()
         {
             if (musicAudio == null) return;
-            if (musicAudio.isPlaying == true || UI_Manager.ui_Manager.OptionsOpen()) return;
+            if (musicAudio.isPlaying == true) return;
 
             if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = gameplayAmbiance;
             else if (GameManager.gameManager.gameState == GameManager.gameStates.menu && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = titleMusic;
@@ -123,6 +137,7 @@ namespace UnderwaterHorror
         
         void StopSoundsIndoors()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             if (FirstPersonController_Sam.fpsSam != null)
             {
                 if (FirstPersonController_Sam.fpsSam.inWater) return;
@@ -131,26 +146,7 @@ namespace UnderwaterHorror
             AtmosphereAudio.Stop();
             musicAudio.Stop();
         }
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        // Made by Edmund
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
-        public void PlaySoundBigAgro(AudioSource source)
-        {
-            source.PlayOneShot(bigAgro);
-            Debug.LogWarning("big mad");
-        }
-
-        public void PlaySoundBigBite(AudioSource source)
-        {
-            source.PlayOneShot(bigBite);
-            Debug.LogWarning("big bite");
-        }
-
-        public void PlaySoundSmallBite(AudioSource source)
-        {
-            source.PlayOneShot(smallBite);
-        }
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

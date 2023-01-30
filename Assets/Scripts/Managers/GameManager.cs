@@ -59,26 +59,12 @@ namespace UnderwaterHorror
             switch (_gameState) 
             {
                 case gameStates.gameplay:
-                    if (InputManager.inputManager.escapePressed)
-                    {
-                        Debug.Log("Game Paused");
-                        UI_Manager.ui_Manager.SwitchPause();
-                        GamestatePause();
-                        FirstPersonController_Sam.fpsSam.LockPlayerMovement();
-                    }
-                    if (PlayerStats.playerStats == null || Objective_Manager.objective_Manager == null) return;
-                    if (PlayerStats.playerStats.IsDead() || Objective_Manager.objective_Manager.IfWonGame())
-                    {
-                        _gameState = gameStates.menu;
-                        Cursor.lockState = CursorLockMode.None;
-                    }
+                    GamestatePause();
+                    SwitchEndgame();
                     break;
 
                 case gameStates.paused:
-                    if (!InputManager.inputManager.escapePressed)
-                    {
-                        ReturnToGameplay();
-                    }
+                    ReturnToGameplay();
                     break;
 
                 case gameStates.cutscene:
@@ -86,21 +72,8 @@ namespace UnderwaterHorror
                     break;
 
                 case gameStates.menu:
-                    if (UI_Manager.ui_Manager.OptionsOpen())
-                    {
-                        AudioManager.audioManager.UpdateVolumePrefs();
-                    }
-                    if (PlayerStats.playerStats == null) return;
-                    if (PlayerStats.playerStats.IsDead())
-                    {
-                        UI_Manager.ui_Manager.SwitchGameOverWin();
-                        UI_Manager.ui_Manager.SwitchDeathText();
-                    }
-                    else if (Objective_Manager.objective_Manager.IfWonGame())
-                    {
-                        UI_Manager.ui_Manager.SwitchGameOverWin();
-                        UI_Manager.ui_Manager.SwitchWinText();
-                    }
+                    UpdateVolumePrefs();
+                    DisplayEndgameText();
                     break;
             }
 
@@ -108,7 +81,13 @@ namespace UnderwaterHorror
 
         public void GamestatePause()
         {
-            _gameState = gameStates.paused;
+            if (InputManager.inputManager.escapePressed)
+            {
+                Debug.Log("Game Paused");
+                UI_Manager.ui_Manager.SwitchPause();
+                FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+                _gameState = gameStates.paused;
+            }
         }
 
         public void GamestateCutscene()
@@ -119,7 +98,7 @@ namespace UnderwaterHorror
         public void GamestateGameplay()
         {
             _gameState = gameStates.gameplay;
-            Level_Manager.LM.LoadGameplay();
+            Level_Manager.LM.LoadOutside();
             if (FirstPersonController_Sam.fpsSam != null)
             {
                 FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
@@ -137,6 +116,7 @@ namespace UnderwaterHorror
 
         public void ReturnToGameplay()
         {
+            if (InputManager.inputManager.escapePressed) return;
             Debug.Log("Returning to gameplay");
             InputManager.inputManager.ResetEscape();
             UI_Manager.ui_Manager.SwitchGameplay();
@@ -162,17 +142,37 @@ namespace UnderwaterHorror
             FirstPersonController_Sam.fpsSam.SaveCharacterState();
             Data_Manager.dataManager.SaveToDataManager();
         }
+        
+        void DisplayEndgameText()
+        {
+            if (PlayerStats.playerStats == null) return;
+            if (PlayerStats.playerStats.IsDead())
+            {
+                UI_Manager.ui_Manager.SwitchGameOverWin();
+                UI_Manager.ui_Manager.SwitchDeathText();
+            }
+            else if (Objective_Manager.objective_Manager.IfWonGame())
+            {
+                UI_Manager.ui_Manager.SwitchGameOverWin();
+                UI_Manager.ui_Manager.SwitchWinText();
+            }
+        }
 
-        //public void GameOver()
-        //{
-        //    //ends the game when a player dies, for prototype and possibly an optional iron man mode?
+        void SwitchEndgame()
+        {
+            if (PlayerStats.playerStats == null || Objective_Manager.objective_Manager == null) return;
+            if (PlayerStats.playerStats.IsDead() || Objective_Manager.objective_Manager.IfWonGame())
+            {
+                _gameState = gameStates.menu;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
 
-        //}
-
-        //public void WinGame()
-        //{
-
-        //}
+        void UpdateVolumePrefs()
+        {
+            if (!UI_Manager.ui_Manager.OptionsOpen()) return;
+            AudioManager.audioManager.UpdateVolumePrefs();
+        }
 
         public void ResetForNewRun()
         {

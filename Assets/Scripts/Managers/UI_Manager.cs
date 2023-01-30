@@ -136,46 +136,36 @@ namespace UnderwaterHorror
 
         void CheckActiveCanvas()
         {
-            //Debug.Log(activeCanvas);
             for (int i = 0; i < canvasArray.Length; i++)
             {
                 if (i == (int)activeCanvas)
                 {
-                    canvasArray[i].gameObject.SetActive(true);
+                    canvasArray[i].enabled = true;
                     continue;
                 }
 
                 if (activeCanvas == ActiveUI.Pause && i == (int)ActiveUI.Gameplay) continue;
                 else if (activeCanvas == ActiveUI.Gameplay && InputManager.inputManager.tabPressed && i == (int)ActiveUI.PDA)
                 {
-                    canvasArray[i].gameObject.SetActive(true);
-                    continue;
+                    //canvasArray[i].enabled = true;
+                    //continue;
                 }
-                canvasArray[i].gameObject.SetActive(false);
+                canvasArray[i].enabled = false;
             }
 
             switch (activeCanvas)
             {
                 case ActiveUI.MainMenu:
-
+                    EnableMainMenuButtons();
                     break;
 
                 case ActiveUI.Gameplay:
                     ToggleGameplayTooltips();
-                    textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
-                    if (PlayerStats.playerStats == null) return;
-                    healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
-                    suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;
-
-                    healthSlider.value = PlayerStats.playerStats.playerHealth;
-                    suitPower.value = PlayerStats.playerStats.suitPower;
+                    UpdateGameplayHUD();
                     break;
 
                 case ActiveUI.Pause:
-                    //if (!InputManager.inputManager.escapePressed)
-                    //{
-                    //    SwitchGameplay();
-                    //}
+
                     break;
 
                 case ActiveUI.Options:
@@ -186,9 +176,37 @@ namespace UnderwaterHorror
                     break;
 
                 case ActiveUI.NewGame:
+                    DisableMainMenuButtons();
                     break;
 
             }
+        }
+
+        void DisableMainMenuButtons()
+        {
+            buttonStartGame.interactable = false;
+            buttonNewGame.interactable = false;
+            buttonOptions.interactable = false;
+            buttonExit.interactable = false;
+        }
+
+        void EnableMainMenuButtons()
+        {
+            buttonStartGame.interactable = true;
+            buttonNewGame.interactable = true;
+            buttonOptions.interactable = true;
+            buttonExit.interactable = true;
+        }
+
+        void UpdateGameplayHUD()
+        {
+            textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
+            if (PlayerStats.playerStats == null) return;
+            healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
+            suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;
+
+            healthSlider.value = PlayerStats.playerStats.playerHealth;
+            suitPower.value = PlayerStats.playerStats.suitPower;
         }
 
         public void UpdateOptionsSliderText()
@@ -296,6 +314,13 @@ namespace UnderwaterHorror
         {
             textGameOver.text = "You Won!";
         }
+
+        //  Tobias's Amazing Sound Powers
+        public void PlayUIButtonSound()
+        {
+            AudioManager.audioManager.playSound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.uIButton);
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
     }
 
 }
