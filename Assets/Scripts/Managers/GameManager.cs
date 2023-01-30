@@ -81,13 +81,13 @@ namespace UnderwaterHorror
 
         public void GamestatePause()
         {
-            if (InputManager.inputManager.escapePressed)
-            {
-                Debug.Log("Game Paused");
-                UI_Manager.ui_Manager.SwitchPause();
-                FirstPersonController_Sam.fpsSam.LockPlayerMovement();
-                _gameState = gameStates.paused;
-            }
+            if (!InputManager.inputManager.escapePressed) return;
+            
+            Debug.Log("Game Paused");
+            UI_Manager.ui_Manager.SwitchPause();
+            FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+            _gameState = gameStates.paused;
+            
         }
 
         public void GamestateCutscene()
@@ -117,8 +117,7 @@ namespace UnderwaterHorror
         public void ReturnToGameplay()
         {
             if (InputManager.inputManager.escapePressed) return;
-            Debug.Log("Returning to gameplay");
-            InputManager.inputManager.ResetEscape();
+            Debug.Log("Returning to gameplay");;
             UI_Manager.ui_Manager.SwitchGameplay();
             _gameState = gameStates.gameplay;
             FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
