@@ -119,7 +119,7 @@ MonoBehaviour:
   isEquiped: 0
   beingUsed: 0
   strength: 12
-  light: {fileID: 0}
+  light: {fileID: 3108609485048551594}
 --- !u!108 &3108609485048551594
 Light:
   m_ObjectHideFlags: 0
