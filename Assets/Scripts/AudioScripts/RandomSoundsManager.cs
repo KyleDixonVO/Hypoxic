@@ -77,6 +77,7 @@ namespace UnderwaterHorror
 
         void PlayRandomSound()
         {
+            if (FirstPersonController_Sam.fpsSam == null) return;
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
             //When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
             if (AudioManager.audioManager.AtmosphereAudio.isPlaying != true)

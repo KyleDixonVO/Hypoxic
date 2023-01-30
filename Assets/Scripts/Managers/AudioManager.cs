@@ -48,8 +48,6 @@ namespace UnderwaterHorror
 
         [Header("AudioSources")]
         public AudioSource musicAudio;
-        public AudioSource BigMonsterAudio;
-        public AudioSource smallMonsterAudio;
         public AudioSource AtmosphereAudio;
 
         private void Awake()

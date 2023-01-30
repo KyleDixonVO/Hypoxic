@@ -147,10 +147,14 @@ namespace UnderwaterHorror
                 if (activeCanvas == ActiveUI.Pause && i == (int)ActiveUI.Gameplay) continue;
                 else if (activeCanvas == ActiveUI.Gameplay && InputManager.inputManager.tabPressed && i == (int)ActiveUI.PDA)
                 {
-                    //canvasArray[i].enabled = true;
-                    //continue;
+                    canvasArray[i].enabled = true;
+                    continue;
                 }
-                canvasArray[i].enabled = false;
+                else if (activeCanvas == ActiveUI.NewGame&& i == (int)ActiveUI.MainMenu) continue;
+                else
+                {
+                    canvasArray[i].enabled = false;
+                }
             }
 
             switch (activeCanvas)
