@@ -46,6 +46,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
         }
 
