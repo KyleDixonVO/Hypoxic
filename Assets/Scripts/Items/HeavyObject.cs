@@ -43,7 +43,6 @@ namespace UnderwaterHorror
                 _isHeld = false;
                 FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
             }
-        
         }
 
         void UpdateObjectParent()

@@ -142,8 +142,8 @@ namespace UnderwaterHorror
         [Header("Interaction Settings")]
         [SerializeField] private Vector3 interactionRayPoint = new Vector3(0.5f, 0.5f, 0);
         [SerializeField] private float interactionDistance = 2.0f;
-        [SerializeField] private LayerMask interactionLayer = 7;
-        private Interactable currentInteractable;
+        [SerializeField] private LayerMask interactionLayer = LayerMask.NameToLayer("Interactable");
+        [SerializeField] private Interactable currentInteractable;
 
         #endregion
 
