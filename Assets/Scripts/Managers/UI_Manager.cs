@@ -58,6 +58,9 @@ namespace UnderwaterHorror
         [Header("General Variables")]
         [SerializeField] private ActiveUI activeCanvas;
         [SerializeField] private Canvas[] canvasArray;
+        [SerializeField] private Camera mainMenuCam;
+        [SerializeField] private Camera gameplayCam;
+
 
         public enum ActiveUI
         {
@@ -95,10 +98,13 @@ namespace UnderwaterHorror
         void Update()
         {
             CheckActiveCanvas();
+            FindCameraRefs();
+            UpdatePostProcessCamRef();
         }
 
         void FindReferences()
         {
+            
             textStartTitle = GameObject.Find("TextStartTitle").GetComponent<TMP_Text>();
             buttonStartGame = GameObject.Find("ButtonStartGame").GetComponent<Button>();
             buttonNewGame = GameObject.Find("ButtonNewGame").GetComponent<Button>();
@@ -134,6 +140,18 @@ namespace UnderwaterHorror
             buttonClearGameOver = GameObject.Find("ButtonClearGameOver").GetComponent<Button>();
         }
 
+        void FindCameraRefs()
+        {
+            if (FirstPersonController_Sam.fpsSam != null)
+            {
+                gameplayCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            }
+            if (activeCanvas == ActiveUI.MainMenu)
+            {
+                mainMenuCam = GameObject.Find("MainMenuCamera").GetComponent<Camera>();
+            }
+        }
+
         void CheckActiveCanvas()
         {
             for (int i = 0; i < canvasArray.Length; i++)
@@ -160,6 +178,7 @@ namespace UnderwaterHorror
             switch (activeCanvas)
             {
                 case ActiveUI.MainMenu:
+                    UpdatePostProcessCamRef();
                     EnableMainMenuButtons();
                     break;
 
@@ -200,6 +219,24 @@ namespace UnderwaterHorror
             buttonNewGame.interactable = true;
             buttonOptions.interactable = true;
             buttonExit.interactable = true;
+        }
+
+        void UpdatePostProcessCamRef()
+        {
+            for (int i = 0; i < canvasArray.Length; i++)
+            {
+                if (activeCanvas == ActiveUI.MainMenu)
+                {
+                    if (canvasArray[i].worldCamera == mainMenuCam) continue;
+                    canvasArray[i].worldCamera = mainMenuCam;
+                }
+                else if (activeCanvas == ActiveUI.Gameplay)
+                {
+                    if (canvasArray[i].worldCamera == gameplayCam) continue;
+                    canvasArray[i].worldCamera = gameplayCam;
+                }
+                
+            }
         }
 
         void UpdateGameplayHUD()
