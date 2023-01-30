@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 1e18aae68b6952747b8662c48eab6cfa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Outside.unity
     guid: 4ce665d2b6468a4438f059ff42cba6f6
   - enabled: 0
@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Edmund-TransitionTest.unity
     guid: 310670a9d864cf34783793102a1ecab4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DemoBuildingInside.unity
     guid: 257812b339bb53d47ade703f829033d4
   m_configObjects: {}
