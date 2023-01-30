@@ -26,7 +26,7 @@ namespace UnderwaterHorror
         // Timer for hit effect
         public float startPlayerHitTimer = 0.5f;
         private float playerHitEffectTimer;
-        private bool playerHit = false;
+        public bool playerHit = false;
 
         [Header("Spotlight Settings")]
         [SerializeField] public float poweredRange = 60.0f;
@@ -106,7 +106,6 @@ namespace UnderwaterHorror
             //if (playerHit == false)
             //{
             //Debug.Log("Taking Damage");
-            playerHit = true;
             if (damage <= 0) return;
             Debug.Log("Taking Damage: " + damage);
             playerHealth -= damage;
@@ -149,6 +148,11 @@ namespace UnderwaterHorror
         {
             // Shows the player hit effect on screen for a set amount of time
             if (UI_Manager.ui_Manager == null) return;
+            if (suitPower <= 0)
+            {
+                UI_Manager.ui_Manager.PlayerDrownEffectON(true);
+            }
+
             if (playerHit)
             {
                 UI_Manager.ui_Manager.PlayerHitEffectON(true);
@@ -161,6 +165,11 @@ namespace UnderwaterHorror
                 }
             }
 
+            else
+            {
+                UI_Manager.ui_Manager.PlayerHitEffectON(false);
+                UI_Manager.ui_Manager.PlayerDrownEffectON(false);
+            }
         }
     
         public void ResetRun()

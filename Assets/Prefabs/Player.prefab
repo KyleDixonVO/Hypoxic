@@ -443,7 +443,7 @@ MonoBehaviour:
   poweredRange: 60
   unpoweredRange: 20
   poweredColor: {r: 0.8443396, g: 1, b: 0.99037176, a: 0}
-  unpoweredColor: {r: 1, g: 0, b: 0, a: 0}
+  unpoweredColor: {r: 1, g: 1, b: 1, a: 0}
   suitSpotlight: {fileID: 0}
 --- !u!82 &3373811097972850834
 AudioSource:
@@ -1019,27 +1019,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bffa67a63dde84d448b0e6eb7352c1c7, type: 3}
   m_PrefabInstance: {fileID: 1898060638880891633}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9177838294172769751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627538660321181600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4615c10fff36ee742a4dfdb7f4e6f024, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1332587735617128734}
-  range: 15
-  damage: 1
-  currentAmmo: 6
-  maxAmmo: 6
-  reloadTime: 5
-  reloadProgress: 0
-  isEquiped: 0
-  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!82 &6750145746449341381
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1136,6 +1115,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9177838294172769751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627538660321181600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4615c10fff36ee742a4dfdb7f4e6f024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1332587735617128734}
+  range: 15
+  damage: 1
+  currentAmmo: 6
+  maxAmmo: 6
+  reloadTime: 5
+  reloadProgress: 0
+  isEquiped: 0
+  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!4 &2152154808261862682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bffa67a63dde84d448b0e6eb7352c1c7, type: 3}
@@ -1207,27 +1207,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b3fd6e66ff5756b49a8529b744f66f5c, type: 3}
   m_PrefabInstance: {fileID: 6363584412492155593}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6731586108481186178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6092974056389474200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542269b4766738e4d9f80aea66cd98ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1332587735617128734}
-  range: 2
-  damage: 0
-  currentAmmo: 3
-  maxAmmo: 3
-  reloadTime: 2
-  reloadProgress: 0
-  isEquiped: 1
-  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!82 &4012405911123201647
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1324,6 +1303,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6731586108481186178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6092974056389474200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542269b4766738e4d9f80aea66cd98ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1332587735617128734}
+  range: 2
+  damage: 0
+  currentAmmo: 3
+  maxAmmo: 3
+  reloadTime: 2
+  reloadProgress: 0
+  isEquiped: 1
+  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!4 &6901000291780635938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b3fd6e66ff5756b49a8529b744f66f5c, type: 3}
