@@ -142,8 +142,8 @@ namespace UnderwaterHorror
         [Header("Interaction Settings")]
         [SerializeField] private Vector3 interactionRayPoint = new Vector3(0.5f, 0.5f, 0);
         [SerializeField] private float interactionDistance = 2.0f;
-        [SerializeField] private LayerMask interactionLayer = 7;
-        private Interactable currentInteractable;
+        [SerializeField] private LayerMask interactionLayer = 10;
+        [SerializeField] private Interactable currentInteractable;
 
         #endregion
 
@@ -403,8 +403,9 @@ namespace UnderwaterHorror
 
 
             if (Input.GetKeyDown(KeyCode.E) && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
-            {            
+            {
                 // should incorporate Input.GetKeyDown(KeyCode.E) into input manager - Edmund
+                Debug.LogWarning("hit " + hit);
                 currentInteractable.OnInteract();
             }
         }

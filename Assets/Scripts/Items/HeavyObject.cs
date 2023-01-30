@@ -13,7 +13,7 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-
+            
         }
 
         // Update is called once per frame
@@ -29,39 +29,35 @@ namespace UnderwaterHorror
         // Interact system
         public override void OnInteract()
         {
-            if (Input.GetKeyUp(KeyCode.E))
+            //Debug.LogWarning("Interacted");
+            //Debug.Log(InputManager.inputManager.eCycled);
+            //if (InputManager.inputManager.eCycled == false) return;
+            if (WithinPickupRange()
+                && InputManager.inputManager.ePressed && !_isHeld
+                && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
             {
-                //Debug.Log(InputManager.inputManager.eCycled);
-                if (InputManager.inputManager.eCycled == false) return;
-                if (WithinPickupRange()
-                    && InputManager.inputManager.ePressed
-                    && !_isHeld
-                    && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
-                {
-                    Debug.Log("Picked up heavy object");
-                    _isHeld = true;
-                    FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
-                    //InputManager.inputManager.eCycled = false;
-                }
-                else if (_isHeld && InputManager.inputManager.ePressed)
-                {
-                    Debug.Log("Dropped heavy object");
-                    _isHeld = false;
-                    FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
-                    //InputManager.inputManager.eCycled = false;
-                }
+                Debug.Log("Picked up heavy object");
+                _isHeld = true;
+                FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
+                InputManager.inputManager.eCycled = false;
             }
- 
+            else if (_isHeld)
+            {
+                Debug.Log("Dropped heavy object");
+                _isHeld = false;
+                FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
+                InputManager.inputManager.eCycled = false;
+            }
         }
 
         public override void OnFocus()
         {
-            
+            Debug.LogWarning("Looking at pipe");
         }
 
         public override void OnLoseFocus()
         {
-            
+            //Debug.LogWarning("not looking at pipe");
         }
 
         void UpdateObjectParent()
@@ -81,7 +77,7 @@ namespace UnderwaterHorror
             if (this.gameObject.transform.parent != null)
             {
                 this.gameObject.transform.localPosition = heldPos;
-                this.gameObject.transform.eulerAngles = heldRot;
+                this.gameObject.transform.rotation = transform.parent.transform.localRotation;
             }
         }
 
@@ -91,7 +87,7 @@ namespace UnderwaterHorror
             //InputManager.inputManager.eCycled = true;
             _isHeld = false;
             UpdateObjectParent();
-       }
+        }
 
         public bool WithinPickupRange()
         {
