@@ -118,7 +118,7 @@ Transform:
   m_Children:
   - {fileID: 145698181}
   m_Father: {fileID: 1332587734821002373}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &952993820
 GameObject:
@@ -150,7 +150,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1332587734821002373}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &952993822
 SpriteRenderer:
@@ -239,6 +239,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1261384295150369438}
   - {fileID: 1332587735617128728}
   - {fileID: 715403889}
   - {fileID: 952993821}
@@ -414,6 +415,7 @@ MonoBehaviour:
   interactionLayer:
     serializedVersion: 2
     m_Bits: 7
+  currentInteractable: {fileID: 0}
   playerCamera: {fileID: 0}
   NewGamePos: {x: -0.1, y: 0.71, z: -20.95}
   playerSavedPosition: {x: 0, y: 0, z: 0}
@@ -440,10 +442,11 @@ MonoBehaviour:
   maxPlayerHealth: 100
   playerHealth: 100
   startPlayerHitTimer: 0.5
+  playerHit: 0
   poweredRange: 60
   unpoweredRange: 20
   poweredColor: {r: 0.8443396, g: 1, b: 0.99037176, a: 0}
-  unpoweredColor: {r: 1, g: 0, b: 0, a: 0}
+  unpoweredColor: {r: 1, g: 0.25, b: 0.25, a: 0}
   suitSpotlight: {fileID: 0}
 --- !u!82 &3373811097972850834
 AudioSource:
@@ -580,7 +583,7 @@ Transform:
   - {fileID: 6901000291780635938}
   - {fileID: 4722618398670850147}
   m_Father: {fileID: 1332587734821002373}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1332587735617128734
 Camera:
@@ -836,6 +839,148 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &2052158913991491716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1261384295150369438}
+  - component: {fileID: 1111064398220638485}
+  - component: {fileID: 1508712199879561649}
+  m_Layer: 0
+  m_Name: Voice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1261384295150369438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052158913991491716}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1332587734821002373}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1111064398220638485
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052158913991491716}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1508712199879561649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052158913991491716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9ecd4496592814d9d2de2d47dcd312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 1332587734821002372}
 --- !u!1 &8246063450456331555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,27 +1164,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bffa67a63dde84d448b0e6eb7352c1c7, type: 3}
   m_PrefabInstance: {fileID: 1898060638880891633}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9177838294172769751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627538660321181600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4615c10fff36ee742a4dfdb7f4e6f024, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1332587735617128734}
-  range: 15
-  damage: 1
-  currentAmmo: 6
-  maxAmmo: 6
-  reloadTime: 5
-  reloadProgress: 0
-  isEquiped: 0
-  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!82 &6750145746449341381
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1136,6 +1260,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9177838294172769751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627538660321181600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4615c10fff36ee742a4dfdb7f4e6f024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1332587735617128734}
+  range: 15
+  damage: 1
+  currentAmmo: 6
+  maxAmmo: 6
+  reloadTime: 5
+  reloadProgress: 0
+  isEquiped: 0
+  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!4 &2152154808261862682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bffa67a63dde84d448b0e6eb7352c1c7, type: 3}
@@ -1207,27 +1352,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b3fd6e66ff5756b49a8529b744f66f5c, type: 3}
   m_PrefabInstance: {fileID: 6363584412492155593}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6731586108481186178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6092974056389474200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542269b4766738e4d9f80aea66cd98ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1332587735617128734}
-  range: 2
-  damage: 0
-  currentAmmo: 3
-  maxAmmo: 3
-  reloadTime: 2
-  reloadProgress: 0
-  isEquiped: 1
-  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!82 &4012405911123201647
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1324,6 +1448,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6731586108481186178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6092974056389474200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542269b4766738e4d9f80aea66cd98ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1332587735617128734}
+  range: 2
+  damage: 0
+  currentAmmo: 3
+  maxAmmo: 3
+  reloadTime: 2
+  reloadProgress: 0
+  isEquiped: 1
+  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!4 &6901000291780635938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b3fd6e66ff5756b49a8529b744f66f5c, type: 3}

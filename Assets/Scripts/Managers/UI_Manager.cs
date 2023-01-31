@@ -22,6 +22,7 @@ namespace UnderwaterHorror
         [SerializeField] private Slider suitPower;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Image playerHitEffect;
+        [SerializeField] private Image playerDrownEffect;
         [SerializeField] private TMP_Text textToolTipE;
         [SerializeField] private TMP_Text textToolTipR;
         [SerializeField] private TMP_Text textObjectives;
@@ -334,12 +335,6 @@ namespace UnderwaterHorror
         {
             activeCanvas = ActiveUI.MainMenu;
         }
-
-        public void PlayerHitEffectON(bool isON)
-        {
-            if (isON) playerHitEffect.enabled = true;
-            if (isON == false) playerHitEffect.enabled = false;
-        }
     
         public void SwitchGameOverWin()
         {
@@ -356,7 +351,19 @@ namespace UnderwaterHorror
             textGameOver.text = "You Won!";
         }
 
-        //  Tobias's Amazing Sound Powers
+        //  Tobias's Amazing Code Powers
+        public void PlayerHitEffectON(bool isON)
+        {
+            if (isON) playerHitEffect.enabled = true;
+            if (isON == false) playerHitEffect.enabled = false;
+        }
+
+        public void PlayerDrownEffectON(bool isON)
+        {
+            if (isON) playerDrownEffect.enabled = true;
+            if (isON == false) playerDrownEffect.enabled = false;
+        }
+
         public void PlayUIButtonSound()
         {
             AudioManager.audioManager.playSound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.uIButton);

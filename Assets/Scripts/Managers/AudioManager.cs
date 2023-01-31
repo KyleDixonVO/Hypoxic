@@ -31,6 +31,9 @@ namespace UnderwaterHorror
         public AudioClip titleMusic;
         public AudioClip gameplayAmbiance;
 
+        [Header("PlayerVoice")]
+        public AudioClip heavyBreathing;
+
         [Header("BigMonsterAudioClips")]
         public AudioClip bigBite;
         public AudioClip bigAgro;

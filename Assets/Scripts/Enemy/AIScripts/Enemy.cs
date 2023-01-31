@@ -214,6 +214,7 @@ namespace UnderwaterHorror
             if (_enemyStats.timeToAttack <= 0)
             {
                 PlayerStats.playerStats.TakeDamage(_enemyStats.attackPower);
+                PlayerStats.playerStats.playerHit = true;
                 _enemyStats.timeToAttack = _enemyStats.timeToAttackStart;
             }
         }
