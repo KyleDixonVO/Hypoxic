@@ -37,20 +37,20 @@ namespace UnderwaterHorror
             }
             else if (reloadProgress > 0 && isEquiped)
             {
-                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.electricProdRecharge);
+                AudioManager.audioManager.PlaySound(weaponAudioSource, AudioManager.audioManager.electricProdRecharge);
                 reloadProgress -= Time.deltaTime;
             }
 
             // SHOOTING
             if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
             {
-                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.electricProdShock);
+                AudioManager.audioManager.PlaySound(weaponAudioSource, AudioManager.audioManager.electricProdShock);
                 ShootWeapon(damage);
             }
             else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
             {
                 // no ammo sound
-                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.electricProdNoCharge);
+                AudioManager.audioManager.PlaySound(weaponAudioSource, AudioManager.audioManager.electricProdNoCharge);
             }
 
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)

@@ -34,6 +34,10 @@ namespace UnderwaterHorror
         [Header("PlayerVoice")]
         public AudioClip heavyBreathing;
 
+        [Header("AIVoice")]
+        public AudioClip lowPower;
+        public AudioClip noPower;
+
         [Header("BigMonsterAudioClips")]
         public AudioClip bigBite;
         public AudioClip bigAgro;
@@ -52,6 +56,9 @@ namespace UnderwaterHorror
         [Header("AudioSources")]
         public AudioSource musicAudio;
         public AudioSource AtmosphereAudio;
+
+        // Pulled elsewhere
+        public bool soundPaused = false;
 
         private void Awake()
         {
@@ -80,7 +87,7 @@ namespace UnderwaterHorror
         }
 
 
-        public void playSound(AudioSource source, AudioClip clip)
+        public void PlaySound(AudioSource source, AudioClip clip)
         {
             // Play a sound through the code's gameObject's audioManager
             if (source.isPlaying) return;
@@ -92,8 +99,21 @@ namespace UnderwaterHorror
 
         public void StopSound(AudioSource source)
         {
-            // stop a sound through the code's gameObject's audioManager
+            // Stop a sound through the code's gameObject's audioManager
             source.Stop();
+            source.clip = null;
+        }
+
+        public void PauseSound(AudioSource source)
+        {
+            // Pause a sound through the code's gameObject's audioManager
+            source.Pause();
+        }
+
+        public void ResumeSound(AudioSource source)
+        {
+            // Resume a sound through the code's gameObject's audioManager
+            source.Play();
         }
 
         // Made by Kyle 
