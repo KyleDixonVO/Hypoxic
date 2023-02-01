@@ -414,7 +414,7 @@ MonoBehaviour:
   interactionDistance: 2
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 7
+    m_Bits: 1024
   currentInteractable: {fileID: 0}
   playerCamera: {fileID: 0}
   NewGamePos: {x: -0.1, y: 0.71, z: -20.95}
@@ -434,9 +434,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSuitPower: 100
   suitPower: 0
-  drainPerSecond: 0.67
+  drainPerSecond: 0.33
   rechargePerSecond: 2
-  sprintDrainPerSecond: 1
+  sprintDrainPerSecond: 0.65
   drainPerDash: 5
   suffocationDamage: 1
   maxPlayerHealth: 100
@@ -1294,6 +1294,7 @@ MonoBehaviour:
   playerVoice: {fileID: 2052158913991491716}
   playerSuit: {fileID: 4937315977156487810}
   playerFootsteps: {fileID: 6021105506899054628}
+  halfSuitPower: 0
 --- !u!1001 &1898060638880891633
 PrefabInstance:
   m_ObjectHideFlags: 0
