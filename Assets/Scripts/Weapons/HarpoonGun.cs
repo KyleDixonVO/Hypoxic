@@ -40,20 +40,20 @@ namespace UnderwaterHorror
             }
             else if (reloadProgress > 0 && isEquiped)
             {
-                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.harpoonReloading); // - Tobias Audio
+                AudioManager.audioManager.PlaySound(weaponAudioSource, AudioManager.audioManager.harpoonReloading); // - Tobias Audio
                 reloadProgress -= Time.deltaTime;
             }
 
             // SHOOTING
             if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo > 0 && canShoot && isEquiped)
             {
-                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.harpoonShot); // - Tobias Audio
+                AudioManager.audioManager.PlaySound(weaponAudioSource, AudioManager.audioManager.harpoonShot); // - Tobias Audio
                 ShootWeapon(damage);
             }
             else if (Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo <= 0 && isEquiped)
             {
                 // no ammo sound
-                AudioManager.audioManager.playSound(weaponAudioSource, AudioManager.audioManager.harpoonNoAmmo); // - Tobias Audio
+                AudioManager.audioManager.PlaySound(weaponAudioSource, AudioManager.audioManager.harpoonNoAmmo); // - Tobias Audio
             }
 
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)

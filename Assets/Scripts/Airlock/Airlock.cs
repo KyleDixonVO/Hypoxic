@@ -65,7 +65,8 @@ namespace UnderwaterHorror
         {
             // Tobias
             this.airlockAudioSource.loop = true;
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpening);
+            AudioManager.audioManager.StopSound(airlockAudioSource);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
             //-----------------------------------------------------------------------------------------
             StartCoroutine(OpenDelay(openWaitTime));
         }
@@ -73,7 +74,8 @@ namespace UnderwaterHorror
         public void CloseDoor(float waitTime)
         {
             // Tobias
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosed);
+            AudioManager.audioManager.StopSound(airlockAudioSource);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
             //-----------------------------------------------------------------------------------------
             StartCoroutine(CloseDelay(waitTime));       
         }
