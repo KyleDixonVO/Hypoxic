@@ -17,6 +17,12 @@ namespace UnderwaterHorror
         [SerializeField] private List<DistSort> pointsOrderedByDist;
         [SerializeField] private List<DistSort> distSorts;
 
+        private void Start()
+        {
+            pointsOrderedByDist = new List<DistSort>();
+            distSorts = new List<DistSort>();
+        }
+
         override protected void DefeatedManager()
         {
             // Fleeing Time
@@ -87,8 +93,7 @@ namespace UnderwaterHorror
         private void PopulatePointsNearPlayer()
         {
             if (pointsListPopulated) return;
-            distSorts.Clear();
-            pointsOrderedByDist.Clear();
+
             for(int i = 0; i < patrolPoints.Count; i++)
             {
                 DistSort dist = new DistSort();
@@ -104,6 +109,7 @@ namespace UnderwaterHorror
 
         private void ClearPointsByDist()
         {
+            distSorts.Clear();
             pointsOrderedByDist.Clear();
             pointsListPopulated = false;
         }
