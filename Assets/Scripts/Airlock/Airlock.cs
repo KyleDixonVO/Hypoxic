@@ -158,7 +158,7 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay)
             {
                 AudioManager.audioManager.StopSound(airlockAudioSource);
-                AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpened);
+                AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpened);
                 airlockAudioSource.loop = false;
                 //-----------------------------------------------------------------------------------------
                 LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
@@ -173,7 +173,7 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay) 
             {
                 // Tobias closed door
-                AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosing);
+                AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosing);
                 //-----------------------------------------------------------------------------------------
                 isOpening = false;
                 LeanTween.move(doorRight, rightClosePos, 2f);
