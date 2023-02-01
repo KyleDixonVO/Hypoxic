@@ -305,11 +305,11 @@ namespace UnderwaterHorror
             Vector3 angleVector = FirstPersonController_Sam.fpsSam.transform.position - transform.position;
             if (Vector3.Angle(angleVector, agent.transform.forward) < _enemyStats.visionConeHalved) 
             {
-                Debug.Log("In FOV Cone " + Vector3.Angle(angleVector, agent.transform.forward));
+                //Debug.Log("In FOV Cone " + Vector3.Angle(angleVector, agent.transform.forward));
                 Debug.DrawLine(FirstPersonController_Sam.fpsSam.transform.position, agent.transform.position, Color.green);
                 return true; 
             }
-            Debug.Log("Outside FOV Cone " + Vector3.Angle(angleVector, agent.transform.forward));
+            //Debug.Log("Outside FOV Cone " + Vector3.Angle(angleVector, agent.transform.forward));
             Debug.DrawLine(FirstPersonController_Sam.fpsSam.transform.position, agent.transform.position, Color.red);
             return false;
         }
@@ -318,10 +318,10 @@ namespace UnderwaterHorror
         {
             if (Vector3.Distance(firstPos, secondPos) < rangeToCheck)
             {
-                Debug.Log("Within Range " + Vector3.Distance(firstPos, secondPos) + " " + rangeToCheck + " " + _enemyStats.GetDetectionDistance());
+                //Debug.Log("Within Range " + Vector3.Distance(firstPos, secondPos) + " " + rangeToCheck + " " + _enemyStats.GetDetectionDistance());
                 return true;
             }
-            Debug.Log("Out Of Range" + Vector3.Distance(firstPos, secondPos) + " " + rangeToCheck + " " + _enemyStats.GetDetectionDistance());
+            //Debug.Log("Out Of Range" + Vector3.Distance(firstPos, secondPos) + " " + rangeToCheck + " " + _enemyStats.GetDetectionDistance());
             return false;
         }
 
