@@ -466,7 +466,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 76.4, y: -264.2}
+  m_AnchoredPosition: {x: 76.3999, y: -264.2}
   m_SizeDelta: {x: 400, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &62172679
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 523018479}
   - component: {fileID: 523018478}
   - component: {fileID: 523018477}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ButtonClearGameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2831,7 +2831,7 @@ GameObject:
   - component: {fileID: 662316943}
   - component: {fileID: 662316945}
   - component: {fileID: 662316944}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Panel (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4792,7 +4792,7 @@ Canvas:
   m_GameObject: {fileID: 1050253386}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1405976421}
   m_PlaneDistance: 0.3
   m_PixelPerfect: 1
@@ -5790,7 +5790,7 @@ GameObject:
   - component: {fileID: 1153196449}
   - component: {fileID: 1153196451}
   - component: {fileID: 1153196450}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
