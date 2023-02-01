@@ -2153,6 +2153,22 @@ MonoBehaviour:
   harpoonNoAmmo: {fileID: 8300000, guid: 01869770ff5ae2e4c825c00189f94247, type: 3}
   musicAudio: {fileID: 1087392431}
   AtmosphereAudio: {fileID: 1087392431}
+  soundPaused: 0
+  randomSoundsObj: {fileID: 1124360023}
+  terrainCheck: {fileID: 1124360024}
+  terrainCheckRadius: 2
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  maxSoundRange: 10
+  minSoundRange: -10
+  probabilityWeight: 0
+  probability: 0
+  playAudio: 0
+  touchingWall: 0
+  playerVoice: {fileID: 0}
+  playerSuit: {fileID: 0}
+  playerFootsteps: {fileID: 0}
 --- !u!1 &523018475
 GameObject:
   m_ObjectHideFlags: 0
@@ -5594,7 +5610,6 @@ GameObject:
   - component: {fileID: 1124360024}
   - component: {fileID: 1124360027}
   - component: {fileID: 1124360026}
-  - component: {fileID: 1124360028}
   - component: {fileID: 1124360025}
   m_Layer: 0
   m_Name: RandomSoundsHolder
@@ -5764,31 +5779,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1124360028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124360023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6656f023a2e346143bf973953be732c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  randomSoundsObj: {fileID: 1124360023}
-  terrainCheck: {fileID: 1124360024}
-  terrainCheckRadius: 2
-  terrainLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  maxSoundRange: 10
-  minSoundRange: -10
-  probabilityWeight: 0
-  probability: 0
-  playAudio: 0
-  touchingWall: 0
-  selectedAtmosphereSound: {fileID: 0}
 --- !u!1 &1153196448
 GameObject:
   m_ObjectHideFlags: 0
@@ -6277,7 +6267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heavyObjects: []
-  repairTargets: []
 --- !u!4 &1258928970
 Transform:
   m_ObjectHideFlags: 0
