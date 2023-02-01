@@ -7,8 +7,7 @@ namespace UnderwaterHorror
     public class Object_Manager : MonoBehaviour
     {
         public static Object_Manager object_Manager;
-        [SerializeField] List<HeavyObject> heavyObjects = new List<HeavyObject>();
-        [SerializeField] List<RepairTarget> repairTargets = new List<RepairTarget>();
+        [SerializeField] HeavyObject[] heavyObjects;
         private void Awake()
         {
             if (object_Manager == null)
@@ -24,15 +23,15 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-        
+            heavyObjects = new HeavyObject[Data_Manager.dataManager.numberOfObjectives - 1];
         }
 
         // Update is called once per frame
         void Update()
         {
-            //FindHeavyObjects();
-            if (FirstPersonController_Sam.fpsSam == null || heavyObjects.Count == 0) return;
-            //WithinPickupRange();
+            HeavyObjectSingleton();
+            if (FirstPersonController_Sam.fpsSam == null || heavyObjects.Length == 0) return;
+            WithinPickupRange();
         }
 
         public bool WithinPickupRange()
@@ -44,14 +43,42 @@ namespace UnderwaterHorror
             return false;
         }
 
-        public void FindHeavyObjects()
+        public void HeavyObjectSingleton()
         {
-            for (int i = 0; i < GameObject.FindObjectsOfType<HeavyObject>().Length; i++)
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            for (int i = 0; i < heavyObjects.Length; i++)
             {
-                if (!heavyObjects.Contains(GameObject.FindObjectsOfType<HeavyObject>()[i]))
+                switch (i) 
                 {
-                    heavyObjects.Add(GameObject.FindObjectsOfType<HeavyObject>()[i]);
+                    case 0:
+                        if (heavyObjects[i] == null)
+                        {
+                            heavyObjects[i] = GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>();
+                            DontDestroyOnLoad(heavyObjects[i]);
+                        }
+                        else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>())
+                        {
+                            Destroy(GameObject.Find("pipeFixedRed"));
+                        }
+                        break;
+
+                    case 1:
+                        if (heavyObjects[i] == null)
+                        {
+                            heavyObjects[i] = GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>();
+                            DontDestroyOnLoad(heavyObjects[i]);
+                        }
+                        else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>())
+                        {
+                            Destroy(GameObject.Find("pipeFixedGreen"));
+                        }
+                        break;
+
+                    case 2:
+                        break;
                 }
+
+                
             }
         }
     }

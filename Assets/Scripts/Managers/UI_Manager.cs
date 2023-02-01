@@ -93,6 +93,8 @@ namespace UnderwaterHorror
         {
             activeCanvas = ActiveUI.MainMenu;
             FindReferences();
+            DisableSecondaryInteractText();
+            DisablePrimaryInteractText();
         }
 
         // Update is called once per frame
@@ -273,16 +275,16 @@ namespace UnderwaterHorror
 
         public void ToggleGameplayTooltips()
         {
-            if (tooltipActiveElsewhere) return;
-            if (Object_Manager.object_Manager.WithinPickupRange()) ActivatePrimaryInteractText();
-            else DisablePrimaryInteractText();
+            //if (tooltipActiveElsewhere) return;
+            //if (Object_Manager.object_Manager.WithinPickupRange()) ActivatePrimaryInteractText();
+            //else DisablePrimaryInteractText();
 
-            if (FirstPersonController_Sam.fpsSam == null) return;
-            if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) DisableSecondaryInteractText();
-            else if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
-            {
-                ActivateSecondaryInteractText();
-            }
+            //if (FirstPersonController_Sam.fpsSam == null) return;
+            //if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) DisableSecondaryInteractText();
+            //else if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
+            //{
+            //    ActivateSecondaryInteractText();
+            //}
         }
 
         public void ActivatePrimaryInteractText()

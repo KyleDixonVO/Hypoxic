@@ -19,8 +19,6 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            //Debug.Log(Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
-            //ToggleObjectPickup();
             UpdateObjectParent();
             UpdateHeldLocalPosition();
             isHeld = _isHeld;
@@ -29,9 +27,6 @@ namespace UnderwaterHorror
         // Interact system
         public override void OnInteract()
         {
-            //Debug.LogWarning("Interacted");
-            //Debug.Log(InputManager.inputManager.eCycled);
-            //if (InputManager.inputManager.eCycled == false) return;
             if (WithinPickupRange()
                 && InputManager.inputManager.ePressed && !_isHeld
                 && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
@@ -53,10 +48,12 @@ namespace UnderwaterHorror
         public override void OnFocus()
         {
             Debug.LogWarning("Looking at pipe");
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
         }
 
         public override void OnLoseFocus()
         {
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
             //Debug.LogWarning("not looking at pipe");
         }
 
