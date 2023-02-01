@@ -60,6 +60,40 @@ namespace UnderwaterHorror
         // Pulled elsewhere
         public bool soundPaused = false;
 
+        // Audio Randomizer --------------------------------------------------------------------------------
+        [Header("Audio Randomizer")]
+        [Header("GameObjects")]
+        public GameObject randomSoundsObj;
+
+        [Header("Spherecast")]
+        public Transform terrainCheck;
+        public float terrainCheckRadius = 2;
+        public LayerMask terrainLayerMask;
+
+        [Header("Settings")]
+        [Range(5f, 20f)]
+        public float maxSoundRange = 10f;
+        [Range(-5f, -20f)]
+        public float minSoundRange = -10f;
+        [Range(1f, 100000f)]
+        public int probabilityWeight;
+        public int probability;
+
+        public bool playAudio = false;
+        public bool touchingWall = false;
+
+        // Player Sounds Manager --------------------------------------------------------------------------
+        [Header("Player Sounds")]
+        public AudioSource playerVoice;
+        public AudioSource playerSuit;
+        public AudioSource playerFootsteps;
+
+        private bool playedPowerBelowHalf = false;
+        private bool playedPowerEmpty = false;
+
+
+
+
         private void Awake()
         {
             if (audioManager == null)
@@ -76,7 +110,7 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-            
+            randomSoundsObj.GetComponent<SphereCollider>();
         }
 
         // Update is called once per frame
@@ -84,8 +118,18 @@ namespace UnderwaterHorror
         {
             PlayMusic();
             StopSoundsIndoors();
+            PlayRandomSound();
+            ManageSoundRandomness();
+            ManagePlayerVoice();
+            ManagePlayerSuit();
+            ManagePausedSound();
+            FindPlayerSoundRefs();
         }
 
+        private void FixedUpdate()
+        {
+            probability = Random.Range(0, probabilityWeight);
+        }
 
         public void PlaySound(AudioSource source, AudioClip clip)
         {
@@ -116,8 +160,140 @@ namespace UnderwaterHorror
             source.Play();
         }
 
+        // Audio Randomizer -------------------------------------------------------------------------------------------------------------
+        void ManageSoundRandomness()
+        {
+            if (AtmosphereAudio.isPlaying != true)
+            {
+                // Starts numOfSounds at 0 in first loop
+                int numOfSounds = -1;
+                foreach (AudioClip clip in randomAtmosphereSounds)
+                {
+                    numOfSounds++;
+                }
+                int randomSoundSelected = Random.Range(0, numOfSounds);
+                AtmosphereAudio.clip = randomAtmosphereSounds[randomSoundSelected];
+            }
+        }
+
+        void MangeRandomPosition()
+        {
+            Vector3 audioHolderPos = randomSoundsObj.transform.position;
+            Vector3 playerPos = PlayerStats.playerStats.gameObject.transform.position;
+
+            audioHolderPos.x = playerPos.x + Random.Range(minSoundRange + 1, maxSoundRange);
+            audioHolderPos.y = playerPos.y + Random.Range(minSoundRange + 1, maxSoundRange);
+            audioHolderPos.z = playerPos.z + Random.Range(minSoundRange + 1, maxSoundRange);
+
+            // Generates the max distance the sound can play.
+            AtmosphereAudio.maxDistance = playerPos.x + maxSoundRange * 2;
+            randomSoundsObj.transform.position = audioHolderPos;
+        }
+
+        void PlayRandomSound()
+        {
+            if (FirstPersonController_Sam.fpsSam == null) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
+            //When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
+            if (AtmosphereAudio.isPlaying == true) return;
+
+            if (probability == 0)
+            {
+                MangeRandomPosition();
+                Debug.LogWarning("RandomSoundPlaying");
+                AtmosphereAudio.PlayOneShot(AtmosphereAudio.clip, (sfxVolume * masterVolume));
+            }
+
+            if (IsTouchingTerrain() == true)
+            {
+                //audioHolder.Stop();
+                //playAudio = false;
+            }
+
+        }
+
+        bool IsTouchingTerrain()
+        {
+            if (Physics.CheckSphere(terrainCheck.position, terrainCheckRadius, terrainLayerMask)) return true;
+            return false;
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, terrainCheckRadius);
+        }
+
+        // Player Sounds --------------------------------------------------------------------------------------------------------------------------------------------
+
+        void ManagePlayerVoice()
+        {
+            playerSuffocating();
+        }
+
+        void playerSuffocating()
+        {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || playerVoice == null) return;
+
+            if (PlayerStats.playerStats.suitPower > 0)
+            {
+                StopSound(playerVoice);
+                return;
+            }
+            PlaySound(playerVoice, heavyBreathing);
+        }
+
+        void ManagePlayerSuit()
+        {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || playerVoice == null) return;
+            if (PlayerStats.playerStats.suitPower <= PlayerStats.playerStats.maxSuitPower/2 && playedPowerBelowHalf == false)
+            {
+                StopSound(playerSuit);
+                PlaySound(playerSuit, lowPower);
+                playedPowerBelowHalf = true;
+            }
+            else if (PlayerStats.playerStats.suitPower > PlayerStats.playerStats.maxSuitPower/2) playedPowerBelowHalf = false;
+
+
+            if (PlayerStats.playerStats.suitPower <= 0 && playedPowerEmpty == false)
+            {
+                StopSound(playerSuit);
+                PlaySound(playerSuit, noPower);
+                playedPowerEmpty = true;
+            }
+            else if (PlayerStats.playerStats.suitPower > 0) playedPowerEmpty = false;
+
+        }
+
+        void ManagePausedSound()
+        {
+            if (playerSuit == null || playerVoice == null || playerFootsteps == null) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            { 
+                PauseSound(playerVoice);
+                PauseSound(playerSuit);
+                PauseSound(playerFootsteps);
+                soundPaused = true;
+            }
+            else if (soundPaused)
+            {
+                ResumeSound(playerVoice);
+                ResumeSound(playerSuit);
+                ResumeSound(playerFootsteps);
+                soundPaused = false;
+            }
+            
+            if (!playerSuit.isPlaying && GameManager.gameManager.gameState != GameManager.gameStates.paused)
+            {
+                StopSound(playerSuit.GetComponent<AudioSource>());
+            }
+        }
+
+
+
         // Made by Kyle 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         public void LoadVolumePrefs()
         {
             masterVolume = Data_Manager.dataManager.mastervolume;
@@ -166,6 +342,15 @@ namespace UnderwaterHorror
 
             AtmosphereAudio.Stop();
             musicAudio.Stop();
+        }
+
+        void FindPlayerSoundRefs()
+        {
+            if (FirstPersonController_Sam.fpsSam == null) return;
+            if (playerFootsteps != null && playerVoice != null && playerSuit != null) return;
+            playerSuit = GameObject.Find("playerSuitSound").GetComponent<AudioSource>();
+            playerVoice = GameObject.Find("playerVoiceSound").GetComponent<AudioSource>();
+            playerFootsteps = GameObject.Find("Player").GetComponent<AudioSource>();
         }
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------
