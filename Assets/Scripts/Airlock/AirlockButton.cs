@@ -19,12 +19,12 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
-            
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
         }
 
         public override void OnLoseFocus()
         {
-
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
         }
     }
 

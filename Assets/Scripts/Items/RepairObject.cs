@@ -11,6 +11,7 @@ namespace UnderwaterHorror
         [SerializeField] float elapsedRepairTime;
         [SerializeField] float repairDistance = 2.0f;
         [SerializeField] bool repaired = false;
+        [SerializeField] string targetName;
         [SerializeField] Objective_Manager.Objectives objective;
 
         public RepairTarget targetObject;
@@ -24,6 +25,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
+            FindRepairTarget();
             CheckRepairStatus();
             Repair();
         }
@@ -45,7 +47,7 @@ namespace UnderwaterHorror
 
         void CheckRepairStatus() 
         { 
-            if (!repaired) return;
+            if (!repaired || targetObject == null) return;
             targetObject.RepairedObject();
             this.GetComponent<HeavyObject>().ForceDropObject();
             this.gameObject.SetActive(false);
@@ -56,6 +58,20 @@ namespace UnderwaterHorror
         {
             if (Vector3.Distance(this.gameObject.transform.position, repairDestination) < repairDistance) return true;
             return false;
+        }
+
+        public void FindRepairTarget()
+        {
+            if (targetObject != null) return;
+            try
+            {
+                targetObject = GameObject.Find(targetName).GetComponent<RepairTarget>();
+            }
+            catch
+            {
+                return;
+            }
+            
         }
 
     }

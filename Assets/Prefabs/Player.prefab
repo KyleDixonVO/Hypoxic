@@ -414,7 +414,7 @@ MonoBehaviour:
   interactionDistance: 2
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 7
+    m_Bits: 1024
   currentInteractable: {fileID: 0}
   playerCamera: {fileID: 0}
   NewGamePos: {x: -0.1, y: 0.71, z: -20.95}
@@ -446,7 +446,7 @@ MonoBehaviour:
   poweredRange: 60
   unpoweredRange: 20
   poweredColor: {r: 0.8443396, g: 1, b: 0.99037176, a: 0}
-  unpoweredColor: {r: 1, g: 0.25, b: 0.25, a: 0}
+  unpoweredColor: {r: 1, g: 0.2028302, b: 0.2028302, a: 0}
   suitSpotlight: {fileID: 0}
 --- !u!82 &3373811097972850834
 AudioSource:

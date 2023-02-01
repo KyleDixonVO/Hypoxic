@@ -185,7 +185,7 @@ namespace UnderwaterHorror
 
         private void Start()
         {
-            interactionLayer = LayerMask.NameToLayer("Interactable");
+            Debug.Log(interactionLayer.value);
         }
 
         private void Update()
