@@ -366,7 +366,7 @@ namespace UnderwaterHorror
 
         public void PlayUIButtonSound()
         {
-            AudioManager.audioManager.playSound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.uIButton);
+            AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.uIButton);
         }
         //---------------------------------------------------------------------------------------------------------------------------
     }

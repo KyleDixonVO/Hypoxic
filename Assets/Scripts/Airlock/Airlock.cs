@@ -65,7 +65,8 @@ namespace UnderwaterHorror
         {
             // Tobias
             this.airlockAudioSource.loop = true;
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpening);
+            AudioManager.audioManager.StopSound(airlockAudioSource);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
             //-----------------------------------------------------------------------------------------
             StartCoroutine(OpenDelay(openWaitTime));
         }
@@ -73,7 +74,8 @@ namespace UnderwaterHorror
         public void CloseDoor(float waitTime)
         {
             // Tobias
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosed);
+            AudioManager.audioManager.StopSound(airlockAudioSource);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
             //-----------------------------------------------------------------------------------------
             StartCoroutine(CloseDelay(waitTime));       
         }
@@ -152,7 +154,7 @@ namespace UnderwaterHorror
             yield return new WaitForSeconds(waitTime);
             // Tobias opened door
             AudioManager.audioManager.StopSound(airlockAudioSource);
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpened);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpened);
             airlockAudioSource.loop = false;
             //-----------------------------------------------------------------------------------------
             LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
@@ -164,7 +166,7 @@ namespace UnderwaterHorror
         {
             yield return new WaitForSeconds(waitTime);
             // Tobias closed door
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosing);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosing);
             //-----------------------------------------------------------------------------------------
             isOpening = false;
             LeanTween.move(doorRight, rightClosePos, 2f);
