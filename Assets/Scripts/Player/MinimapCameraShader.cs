@@ -15,4 +15,14 @@ public class MinimapCameraShader : MonoBehaviour
     {
         
     }
+
+    private void OnPreRender()
+    {
+        RenderSettings.fog = false;
+    }
+
+    private void OnPostRender()
+    {
+        RenderSettings.fog = GameObject.Find("Main Camera").GetComponent<FogEffect>().effectActive;
+    }
 }

@@ -9,9 +9,9 @@ namespace UnderwaterHorror
     {
         public PlayerStats playerStats;
 
-        public GameObject playerVoice;
-        public GameObject playerSuit;
-        public GameObject playerFootsteps;
+        public AudioSource playerVoice;
+        public AudioSource playerSuit;
+        public AudioSource playerFootsteps;
 
         private bool powerBelowHalf = false;
         private bool powerEmpty = false;
@@ -106,8 +106,7 @@ namespace UnderwaterHorror
                 }
                 AudioManager.audioManager.soundPaused = true;
             }
-
-            if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && AudioManager.audioManager.soundPaused)
+            else if (AudioManager.audioManager.soundPaused)
             {
                 if (playerVoice.GetComponent<AudioSource>() != null)
                 {
@@ -123,8 +122,7 @@ namespace UnderwaterHorror
                 }
                 AudioManager.audioManager.soundPaused = false;
             }
-
-            if (!playerSuit.GetComponent<AudioSource>().isPlaying && GameManager.gameManager.gameState != GameManager.gameStates.paused)
+            else if (!playerSuit.GetComponent<AudioSource>().isPlaying && GameManager.gameManager.gameState != GameManager.gameStates.paused)
             {
                 AudioManager.audioManager.StopSound(playerSuit.GetComponent<AudioSource>());
             }
