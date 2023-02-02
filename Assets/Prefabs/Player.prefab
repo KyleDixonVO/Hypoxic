@@ -563,9 +563,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSuitPower: 100
   suitPower: 0
-  drainPerSecond: 0.67
+  drainPerSecond: 0.33
   rechargePerSecond: 2
-  sprintDrainPerSecond: 1
+  sprintDrainPerSecond: 0.66
   drainPerDash: 5
   suffocationDamage: 1
   maxPlayerHealth: 100
