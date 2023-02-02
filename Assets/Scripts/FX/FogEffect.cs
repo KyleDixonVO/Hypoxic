@@ -20,9 +20,9 @@ public class FogEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _mat.SetColor("_FogColor", _fogColor);
-        _mat.SetFloat("_DepthStart", _depthStart);
-        _mat.SetFloat("_DepthDistance", _depthDistance);
+        //_mat.SetColor("_FogColor", _fogColor);
+        //_mat.SetFloat("_DepthStart", _depthStart);
+        //_mat.SetFloat("_DepthDistance", _depthDistance);
 
     }
 
@@ -30,11 +30,13 @@ public class FogEffect : MonoBehaviour
     {
         if (!effectActive)
         {
+            //RenderSettings.fog = false;
             Graphics.Blit(source, destination);
-            //Debug.Log("Fog Disabled");
             return;
         }
 
-        Graphics.Blit(source, destination, _mat);
+        RenderSettings.fog = true;
+        Graphics.Blit(source, destination);
+        //Graphics.Blit(source, destination, _mat);
     }
 }

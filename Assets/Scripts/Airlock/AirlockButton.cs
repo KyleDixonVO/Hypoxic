@@ -2,19 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirlockButton : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public GameObject Door;
-    [SerializeField]
-    Airlock AL;
-
-    private void OnTriggerStay(Collider other)
+    public class AirlockButton : Interactable
     {
-        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && !AL.isOpening)
+        public GameObject Door;
+        [SerializeField]
+        Airlock AL;
+
+        public override void OnInteract()
         {
             Debug.Log("Button pressed");
             AL.OpenDoor();
+            AL.isOpening = true;
         }
 
+        public override void OnFocus()
+        {
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+        }
+
+        public override void OnLoseFocus()
+        {
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
+        }
     }
+
 }

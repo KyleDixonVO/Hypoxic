@@ -2,95 +2,124 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Objective_Manager : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public static Objective_Manager objective_Manager;
-
-    private void Awake()
+    public class Objective_Manager : MonoBehaviour
     {
-        if (objective_Manager == null)
-        {
-            objective_Manager = this;
-            DontDestroyOnLoad(this);
-        }
-        else if (objective_Manager != null && objective_Manager != this)
-        {
-            Destroy(this.gameObject);
-        }
-    }
+        public static Objective_Manager objective_Manager;
 
-    [Header("Objectives")]
-    [SerializeField] private bool objectiveOneComplete = false;
-    [SerializeField] private bool objectiveTwoComplete = false;
-    [SerializeField] private bool objectiveThreeComplete = true;
-    [SerializeField] private bool finalObjectiveComplete = false;
-    [SerializeField] private int numberOfObjectivesComplete = 0;
-    [SerializeField] private int savedObjectivesComplete = 0;
-    [SerializeField] private int objectivesToWin = 4;
-    [SerializeField] private bool gameWon;
+        private void Awake()
+        {
+            if (objective_Manager == null)
+            {
+                objective_Manager = this;
+                DontDestroyOnLoad(this);
+            }
+            else if (objective_Manager != null && objective_Manager != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+        public enum Objectives 
+        { 
+            repairFirstPipe,
+            repairSecondPipe,
+            repairThirdPipe,
+            goToElevator
+        }
+
+        public Objectives objective;
+
+        [Header("Objectives")]
+        [SerializeField] private bool[] isObjectiveComplete;
+        [SerializeField] private string[] objectiveText;
+        private string outgoingText;
+
+
+        // Start is called before the first frame update
+        void Start()
+        {
         
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CheckObjectiveCompletion();
-    }
-
-    public void ObjectiveOneComplete()
-    {
-        if (objectiveOneComplete) return;
-        objectiveOneComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    public void ObjectiveTwoComplete()
-    {
-        if (objectiveTwoComplete) return;
-        objectiveTwoComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    public void ObjectiveThreeComplete()
-    {
-        if (objectiveThreeComplete) return;
-        objectiveThreeComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    public void FinalObjectiveComplete()
-    {
-        if (!objectiveOneComplete || !objectiveTwoComplete || !objectiveThreeComplete) return;
-        if (finalObjectiveComplete) return;
-        finalObjectiveComplete = true;
-        numberOfObjectivesComplete++;
-    }
-
-    void CheckObjectiveCompletion()
-    {
-        if (numberOfObjectivesComplete >= objectivesToWin)
+        // Update is called once per frame
+        void Update()
         {
-            gameWon = true;
-        }   
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
+        }
+
+        public void UpdateObjectiveCompletion(int objectiveNumber)
+        {
+            if (objectiveNumber == (int)Objectives.goToElevator)
+            {
+                if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
+                    || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
+                    || !isObjectiveComplete[(int)Objectives.repairThirdPipe])
+                    return;
+            }
+
+            if (isObjectiveComplete[objectiveNumber]) return;
+            isObjectiveComplete[objectiveNumber] = true;
+            Debug.Log(objectiveNumber + " " + isObjectiveComplete[objectiveNumber]);
+        }
+
+        public bool IfWonGame()
+        {
+            for (int i = 0; i < isObjectiveComplete.Length; i++)
+            {
+                if (!isObjectiveComplete[i]) return false;
+            }
+            return true;
+        }
+
+        private void ResetObjectives()
+        {
+            for (int i = 0; i < isObjectiveComplete.Length; i++)
+            {
+                isObjectiveComplete[i] = false;
+                Debug.Log(i + " " + isObjectiveComplete[i]);
+            }
+        }
+
+        public bool GetObjectiveState(Objectives objective)
+        {
+            if (isObjectiveComplete[(int)objective]) return true;
+            return false;
+        }
+
+        public void ResetRun()
+        {
+            ResetObjectives();
+        }
+
+        public string AssignObjectiveText()
+        {
+            outgoingText = "Objectives: ";
+
+            for (int i = 0; i < isObjectiveComplete.Length; i++)
+            {
+                if (!isObjectiveComplete[i] && i != (int)Objectives.goToElevator)
+                {
+                    outgoingText += "\r\n" + objectiveText[i];
+                }
+                else if (i == (int)Objectives.goToElevator)
+                {
+                    if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
+                    || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
+                    || !isObjectiveComplete[(int)Objectives.repairThirdPipe]) continue;
+
+                    outgoingText += "\r\n" + objectiveText[i];
+                }
+            }
+            return outgoingText;
+        }
+
+        public void LoadObjectiveStates()
+        {
+            Data_Manager.dataManager.UpdateObjectiveManager();
+        }
     }
 
-    public bool GameWon()
-    {
-        return gameWon;
-    }
-
-    public void ResetRun()
-    {
-        gameWon = false;
-        numberOfObjectivesComplete = 0;
-        objectiveOneComplete = false;
-        objectiveTwoComplete = false;
-        objectiveThreeComplete = true;
-        finalObjectiveComplete = false;
-        savedObjectivesComplete = 0;
-    }
 }

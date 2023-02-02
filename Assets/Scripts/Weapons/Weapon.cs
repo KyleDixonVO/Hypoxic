@@ -28,6 +28,8 @@ namespace UnderwaterHorror
         [Header("SFX")]
         [SerializeField] GameObject bloodSFX;
 
+        // Sound Polymorphism
+        protected AudioSource weaponAudioSource;
 
         void Update()
         {
@@ -85,6 +87,18 @@ namespace UnderwaterHorror
             // get ammo
             currentAmmo += ammoAmmount;
             if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
+        }
+
+        protected void Unequip()
+        {
+            isEquiped = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
+        protected void Equip()
+        {
+            isEquiped = true;
+            gameObject.GetComponent<Renderer>().enabled = true;
         }
 
         IEnumerator waitTime(GameObject sfx)

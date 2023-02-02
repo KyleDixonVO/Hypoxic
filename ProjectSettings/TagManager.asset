@@ -13,10 +13,10 @@ TagManager:
   - Water
   - UI
   - PostProcessing
-  - 
+  - Terrain
   - Enemy
-  - 
-  - 
+  - Minimap
+  - Interactable
   - 
   - 
   - 
