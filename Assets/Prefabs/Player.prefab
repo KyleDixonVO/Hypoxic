@@ -563,9 +563,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSuitPower: 100
   suitPower: 0
-  drainPerSecond: 0.67
+  drainPerSecond: 0.33
   rechargePerSecond: 2
-  sprintDrainPerSecond: 1
+  sprintDrainPerSecond: 0.66
   drainPerDash: 5
   suffocationDamage: 1
   maxPlayerHealth: 100
@@ -687,7 +687,6 @@ GameObject:
   - component: {fileID: 1332587735617128732}
   - component: {fileID: 1332587735617128733}
   - component: {fileID: 1332587735617128730}
-  - component: {fileID: 1332587735617128731}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -862,18 +861,6 @@ MonoBehaviour:
   _depthStart: 0
   _depthDistance: 20
   effectActive: 0
---- !u!114 &1332587735617128731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1332587735617128729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831298937f7778547baebfe5fd249089, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1332587735982631234
 GameObject:
   m_ObjectHideFlags: 0
