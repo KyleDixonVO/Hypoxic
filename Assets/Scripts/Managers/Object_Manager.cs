@@ -48,20 +48,14 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             for (int i = 0; i < heavyObjects.Length; i++)
             {
+ 
                 switch (i) 
                 {
                     case 0:
                         if (heavyObjects[i] == null)
                         {
-                            try
-                            {
-                                heavyObjects[i] = GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>();
-                                DontDestroyOnLoad(heavyObjects[i]);
-                            }
-                            catch
-                            {
-                                Debug.Log("Cannot find an instance of pipeFixedRed");
-                            }
+                            heavyObjects[i] = GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>();
+                            DontDestroyOnLoad(heavyObjects[i]);
                         }
                         else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>())
                         {
@@ -72,15 +66,8 @@ namespace UnderwaterHorror
                     case 1:
                         if (heavyObjects[i] == null)
                         {
-                            try
-                            {
-                                heavyObjects[i] = GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>();
-                                DontDestroyOnLoad(heavyObjects[i]);
-                            }
-                            catch
-                            {
-                                Debug.Log("Cannot find an instance of pipeFixedGreen");
-                            }
+                            heavyObjects[i] = GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>();
+                            DontDestroyOnLoad(heavyObjects[i]);
                         }
                         else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>())
                         {
