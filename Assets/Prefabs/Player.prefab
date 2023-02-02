@@ -546,7 +546,7 @@ MonoBehaviour:
     m_Bits: 1024
   currentInteractable: {fileID: 0}
   playerCamera: {fileID: 0}
-  NewGamePos: {x: -0.1, y: 0.71, z: -20.95}
+  NewGamePos: {x: -0.1, y: 1.71, z: -20.95}
   playerSavedPosition: {x: 0, y: 0, z: 0}
   playerSavedRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1332587734821002372
@@ -572,8 +572,8 @@ MonoBehaviour:
   playerHealth: 100
   startPlayerHitTimer: 0.5
   playerHit: 0
-  poweredRange: 60
-  unpoweredRange: 20
+  poweredRange: 200
+  unpoweredRange: 60
   poweredColor: {r: 0.8443396, g: 1, b: 0.99037176, a: 0}
   unpoweredColor: {r: 1, g: 0.2028302, b: 0.2028302, a: 0}
   suitSpotlight: {fileID: 0}
@@ -906,7 +906,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 60.1
+  m_Range: 257.49
   m_SpotAngle: 55.6
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
