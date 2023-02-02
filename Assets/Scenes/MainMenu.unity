@@ -402,7 +402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51362534}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Minimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5498,7 +5498,7 @@ GameObject:
   - component: {fileID: 1123965624}
   - component: {fileID: 1123965626}
   - component: {fileID: 1123965625}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6575,7 +6575,7 @@ GameObject:
   - component: {fileID: 1352564523}
   - component: {fileID: 1352564522}
   - component: {fileID: 1352564521}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: CanvasPDA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8898,7 +8898,7 @@ GameObject:
   - component: {fileID: 1727959523}
   - component: {fileID: 1727959521}
   - component: {fileID: 1727959524}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9258,7 +9258,7 @@ GameObject:
   - component: {fileID: 1774403247}
   - component: {fileID: 1774403249}
   - component: {fileID: 1774403248}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Raw
   m_TagString: Untagged
   m_Icon: {fileID: 0}

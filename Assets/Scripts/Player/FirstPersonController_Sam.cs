@@ -156,7 +156,7 @@ namespace UnderwaterHorror
 
         private float rotationX = 0;
 
-        [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 0.71f, -20.95f);
+        [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 1.71f, -20.95f);
         public Vector3 playerSavedPosition;
         public Quaternion playerSavedRotation;
 
@@ -374,12 +374,12 @@ namespace UnderwaterHorror
                     {
                         case true:
                             if (outsideFootstepClips.Length == 0) return;
-                            footstepAudioSource.PlayOneShot(outsideFootstepClips[Random.Range(0, outsideFootstepClips.Length - 1)]);
+                            AudioManager.audioManager.PlaySound(footstepAudioSource, outsideFootstepClips[Random.Range(0, outsideFootstepClips.Length - 1)]);
                             break;
 
                         case false:
                             if (insideFootstepClips.Length == 0) return;
-                            footstepAudioSource.PlayOneShot(insideFootstepClips[Random.Range(0, insideFootstepClips.Length - 1)]);
+                            AudioManager.audioManager.PlaySound(footstepAudioSource, insideFootstepClips[Random.Range(0, insideFootstepClips.Length - 1)]);
                             break;
                     }
                 }
@@ -569,6 +569,7 @@ namespace UnderwaterHorror
             canMove = true;
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;
+            Debug.Log(this.gameObject.transform.position);
             this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
 
