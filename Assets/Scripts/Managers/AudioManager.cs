@@ -89,7 +89,7 @@ namespace UnderwaterHorror
         [Header("Player Sounds")]
         public AudioSource playerVoice;
         public AudioSource playerSuit;
-       // public AudioSource SuitThruster;
+        public AudioSource SuitThruster;
         public AudioSource playerFootsteps;
 
         private bool playedPowerBelowHalf = false;
@@ -273,9 +273,9 @@ namespace UnderwaterHorror
             // Plays running sound
             if (FirstPersonController_Sam.fpsSam.IsRunning())
             {
-               // if (!SuitThruster.isPlaying) PlaySound(SuitThruster, jets);
+                if (!SuitThruster.isPlaying) PlaySound(SuitThruster, jets);
             }
-           // else if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(SuitThruster); 
+            else if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(SuitThruster); 
         }
 
         void ManagePausedSound()
@@ -286,7 +286,7 @@ namespace UnderwaterHorror
             { 
                 PauseSound(playerVoice);
                 PauseSound(playerSuit);
-               // PauseSound(SuitThruster);
+                PauseSound(SuitThruster);
                 PauseSound(playerFootsteps);
                 soundPaused = true;
             }
@@ -294,7 +294,7 @@ namespace UnderwaterHorror
             {
                 ResumeSound(playerVoice);
                 ResumeSound(playerSuit);
-               // ResumeSound(SuitThruster);
+                ResumeSound(SuitThruster);
                 ResumeSound(playerFootsteps);
                 soundPaused = false;
             }
@@ -366,7 +366,7 @@ namespace UnderwaterHorror
             if (playerFootsteps != null && playerVoice != null && playerSuit != null) return;
             playerSuit = GameObject.Find("playerSuitSound").GetComponent<AudioSource>();
             playerVoice = GameObject.Find("playerVoiceSound").GetComponent<AudioSource>();
-           // SuitThruster = GameObject.Find("suitThrusterSound").GetComponent<AudioSource>();
+            SuitThruster = GameObject.Find("suitThrusterSound").GetComponent<AudioSource>();
             playerFootsteps = GameObject.Find("Player").GetComponent<AudioSource>();
         }
 
