@@ -65,7 +65,8 @@ namespace UnderwaterHorror
         {
             // Tobias
             this.airlockAudioSource.loop = true;
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpening);
+            AudioManager.audioManager.StopSound(airlockAudioSource);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
             //-----------------------------------------------------------------------------------------
             StartCoroutine(OpenDelay(openWaitTime));
         }
@@ -73,7 +74,8 @@ namespace UnderwaterHorror
         public void CloseDoor(float waitTime)
         {
             // Tobias
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosed);
+            AudioManager.audioManager.StopSound(airlockAudioSource);
+            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
             //-----------------------------------------------------------------------------------------
             StartCoroutine(CloseDelay(waitTime));       
         }
@@ -147,28 +149,36 @@ namespace UnderwaterHorror
         }
 
         // ---------------------------------------- Coroutines ----------------------------------------- \\
+        // Convert coroutines to timers
+
         IEnumerator OpenDelay(float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
             // Tobias opened door
-            AudioManager.audioManager.StopSound(airlockAudioSource);
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorOpened);
-            airlockAudioSource.loop = false;
-            //-----------------------------------------------------------------------------------------
-            LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
-            LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
-            isOpening = true;
+            if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay)
+            {
+                AudioManager.audioManager.StopSound(airlockAudioSource);
+                AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpened);
+                airlockAudioSource.loop = false;
+                //-----------------------------------------------------------------------------------------
+                LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
+                LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
+                isOpening = true;
+            }
         }
 
         IEnumerator CloseDelay(float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-            // Tobias closed door
-            AudioManager.audioManager.playSound(airlockAudioSource, AudioManager.audioManager.doorClosing);
-            //-----------------------------------------------------------------------------------------
-            isOpening = false;
-            LeanTween.move(doorRight, rightClosePos, 2f);
-            LeanTween.move(doorLeft, leftClosePos, 2f);
+            if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay) 
+            {
+                // Tobias closed door
+                AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosing);
+                //-----------------------------------------------------------------------------------------
+                isOpening = false;
+                LeanTween.move(doorRight, rightClosePos, 2f);
+                LeanTween.move(doorLeft, leftClosePos, 2f);
+            }
         }
 
         void Timer(float countDownProgress)
