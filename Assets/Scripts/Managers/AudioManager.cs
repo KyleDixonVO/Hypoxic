@@ -30,6 +30,7 @@ namespace UnderwaterHorror
         [Header("MusicAudioClips")]
         public AudioClip titleMusic;
         public AudioClip gameplayAmbiance;
+        public AudioClip insideAmbiance;
 
         [Header("SuitClips")]
         public AudioClip jets;
@@ -56,9 +57,16 @@ namespace UnderwaterHorror
         public AudioClip harpoonReloading;
         public AudioClip harpoonNoAmmo;
 
-        [Header("AudioSources")]
+        [Header("MusicSources")]
         public AudioSource musicAudio;
-        public AudioSource AtmosphereAudio;
+        [Header("SoundSources")]
+        public AudioSource enviromentAudio;
+        [Header("PlayerSources")]
+        public AudioSource playerVoice;
+        public AudioSource playerSuit;
+        public AudioSource suitThruster;
+        public AudioSource playerFootsteps;
+        [Header("DoorSources")]
 
         // Pulled elsewhere
         public bool soundPaused = false;
@@ -85,12 +93,6 @@ namespace UnderwaterHorror
         public bool playAudio = false;
         public bool touchingWall = false;
 
-        // Player Sounds Manager --------------------------------------------------------------------------
-        [Header("Player Sounds")]
-        public AudioSource playerVoice;
-        public AudioSource playerSuit;
-        public AudioSource suitThruster;
-        public AudioSource playerFootsteps;
 
         private bool playedPowerBelowHalf = false;
         private bool playedPowerEmpty = false;
@@ -120,14 +122,24 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            PlayMusic();
-            StopSoundsIndoors();
-            PlayRandomSound();
-            ManageSoundRandomness();
-            ManagePlayerVoice();
-            ManagePlayerSuit();
-            ManagePausedSound();
+            // Referances
             FindPlayerSoundRefs();
+
+            // Play
+            PlayMusic();
+            PlayRandomSound();
+
+            // Stop
+            StopSoundsIndoors();
+            ManageSoundRandomness();
+
+            // Player sounds
+            CheckPlayerVoiceSounds();
+            CheckPlayerSuitSounds();
+
+            // Pause
+            ManagePausedSound();
+            
         }
 
         private void FixedUpdate()
@@ -167,7 +179,7 @@ namespace UnderwaterHorror
         // Audio Randomizer -------------------------------------------------------------------------------------------------------------
         void ManageSoundRandomness()
         {
-            if (AtmosphereAudio.isPlaying != true)
+            if (!enviromentAudio.isPlaying)
             {
                 // Starts numOfSounds at 0 in first loop
                 int numOfSounds = -1;
@@ -176,7 +188,7 @@ namespace UnderwaterHorror
                     numOfSounds++;
                 }
                 int randomSoundSelected = Random.Range(0, numOfSounds);
-                AtmosphereAudio.clip = randomAtmosphereSounds[randomSoundSelected];
+                enviromentAudio.clip = randomAtmosphereSounds[randomSoundSelected];
             }
         }
 
@@ -190,22 +202,21 @@ namespace UnderwaterHorror
             audioHolderPos.z = playerPos.z + Random.Range(minSoundRange + 1, maxSoundRange);
 
             // Generates the max distance the sound can play.
-            AtmosphereAudio.maxDistance = playerPos.x + maxSoundRange * 2;
+            enviromentAudio.maxDistance = maxSoundRange * 2;
             randomSoundsObj.transform.position = audioHolderPos;
         }
 
         void PlayRandomSound()
         {
-            if (FirstPersonController_Sam.fpsSam == null) return;
+            //if (FirstPersonController_Sam.fpsSam == null) return;
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !FirstPersonController_Sam.fpsSam.inWater) return;
             //When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
-            if (AtmosphereAudio.isPlaying == true) return;
 
-            if (probability == 0)
+            if (probability == 0 && enviromentAudio.isPlaying == false) 
             {
                 MangeRandomPosition();
                 Debug.LogWarning("RandomSoundPlaying");
-                AtmosphereAudio.PlayOneShot(AtmosphereAudio.clip, (sfxVolume * masterVolume));
+                enviromentAudio.PlayOneShot(enviromentAudio.clip, (sfxVolume * masterVolume));
             }
 
             if (IsTouchingTerrain() == true)
@@ -230,7 +241,7 @@ namespace UnderwaterHorror
 
         // Player Sounds --------------------------------------------------------------------------------------------------------------------------------------------
 
-        void ManagePlayerVoice()
+        void CheckPlayerVoiceSounds()
         {
             playerSuffocating();
         }
@@ -248,7 +259,7 @@ namespace UnderwaterHorror
             PlaySound(playerVoice, heavyBreathing);
         }
 
-        void ManagePlayerSuit()
+        void CheckPlayerSuitSounds()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || playerVoice == null) return;
 
@@ -278,6 +289,11 @@ namespace UnderwaterHorror
             else if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(suitThruster); 
         }
 
+        void CheckDoorSounds()
+        {
+
+        }
+
         void ManagePausedSound()
         {
             // Pauses sounds when game is paused
@@ -288,6 +304,7 @@ namespace UnderwaterHorror
                 PauseSound(playerSuit);
                 PauseSound(suitThruster);
                 PauseSound(playerFootsteps);
+                PauseSound(musicAudio);
                 soundPaused = true;
             }
             else if (soundPaused)
@@ -296,6 +313,7 @@ namespace UnderwaterHorror
                 ResumeSound(playerSuit);
                 ResumeSound(suitThruster);
                 ResumeSound(playerFootsteps);
+                ResumeSound(musicAudio);
                 soundPaused = false;
             }
             
@@ -321,7 +339,7 @@ namespace UnderwaterHorror
         {
             if (!UI_Manager.ui_Manager.OptionsOpen()) return;
             if (musicAudio.isPlaying) musicAudio.Pause();
-            if (AtmosphereAudio) AtmosphereAudio.Pause();
+            if (enviromentAudio) enviromentAudio.Pause();
 
             masterVolume = UI_Manager.ui_Manager.sliderMaster.value;
             musicVolume = UI_Manager.ui_Manager.sliderMusic.value;
@@ -338,12 +356,16 @@ namespace UnderwaterHorror
         }
         void PlayMusic()
         {
+            // Tobias Updated
+            if (FirstPersonController_Sam.fpsSam == null) return;
             if (musicAudio == null) return;
+            if (gameplayAmbiance == null) return;
+
+            if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && FirstPersonController_Sam.fpsSam.inWater) musicAudio.clip = gameplayAmbiance;
+            else if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && FirstPersonController_Sam.fpsSam.inWater == false) musicAudio.clip = insideAmbiance;
+            else if (GameManager.gameManager.gameState == GameManager.gameStates.menu) musicAudio.clip = titleMusic;
+
             if (musicAudio.isPlaying == true) return;
-
-            if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = gameplayAmbiance;
-            else if (GameManager.gameManager.gameState == GameManager.gameStates.menu && musicAudio != null && gameplayAmbiance != null) musicAudio.clip = titleMusic;
-
             musicAudio.volume = (musicVolume * masterVolume);
             musicAudio.Play();
         }
@@ -356,8 +378,7 @@ namespace UnderwaterHorror
                 if (FirstPersonController_Sam.fpsSam.inWater) return;
             }
 
-            AtmosphereAudio.Stop();
-            musicAudio.Stop();
+            enviromentAudio.Stop();
         }
 
         void FindPlayerSoundRefs()

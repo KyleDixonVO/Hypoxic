@@ -59,13 +59,18 @@ namespace UnderwaterHorror
             {           
                 IsntLoadDoor();
             }
+
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                AudioManager.audioManager.PauseSound(airlockAudioSource);
+            }
+            else if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && airlockAudioSource.isPlaying == false) AudioManager.audioManager.ResumeSound(airlockAudioSource);
         }
 
         public void OpenDoor()
         {
             // Tobias
             this.airlockAudioSource.loop = true;
-            AudioManager.audioManager.StopSound(airlockAudioSource);
             AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
             //-----------------------------------------------------------------------------------------
             StartCoroutine(OpenDelay(openWaitTime));

@@ -2104,6 +2104,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
   titleMusic: {fileID: 8300000, guid: eaedccd76fdcecb4a9006b2bfb286ca4, type: 3}
   gameplayAmbiance: {fileID: 8300000, guid: 4ee15832f7913394b9edc21e27d89f7e, type: 3}
+  insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
   jets: {fileID: 8300000, guid: 896959a2115e7c44e88628de625903a4, type: 3}
   heavyBreathing: {fileID: 8300000, guid: 63095a5952128ce4f86fef35d7a4f52b, type: 3}
   lowPower: {fileID: 8300000, guid: 1af773c41cd7fa745ab2ade2c53f64b0, type: 3}
@@ -2118,7 +2119,7 @@ MonoBehaviour:
   harpoonReloading: {fileID: 8300000, guid: 1520678a42432ff4097b692bee378b45, type: 3}
   harpoonNoAmmo: {fileID: 8300000, guid: 01869770ff5ae2e4c825c00189f94247, type: 3}
   musicAudio: {fileID: 1087392431}
-  AtmosphereAudio: {fileID: 1087392431}
+  enviromentAudio: {fileID: 1124360025}
   soundPaused: 0
   randomSoundsObj: {fileID: 1124360023}
   terrainCheck: {fileID: 1124360024}
@@ -2126,14 +2127,15 @@ MonoBehaviour:
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  maxSoundRange: 10
-  minSoundRange: -10
-  probabilityWeight: 0
+  maxSoundRange: 20
+  minSoundRange: -20
+  probabilityWeight: 1
   probability: 0
   playAudio: 0
   touchingWall: 0
   playerVoice: {fileID: 0}
   playerSuit: {fileID: 0}
+  suitThruster: {fileID: 0}
   playerFootsteps: {fileID: 0}
 --- !u!1 &523018475
 GameObject:

@@ -13,6 +13,10 @@ namespace UnderwaterHorror
         public override void OnInteract()
         {
             Debug.Log("Button pressed");
+            if (this.GetComponent<AudioSource>().isPlaying == false)
+            {
+                AudioManager.audioManager.PlaySound(this.GetComponent<AudioSource>(), AudioManager.audioManager.doorButton);
+            }
             AL.OpenDoor();
             AL.isOpening = true;
         }
