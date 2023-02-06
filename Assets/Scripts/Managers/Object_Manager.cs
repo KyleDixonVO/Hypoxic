@@ -23,13 +23,14 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-            heavyObjects = new HeavyObject[Data_Manager.dataManager.numberOfObjectives - 1];
+            heavyObjects = new HeavyObject[Data_Manager.dataManager.numberOfObjectives - 2];
         }
 
         // Update is called once per frame
         void Update()
         {
             HeavyObjectSingleton();
+            ToggleRigidbodies();
             if (FirstPersonController_Sam.fpsSam == null || heavyObjects.Length == 0) return;
             WithinPickupRange();
         }
@@ -80,6 +81,27 @@ namespace UnderwaterHorror
                 }
 
                 
+            }
+        }
+
+        private void ToggleRigidbodies()
+        {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (Level_Manager.LM.IsSceneOpen("Outside"))
+            {
+                for (int i = 0; i < heavyObjects.Length; i++)
+                {
+                    if (heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == false) return;
+                    heavyObjects[i].GetComponent<Rigidbody>().WakeUp();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < heavyObjects.Length; i++)
+                {
+                    if (heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == true) return;
+                    heavyObjects[i].GetComponent<Rigidbody>().Sleep();
+                }
             }
         }
     }

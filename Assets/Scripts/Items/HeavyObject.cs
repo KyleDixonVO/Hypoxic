@@ -84,7 +84,7 @@ namespace UnderwaterHorror
             //InputManager.inputManager.eCycled = true;
             _isHeld = false;
             UpdateObjectParent();
-        }
+       }
 
         public bool WithinPickupRange()
         {

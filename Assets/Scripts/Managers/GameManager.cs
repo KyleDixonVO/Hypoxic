@@ -36,6 +36,7 @@ namespace UnderwaterHorror
         void Start()
         {
             _gameState = gameStates.menu;
+            gameState = _gameState;
             Data_Manager.dataManager.LoadGlobalData();
             Level_Manager.LM.LoadMainMenu();
             AudioManager.audioManager.LoadVolumePrefs();
@@ -128,6 +129,9 @@ namespace UnderwaterHorror
             //loads players last save
             Data_Manager.dataManager.LoadFromPlayerData();
             Objective_Manager.objective_Manager.LoadObjectiveStates();
+            Data_Manager.dataManager.LoadFromEnemyData();
+            Enemy_Manager.enemy_Manager.LoadEnemyStates();
+
 
             if (FirstPersonController_Sam.fpsSam == null) return;
             FirstPersonController_Sam.fpsSam.LoadCharacterState();

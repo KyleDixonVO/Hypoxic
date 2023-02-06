@@ -26,6 +26,8 @@ namespace UnderwaterHorror
 
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
+        [SerializeField] private string patrolPointParentName;
+        [SerializeField] private GameObject patrolPointParent;
 
         [Header("Place desired patrol point here")]
         [SerializeField] protected int currentPatrolPoint;
@@ -37,8 +39,8 @@ namespace UnderwaterHorror
         [SerializeField] protected LayerMask layerMasks;
 
         [Header("Saved Vectors")]
-        [SerializeField] private Vector3 NewGamePos;
-        [SerializeField] private Vector3 SaveGamePos;
+        [SerializeField] private Vector3 newGamePos;
+        [SerializeField] private Vector3 saveGamePos;
         protected Vector3 playerPreviousLocation;
 
         // lil addon by edmund
@@ -65,14 +67,14 @@ namespace UnderwaterHorror
             else
             {
                 agent.isStopped = false;
+                FindPatrolPoints();
+                // Makes it so the enemy can bite you immediatly on contact
+                // But have to recharge after a single bite
+                _enemyStats.timeToAttack -= Time.deltaTime;
+
+                EnemyStateManager();
+                Debug.Log(enemyState);
             }
-
-            // Makes it so the enemy can bite you immediatly on contact
-            // But have to recharge after a single bite
-            _enemyStats.timeToAttack -= Time.deltaTime;
-
-            EnemyStateManager();
-            Debug.Log(enemyState);
         }
 
         void EnemyStateManager()
@@ -172,6 +174,7 @@ namespace UnderwaterHorror
         {
             agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
+            if (patrolPointParent == null) return;
             if (agent.destination != patrolPoints[currentPatrolPoint].transform.position)
             {
                 agent.SetDestination(patrolPoints[currentPatrolPoint].transform.position);
@@ -280,9 +283,6 @@ namespace UnderwaterHorror
             }
         }
 
-        // Made by Kyle
-        //--------------------------------------------------------
-
         protected bool HasLineOfSight()
         {
             Vector3 raycastDir = PlayerStats.playerStats.transform.position;
@@ -325,15 +325,39 @@ namespace UnderwaterHorror
             return false;
         }
 
-        //Don't call these yet, they aren't implemented properly
-        void ResetRun()
+        private void FindPatrolPoints()
         {
-            this.gameObject.transform.position = NewGamePos;
+            if (GameObject.Find(patrolPointParentName) == null)
+            {
+                agent.destination = this.transform.position;
+                patrolPoints.Clear();
+                return;
+            }
+            patrolPointParent = GameObject.Find(patrolPointParentName);
+            for (int i = 0; i < patrolPointParent.transform.childCount; i++)
+            {
+                if (patrolPoints.Contains(patrolPointParent.transform.GetChild(i).gameObject)) continue;
+                patrolPoints.Add(patrolPointParent.transform.GetChild(i).gameObject);
+            }
         }
 
-        void ReloadToSave()
+        public virtual void ResetRun()
         {
-            this.gameObject.transform.position = SaveGamePos;
+            this.gameObject.transform.position = newGamePos;
+            this._enemyStats.health = this._enemyStats.maxHealth;
+            this.isAlive = true;
+            this.enemyState = EnemyState.patrolling;
+            this.searching = false;
+        }
+
+        public void SetSaveGamePos()
+        {
+            saveGamePos = this.gameObject.transform.position;
+        }
+
+        public void ReloadToSave()
+        {
+            this.gameObject.transform.position = saveGamePos;
         }
         //--------------------------------------------------------
     }

@@ -20,8 +20,8 @@ namespace UnderwaterHorror
 
         [Header("Functional Settings")]
         [SerializeField] private bool isDashing = false;
-        [SerializeField] public bool inWater = false;
-        [SerializeField] public bool carryingHeavyObj = false;
+        public bool inWater = false;
+        public bool carryingHeavyObj = false;
         [SerializeField] private bool canRun = true;
         [SerializeField] private bool canJump = true;
         [SerializeField] private bool canCrouch = true;
@@ -177,16 +177,11 @@ namespace UnderwaterHorror
             characterController = GetComponent<CharacterController>();
             defaultYPos = playerCamera.transform.localPosition.y;
             defaultFOV = playerCamera.fieldOfView;        
-
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         private void Start()
         {
-            Debug.Log(interactionLayer.value);
-           // interactionLayer = LayerMask.NameToLayer("Interactable");
+            LockPlayerMovement();
         }
 
         private void Update()
@@ -216,6 +211,7 @@ namespace UnderwaterHorror
 
         public void LockPlayerMovement()
         {
+            Debug.Log("Player Movement Locked");
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -223,6 +219,7 @@ namespace UnderwaterHorror
 
         public void UnlockPlayerMovement()
         {
+            Debug.Log("Player Movement Unlocked");
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -577,6 +574,7 @@ namespace UnderwaterHorror
         {
             if (this.gameObject.GetComponent<CharacterController>().enabled == false) return;
             this.gameObject.GetComponent<CharacterController>().enabled = false;
+            
         }
 
         public void EnableCharacterController()

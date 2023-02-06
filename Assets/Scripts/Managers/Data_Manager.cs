@@ -5,8 +5,8 @@ using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace UnderwaterHorror 
-{ 
+namespace UnderwaterHorror
+{
     public class Data_Manager : MonoBehaviour
     {
         public static Data_Manager dataManager;
@@ -43,6 +43,10 @@ namespace UnderwaterHorror
         public float playerRotY;
         public float playerRotZ;
 
+        //enemyManager
+        public readonly int numberOfEnemies = 5;
+        Enemy[] enemies;
+
 
 
 
@@ -63,12 +67,13 @@ namespace UnderwaterHorror
         void Start()
         {
             objectives = new bool[numberOfObjectives];
+            enemies = new Enemy[numberOfEnemies];
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+
         }
 
         //saves out settings prefs
@@ -160,8 +165,6 @@ namespace UnderwaterHorror
         //saves to playerData from Data_Manager
         public void SaveToPlayerData()
         {
-            // Save does not work - Tobias
-            // Too bad - Who cares
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream playerFile = File.Create(Application.persistentDataPath + "/playerData.dat");
             saving = true;
@@ -323,6 +326,70 @@ namespace UnderwaterHorror
             SFXVolume = 1.0f;
         }
 
+        public void SaveToEnemyData()
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream enemyFile = File.Create(Application.persistentDataPath + "/enemyData.dat");
+            saving = true;
+            EnemyData enemyData = new EnemyData();
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemyData.enemies[i] = enemies[i];
+            }
+
+            binaryFormatter.Serialize(enemyFile, enemyData);
+            enemyFile.Close();
+            saving = false;
+        }
+
+        public void LoadFromEnemyData()
+        {
+            if (File.Exists(Application.persistentDataPath + "/enemyData.dat"))
+            {
+                Debug.Log("File found, loading enemy data");
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                FileStream enemyFile = File.Open(Application.persistentDataPath + "/enemyData.dat", FileMode.Open);
+                if (enemyFile.Length == 0)
+                {
+                    enemyFile.Close();
+                    Debug.Log("File length 0");
+                    //set stats to default if save is missing or unreadable
+                }
+                else
+                {
+                    enemyFile.Position = 0;
+                    EnemyData enemyData = (EnemyData)binaryFormatter.Deserialize(enemyFile);
+                    enemyFile.Close();
+
+                    for (int i = 0; i < enemies.Length; i++)
+                    {
+                        enemies[i] = enemyData.enemies[i];
+                    }
+                }
+            }
+            else
+            {
+                //set stats to default if save is missing or unreadable
+                Debug.Log("File not found, resetting player stats to default");
+            }
+        }
+
+        public void EnemyManagerToDataManager()
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i] = Enemy_Manager.enemy_Manager.enemies[i];
+            }
+        }
+
+        public void DataManagerToEnemyManager()
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Enemy_Manager.enemy_Manager.enemies[i] = enemies[i];
+            }
+        }
     }
 
 
@@ -367,4 +434,10 @@ namespace UnderwaterHorror
         public float playerRotZ;
     }
 
+    [Serializable]
+
+    public class EnemyData
+    {
+        public Enemy[] enemies = new Enemy[Data_Manager.dataManager.numberOfEnemies];
+    }
 }
