@@ -53,6 +53,7 @@ namespace UnderwaterHorror
                 }
             }
 
+            if (patrolPoints.Count <= 0) return;
             if (agent.destination != patrolPoints[currentPatrolPoint].transform.position)
             {
                 agent.SetDestination(patrolPoints[currentPatrolPoint].transform.position);
@@ -114,9 +115,16 @@ namespace UnderwaterHorror
             pointsListPopulated = false;
         }
 
-        public void CallBigFish()
+        public void AlertBigFish()
         {
+            if (isAware) return;
             isAware = true;
+        }
+
+        public override void ResetRun()
+        {
+            base.ResetRun();
+            isAware = false;
         }
     }
 
