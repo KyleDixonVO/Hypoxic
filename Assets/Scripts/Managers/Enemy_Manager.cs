@@ -32,6 +32,11 @@ public class Enemy_Manager : MonoBehaviour
     void Update()
     {
         EnemySingleton();
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SetSavePositions();
+        }
     }
 
     void EnemySingleton()
@@ -132,6 +137,8 @@ public class Enemy_Manager : MonoBehaviour
         {
             enemies[i].SetSaveGamePos();
         }
+
+        Data_Manager.dataManager.EnemyManagerToDataManager();
     }
 
     public void ResetToLastSave()

@@ -381,6 +381,8 @@ namespace UnderwaterHorror
             {
                 enemies[i] = Enemy_Manager.enemy_Manager.enemies[i];
             }
+
+            SaveToEnemyData();
         }
 
         public void DataManagerToEnemyManager()
@@ -435,7 +437,6 @@ namespace UnderwaterHorror
     }
 
     [Serializable]
-
     public class EnemyData
     {
         public Enemy[] enemies = new Enemy[Data_Manager.dataManager.numberOfEnemies];

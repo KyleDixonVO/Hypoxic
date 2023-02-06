@@ -1,13 +1,15 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
 namespace UnderwaterHorror
 {
-    //Code by Tobias
+    [Serializable]
+    //Code by Tobias & Kyle
     public class Enemy : MonoBehaviour
     {
+
         public bool isAlive;
         protected enum EnemyState
         {
@@ -186,13 +188,13 @@ namespace UnderwaterHorror
 
             if (!WithinRange(_enemyStats.patrolRadius, targetPos, agentPos))
             {
-                _enemyStats.patrolRandomWaitTimer = Random.Range(0, _enemyStats.patrolRandomWaitTimerWeight);
+                _enemyStats.patrolRandomWaitTimer = UnityEngine.Random.Range(0, _enemyStats.patrolRandomWaitTimerWeight);
                 return;
             }
 
             if (_enemyStats.patrolRandomWaitTimer <= 0)
             {
-                int randomPoint = Random.Range(0, patrolPoints.Count);
+                int randomPoint = UnityEngine.Random.Range(0, patrolPoints.Count);
                 if (currentPatrolPoint != randomPoint) currentPatrolPoint = randomPoint;
                 else if (currentPatrolPoint + 1 < patrolPoints.Count) currentPatrolPoint++;
                 else if (currentPatrolPoint - 1 >= 0) currentPatrolPoint--;
