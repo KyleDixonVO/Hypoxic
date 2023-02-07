@@ -364,7 +364,13 @@ namespace UnderwaterHorror
 
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        enemies[i] = enemyData.enemies[i];
+                        enemies[i].enemyState = (Enemy.EnemyState)enemyData.statesAsInt[i];
+                        enemies[i].isAlive = enemyData.alive[i];
+                        enemies[i]._enemyStats.health = enemyData.health[i];
+                        enemies[i].searching = enemyData.searching[i];
+                        enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
+                        enemies[i].currentPatrolPoint = enemyData.currentPatrolPoints[i];
+                        enemies[i].saveGamePos = new Vector3(enemyData.savePosX[i], enemyData.savePosY[i], enemyData.savePosZ[i]);
                     }
                 }
             }
@@ -439,6 +445,14 @@ namespace UnderwaterHorror
     [Serializable]
     public class EnemyData
     {
-        public Enemy[] enemies = new Enemy[Data_Manager.dataManager.numberOfEnemies];
+        public int[] statesAsInt = new int[Data_Manager.dataManager.numberOfEnemies];
+        public float[] savePosX = new float[Data_Manager.dataManager.numberOfEnemies];
+        public float[] savePosY = new float[Data_Manager.dataManager.numberOfEnemies];
+        public float[] savePosZ = new float[Data_Manager.dataManager.numberOfEnemies];
+        public int[] health = new int[Data_Manager.dataManager.numberOfEnemies];
+        public bool[] searching = new bool[Data_Manager.dataManager.numberOfEnemies];
+        public string[] patrolPointParentNames = new string[Data_Manager.dataManager.numberOfEnemies];
+        public int[] currentPatrolPoints = new int[Data_Manager.dataManager.numberOfEnemies];
+        public bool[] alive = new bool[Data_Manager.dataManager.numberOfEnemies];
     }
 }

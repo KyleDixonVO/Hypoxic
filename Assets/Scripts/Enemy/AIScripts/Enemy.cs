@@ -11,7 +11,7 @@ namespace UnderwaterHorror
     {
 
         public bool isAlive;
-        protected enum EnemyState
+        public enum EnemyState
         {
             patrolling,
             alerted,
@@ -21,18 +21,18 @@ namespace UnderwaterHorror
             defeated
         }
 
-        protected EnemyState enemyState;
+        public EnemyState enemyState;
 
         [Header("Scripts")]
-        [SerializeField] protected EnemyStats _enemyStats;
+        [SerializeField] public EnemyStats _enemyStats;
 
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
-        [SerializeField] private string patrolPointParentName;
+        [SerializeField] public string patrolPointParentName;
         [SerializeField] private GameObject patrolPointParent;
 
         [Header("Place desired patrol point here")]
-        [SerializeField] protected int currentPatrolPoint;
+        [SerializeField] public int currentPatrolPoint;
 
         [Header("NavMesh")]
         [SerializeField] protected NavMeshAgent agent;
@@ -42,14 +42,14 @@ namespace UnderwaterHorror
 
         [Header("Saved Vectors")]
         [SerializeField] private Vector3 newGamePos;
-        [SerializeField] private Vector3 saveGamePos;
+        [SerializeField] public Vector3 saveGamePos;
         protected Vector3 playerPreviousLocation;
 
         // lil addon by edmund
         [Header("AudioSource")]
         [SerializeField] protected AudioSource source;
 
-        private bool searching = false;
+        public bool searching = false;
         private Vector3 lookTarget;
 
         private void Start()
