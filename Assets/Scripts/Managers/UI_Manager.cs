@@ -183,10 +183,11 @@ namespace UnderwaterHorror
                 case ActiveUI.MainMenu:
                     UpdatePostProcessCamRef();
                     EnableMainMenuButtons();
+                    ToggleLoadGameButton();
+                    
                     break;
 
                 case ActiveUI.Gameplay:
-                    ToggleGameplayTooltips();
                     UpdateGameplayHUD();
                     break;
 
@@ -222,6 +223,21 @@ namespace UnderwaterHorror
             buttonNewGame.interactable = true;
             buttonOptions.interactable = true;
             buttonExit.interactable = true;
+        }
+
+        void ToggleLoadGameButton()
+        {
+            
+            if (!Data_Manager.dataManager.SaveExists())
+            {
+                if (!buttonStartGame.interactable) return;
+                buttonStartGame.interactable = false;
+            }
+            else if (Data_Manager.dataManager.SaveExists())
+            {
+                if (buttonStartGame.interactable) return;
+                buttonStartGame.interactable = true;
+            }
         }
 
         void UpdatePostProcessCamRef()
@@ -271,20 +287,6 @@ namespace UnderwaterHorror
         {
             if (activeCanvas == ActiveUI.Options) return true;
             return false;
-        }
-
-        public void ToggleGameplayTooltips()
-        {
-            //if (tooltipActiveElsewhere) return;
-            //if (Object_Manager.object_Manager.WithinPickupRange()) ActivatePrimaryInteractText();
-            //else DisablePrimaryInteractText();
-
-            //if (FirstPersonController_Sam.fpsSam == null) return;
-            //if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) DisableSecondaryInteractText();
-            //else if (FirstPersonController_Sam.fpsSam.carryingHeavyObj && FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().WithinRepairRange())
-            //{
-            //    ActivateSecondaryInteractText();
-            //}
         }
 
         public void ActivatePrimaryInteractText()

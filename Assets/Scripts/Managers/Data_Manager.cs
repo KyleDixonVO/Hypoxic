@@ -76,6 +76,15 @@ namespace UnderwaterHorror
 
         }
 
+        public bool SaveExists()
+        {
+            if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
+            {
+                return true;
+            }
+            return false;
+        }
+
         //saves out settings prefs
         public void SaveGlobalData()
         {
@@ -157,7 +166,7 @@ namespace UnderwaterHorror
             else
             {
                 //set stats to default if save is missing or unreadable
-                Debug.Log("File not found, resetting player stats to default");
+                Debug.Log("File error, resetting player stats to default");
                 ResetPlayerData();
             }
         }
@@ -361,8 +370,7 @@ namespace UnderwaterHorror
                 if (enemyFile.Length == 0)
                 {
                     enemyFile.Close();
-                    Debug.Log("File length 0");
-                    //set stats to default if save is missing or unreadable
+                    Debug.Log("File length 0, closing file");
                 }
                 else
                 {
@@ -419,8 +427,6 @@ namespace UnderwaterHorror
         public float musicVolume;
         public float SFXVolume;
     }
-
-
 
     [Serializable]
     public class PlayerData
