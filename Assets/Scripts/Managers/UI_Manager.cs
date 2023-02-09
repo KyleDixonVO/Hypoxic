@@ -263,9 +263,9 @@ namespace UnderwaterHorror
         void UpdateGameplayHUD()
         {
             textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
-            //if (PlayerInventory.playerInventory.inventory[activeWeapon].GetComponent<Weapon>() != null)
+            //if (PlayerInventory.playerInventory.inventory[currentWeapon].GetComponent<Weapon>() != null)
             {
-                //textAmmoCounter.text = PlayerInventory.playerInventory.activeWeapon.ammo + " / " + PlayerInventory.playerInventory.activeWeapon.reserves;
+            //    textAmmoCounter.text = PlayerInventory.playerInventory.inventory[currentWeapon].GetComponent<Weapon>().currentAmmo + " / " + PlayerInventory.playerInventory.inventory[currentWeapon].GetComponent<Weapon>().maxAmmo;
             }
 
             if (PlayerStats.playerStats == null) return;
@@ -314,6 +314,11 @@ namespace UnderwaterHorror
         public void DisableSecondaryInteractText()
         {
             textToolTipR.gameObject.SetActive(false);
+        }
+
+        public void UpdateRepairSliderValue()
+        {
+
         }
 
         //public for use on buttons
