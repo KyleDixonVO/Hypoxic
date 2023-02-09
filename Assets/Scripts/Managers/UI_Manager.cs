@@ -263,7 +263,11 @@ namespace UnderwaterHorror
         void UpdateGameplayHUD()
         {
             textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
-            //textAmmoCounter.text = PlayerInventory.playerInventory.activeWeapon.ammo + " / " + PlayerInventory.playerInventory.activeWeapon.reserves;
+            //if (PlayerInventory.playerInventory.inventory[activeWeapon].GetComponent<Weapon>() != null)
+            {
+                //textAmmoCounter.text = PlayerInventory.playerInventory.activeWeapon.ammo + " / " + PlayerInventory.playerInventory.activeWeapon.reserves;
+            }
+
             if (PlayerStats.playerStats == null) return;
             healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
             suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;
