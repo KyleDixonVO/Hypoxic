@@ -335,7 +335,15 @@ namespace UnderwaterHorror
 
             for (int i = 0; i < enemies.Length; i++)
             {
-                enemyData.enemies[i] = enemies[i];
+                enemyData.health[i] = enemies[i]._enemyStats.health;
+                enemyData.alive[i] = enemies[i].isAlive;
+                enemyData.searching[i] = enemies[i].searching;
+                enemyData.currentPatrolPoints[i] = enemies[i].currentPatrolPoint;
+                enemyData.statesAsInt[i] = (int)enemies[i].enemyState;
+                enemyData.patrolPointParentNames[i] = enemies[i].patrolPointParentName;
+                enemyData.savePosX[i] = enemies[i].saveGamePos.x;
+                enemyData.savePosY[i] = enemies[i].saveGamePos.y;
+                enemyData.savePosZ[i] = enemies[i].saveGamePos.z;
             }
 
             binaryFormatter.Serialize(enemyFile, enemyData);
@@ -364,13 +372,15 @@ namespace UnderwaterHorror
 
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        enemies[i].enemyState = (Enemy.EnemyState)enemyData.statesAsInt[i];
-                        enemies[i].isAlive = enemyData.alive[i];
                         enemies[i]._enemyStats.health = enemyData.health[i];
+                        enemies[i].isAlive = enemyData.alive[i];
                         enemies[i].searching = enemyData.searching[i];
-                        enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
                         enemies[i].currentPatrolPoint = enemyData.currentPatrolPoints[i];
-                        enemies[i].saveGamePos = new Vector3(enemyData.savePosX[i], enemyData.savePosY[i], enemyData.savePosZ[i]);
+                        enemies[i].enemyState = (Enemy.EnemyState)enemyData.statesAsInt[i];
+                        enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
+                        enemies[i].saveGamePos.x = enemyData.savePosX[i];
+                        enemies[i].saveGamePos.y = enemyData.savePosY[i];
+                        enemies[i].saveGamePos.z = enemyData.savePosZ[i];
                     }
                 }
             }
@@ -454,5 +464,7 @@ namespace UnderwaterHorror
         public string[] patrolPointParentNames = new string[Data_Manager.dataManager.numberOfEnemies];
         public int[] currentPatrolPoints = new int[Data_Manager.dataManager.numberOfEnemies];
         public bool[] alive = new bool[Data_Manager.dataManager.numberOfEnemies];
+
+
     }
 }
