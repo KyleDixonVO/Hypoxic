@@ -26,6 +26,7 @@ namespace UnderwaterHorror
         [SerializeField] private TMP_Text textToolTipE;
         [SerializeField] private TMP_Text textToolTipR;
         [SerializeField] private TMP_Text textObjectives;
+        [SerializeField] private TMP_Text textAmmoCounter;
 
         [Header("Pause Assets")]
         [SerializeField] private TMP_Text textPauseTitle;
@@ -118,6 +119,7 @@ namespace UnderwaterHorror
             textToolTipE = GameObject.Find("TextToolTipE").GetComponent<TMP_Text>();
             textToolTipR = GameObject.Find("TextToolTipR").GetComponent<TMP_Text>();
             textObjectives = GameObject.Find("TextObjectives").GetComponent<TMP_Text>();
+            textAmmoCounter = GameObject.Find("TextAmmoCounter").GetComponent<TMP_Text>();
 
             textPauseTitle = GameObject.Find("TextPauseTitle").GetComponent<TMP_Text>();
             buttonResumeGame = GameObject.Find("ButtonResumeGame").GetComponent<Button>();
@@ -261,6 +263,7 @@ namespace UnderwaterHorror
         void UpdateGameplayHUD()
         {
             textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
+            //textAmmoCounter.text = PlayerInventory.playerInventory.activeWeapon.ammo + " / " + PlayerInventory.playerInventory.activeWeapon.reserves;
             if (PlayerStats.playerStats == null) return;
             healthSlider.maxValue = PlayerStats.playerStats.maxPlayerHealth;
             suitPower.maxValue = PlayerStats.playerStats.maxSuitPower;

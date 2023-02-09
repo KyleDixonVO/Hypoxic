@@ -192,7 +192,7 @@ namespace UnderwaterHorror
             }
         }
 
-        void MangeRandomPosition()
+        void ManageRandomPosition()
         {
             Vector3 audioHolderPos = randomSoundsObj.transform.position;
             Vector3 playerPos = PlayerStats.playerStats.gameObject.transform.position;
@@ -214,7 +214,7 @@ namespace UnderwaterHorror
 
             if (probability == 0 && enviromentAudio.isPlaying == false) 
             {
-                MangeRandomPosition();
+                ManageRandomPosition();
                 Debug.LogWarning("RandomSoundPlaying");
                 enviromentAudio.PlayOneShot(enviromentAudio.clip, (sfxVolume * masterVolume));
             }
