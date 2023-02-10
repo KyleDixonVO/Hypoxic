@@ -62,6 +62,23 @@ namespace UnderwaterHorror
         public float visionRayLength;
         public float visionConeHalved;
 
+        public bool hit = false;
+        private float hitTimer = 0.2f;
+
+        // Tobias was here
+        public void Update()
+        {
+            if (hit == true)
+            {
+                hitTimer -= Time.deltaTime;
+                if (hitTimer <= 0)
+                {
+                    hitTimer = 0.2f;
+                    hit = false;
+                }
+            }
+        }
+
         public void TakeDamage(int playerAttack)
         {
             health -= playerAttack;
@@ -70,6 +87,7 @@ namespace UnderwaterHorror
             {
                 health = 0;          
             }
+            hit = true;
         }
 
         public void ResetRun()
