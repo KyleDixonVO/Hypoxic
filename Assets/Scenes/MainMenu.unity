@@ -2237,17 +2237,25 @@ MonoBehaviour:
   doorClosing: {fileID: 8300000, guid: 6f43ae95159ff5d4ebf2cf0d6013d36f, type: 3}
   doorClosed: {fileID: 8300000, guid: 6a93b03b5f320cf4e99a8a18cb617a44, type: 3}
   doorButton: {fileID: 8300000, guid: e541267533a202f479ab62d6dd6128cb, type: 3}
-  randomAtmosphereSounds:
+  randomEnviromentSounds:
   - {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
+  - {fileID: 8300000, guid: 3808d420d1dad4b48bfedf000052d14e, type: 3}
   titleMusic: {fileID: 8300000, guid: eaedccd76fdcecb4a9006b2bfb286ca4, type: 3}
-  gameplayAmbiance: {fileID: 8300000, guid: 4ee15832f7913394b9edc21e27d89f7e, type: 3}
+  outsideAmbiance: {fileID: 8300000, guid: 4ee15832f7913394b9edc21e27d89f7e, type: 3}
   insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
   jets: {fileID: 8300000, guid: 896959a2115e7c44e88628de625903a4, type: 3}
   heavyBreathing: {fileID: 8300000, guid: 63095a5952128ce4f86fef35d7a4f52b, type: 3}
   lowPower: {fileID: 8300000, guid: 1af773c41cd7fa745ab2ade2c53f64b0, type: 3}
   noPower: {fileID: 8300000, guid: d799f734d2dee23419547b88050ceb05, type: 3}
-  bigBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
-  bigAgro: {fileID: 8300000, guid: 06f77e2d9a70ea9468a07b3395c83ca1, type: 3}
+  bigFishBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
+  bigFishAgro: {fileID: 8300000, guid: 06f77e2d9a70ea9468a07b3395c83ca1, type: 3}
+  bigFishHurt: {fileID: 8300000, guid: 9e39e71402deb944fad746fa438f643b, type: 3}
+  bigFishFleeing: {fileID: 0}
+  smallFishBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
+  smallFishAgro: {fileID: 8300000, guid: fde8e93e30fd7cd4f8266ac9c2f4dbed, type: 3}
+  smallFishHurt: {fileID: 8300000, guid: 4678b68d2df1f7a4abac598562c34d6c, type: 3}
+  smallFishDying: {fileID: 0}
+  smallFishScream: {fileID: 8300000, guid: 3fd3fd63f1d96b64f9592f02fa92b5f0, type: 3}
   smallBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
   electricProdShock: {fileID: 8300000, guid: b9af852d809ee0d4ba4d6f22f5cbd49b, type: 3}
   electricProdRecharge: {fileID: 8300000, guid: 646edb6bd42c6984b98fb499702c6378, type: 3}
@@ -2257,10 +2265,6 @@ MonoBehaviour:
   harpoonNoAmmo: {fileID: 8300000, guid: 01869770ff5ae2e4c825c00189f94247, type: 3}
   musicAudio: {fileID: 1087392431}
   enviromentAudio: {fileID: 1124360025}
-  playerVoice: {fileID: 0}
-  playerSuit: {fileID: 0}
-  suitThruster: {fileID: 0}
-  playerFootsteps: {fileID: 0}
   soundPaused: 0
   randomSoundsObj: {fileID: 1124360023}
   terrainCheck: {fileID: 1124360024}
@@ -2274,6 +2278,10 @@ MonoBehaviour:
   probability: 0
   playAudio: 0
   touchingWall: 0
+  playerVoice: {fileID: 0}
+  playerSuit: {fileID: 0}
+  suitThruster: {fileID: 0}
+  playerFootsteps: {fileID: 0}
 --- !u!1 &523018475
 GameObject:
   m_ObjectHideFlags: 0
