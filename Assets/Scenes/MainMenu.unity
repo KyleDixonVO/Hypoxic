@@ -2241,7 +2241,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
   - {fileID: 8300000, guid: 3808d420d1dad4b48bfedf000052d14e, type: 3}
   titleMusic: {fileID: 8300000, guid: eaedccd76fdcecb4a9006b2bfb286ca4, type: 3}
-  outsideAmbiance: {fileID: 0}
+  outsideAmbiance: {fileID: 8300000, guid: 4ee15832f7913394b9edc21e27d89f7e, type: 3}
   insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
   jets: {fileID: 8300000, guid: 896959a2115e7c44e88628de625903a4, type: 3}
   heavyBreathing: {fileID: 8300000, guid: 63095a5952128ce4f86fef35d7a4f52b, type: 3}

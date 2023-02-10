@@ -154,6 +154,7 @@ namespace UnderwaterHorror
             AudioSource combatSource = this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<AudioSource>();
 
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+
             // Enemy Agro
             if (enemyState == Enemy.EnemyState.chasing)
             {

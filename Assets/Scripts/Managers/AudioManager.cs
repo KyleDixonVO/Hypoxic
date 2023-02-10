@@ -321,7 +321,8 @@ namespace UnderwaterHorror
         void CheckPlayerSuitSounds()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || playerVoice == null) return;
-
+            // Player must be in water for suit to function
+            if (FirstPersonController_Sam.fpsSam.inWater == false) return;
 
             // Plays low power sound
             if (PlayerStats.playerStats.suitPower <= PlayerStats.playerStats.maxSuitPower / 2 && playedPowerBelowHalf == false)
