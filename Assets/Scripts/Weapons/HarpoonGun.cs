@@ -16,7 +16,8 @@ namespace UnderwaterHorror
             damage = 5;
             range = 15;
             maxAmmo = 6;
-            currentAmmo = 6;
+            reserves = maxAmmo;
+            currentAmmo = 1;
             reloadTime = 2;
 
             // set bools
@@ -32,11 +33,13 @@ namespace UnderwaterHorror
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             // RELOAD COUTER
-            if (reloadProgress <= 0)
+            if (reloadProgress <= 0 && !canShoot && reserves > 0)
             {
                 AudioManager.audioManager.StopSound(weaponAudioSource);
                 reloadProgress = 0;
                 canShoot = true;
+                currentAmmo++;
+                reserves--;
             }
             else if (reloadProgress > 0 && isEquiped)
             {
@@ -60,18 +63,6 @@ namespace UnderwaterHorror
             {
                 Unequip();
                 return;
-            }
-
-            //TEMP
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                isEquiped = true;
-                gameObject.GetComponent<Renderer>().enabled = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) | Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                isEquiped = false;
-                gameObject.GetComponent<Renderer>().enabled = false;
             }
 
             if (Input.GetKeyDown(KeyCode.Q))

@@ -17,16 +17,7 @@ public class MedKit : Item
     // Update is called once per frame
     void Update()
     {
-         if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Equip();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Unequip();
-        }
-
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
         
         if (beingUsed) // might be able to send to item update()
         {

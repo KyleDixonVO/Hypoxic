@@ -18,20 +18,6 @@ public class Glowstick : Item
     // Update is called once per frame
     void Update()
     {
-        //TEMP
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            isEquiped = true;
-            gameObject.GetComponent<Renderer>().enabled = true;
-            light.enabled = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) | Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            isEquiped = false;
-            gameObject.GetComponent<Renderer>().enabled = false;
-            light.enabled = false;
-        }
-
         if (beingUsed)
         {
             TimeToEffect();
@@ -51,11 +37,20 @@ public class Glowstick : Item
         }
     }
 
+    public void TurnOn()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
+    }
+    public void TurnOff()
+    {
+        gameObject.GetComponent<Renderer>().enabled = false;
+    }
+
     protected override void ApplyEffect()
     {
         this.gameObject.transform.SetParent(null);
         Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
-        Vector3 forwardForce = strength * transform.forward;
+        Vector3 forwardForce = strength * transform.right;
         rigidbody.mass = 1f;       
         rigidbody.AddForce(forwardForce.x, forwardForce.y + 2f, forwardForce.z, ForceMode.Impulse);      
     }
