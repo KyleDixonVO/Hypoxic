@@ -38,6 +38,7 @@ namespace UnderwaterHorror
         {
             HandleEquipUnequip();
             HandleItemUsage();
+            if (Input.GetKeyDown(KeyCode.Q)) DropItem();
         }
 
         // ---------------------------------- Inventory --------------------------------------- \\
@@ -51,6 +52,7 @@ namespace UnderwaterHorror
                     itemToAdd.transform.localRotation = itemRot;
                     itemToAdd.transform.localPosition = itemPos;
                     itemToAdd.layer = 0;
+                    if (itemToAdd.GetComponent<Rigidbody>()) Destroy(itemToAdd.GetComponent<Rigidbody>());
                     if (itemToAdd.GetComponent<Weapon>()) itemToAdd.GetComponent<Weapon>().playerCamera = playerCam;
 
                     inventory[i] = itemToAdd;
@@ -96,6 +98,34 @@ namespace UnderwaterHorror
                     inventory[i] = null;
                 }
             }
+        }
+
+        void DropItem()
+        {
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i].GetComponent<Weapon>().isEquiped)
+                {
+                    DropItem(i);
+                }
+                else if (inventory[i].GetComponent<Item>().isEquiped)
+                {
+                    DropItem(i);
+                }
+            }
+        }
+
+        void DropItem(int index)
+        {
+            inventory[index].AddComponent<Rigidbody>();
+            inventory[index].transform.SetParent(null);
+            inventory[index].layer = 10; // interactable layer
+            inventory[index].GetComponent<Rigidbody>().AddForce(Vector3.right * 2, ForceMode.Impulse);
+
+            if (inventory[index].GetComponent<Item>()) inventory[index].GetComponent<Item>().isEquiped = false;
+            else if (inventory[index].GetComponent<Weapon>()) inventory[index].GetComponent<Weapon>().isEquiped = false;
+
+            inventory[index] = null;
         }
 
         // ------------------------------------ Equip / Unequip ------------------------------------------------ \\
