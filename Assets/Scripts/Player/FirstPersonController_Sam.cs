@@ -148,7 +148,7 @@ namespace UnderwaterHorror
         #endregion
 
         [SerializeField]
-        private Camera playerCamera;
+        public Camera playerCamera;
         private CharacterController characterController;
 
         private Vector3 moveDirection;

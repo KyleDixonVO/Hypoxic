@@ -5,7 +5,7 @@ using UnderwaterHorror;
 
 namespace UnderwaterHorror
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : Interactable
     {
         [Header("Refrences")]
         public Camera playerCamera;
@@ -15,7 +15,8 @@ namespace UnderwaterHorror
         [SerializeField]
         protected int damage;
         [SerializeField]
-        protected int currentAmmo;
+        public int currentAmmo;
+        public int reserves;
         [SerializeField]
         protected int maxAmmo;
         [SerializeField]
@@ -105,6 +106,22 @@ namespace UnderwaterHorror
         {
             yield return new WaitForSeconds(2f);
             Destroy(sfx);
+        }
+
+        public override void OnInteract()
+        {
+            PlayerInventory.playerInventory.AddToInventory(this.gameObject);
+            // throw new System.NotImplementedException();
+        }
+
+        public override void OnFocus()
+        {
+           // throw new System.NotImplementedException();
+        }
+
+        public override void OnLoseFocus()
+        {
+           // throw new System.NotImplementedException();
         }
     }
 

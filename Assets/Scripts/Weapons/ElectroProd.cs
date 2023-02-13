@@ -13,12 +13,13 @@ namespace UnderwaterHorror
             damage = 8;
             range = 2;
             maxAmmo = 3;
-            currentAmmo = 3;
+            reserves = maxAmmo;
+            currentAmmo = 1;
             reloadTime = 5;
 
             // set bools
             canShoot = true;
-            isEquiped = true;
+            isEquiped = false;
 
             // Tobias's Polymorph audio
             weaponAudioSource = this.gameObject.GetComponent<AudioSource>();
@@ -29,11 +30,13 @@ namespace UnderwaterHorror
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             // RELOAD COUTER
-            if (reloadProgress <= 0)
+            if (reloadProgress <= 0 && !canShoot && reserves > 0)
             {
                 reloadProgress = 0;
                 AudioManager.audioManager.StopSound(weaponAudioSource);
                 canShoot = true;
+                currentAmmo++;
+                reserves--;
             }
             else if (reloadProgress > 0 && isEquiped)
             {
@@ -57,16 +60,6 @@ namespace UnderwaterHorror
             {
                 Unequip();
                 return;
-            }
-
-            //TEMP
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Equip();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha1) | Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Unequip();
             }
 
             if (Input.GetKeyDown(KeyCode.Q))

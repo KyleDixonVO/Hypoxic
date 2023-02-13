@@ -20,14 +20,6 @@ namespace UnderwaterHorror
         void Update()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Equip();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Unequip();
-            }
 
             if (beingUsed)
             {
