@@ -3040,8 +3040,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668449247}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.3, y: -4.2, z: 4.22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.3, y: -4.2, z: 5.3300004}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1860322525}
@@ -5929,7 +5929,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 1
+    enabled: 0
     strength:
       serializedVersion: 2
       minMaxState: 0
@@ -6090,7 +6090,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.1
+    frequency: 0.05
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
@@ -24918,7 +24918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 415903691764928504, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.69
+      value: -13.8
       objectReference: {fileID: 0}
     - target: {fileID: 415903691764928504, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24974,7 +24974,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 415903691979302137, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 415903691979302137, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 415903691979302137, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 415903691979302137, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24986,7 +24994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 415903691979302137, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.22
+      value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 415903691979302143, guid: 3f367fea45c499c44a4f47b33a3bc507, type: 3}
       propertyPath: prewarm
@@ -25648,8 +25656,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2079829523}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.1, y: -4.2, z: 4.22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.1, y: -4.2, z: 3.73}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 921844680}

@@ -89,22 +89,23 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FlickeringMultiplier: 5
+    - _FlickeringMultiplier: 1
     - _GlitchStrength: 2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseAmount: 200
+    - _NoiseAmount: 5000
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ScanLineStrength: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.1792453, b: 0.09741592, a: 1}
+    - _Color: {r: 0.014595941, g: 0.0754717, b: 0.04797942, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
