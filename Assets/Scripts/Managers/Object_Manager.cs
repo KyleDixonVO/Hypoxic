@@ -53,8 +53,15 @@ namespace UnderwaterHorror
                     case 0:
                         if (heavyObjects[i] == null)
                         {
-                            heavyObjects[i] = GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>();
-                            DontDestroyOnLoad(heavyObjects[i]);
+                            try
+                            {
+                                heavyObjects[i] = GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>();
+                                DontDestroyOnLoad(heavyObjects[i]);
+                            }
+                            catch
+                            {
+                                Debug.Log("Cannot find an instance of pipeFixedRed");
+                            }
                         }
                         else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>())
                         {
@@ -65,8 +72,15 @@ namespace UnderwaterHorror
                     case 1:
                         if (heavyObjects[i] == null)
                         {
-                            heavyObjects[i] = GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>();
-                            DontDestroyOnLoad(heavyObjects[i]);
+                            try
+                            {
+                                heavyObjects[i] = GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>();
+                                DontDestroyOnLoad(heavyObjects[i]);
+                            }
+                            catch
+                            {
+                                Debug.Log("Cannot find an instance of pipeFixedGreen");
+                            }
                         }
                         else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>())
                         {
