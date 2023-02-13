@@ -38,7 +38,7 @@ namespace UnderwaterHorror
         {
             HandleEquipUnequip();
             HandleItemUsage();
-            if (Input.GetKeyDown(KeyCode.Q)) DropItem();
+            if (Input.GetKeyDown(KeyCode.Q)) HandleDrop();
         }
 
         // ---------------------------------- Inventory --------------------------------------- \\
@@ -100,18 +100,15 @@ namespace UnderwaterHorror
             }
         }
 
-        void DropItem()
+        void HandleDrop()
         {
-            for (int i = 0; i < inventory.Length; i++)
+            if (inventory[activeWeapon].GetComponent<Weapon>() && inventory[activeWeapon].GetComponent<Weapon>().isEquiped)
             {
-                if (inventory[i].GetComponent<Weapon>().isEquiped)
-                {
-                    DropItem(i);
-                }
-                else if (inventory[i].GetComponent<Item>().isEquiped)
-                {
-                    DropItem(i);
-                }
+                DropItem(activeWeapon);
+            }
+            else if (inventory[activeWeapon].GetComponent<Item>() && inventory[activeWeapon].GetComponent<Item>().isEquiped)
+            {
+                DropItem(activeWeapon);
             }
         }
 
@@ -137,7 +134,7 @@ namespace UnderwaterHorror
             else item.GetComponent<Item>().isEquiped = true;
             item.gameObject.GetComponent<Renderer>().enabled = true;
 
-            if (item.GetComponent<Weapon>()) activeWeapon = slot;
+            activeWeapon = slot;
         }
 
         void Unequip(GameObject item)
