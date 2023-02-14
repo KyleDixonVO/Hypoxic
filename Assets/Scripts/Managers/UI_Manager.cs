@@ -263,7 +263,7 @@ namespace UnderwaterHorror
         void UpdateGameplayHUD()
         {
             textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
-            if (PlayerInventory.playerInventory.inventory[PlayerInventory.playerInventory.activeWeapon].GetComponent<Weapon>() != null)
+            if (PlayerInventory.playerInventory.inventory[PlayerInventory.playerInventory.activeWeapon] != null && PlayerInventory.playerInventory.inventory[PlayerInventory.playerInventory.activeWeapon].GetComponent<Weapon>())
             {
                 textAmmoCounter.text = PlayerInventory.playerInventory.inventory[PlayerInventory.playerInventory.activeWeapon].GetComponent<Weapon>().currentAmmo +
                                " / " + PlayerInventory.playerInventory.inventory[PlayerInventory.playerInventory.activeWeapon].GetComponent<Weapon>().reserves;

@@ -10,7 +10,7 @@ namespace UnderwaterHorror
         int inventorySize = 3;
         Camera playerCam;
         public static PlayerInventory playerInventory;
-        public int activeWeapon;
+        public int activeWeapon; // not actually a great name as it can be any item - Edmund
 
         Vector3 itemPos = new Vector3(.35f, -.35f, 1f);
         Quaternion itemRot = Quaternion.Euler(0f, 270f, 0f);
@@ -36,15 +36,15 @@ namespace UnderwaterHorror
 
         void Update()
         {
-            HandleEquipUnequip();
-            HandleItemUsage();
-            if (Input.GetKeyDown(KeyCode.Q)) HandleDrop();
+            HandleEquipUnequip(); // Checks for the input to switch to weapons
+            HandleItemUsage(); // checks to see if an item is used, deletes it if so
+            if (Input.GetKeyDown(KeyCode.Q)) HandleDrop(); // checks the input for droping an item
         }
 
         // ---------------------------------- Inventory --------------------------------------- \\
         public void AddToInventory(GameObject itemToAdd)
         {
-            for (int i = 0; i < inventory.Length; i++)
+            for (int i = 0; i < inventory.Length; i++) // finds first available inventory slot for item
             {
                 if (inventory[i] == null)
                 {
@@ -67,7 +67,7 @@ namespace UnderwaterHorror
         }
 
         // ------------------------------- Update Loop ------------------------------------------ \\
-        void HandleEquipUnequip()
+        void HandleEquipUnequip() // handles the old equip / unequip system
         {
             if (Input.GetKeyDown(KeyCode.Alpha1) && inventory[0] != null)
             {
@@ -128,7 +128,7 @@ namespace UnderwaterHorror
         // ------------------------------------ Equip / Unequip ------------------------------------------------ \\
         void Equip(GameObject item, int slot)
         {
-            if (item.GetComponent<Glowstick>()) item.GetComponent<Glowstick>().TurnOn(); // enable light
+            if (item.GetComponent<Glowstick>()) item.GetComponent<Glowstick>().TurnOn(); // enable light on glowstick, becasue it's special
 
             if (item.GetComponent<Weapon>()) item.GetComponent<Weapon>().isEquiped = true;
             else item.GetComponent<Item>().isEquiped = true;
