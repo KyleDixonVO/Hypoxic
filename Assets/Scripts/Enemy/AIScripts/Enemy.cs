@@ -324,7 +324,20 @@ namespace UnderwaterHorror
             AudioSource mainSource = this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<AudioSource>();
             AudioSource combatSource = this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<AudioSource>();
 
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                audioManager.StopSound(mainSource); 
+                audioManager.StopSound(combatSource); 
+                return;
+
+            }
+
+            if (FirstPersonController_Sam.fpsSam.inWater == false)                
+            {
+                    audioManager.StopSound(mainSource);
+                    audioManager.StopSound(combatSource);
+                    return;     
+            }   
 
             // Enemy Agro
             if (enemyState == Enemy.EnemyState.chasing)

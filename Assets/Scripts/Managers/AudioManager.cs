@@ -78,6 +78,11 @@ namespace UnderwaterHorror
         public AudioClip harpoonReloading;
         public AudioClip harpoonNoAmmo;
 
+        [Header("ObjectiveAudioClips")]
+        public AudioClip repairing;
+        public AudioClip repairingComplete;
+        public AudioClip pickupPipe;
+        public AudioClip dropPipe;
 
         [Header("AudioSources")]
         public AudioSource musicAudio;

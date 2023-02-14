@@ -32,6 +32,7 @@ namespace UnderwaterHorror
                 && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
             {
                 Debug.Log("Picked up heavy object");
+                AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.pickupPipe);
                 _isHeld = true;
                 FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
                 InputManager.inputManager.eCycled = false;
@@ -39,6 +40,7 @@ namespace UnderwaterHorror
             else if (_isHeld)
             {
                 Debug.Log("Dropped heavy object");
+                AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.dropPipe);
                 _isHeld = false;
                 FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
                 InputManager.inputManager.eCycled = false;
