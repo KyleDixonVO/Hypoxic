@@ -18,7 +18,7 @@ namespace UnderwaterHorror
             maxAmmo = 6;
             reserves = maxAmmo;
             currentAmmo = 1;
-            reloadTime = 2;
+            reloadTime = 5;
 
             // set bools
             canShoot = true;
