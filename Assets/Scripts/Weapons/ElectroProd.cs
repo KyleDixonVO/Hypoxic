@@ -11,7 +11,7 @@ namespace UnderwaterHorror
         {
             // set weapon stats
             damage = 8;
-            range = 2;
+            range = 3.5f;
             maxAmmo = 3;
             reserves = maxAmmo;
             currentAmmo = 1;

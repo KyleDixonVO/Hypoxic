@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b3fd6e66ff5756b49a8529b744f66f5c, type: 3}
       propertyPath: m_Name
-      value: Shock_Prod Variant
+      value: Shock_Prod Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b3fd6e66ff5756b49a8529b744f66f5c, type: 3}
       propertyPath: m_Layer
@@ -70,28 +70,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b3fd6e66ff5756b49a8529b744f66f5c, type: 3}
   m_PrefabInstance: {fileID: 8834748306922158786}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5601041508905156345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8528196014280607635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542269b4766738e4d9f80aea66cd98ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
-  range: 2
-  damage: 2
-  currentAmmo: 1
-  reserves: 3
-  maxAmmo: 3
-  reloadTime: 2
-  reloadProgress: 0
-  isEquiped: 0
-  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
 --- !u!65 &1133780334
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -201,3 +179,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5601041508905156345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528196014280607635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542269b4766738e4d9f80aea66cd98ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  range: 3.5
+  damage: 2
+  currentAmmo: 1
+  reserves: 3
+  maxAmmo: 3
+  reloadTime: 2
+  reloadProgress: 0
+  isEquiped: 0
+  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
