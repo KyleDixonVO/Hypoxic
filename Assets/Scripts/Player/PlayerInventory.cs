@@ -10,7 +10,7 @@ namespace UnderwaterHorror
         int inventorySize = 3;
         Camera playerCam;
         public static PlayerInventory playerInventory;
-        public int activeWeapon;
+        public int activeWeapon; // not actually a great name as it can be any item - Edmund
 
         Vector3 itemPos = new Vector3(.35f, -.35f, 1f);
         Quaternion itemRot = Quaternion.Euler(0f, 270f, 0f);
@@ -36,14 +36,15 @@ namespace UnderwaterHorror
 
         void Update()
         {
-            HandleEquipUnequip();
-            HandleItemUsage();
+            HandleEquipUnequip(); // Checks for the input to switch to weapons
+            HandleItemUsage(); // checks to see if an item is used, deletes it if so
+            if (Input.GetKeyDown(KeyCode.Q)) HandleDrop(); // checks the input for droping an item
         }
 
         // ---------------------------------- Inventory --------------------------------------- \\
         public void AddToInventory(GameObject itemToAdd)
         {
-            for (int i = 0; i < inventory.Length; i++)
+            for (int i = 0; i < inventory.Length; i++) // finds first available inventory slot for item
             {
                 if (inventory[i] == null)
                 {
@@ -51,6 +52,7 @@ namespace UnderwaterHorror
                     itemToAdd.transform.localRotation = itemRot;
                     itemToAdd.transform.localPosition = itemPos;
                     itemToAdd.layer = 0;
+                    if (itemToAdd.GetComponent<Rigidbody>()) Destroy(itemToAdd.GetComponent<Rigidbody>());
                     if (itemToAdd.GetComponent<Weapon>()) itemToAdd.GetComponent<Weapon>().playerCamera = playerCam;
 
                     inventory[i] = itemToAdd;
@@ -65,7 +67,7 @@ namespace UnderwaterHorror
         }
 
         // ------------------------------- Update Loop ------------------------------------------ \\
-        void HandleEquipUnequip()
+        void HandleEquipUnequip() // handles the old equip / unequip system
         {
             if (Input.GetKeyDown(KeyCode.Alpha1) && inventory[0] != null)
             {
@@ -98,16 +100,41 @@ namespace UnderwaterHorror
             }
         }
 
+        void HandleDrop()
+        {
+            if (inventory[activeWeapon].GetComponent<Weapon>() && inventory[activeWeapon].GetComponent<Weapon>().isEquiped)
+            {
+                DropItem(activeWeapon);
+            }
+            else if (inventory[activeWeapon].GetComponent<Item>() && inventory[activeWeapon].GetComponent<Item>().isEquiped)
+            {
+                DropItem(activeWeapon);
+            }
+        }
+
+        void DropItem(int index)
+        {
+            inventory[index].AddComponent<Rigidbody>();
+            inventory[index].transform.SetParent(null);
+            inventory[index].layer = 10; // interactable layer
+            inventory[index].GetComponent<Rigidbody>().AddForce(Vector3.right * 2, ForceMode.Impulse);
+
+            if (inventory[index].GetComponent<Item>()) inventory[index].GetComponent<Item>().isEquiped = false;
+            else if (inventory[index].GetComponent<Weapon>()) inventory[index].GetComponent<Weapon>().isEquiped = false;
+
+            inventory[index] = null;
+        }
+
         // ------------------------------------ Equip / Unequip ------------------------------------------------ \\
         void Equip(GameObject item, int slot)
         {
-            if (item.GetComponent<Glowstick>()) item.GetComponent<Glowstick>().TurnOn(); // enable light
+            if (item.GetComponent<Glowstick>()) item.GetComponent<Glowstick>().TurnOn(); // enable light on glowstick, becasue it's special
 
             if (item.GetComponent<Weapon>()) item.GetComponent<Weapon>().isEquiped = true;
             else item.GetComponent<Item>().isEquiped = true;
             item.gameObject.GetComponent<Renderer>().enabled = true;
 
-            if (item.GetComponent<Weapon>()) activeWeapon = slot;
+            activeWeapon = slot;
         }
 
         void Unequip(GameObject item)

@@ -11,11 +11,11 @@ namespace UnderwaterHorror
         {
             // set weapon stats
             damage = 8;
-            range = 2;
+            range = 3.5f;
             maxAmmo = 3;
             reserves = maxAmmo;
             currentAmmo = 1;
-            reloadTime = 5;
+            reloadTime = 2;
 
             // set bools
             canShoot = true;
