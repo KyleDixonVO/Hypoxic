@@ -342,6 +342,9 @@ namespace UnderwaterHorror
                 if (!suitThruster.isPlaying) PlaySound(suitThruster, jets);
             }
             else if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(suitThruster);
+
+            // Stop running sound when holding a pipe
+            if (FirstPersonController_Sam.fpsSam.carryingHeavyObj) StopSound(suitThruster);
         }
 
 
