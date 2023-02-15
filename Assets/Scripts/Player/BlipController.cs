@@ -23,6 +23,7 @@ public class BlipController : MonoBehaviour
 
     public void FadeOut()
     {
+        if (this.gameObject == null) return;
         LeanTween.alpha(this.gameObject, 0, fadeTime);
         if (this.gameObject.GetComponent<SpriteRenderer>().color.a <= 0)
         {

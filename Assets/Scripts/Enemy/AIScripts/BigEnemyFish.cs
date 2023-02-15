@@ -60,6 +60,7 @@ namespace UnderwaterHorror
                 }
             }
 
+            if (patrolPoints.Count <= 0) return;
 
             if (agent.destination != patrolPoints[currentPatrolPoint].transform.position)
             {

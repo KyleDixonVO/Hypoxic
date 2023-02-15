@@ -349,10 +349,10 @@ namespace UnderwaterHorror
                 enemyData.searching[i] = enemies[i].searching;
                 enemyData.currentPatrolPoints[i] = enemies[i].currentPatrolPoint;
                 enemyData.statesAsInt[i] = (int)enemies[i].enemyState;
-                //enemyData.patrolPointParentNames[i] = enemies[i].patrolPointParentName;
-                enemyData.savePosX[i] = enemies[i].SaveGamePos.x;
-                enemyData.savePosY[i] = enemies[i].SaveGamePos.y;
-                enemyData.savePosZ[i] = enemies[i].SaveGamePos.z;
+                enemyData.patrolPointParentNames[i] = enemies[i].patrolPointParentName;
+                enemyData.savePosX[i] = enemies[i].saveGamePos.x;
+                enemyData.savePosY[i] = enemies[i].saveGamePos.y;
+                enemyData.savePosZ[i] = enemies[i].saveGamePos.z;
             }
 
             binaryFormatter.Serialize(enemyFile, enemyData);
@@ -385,10 +385,10 @@ namespace UnderwaterHorror
                         enemies[i].searching = enemyData.searching[i];
                         enemies[i].currentPatrolPoint = enemyData.currentPatrolPoints[i];
                         enemies[i].enemyState = (Enemy.EnemyState)enemyData.statesAsInt[i];
-                        //enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
-                        enemies[i].SaveGamePos.x = enemyData.savePosX[i];
-                        enemies[i].SaveGamePos.y = enemyData.savePosY[i];
-                        enemies[i].SaveGamePos.z = enemyData.savePosZ[i];
+                        enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
+                        enemies[i].saveGamePos.x = enemyData.savePosX[i];
+                        enemies[i].saveGamePos.y = enemyData.savePosY[i];
+                        enemies[i].saveGamePos.z = enemyData.savePosZ[i];
                     }
                 }
             }
