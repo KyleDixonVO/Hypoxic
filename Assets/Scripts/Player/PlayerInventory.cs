@@ -86,7 +86,7 @@ namespace UnderwaterHorror
                 Equip(inventory[2], 2);
                 Unequip(inventory[1]);
                 Unequip(inventory[0]);
-            }
+            }            
         }
 
         void HandleItemUsage()
