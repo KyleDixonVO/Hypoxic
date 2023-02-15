@@ -350,7 +350,9 @@ namespace UnderwaterHorror
         private void HandleInteractionInput()
         {
             if (InputManager.inputManager.ePressed && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
-            {            
+            {
+                AudioManager.audioManager.StopSound(AudioManager.audioManager.playerInventoryAudio);
+                AudioManager.audioManager.PlaySound(AudioManager.audioManager.playerInventoryAudio, AudioManager.audioManager.pickupItem);
                 currentInteractable.OnInteract();
             }
         }

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace UnderwaterHorror
 {
-    //Code by Tobias
+    //Code by Tobias & Kyle
     public class Enemy : MonoBehaviour
     {
         public bool isAlive;
@@ -34,6 +34,8 @@ namespace UnderwaterHorror
 
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
+        [SerializeField] private GameObject patrolPointParent;
+        public string patrolPointParentName;
 
 
         [Header("Place desired patrol point here")]
@@ -49,8 +51,8 @@ namespace UnderwaterHorror
 
 
         [Header("Saved Vectors")]
-        [SerializeField] public Vector3 NewGamePos;
-        [SerializeField] public Vector3 SaveGamePos;
+        [SerializeField] public Vector3 newGamePos;
+        [SerializeField] public Vector3 saveGamePos;
         protected Vector3 playerPreviousLocation;
 
 
@@ -191,6 +193,7 @@ namespace UnderwaterHorror
         {
             agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
+            if (patrolPointParent == null) return;
             if (agent.destination != patrolPoints[currentPatrolPoint].transform.position)
             {
                 agent.SetDestination(patrolPoints[currentPatrolPoint].transform.position);
@@ -324,7 +327,20 @@ namespace UnderwaterHorror
             AudioSource mainSource = this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<AudioSource>();
             AudioSource combatSource = this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<AudioSource>();
 
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                audioManager.StopSound(mainSource); 
+                audioManager.StopSound(combatSource); 
+                return;
+
+            }
+
+            if (FirstPersonController_Sam.fpsSam.inWater == false)                
+            {
+                    audioManager.StopSound(mainSource);
+                    audioManager.StopSound(combatSource);
+                    return;     
+            }   
 
             // Enemy Agro
             if (enemyState == Enemy.EnemyState.chasing)
@@ -410,22 +426,40 @@ namespace UnderwaterHorror
             return false;
         }
 
+        private void FindPatrolPoints()
+        {
+            if (GameObject.Find(patrolPointParentName) == null)
+            {
+                agent.destination = this.transform.position;
+                patrolPoints.Clear();
+                return;
+            }
+            patrolPointParent = GameObject.Find(patrolPointParentName);
+            for (int i = 0; i < patrolPointParent.transform.childCount; i++)
+            {
+                if (patrolPoints.Contains(patrolPointParent.transform.GetChild(i).gameObject)) continue;
+                patrolPoints.Add(patrolPointParent.transform.GetChild(i).gameObject);
+            }
+        }
 
-        //Don't call these yet, they aren't implemented properly
         public virtual void ResetRun()
         {
-            //this.gameObject.transform.position = NewGamePos;
+            this.gameObject.transform.position = newGamePos;
+            this._enemyStats.health = this._enemyStats.maxHealth;
+            this.isAlive = true;
+            this.enemyState = EnemyState.patrolling;
+            this.searching = false;
         }
 
 
         public virtual void ReloadToSave()
         {
-            //this.gameObject.transform.position = SaveGamePos;
+            this.gameObject.transform.position = saveGamePos;
         }
 
         public virtual void SetSaveGamePos()
         {
-
+            saveGamePos = this.gameObject.transform.position;
         }
         //--------------------------------------------------------
     }
