@@ -60,24 +60,11 @@ namespace UnderwaterHorror
                     blood.transform.position = hit.point;
                     StartCoroutine(waitTime(blood));
                 }
+
+                Debug.LogWarning("hit " + hit);
             }
             currentAmmo--;
         }
-
-        /*protected void EquipUnequip() // TEMP PUT ITEM AWAY
-        {
-            if (isEquiped)
-            {
-                isEquiped = false;
-                gameObject.GetComponent<Renderer>().enabled = false;
-                if (reloadProgress != 0) reloadProgress = reloadTime;
-            }
-            else if (!isEquiped)
-            {
-                isEquiped = true;
-                gameObject.GetComponent<Renderer>().enabled = true;
-            }
-        }*/
 
         public void GetAmmo(int ammoAmmount)
         {
