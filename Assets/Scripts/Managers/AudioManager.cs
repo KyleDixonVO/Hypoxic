@@ -233,7 +233,7 @@ namespace UnderwaterHorror
             }
             int randomSoundSelected = Random.Range(0, numOfSounds);
             enviromentAudio.clip = randomEnviromentSounds[randomSoundSelected];
-            Debug.LogWarning(randomSoundSelected);
+            //Debug.LogWarning(randomSoundSelected);
 
         }
 

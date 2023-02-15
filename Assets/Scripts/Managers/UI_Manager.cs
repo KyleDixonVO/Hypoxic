@@ -27,6 +27,7 @@ namespace UnderwaterHorror
         [SerializeField] private TMP_Text textToolTipR;
         [SerializeField] private TMP_Text textObjectives;
         [SerializeField] private TMP_Text textAmmoCounter;
+        [SerializeField] public Animator fade;
 
         [Header("Pause Assets")]
         [SerializeField] private TMP_Text textPauseTitle;
@@ -315,6 +316,22 @@ namespace UnderwaterHorror
         public void DisableSecondaryInteractText()
         {
             textToolTipR.gameObject.SetActive(false);
+        }
+
+        // Scene Transition
+        public void FadeOut()
+        {
+            fade.SetTrigger("FadeOut");
+        }
+        public void FadeIn()
+        {
+            fade.SetTrigger("FadeIn");
+        }
+
+        public void OnFadeComplete()
+        {          
+            if (Level_Manager.LM.IsSceneOpen("Outside")) Level_Manager.LM.LoadMainHab();
+            else if (Level_Manager.LM.IsSceneOpen("DemoBuildingInside")) Level_Manager.LM.LoadOutside();
         }
 
         //public for use on buttons

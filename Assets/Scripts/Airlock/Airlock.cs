@@ -82,7 +82,7 @@ namespace UnderwaterHorror
             AudioManager.audioManager.StopSound(airlockAudioSource);
             AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
             //-----------------------------------------------------------------------------------------
-            StartCoroutine(CloseDelay(waitTime));       
+            StartCoroutine(CloseDelay(waitTime));
         }
 
         // --------------------------------------- is load door ------------------------------------------ \\
@@ -114,11 +114,13 @@ namespace UnderwaterHorror
             {
                 OpenDelay(0f);
             }
-            else if (playerPresent && IsClosed() && isLoad && canLoad) // player is inside and the door is closed - Load scene
+            else if (playerPresent && IsClosed() && isLoad && canLoad && countDownProgress <= 0) // player is inside and the door is closed - Load scene
             {
                 //Debug.Log("Load Scene");
-                if (Level_Manager.LM.IsSceneOpen("Outside")) Level_Manager.LM.LoadMainHab();
-                else if (Level_Manager.LM.IsSceneOpen("DemoBuildingInside")) Level_Manager.LM.LoadOutside();
+
+                /*if (Level_Manager.LM.IsSceneOpen("Outside")) Level_Manager.LM.LoadMainHab();
+                else if (Level_Manager.LM.IsSceneOpen("DemoBuildingInside")) Level_Manager.LM.LoadOutside();*/
+                UI_Manager.ui_Manager.FadeOut();
             }
         }
 
