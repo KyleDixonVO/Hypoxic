@@ -317,6 +317,11 @@ namespace UnderwaterHorror
             textToolTipR.gameObject.SetActive(false);
         }
 
+        public void UpdateRepairSliderValue()
+        {
+
+        }
+
         //public for use on buttons
         public void SwitchGameplay()
         {
