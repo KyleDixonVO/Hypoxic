@@ -49,6 +49,7 @@ namespace UnderwaterHorror
         override protected void PatrollingManager()
         {
             agent.speed = _enemyStats.patrolSpeed;
+            if (patrolPointParent == null) return;
             if (isAware)
             {
                 _enemyStats.elapsedAwareTime += Time.deltaTime;
