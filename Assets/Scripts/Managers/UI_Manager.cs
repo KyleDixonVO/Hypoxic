@@ -332,6 +332,7 @@ namespace UnderwaterHorror
         {          
             if (Level_Manager.LM.IsSceneOpen("Outside")) Level_Manager.LM.LoadMainHab();
             else if (Level_Manager.LM.IsSceneOpen("DemoBuildingInside")) Level_Manager.LM.LoadOutside();
+            FadeIn();
         }
 
         //public for use on buttons
