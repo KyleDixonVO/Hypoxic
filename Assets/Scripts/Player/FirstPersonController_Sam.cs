@@ -141,7 +141,7 @@ namespace UnderwaterHorror
 
         [Header("Interaction Settings")]
         [SerializeField] private Vector3 interactionRayPoint = new Vector3(0.5f, 0.5f, 0);
-        [SerializeField] private float interactionDistance = 2.0f;
+        [SerializeField] private float interactionDistance = 2.5f;
         [SerializeField] private LayerMask interactionLayer;
         [SerializeField] private Interactable currentInteractable;
 
@@ -349,11 +349,13 @@ namespace UnderwaterHorror
 
         private void HandleInteractionInput()
         {
+            if (!InputManager.inputManager.eCycled) return;
             if (InputManager.inputManager.ePressed && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
             {
                 AudioManager.audioManager.StopSound(AudioManager.audioManager.playerInventoryAudio);
                 AudioManager.audioManager.PlaySound(AudioManager.audioManager.playerInventoryAudio, AudioManager.audioManager.pickupItem);
                 currentInteractable.OnInteract();
+                InputManager.inputManager.SetECycledfalse();
             }
         }
 

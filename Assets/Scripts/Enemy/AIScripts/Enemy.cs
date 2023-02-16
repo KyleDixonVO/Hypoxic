@@ -85,9 +85,9 @@ namespace UnderwaterHorror
             // But have to recharge after a single bite
             _enemyStats.timeToAttack -= Time.deltaTime;
 
-
+            FindPatrolPoints();
             EnemyStateManager();
-            Debug.Log(enemyState);
+            //Debug.Log(enemyState);
         }
 
 
@@ -387,12 +387,12 @@ namespace UnderwaterHorror
             Vector3 raycastDir = PlayerStats.playerStats.transform.position;
             if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
             {
-                Debug.Log("Has Line Of Sight ");
+               // Debug.Log("Has Line Of Sight ");
                 return true;
             }
             else
             {
-                Debug.Log("No Visual ");
+               // Debug.Log("No Visual ");
                 return false;
             }
         }

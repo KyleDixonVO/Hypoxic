@@ -2,32 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlipController : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public SpriteRenderer blipSprite;
-    public bool visible;
-    [SerializeField] float fadeTime;
-    [SerializeField] float alpha;
-    [SerializeField] Material mat;
-    // Start is called before the first frame update
-    void Start()
+    public class BlipController : MonoBehaviour
     {
-        visible = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        alpha = this.gameObject.GetComponent<SpriteRenderer>().color.a;
-    }
-
-    public void FadeOut()
-    {
-        if (this.gameObject == null) return;
-        LeanTween.alpha(this.gameObject, 0, fadeTime);
-        if (this.gameObject.GetComponent<SpriteRenderer>().color.a <= 0)
+        public SpriteRenderer blipSprite;
+        public bool visible;
+        [SerializeField] float fadeTime;
+        [SerializeField] float alpha;
+        [SerializeField] Material mat;
+        // Start is called before the first frame update
+        void Start()
         {
-            visible = false;
+            visible = true;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            alpha = this.gameObject.GetComponent<SpriteRenderer>().color.a;
+        }
+
+        public void FadeOut()
+        {
+            if (this.gameObject == null) return;
+            LeanTween.alpha(this.gameObject, 0, fadeTime);
+            if (this.gameObject.GetComponent<SpriteRenderer>().color.a <= 0)
+            {
+                visible = false;
+            }
         }
     }
 }

@@ -103,11 +103,13 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
            // throw new System.NotImplementedException();
         }
 
         public override void OnLoseFocus()
         {
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
            // throw new System.NotImplementedException();
         }
     }
