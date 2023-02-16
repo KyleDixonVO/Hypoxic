@@ -34,7 +34,7 @@ namespace UnderwaterHorror
 
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
-        [SerializeField] private GameObject patrolPointParent;
+        [SerializeField] protected GameObject patrolPointParent;
         public string patrolPointParentName;
 
 
