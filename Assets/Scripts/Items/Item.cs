@@ -25,9 +25,12 @@ namespace UnderwaterHorror
         protected bool beingUsed;
         public bool isUsed = false;
 
+        // Tobias was here
+        protected AudioSource itemAudioSource;
+
         private void Start()
         {
-
+            
         }
 
         protected void TimeToEffect()

@@ -24,14 +24,19 @@ namespace UnderwaterHorror
             canShoot = true;
             isEquiped = false;
 
-            // Tobias's Polymorph audio
+            // Tobias ;)
             weaponAudioSource = this.gameObject.GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                AudioManager.audioManager.PauseSound(weaponAudioSource);
+                return;
+            }
+
             // RELOAD COUTER
             if (reloadProgress <= 0 && !canShoot && reserves > 0)
             {
