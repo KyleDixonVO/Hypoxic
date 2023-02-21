@@ -25,9 +25,12 @@ namespace UnderwaterHorror
         protected bool beingUsed;
         public bool isUsed = false;
 
+        // Tobias was here
+        protected AudioSource itemAudioSource;
+
         private void Start()
         {
-
+            
         }
 
         protected void TimeToEffect()
@@ -76,11 +79,13 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
             //throw new System.NotImplementedException();
         }
 
         public override void OnLoseFocus()
         {
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
            // throw new System.NotImplementedException();
         }
     }

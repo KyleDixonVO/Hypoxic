@@ -97,7 +97,7 @@ namespace UnderwaterHorror
             }
             else if (countDownProgress >= 0 && !isOpening && playerPresent)
             {
-                Debug.Log("inside");
+                //Debug.Log("inside");
                 StartCoroutine(OpenDelay(0f));
             }
 

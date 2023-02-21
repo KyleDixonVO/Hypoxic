@@ -8,6 +8,7 @@ namespace UnderwaterHorror
     {
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
+        public bool singleton;
         [SerializeField] private Vector3 heldPos;
         [SerializeField] private Vector3 heldRot;
         // Start is called before the first frame update
@@ -28,14 +29,13 @@ namespace UnderwaterHorror
         public override void OnInteract()
         {
             if (WithinPickupRange()
-                && InputManager.inputManager.ePressed && !_isHeld
+                && !_isHeld
                 && FirstPersonController_Sam.fpsSam.carryingHeavyObj == false)
             {
                 Debug.Log("Picked up heavy object");
                 AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.pickupPipe);
                 _isHeld = true;
                 FirstPersonController_Sam.fpsSam.carryingHeavyObj = true;
-                InputManager.inputManager.eCycled = false;
             }
             else if (_isHeld)
             {
@@ -43,7 +43,6 @@ namespace UnderwaterHorror
                 AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.dropPipe);
                 _isHeld = false;
                 FirstPersonController_Sam.fpsSam.carryingHeavyObj = false;
-                InputManager.inputManager.eCycled = false;
             }
         }
 
