@@ -3,6 +3,7 @@ guid: 7f6d7a22ec5b02c43997f9daef1436a1
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
+<<<<<<< Updated upstream
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -24,6 +25,9 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Kelp_Normal
     second: {fileID: 2800000, guid: 617d9478265183e4dbe1fb225b5966d9, type: 3}
+=======
+  externalObjects: {}
+>>>>>>> Stashed changes
   materials:
     materialImportMode: 2
     materialName: 0
