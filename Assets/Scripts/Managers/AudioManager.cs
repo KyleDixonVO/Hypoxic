@@ -320,9 +320,14 @@ namespace UnderwaterHorror
 
         void CheckPlayerSuitSounds()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || playerVoiceAudio == null) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             // Player must be in water for suit to function
-            if (FirstPersonController_Sam.fpsSam.inWater == false) return;
+            if (FirstPersonController_Sam.fpsSam.inWater == false)
+            {
+                StopSound(suitThrusterAudio);
+                StopSound(playerSuitAudio);
+                return;
+            }
 
             // Plays low power sound
             if (PlayerStats.playerStats.suitPower <= PlayerStats.playerStats.maxSuitPower / 2 && playedPowerBelowHalf == false)
@@ -349,7 +354,9 @@ namespace UnderwaterHorror
             {
                 if (!suitThrusterAudio.isPlaying) PlaySound(suitThrusterAudio, jets);
             }
-            else if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(suitThrusterAudio);
+
+            if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(suitThrusterAudio);
+
 
             // Stop running sound when holding a pipe
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj) StopSound(suitThrusterAudio);
