@@ -16,9 +16,11 @@ namespace UnderwaterHorror
             if (this.GetComponent<AudioSource>().isPlaying == false)
             {
                 AudioManager.audioManager.PlaySound(this.GetComponent<AudioSource>(), AudioManager.audioManager.doorButton);
+                //AL.timeStamp = Time.time;
             }
-            AL.OpenDoor();
+            //AL.OpenDoor();
             AL.isOpening = true;
+            AL.timerActive = true;
         }
 
         public override void OnFocus()

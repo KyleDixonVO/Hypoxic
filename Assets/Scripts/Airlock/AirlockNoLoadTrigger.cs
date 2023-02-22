@@ -18,12 +18,12 @@ namespace UnderwaterHorror
                 //Debug.Log("player present");
                 if (exteriorAirlock.isOpening)
                 {
-                    exteriorAirlock.CloseDoor(0f);
+                    exteriorAirlock.CloseDoor();
                     interiorAirlock.OpenDoor();
                 }
                 else if (interiorAirlock.isOpening)
                 {
-                    interiorAirlock.CloseDoor(0f);
+                    interiorAirlock.CloseDoor();
                     exteriorAirlock.OpenDoor();
                 }
             }
@@ -36,11 +36,11 @@ namespace UnderwaterHorror
             {
                 if (exteriorAirlock.isOpening)
                 {
-                    exteriorAirlock.CloseDoor(2f);
+                    exteriorAirlock.CloseDoor();
                 }
                 else if (interiorAirlock.isOpening)
                 {
-                    interiorAirlock.CloseDoor(2f);
+                    interiorAirlock.CloseDoor();
                 }
             }
 

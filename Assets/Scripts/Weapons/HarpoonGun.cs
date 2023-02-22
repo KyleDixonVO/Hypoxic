@@ -64,11 +64,6 @@ namespace UnderwaterHorror
                 Unequip();
                 return;
             }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                //EquipUnequip();
-            }
         }
     }
 
