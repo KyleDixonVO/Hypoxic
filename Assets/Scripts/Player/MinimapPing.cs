@@ -31,6 +31,7 @@ namespace UnderwaterHorror
 
         public void PingMap()
         {
+            if (!Level_Manager.LM.IsSceneOpen("Outside") || GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !InputManager.inputManager.tabPressed) return;
             range += pingSpeed * Time.deltaTime;
             if (range >= maxRange) 
             {
@@ -40,7 +41,6 @@ namespace UnderwaterHorror
             pingParent.localScale = new Vector3(range, range);
             minimapRing.localScale = new Vector3(range * 2, range * 2);
             Collider[] pingArray = Physics.OverlapSphere(pingParent.position, range, pingMask);
-            Debug.LogWarning(pingArray.Length);
             foreach(Collider raycastHit in pingArray)
             {
                 if (!pingHitList.Contains(raycastHit))

@@ -62,7 +62,7 @@ namespace UnderwaterHorror
 
             if (isObjectiveComplete[objectiveNumber]) return;
             isObjectiveComplete[objectiveNumber] = true;
-            Debug.Log(objectiveNumber + " " + isObjectiveComplete[objectiveNumber]);
+            //Debug.Log(objectiveNumber + " " + isObjectiveComplete[objectiveNumber]);
         }
 
         public bool IfWonGame()

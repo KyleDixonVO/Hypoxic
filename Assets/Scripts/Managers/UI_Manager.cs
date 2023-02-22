@@ -63,8 +63,6 @@ namespace UnderwaterHorror
         [SerializeField] private Canvas[] canvasArray;
         [SerializeField] private Camera mainMenuCam;
         [SerializeField] private Camera gameplayCam;
-
-
         public enum ActiveUI
         {
             MainMenu,
