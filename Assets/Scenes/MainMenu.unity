@@ -2415,7 +2415,8 @@ MonoBehaviour:
   harpoonReloading: {fileID: 8300000, guid: 1520678a42432ff4097b692bee378b45, type: 3}
   harpoonNoAmmo: {fileID: 8300000, guid: 01869770ff5ae2e4c825c00189f94247, type: 3}
   batteryUsed: {fileID: 8300000, guid: 3f55cbd76f6d7e846a2f3867c51ef526, type: 3}
-  glowstickUsed: {fileID: 0}
+  glowstickUsed: {fileID: 8300000, guid: 94d2599dd54d1444d95b31e87e0e46c1, type: 3}
+  syringeUsed: {fileID: 8300000, guid: 968667d02a920a745be3df5815b0731d, type: 3}
   repairing: {fileID: 8300000, guid: b30aecb055ab20b40b9025ca1ebff551, type: 3}
   repairingComplete: {fileID: 8300000, guid: ccfe9c7cf43388f408f48770620468ae, type: 3}
   pickupPipe: {fileID: 8300000, guid: 84d95eba1a15c4344b7e2a81429683ef, type: 3}

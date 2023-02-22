@@ -80,6 +80,7 @@ namespace UnderwaterHorror
         [Header("Tools")]
         public AudioClip batteryUsed;
         public AudioClip glowstickUsed;
+        public AudioClip syringeUsed;
 
         [Header("ObjectiveAudioClips")]
         public AudioClip repairing;

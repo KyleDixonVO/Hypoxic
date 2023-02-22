@@ -12,13 +12,18 @@ public class MedKit : Item
     {
         usageTime = 2;
         usageProgress = usageTime;
+        itemAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-        
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+        {
+            AudioManager.audioManager.PauseSound(itemAudioSource);
+            return;
+        }
+
         if (beingUsed) // might be able to send to item update()
         {
             TimeToEffect();
@@ -30,11 +35,17 @@ public class MedKit : Item
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
         {
+            AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.syringeUsed);
             beingUsed = true;
             TimeToEffect();
             Debug.Log("click");
+        }
+
+        if (gameObject.activeSelf == false)
+        {
+            AudioManager.audioManager.StopSound(itemAudioSource);
         }
     }
 
