@@ -14,15 +14,23 @@ namespace UnderwaterHorror
         {
             usageTime = 2;
             usageProgress = usageTime;
+
+            // Tobias is nuts
+            itemAudioSource = this.gameObject.GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                AudioManager.audioManager.PauseSound(itemAudioSource); 
+                return;
+            }
 
             if (beingUsed)
-            {
+            {               
+                AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.batteryUsed);
                 TimeToEffect();
             }
 
@@ -36,6 +44,11 @@ namespace UnderwaterHorror
             {
                 beingUsed = true;
                 TimeToEffect();
+            }
+
+            if (gameObject.activeSelf == false)
+            {
+                AudioManager.audioManager.StopSound(itemAudioSource);
             }
         }
 
