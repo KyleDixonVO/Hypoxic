@@ -122,7 +122,6 @@ namespace UnderwaterHorror
             else if (countDownProgress >= 0 && !isOpening && playerPresent) // on load open
             {
                 //Debug.Log("inside");
-                //StartCoroutine(OpenDelay(0f));
                 OpenAirlock();
             }
 
@@ -130,42 +129,57 @@ namespace UnderwaterHorror
             if (isOpening && playerPresent && countDownProgress <= 0 && !IsClosed()) // player is inside - close immediatly
             {
                 CloseDoor();
-                Debug.LogWarning("Case 1");
+                //Debug.LogWarning("Case 1");
             }
             else if (IsOpen() && isOpening) // door is open - wait to close
             {
                 timerActive = true;
-                Debug.LogWarning("Case 2");
+                //Debug.LogWarning("Case 2");
             }
             else if (playerPresent && IsClosed() && countDownProgress >= 5)
             {
-                //OpenDelay(0f);
                 OpenAirlock();
-                Debug.LogWarning("Case 3");
+                //Debug.LogWarning("Case 3");
             }
             else if (playerPresent && IsClosed() && isLoad && canLoad && countDownProgress <= 0) // player is inside and the door is closed - Load scene
             {
                 //Debug.Log("Load Scene");
-
-                /*if (Level_Manager.LM.IsSceneOpen("Outside")) Level_Manager.LM.LoadMainHab();
-                else if (Level_Manager.LM.IsSceneOpen("DemoBuildingInside")) Level_Manager.LM.LoadOutside();*/
                 UI_Manager.ui_Manager.FadeOut();
-                Debug.LogWarning("Case 4");
+                //Debug.LogWarning("Case 4");
             }
         }
 
         // ------------------------------------- isn't load door ----------------------------------------- \\
         void IsntLoadDoor()
         {
-            // this is delt in the AirlockNoLoadTrigger.cs file
-            if (IsOpen() && isOpening) // door is open - wait to close
+            // door closing
+            if (isOpening && playerPresent && otherAirlock.isOpening == false && !IsClosed()) // player is inside - close immediatly
             {
                 CloseDoor();
+                //Debug.LogWarning("Case 1");
             }
+            else if (IsOpen() && !playerPresent) // door is open - wait to close
+            {
+                timerActive = true;
+                //Debug.LogWarning("Case 2");
+            }
+            else if (playerPresent && IsClosed() && otherAirlock.isOpening == false)
+            {
+                OpenAirlock();
+                //Debug.LogWarning("Case 3");
+            }
+            else if (playerPresent && IsClosed() && isLoad && canLoad && otherAirlock.isOpening == false) // player is inside and the door is closed - Open other door
+            {
+                otherAirlock.isOpening = true;
+                otherAirlock.timerActive = true;
+                //Debug.LogWarning("Case 4");
+            }
+
+
         }
 
         // --------------------------------- Door Open / Close Checks ------------------------------------ \\
-        bool IsOpen()
+        public bool IsOpen()
         {
             if (Vector3.Distance(doorRight.transform.position, rightOpenPos.transform.position) < 0.05f
                 && Vector3.Distance(doorLeft.transform.position, leftOpenPos.transform.position) < 0.05f)
@@ -174,7 +188,7 @@ namespace UnderwaterHorror
             }
             else return false;
         }
-        bool IsClosed()
+        public bool IsClosed()
         {
             if (Vector3.Distance(doorRight.transform.position, rightClosePos) < 0.05f
                 && Vector3.Distance(doorLeft.transform.position, leftClosePos) < 0.05f)
@@ -196,6 +210,7 @@ namespace UnderwaterHorror
                 AudioManager.audioManager.StopSound(airlockAudioSource);
                 AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
                 //-----------------------------------------------------------------------------------------
+                isOpening = false;
             }
         }
 
