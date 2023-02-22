@@ -57,6 +57,7 @@ namespace UnderwaterHorror
 
 
         public bool searching = false;
+        public bool singleton = false;
         private Vector3 lookTarget;
 
 

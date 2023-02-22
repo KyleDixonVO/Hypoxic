@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 1662200383452659240}
   m_Layer: 8
   m_Name: BigEnemyFishBundle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -591,6 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 1
+  enemyState: 0
   _enemyStats: {fileID: 1662200383709298150}
   patrolPoints:
   - {fileID: 1662200384297165502}
@@ -609,14 +610,17 @@ MonoBehaviour:
   - {fileID: 5078521051540064152}
   - {fileID: 5783894122516242548}
   - {fileID: 723017541822737984}
+  patrolPointParent: {fileID: 0}
+  patrolPointParentName: 
   currentPatrolPoint: 0
   agent: {fileID: 1662200383709298145}
   layerMasks:
     serializedVersion: 2
     m_Bits: 128
-  NewGamePos: {x: 0, y: 0, z: 0}
-  SaveGamePos: {x: 0, y: 0, z: 0}
-  source: {fileID: 4895728834690974909}
+  newGamePos: {x: 0, y: 0, z: 0}
+  saveGamePos: {x: 0, y: 0, z: 0}
+  searching: 0
+  singleton: 0
   isAware: 0
   pointsListPopulated: 0
   numberOfPointsNearPlayer: 3
@@ -661,6 +665,7 @@ MonoBehaviour:
   crouchingRadius: 8
   visionRayLength: 22
   visionConeHalved: 45
+  hit: 0
 --- !u!195 &1662200383709298145
 NavMeshAgent:
   m_ObjectHideFlags: 0

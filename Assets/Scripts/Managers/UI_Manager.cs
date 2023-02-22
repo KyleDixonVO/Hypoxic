@@ -28,6 +28,7 @@ namespace UnderwaterHorror
         [SerializeField] private TMP_Text textObjectives;
         [SerializeField] private TMP_Text textAmmoCounter;
         [SerializeField] public Animator fade;
+        [SerializeField] private Slider sliderRepair;
 
         [Header("Pause Assets")]
         [SerializeField] private TMP_Text textPauseTitle;
@@ -117,6 +118,7 @@ namespace UnderwaterHorror
             playerHitEffect = GameObject.Find("PlayerHitEffect").GetComponent<Image>();
             textToolTipE = GameObject.Find("TextToolTipE").GetComponent<TMP_Text>();
             textToolTipR = GameObject.Find("TextToolTipR").GetComponent<TMP_Text>();
+            sliderRepair = GameObject.Find("SliderRepair").GetComponent<Slider>();
             textObjectives = GameObject.Find("TextObjectives").GetComponent<TMP_Text>();
             textAmmoCounter = GameObject.Find("TextAmmoCounter").GetComponent<TMP_Text>();
 
@@ -190,6 +192,7 @@ namespace UnderwaterHorror
 
                 case ActiveUI.Gameplay:
                     UpdateGameplayHUD();
+                    UpdateRepairSliderValue();
                     break;
 
                 case ActiveUI.Pause:
@@ -288,6 +291,24 @@ namespace UnderwaterHorror
             sliderMaster.value = AudioManager.audioManager.masterVolume;
             sliderSFX.value = AudioManager.audioManager.sfxVolume;
             sliderMusic.value = AudioManager.audioManager.musicVolume;
+        }
+
+        public void UpdateRepairSliderValue()
+        {
+            if(FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null)
+            {
+                DisableSecondaryInteractText();
+                sliderRepair.gameObject.SetActive(false);
+            }
+            else if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().repairing)
+            {
+                sliderRepair.gameObject.SetActive(true);
+                sliderRepair.value = FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().repairPercentage;
+            }
+            else
+            {
+                sliderRepair.gameObject.SetActive(false);
+            }
         }
 
         public bool OptionsOpen()

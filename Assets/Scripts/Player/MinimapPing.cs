@@ -31,7 +31,13 @@ namespace UnderwaterHorror
 
         public void PingMap()
         {
-            if (!Level_Manager.LM.IsSceneOpen("Outside") || GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !InputManager.inputManager.tabPressed) return;
+            if (!Level_Manager.LM.IsSceneOpen("Outside"))
+            {
+                range = 0;
+                return;
+            }
+            else if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !InputManager.inputManager.tabPressed) return;
+
             range += pingSpeed * Time.deltaTime;
             if (range >= maxRange) 
             {
