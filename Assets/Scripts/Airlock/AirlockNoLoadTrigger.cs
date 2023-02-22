@@ -27,7 +27,6 @@ namespace UnderwaterHorror
                     exteriorAirlock.OpenDoor();
                 }
             }
-
         }
 
         private void OnTriggerExit(Collider other)

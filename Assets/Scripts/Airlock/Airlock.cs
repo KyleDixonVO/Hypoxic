@@ -53,6 +53,12 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                AudioManager.audioManager.PauseSound(airlockAudioSource);
+            }
+            else if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && airlockAudioSource.isPlaying == false) airlockAudioSource.UnPause();
+
             if (isLoad)
             {
                 IsLoadDoor();
@@ -84,12 +90,6 @@ namespace UnderwaterHorror
                 }         
             }
             //-------------------------------------------------------TIMER-\\
-
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
-            {
-                AudioManager.audioManager.PauseSound(airlockAudioSource);
-            }
-            else if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && airlockAudioSource.isPlaying == false) AudioManager.audioManager.ResumeSound(airlockAudioSource);
         }
 
         public void OpenDoor()
@@ -104,10 +104,6 @@ namespace UnderwaterHorror
 
         public void CloseDoor()
         {
-            // Tobias
-            AudioManager.audioManager.StopSound(airlockAudioSource);
-            AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
-            //-----------------------------------------------------------------------------------------
             //StartCoroutine(CloseDelay(waitTime));
             timeStamp = 0;
             CloseAirlock();
@@ -193,8 +189,13 @@ namespace UnderwaterHorror
         {
             if (IsOpen())
             {
+                Debug.LogError("Close Door");
                 LeanTween.move(doorRight, rightClosePos, 2f);
                 LeanTween.move(doorLeft, leftClosePos, 2f);
+                // Tobias
+                AudioManager.audioManager.StopSound(airlockAudioSource);
+                AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
+                //-----------------------------------------------------------------------------------------
             }
         }
 
@@ -202,6 +203,7 @@ namespace UnderwaterHorror
         {
             if (IsClosed())
             {
+                Debug.LogError("Open Door");
                 LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
                 LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
             }
