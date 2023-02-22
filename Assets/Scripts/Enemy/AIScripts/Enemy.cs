@@ -235,7 +235,11 @@ namespace UnderwaterHorror
 
             // Tracks player's previous location
             playerPreviousLocation = PlayerStats.playerStats.transform.position;
-            //---------------------------------------------------------
+            
+            if (this.gameObject.GetComponent<BigEnemyFish>() == null)
+            {
+                AlertBigFish(Enemy_Manager.enemy_Manager.enemies[0].GetComponent<BigEnemyFish>());
+            }
         }
 
 
@@ -381,6 +385,11 @@ namespace UnderwaterHorror
         }
         // Made by Kyle
         //--------------------------------------------------------
+
+        public void AlertBigFish(BigEnemyFish bigEnemyFish)
+        {
+            bigEnemyFish.CallBigFish();
+        }
 
 
         protected bool HasLineOfSight()

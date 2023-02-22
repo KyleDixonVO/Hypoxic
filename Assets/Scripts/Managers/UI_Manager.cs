@@ -294,7 +294,7 @@ namespace UnderwaterHorror
         }
 
         public void UpdateRepairSliderValue()
-        {
+        {   
             if(FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null)
             {
                 DisableSecondaryInteractText();
@@ -304,6 +304,10 @@ namespace UnderwaterHorror
             {
                 sliderRepair.gameObject.SetActive(true);
                 sliderRepair.value = FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>().repairPercentage;
+                if (Enemy_Manager.enemy_Manager.enemies[0].GetComponent<BigEnemyFish>() != null)
+                {
+                    Enemy_Manager.enemy_Manager.enemies[0].GetComponent<BigEnemyFish>().CallBigFish();
+                }
             }
             else
             {
