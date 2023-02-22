@@ -8538,13 +8538,16 @@ MonoBehaviour:
   minimapRing: {fileID: 1983329170}
   range: 0
   maxRange: 20
-  pingSpeed: 8
+  pingSpeed: 20
   pingHitList: []
   blipList: []
   pingMask:
     serializedVersion: 2
     m_Bits: 256
   blipPrefab: {fileID: 6082675811186515769, guid: 8a2649b969f5f6a468be4ab63220a117, type: 3}
+  timeSinceLastPing: 0
+  pingInterval: 3
+  pingReady: 0
 --- !u!4 &721264750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 715403889, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}

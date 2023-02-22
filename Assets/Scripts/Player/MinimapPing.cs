@@ -15,6 +15,9 @@ namespace UnderwaterHorror
         [SerializeField] private List<GameObject> blipList;
         [SerializeField] private LayerMask pingMask;
         [SerializeField] private GameObject blipPrefab;
+        [SerializeField] private float timeSinceLastPing;
+        [SerializeField] private float pingInterval;
+        [SerializeField] private bool pingReady = true;
 
         // Start is called before the first frame update
         void Start()
@@ -25,7 +28,11 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            PingMap();
+            PingTimer();
+            if (pingReady)
+            {
+                PingMap();
+            }
             FadeBlips();
         }
 
@@ -43,6 +50,7 @@ namespace UnderwaterHorror
             {
                 range = 0f;
                 pingHitList.Clear();
+                pingReady = false;
             } 
             pingParent.localScale = new Vector3(range, range);
             minimapRing.localScale = new Vector3(range * 2, range * 2);
@@ -75,9 +83,27 @@ namespace UnderwaterHorror
             }
         }
 
+        public void PingTimer()
+        {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || pingReady) return;
+            timeSinceLastPing += Time.deltaTime;
+            if (timeSinceLastPing > pingInterval)
+            {
+                pingReady = true;
+                timeSinceLastPing = 0;
+            }
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(pingParent.transform.position, range);
+        }
+
+        public void ResetForNextRun()
+        {
+            range = 0f;
+            pingHitList.Clear();
+            pingReady = false;
         }
     }
 }
