@@ -16,12 +16,14 @@ namespace UnderwaterHorror
                 //Debug.Log("player present");
                 if (exteriorAirlock.isOpening)
                 {
+                    //Debug.LogWarning("Case 1");
                     exteriorAirlock.CloseDoor();
                     interiorAirlock.timerActive = true;
                     interiorAirlock.isOpening = true;
                 }
                 else if (interiorAirlock.isOpening)
                 {
+                    //Debug.LogWarning("Case 2");
                     interiorAirlock.CloseDoor();
                     exteriorAirlock.timerActive = true;
                     exteriorAirlock.isOpening = true;
