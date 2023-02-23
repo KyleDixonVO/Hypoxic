@@ -51,11 +51,12 @@ public class Enemy_Manager : MonoBehaviour
                     if (enemies[i] == null)
                     {
                         enemies[i] = GameObject.Find("BigEnemy").GetComponent<Enemy>();
+                        enemies[i].singleton = true;
                         DontDestroyOnLoad(enemies[i]);
                     }
                     else if (enemies[i] != null && enemies[i] != GameObject.Find("BigEnemy").GetComponent<Enemy>())
                     {
-                        Destroy(GameObject.Find("BigEnemy"));
+                        //Destroy(GameObject.Find("BigEnemy"));
                     }
                     break;
 
@@ -63,11 +64,12 @@ public class Enemy_Manager : MonoBehaviour
                     if (enemies[i] == null)
                     {
                         enemies[i] = GameObject.Find("SmallEnemy1").GetComponent<Enemy>();
+                        enemies[i].singleton = true;
                         DontDestroyOnLoad(enemies[i]);
                     }
                     else if (enemies[i] != null && enemies[i] != GameObject.Find("SmallEnemy1").GetComponent<Enemy>())
                     {
-                        Destroy(GameObject.Find("SmallEnemy1"));
+                        //Destroy(GameObject.Find("SmallEnemy1"));
                     }
                     break;
 
@@ -75,11 +77,12 @@ public class Enemy_Manager : MonoBehaviour
                     if (enemies[i] == null)
                     {
                         enemies[i] = GameObject.Find("SmallEnemy2").GetComponent<Enemy>();
+                        enemies[i].singleton = true;
                         DontDestroyOnLoad(enemies[i]);
                     }
                     else if (enemies[i] != null && enemies[i] != GameObject.Find("SmallEnemy2").GetComponent<Enemy>())
                     {
-                        Destroy(GameObject.Find("SmallEnemy2"));
+                        //Destroy(GameObject.Find("SmallEnemy2"));
                     }
                     break;
 
@@ -87,11 +90,12 @@ public class Enemy_Manager : MonoBehaviour
                     if (enemies[i] == null)
                     {
                         enemies[i] = GameObject.Find("SmallEnemy3").GetComponent<Enemy>();
+                        enemies[i].singleton = true;
                         DontDestroyOnLoad(enemies[i]);
                     }
                     else if (enemies[i] != null && enemies[i] != GameObject.Find("SmallEnemy3").GetComponent<Enemy>())
                     {
-                        Destroy(GameObject.Find("SmallEnemy3"));
+                        //Destroy(GameObject.Find("SmallEnemy3"));
                     }
                     break;
 
@@ -99,25 +103,34 @@ public class Enemy_Manager : MonoBehaviour
                     if (enemies[i] == null)
                     {
                         enemies[i] = GameObject.Find("SmallEnemy4").GetComponent<Enemy>();
+                        enemies[i].singleton = true;
                         DontDestroyOnLoad(enemies[i]);
                     }
                     else if (enemies[i] != null && enemies[i] != GameObject.Find("SmallEnemy4").GetComponent<Enemy>())
                     {
-                        Destroy(GameObject.Find("SmallEnemy4"));
+                        //Destroy(GameObject.Find("SmallEnemy4"));
                     }
                     break;
 
-                //case 5:
-                //    if (enemies[i] == null)
-                //    {
-                //        enemies[i] = GameObject.Find("SmallEnemy5").GetComponent<Enemy>();
-                //        DontDestroyOnLoad(enemies[i]);
-                //    }
-                //    else if (enemies[i] != null && enemies[i] != GameObject.Find("SmallEnemy5").GetComponent<Enemy>())
-                //    {
-                //        Destroy(GameObject.Find("SmallEnemy5"));
-                //    }
-                //    break;
+                    //case 5:
+                    //    if (enemies[i] == null)
+                    //    {
+                    //        enemies[i] = GameObject.Find("SmallEnemy5").GetComponent<Enemy>();
+                    //        DontDestroyOnLoad(enemies[i]);
+                    //    }
+                    //    else if (enemies[i] != null && enemies[i] != GameObject.Find("SmallEnemy5").GetComponent<Enemy>())
+                    //    {
+                    //        Destroy(GameObject.Find("SmallEnemy5"));
+                    //    }
+                    //    break;
+            }
+        }
+
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Enemy").Length; i++)
+        {
+            if (!GameObject.FindGameObjectsWithTag("Enemy")[i].GetComponent<Enemy>().singleton)
+            {
+                Destroy(GameObject.FindGameObjectsWithTag("Enemy")[i]);
             }
         }
     }

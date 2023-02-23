@@ -13,7 +13,8 @@ namespace UnderwaterHorror
         [SerializeField] bool repaired = false;
         [SerializeField] string targetName;
         [SerializeField] Objective_Manager.Objectives objective;
-
+        public bool repairing = false;
+        public float repairPercentage;
         public RepairTarget targetObject;
 
         // Start is called before the first frame update
@@ -26,21 +27,27 @@ namespace UnderwaterHorror
         void Update()
         {
             FindRepairTarget();
+            ToggleRepairText();
             CheckRepairStatus();
             Repair();
         }
 
         void Repair()
         {
-            //Debug.Log(Vector3.Distance(this.gameObject.transform.position, repairDestination));
+            repairPercentage = (elapsedRepairTime / repairTime) * 100;
             if (WithinRepairRange() && InputManager.inputManager.rPressed && this.GetComponent<HeavyObject>().isHeld)
             {
+                repairing = true;
                 elapsedRepairTime += Time.deltaTime;
                 Debug.Log(elapsedRepairTime / repairTime);
                 // Play repairing audio
                 AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.repairing);
             }
-            else elapsedRepairTime = 0;
+            else
+            {
+                repairing = false;
+                elapsedRepairTime = 0;
+            }
 
             if (elapsedRepairTime < repairTime) return;
             // Play sound Once when complete
@@ -80,6 +87,18 @@ namespace UnderwaterHorror
                 return;
             }
             
+        }
+
+        public void ToggleRepairText()
+        {
+            if (WithinRepairRange() && this.GetComponent<HeavyObject>().isHeld)
+            {
+                UI_Manager.ui_Manager.ActivateSecondaryInteractText();
+            }
+            else if (!WithinRepairRange() && this.GetComponent<HeavyObject>().isHeld)
+            {
+                UI_Manager.ui_Manager.DisableSecondaryInteractText();
+            }
         }
 
     }
