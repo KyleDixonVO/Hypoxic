@@ -35,7 +35,7 @@ public class MedKit : Item
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
+        if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
         {
             AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.syringeUsed);
             beingUsed = true;
