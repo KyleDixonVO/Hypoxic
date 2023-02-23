@@ -80,6 +80,7 @@ namespace UnderwaterHorror
         [Header("Tools")]
         public AudioClip batteryUsed;
         public AudioClip glowstickUsed;
+        public AudioClip syringeUsed;
 
         [Header("ObjectiveAudioClips")]
         public AudioClip repairing;
@@ -208,20 +209,17 @@ namespace UnderwaterHorror
             source.clip = null;
         }
 
-
         public void PauseSound(AudioSource source)
         {
             // Pause a sound through the code's gameObject's audioManager
             source.Pause();
         }
 
-
         public void ResumeSound(AudioSource source)
         {
             // Resume a sound through the code's gameObject's audioManager
-            source.Play();
+            source.UnPause();
         }
-
 
         // Audio Randomizer -------------------------------------------------------------------------------------------------------------
         void ManageSoundRandomness()
@@ -320,9 +318,14 @@ namespace UnderwaterHorror
 
         void CheckPlayerSuitSounds()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || playerVoiceAudio == null) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             // Player must be in water for suit to function
-            if (FirstPersonController_Sam.fpsSam.inWater == false) return;
+            if (FirstPersonController_Sam.fpsSam.inWater == false)
+            {
+                StopSound(suitThrusterAudio);
+                StopSound(playerSuitAudio);
+                return;
+            }
 
             // Plays low power sound
             if (PlayerStats.playerStats.suitPower <= PlayerStats.playerStats.maxSuitPower / 2 && playedPowerBelowHalf == false)
@@ -349,7 +352,9 @@ namespace UnderwaterHorror
             {
                 if (!suitThrusterAudio.isPlaying) PlaySound(suitThrusterAudio, jets);
             }
-            else if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(suitThrusterAudio);
+
+            if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(suitThrusterAudio);
+
 
             // Stop running sound when holding a pipe
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj) StopSound(suitThrusterAudio);

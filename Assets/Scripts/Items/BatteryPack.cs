@@ -30,7 +30,6 @@ namespace UnderwaterHorror
 
             if (beingUsed)
             {               
-                AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.batteryUsed);
                 TimeToEffect();
             }
 
@@ -40,8 +39,9 @@ namespace UnderwaterHorror
                 return;
             }
 
-            if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0))
+            if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
             {
+                AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.batteryUsed);
                 beingUsed = true;
                 TimeToEffect();
             }

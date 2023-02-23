@@ -13,11 +13,18 @@ public class Glowstick : Item
     {
         light = GetComponent<Light>();
         light.enabled = false;
+        itemAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+        {
+            AudioManager.audioManager.PauseSound(itemAudioSource);
+            return;
+        }
+
         if (beingUsed)
         {
             TimeToEffect();
@@ -30,10 +37,16 @@ public class Glowstick : Item
             return;
         }
 
-        if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0))
+        if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
         {
+            AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.glowstickUsed);
             beingUsed = true;
             TimeToEffect();
+        }
+
+        if (gameObject.activeSelf == false)
+        {
+            AudioManager.audioManager.StopSound(itemAudioSource);
         }
     }
 
