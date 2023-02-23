@@ -33,13 +33,13 @@ public class Glowstick : Item
         if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
         {
             Unequip();
-            light.enabled = false;
             return;
         }
 
         if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
         {
             AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.glowstickUsed);
+            light.enabled = true;
             beingUsed = true;
             TimeToEffect();
         }
