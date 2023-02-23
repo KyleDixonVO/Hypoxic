@@ -209,20 +209,17 @@ namespace UnderwaterHorror
             source.clip = null;
         }
 
-
         public void PauseSound(AudioSource source)
         {
             // Pause a sound through the code's gameObject's audioManager
             source.Pause();
         }
 
-
         public void ResumeSound(AudioSource source)
         {
             // Resume a sound through the code's gameObject's audioManager
-            source.Play();
+            source.UnPause();
         }
-
 
         // Audio Randomizer -------------------------------------------------------------------------------------------------------------
         void ManageSoundRandomness()
