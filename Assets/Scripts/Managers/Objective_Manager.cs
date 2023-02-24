@@ -47,7 +47,7 @@ namespace UnderwaterHorror
         void Update()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-            UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
+            //UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
         }
 
         public void UpdateObjectiveCompletion(int objectiveNumber)
