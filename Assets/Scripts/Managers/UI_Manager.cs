@@ -59,6 +59,24 @@ namespace UnderwaterHorror
         [SerializeField] private TMP_Text textGameOver;
         [SerializeField] private Button buttonClearGameOver;
 
+        [Header("PDA Assets")]
+        [SerializeField] private Button buttonInventory;
+        [SerializeField] private Button buttonObjectives;
+        [SerializeField] private Button buttonLogs;
+        [SerializeField] private GameObject pdaObjectiveParent;
+        [SerializeField] private TMP_Text textPDAObjectives;
+        [SerializeField] private GameObject pdaInventoryParent;
+        [SerializeField] private GameObject pdaLogParent;
+        [SerializeField] private TMP_Text textLogTranscript;
+        [SerializeField] private Image[] playerInventoryImages;
+        [SerializeField] private Sprite[] itemImages;
+        [SerializeField] private string[] logTranscripts;
+        [SerializeField] private PDASubmenu submenu;
+
+        [SerializeField] private AudioSource logSource;
+
+
+
         [Header("General Variables")]
         [SerializeField] private ActiveUI activeCanvas;
         [SerializeField] private Canvas[] canvasArray;
@@ -74,6 +92,34 @@ namespace UnderwaterHorror
             NewGame,
             GameOverWin,
             PDA
+        }
+
+        public enum PDASubmenu 
+        { 
+            Inventory,
+            Objectives,
+            Logs
+        }
+
+        public enum Log
+        {
+            Log1,
+            Log2,
+            Log3,
+            Log4,
+            Log5,
+            Log6
+        }
+
+        public enum Items
+        {
+            Gun,
+            Prod,
+            Battery,
+            Medkit,
+            Glowstick,
+            NoItem
+
         }
 
         private void Awake()
@@ -144,6 +190,16 @@ namespace UnderwaterHorror
 
             textGameOver = GameObject.Find("TextGameOver").GetComponent<TMP_Text>();
             buttonClearGameOver = GameObject.Find("ButtonClearGameOver").GetComponent<Button>();
+
+            buttonInventory = GameObject.Find("ButtonInventory").GetComponent<Button>();
+            buttonObjectives = GameObject.Find("ButtonObjectives").GetComponent<Button>();
+            buttonLogs = GameObject.Find("ButtonLogs").GetComponent<Button>();
+            pdaInventoryParent = GameObject.Find("PDAInventoryParent");
+            pdaLogParent = GameObject.Find("PDALogParent");
+            pdaObjectiveParent = GameObject.Find("PDAObjectiveParent");
+            textPDAObjectives = GameObject.Find("TextPDAObjectives").GetComponent<TMP_Text>();
+            textLogTranscript = GameObject.Find("TextLogTranscript").GetComponent<TMP_Text>();
+
         }
 
         void FindCameraRefs()
@@ -172,6 +228,7 @@ namespace UnderwaterHorror
                 else if (activeCanvas == ActiveUI.Gameplay && InputManager.inputManager.tabPressed && i == (int)ActiveUI.PDA)
                 {
                     canvasArray[i].enabled = true;
+                    TogglePDASubmenus();
                     continue;
                 }
                 else if (activeCanvas == ActiveUI.NewGame&& i == (int)ActiveUI.MainMenu) continue;
@@ -213,6 +270,7 @@ namespace UnderwaterHorror
             }
         }
 
+        //Toggles for buttons on the main menu canvas
         void DisableMainMenuButtons()
         {
             buttonStartGame.interactable = false;
@@ -244,6 +302,99 @@ namespace UnderwaterHorror
             }
         }
 
+        //PDA methods
+        void TogglePDASubmenus()
+        {
+            PDASubmenu passthrough = PDASubmenu.Objectives;
+            if (SubmenuButton.caller != null) 
+            {
+                passthrough = SubmenuButton.caller.activeSubmenu;
+            }
+            
+            switch (passthrough) 
+            {
+                case PDASubmenu.Inventory:
+                    UpdatePDAInventoryImages();
+                    if (submenu == passthrough) return;
+                    pdaInventoryParent.SetActive(true);
+                    pdaLogParent.SetActive(false);
+                    pdaObjectiveParent.SetActive(false);
+                    break;
+
+                case PDASubmenu.Logs:
+                    if (submenu == passthrough) return;
+                    pdaInventoryParent.SetActive(false);
+                    pdaLogParent.SetActive(true);
+                    pdaObjectiveParent.SetActive(false);
+                    break;
+
+                case PDASubmenu.Objectives:
+                    UpdatePDAObjectiveText();
+                    if (submenu == passthrough) return;
+                    pdaInventoryParent.SetActive(false);
+                    pdaLogParent.SetActive(false);
+                    pdaObjectiveParent.SetActive(true);
+                    break;
+            }
+            submenu = passthrough;
+        }
+
+        void UpdatePDAInventoryImages()
+        {
+            for (int i = 0; i < PlayerInventory.playerInventory.inventory.Length; i++)
+            {
+                if (PlayerInventory.playerInventory.inventory[i] == null)
+                {
+                    Debug.LogWarning("No item in inventory slot");
+                    playerInventoryImages[i].sprite = itemImages[(int)Items.NoItem];
+                    continue;
+                }
+
+                switch (PlayerInventory.playerInventory.inventory[i].GetComponent<Interactable>().typeName)
+                {
+                    case "BatteryPack":
+                        playerInventoryImages[i].sprite = itemImages[(int)Items.Battery];
+                        break;
+
+                    case "MedKit":
+                        playerInventoryImages[i].sprite = itemImages[(int)Items.Medkit];
+                        break;
+
+                    case "Glowstick":
+                        playerInventoryImages[i].sprite = itemImages[(int)Items.Glowstick];
+                        break;
+
+                    case "ElectroProd":
+                        playerInventoryImages[i].sprite = itemImages[(int)Items.Prod];
+                        break;
+
+                    case "HarpoonGun":
+                        playerInventoryImages[i].sprite = itemImages[(int)Items.Gun];
+                        break;
+
+                    default:
+                        Debug.LogWarning("typeName cannot be read");
+                        Debug.LogWarning(PlayerInventory.playerInventory.inventory[i].GetComponent<Interactable>().typeName);
+                        playerInventoryImages[i].sprite = itemImages[(int)Items.NoItem];
+                        break;
+                }
+            }
+        }
+
+        void UpdatePDAObjectiveText()
+        {
+            textPDAObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
+        }
+
+        public void UpdateLogSubmenu()
+        {
+            textLogTranscript.text = logTranscripts[(int)LogButton.caller.activeLog];
+
+            if (AudioManager.audioManager.audioLogs[(int)LogButton.caller.activeLog] == null) return;
+            AudioManager.audioManager.PlaySound(logSource, AudioManager.audioManager.audioLogs[(int)LogButton.caller.activeLog]);
+        }
+
+        //Updates the camera reference on objects that use post processing
         void UpdatePostProcessCamRef()
         {
             for (int i = 0; i < canvasArray.Length; i++)
@@ -262,6 +413,7 @@ namespace UnderwaterHorror
             }
         }
 
+        //Updates ammo count, as well as health and suit power slider values
         void UpdateGameplayHUD()
         {
             textObjectives.text = Objective_Manager.objective_Manager.AssignObjectiveText();
@@ -279,6 +431,7 @@ namespace UnderwaterHorror
             suitPower.value = PlayerStats.playerStats.suitPower;
         }
 
+        //Updating various slider values
         public void UpdateOptionsSliderText()
         {
             textMasterSlider.text = "Master Vol: " + ((int)(sliderMaster.value * 100)).ToString();
@@ -315,12 +468,20 @@ namespace UnderwaterHorror
             }
         }
 
+        //Bools to check for various UI states elsewhere in code
         public bool OptionsOpen()
         {
             if (activeCanvas == ActiveUI.Options) return true;
             return false;
         }
 
+        public bool PDAOpen()
+        {
+            if (canvasArray[(int)ActiveUI.PDA].enabled) return true;
+            return false;
+        }
+
+        //Toggles for interaction UI text
         public void ActivatePrimaryInteractText()
         {
             textToolTipE.gameObject.SetActive(true);

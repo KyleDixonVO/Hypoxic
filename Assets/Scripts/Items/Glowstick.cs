@@ -14,12 +14,13 @@ public class Glowstick : Item
         light = GetComponent<Light>();
         light.enabled = false;
         itemAudioSource = GetComponent<AudioSource>();
+        typeName = "Glowstick";
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || UI_Manager.ui_Manager.PDAOpen())
         {
             AudioManager.audioManager.PauseSound(itemAudioSource);
             return;

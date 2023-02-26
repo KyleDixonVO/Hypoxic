@@ -16,6 +16,7 @@ namespace UnderwaterHorror
             reserves = maxAmmo;
             currentAmmo = 1;
             reloadTime = 2;
+            typeName = "ElectroProd";
 
             // set bools
             canShoot = true;
@@ -28,7 +29,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || UI_Manager.ui_Manager.PDAOpen())
             {
                 AudioManager.audioManager.PauseSound(weaponAudioSource);
                 return;
