@@ -30,7 +30,7 @@ namespace UnderwaterHorror
 
         [Header("Components")]
         protected AudioManager audioManager = AudioManager.audioManager;
-        protected Animator animator;
+        [SerializeField] protected Animator animator;
 
 
         [Header("GameObjects")]
@@ -75,11 +75,13 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
                 agent.isStopped = true;
+                animator.speed = 0;
                 return;
             }
             else
             {
                 agent.isStopped = false;
+                animator.speed = 1;
             }
 
 
@@ -95,9 +97,11 @@ namespace UnderwaterHorror
 
         void UpdateAnimatorRefs()
         {
+            if (animator == null) return;
             animator.SetFloat("Speed", this.agent.velocity.magnitude);
             animator.SetFloat("Health", this._enemyStats.health);
             animator.SetBool("InAttackRange", WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
+            Debug.Log(animator.GetBool("InAttackRange") + " " + animator.GetFloat("Speed") + " " + animator.GetFloat("Health") + " " + gameObject.name);
         }
 
 
