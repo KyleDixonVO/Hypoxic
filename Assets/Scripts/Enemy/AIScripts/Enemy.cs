@@ -30,6 +30,7 @@ namespace UnderwaterHorror
 
         [Header("Components")]
         protected AudioManager audioManager = AudioManager.audioManager;
+        [SerializeField] protected Animator animator;
 
 
         [Header("GameObjects")]
@@ -74,11 +75,19 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
                 agent.isStopped = true;
+                if (animator != null)
+                {
+                    animator.speed = 0;
+                }
                 return;
             }
             else
             {
                 agent.isStopped = false;
+                if (animator != null)
+                {
+                    animator.speed = 1;
+                }
             }
 
 
@@ -86,9 +95,19 @@ namespace UnderwaterHorror
             // But have to recharge after a single bite
             _enemyStats.timeToAttack -= Time.deltaTime;
 
+            UpdateAnimatorRefs();
             FindPatrolPoints();
             EnemyStateManager();
             //Debug.Log(enemyState);
+        }
+
+        void UpdateAnimatorRefs()
+        {
+            if (animator == null) return;
+            animator.SetFloat("Speed", this.agent.velocity.magnitude);
+            animator.SetFloat("Health", this._enemyStats.health);
+            animator.SetBool("InAttackRange", WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
+            Debug.Log(animator.GetBool("InAttackRange") + " " + animator.GetFloat("Speed") + " " + animator.GetFloat("Health") + " " + gameObject.name);
         }
 
 

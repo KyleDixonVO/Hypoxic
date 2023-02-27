@@ -434,7 +434,7 @@ namespace UnderwaterHorror
             masterVolume = UI_Manager.ui_Manager.sliderMaster.value;
             musicVolume = UI_Manager.ui_Manager.sliderMusic.value;
             sfxVolume = UI_Manager.ui_Manager.sliderSFX.value;
-            Debug.Log("Master: " + masterVolume + "Music: " + musicVolume + "SFX: " + sfxVolume);
+            //Debug.Log("Master: " + masterVolume + "Music: " + musicVolume + "SFX: " + sfxVolume);
         }
 
 
