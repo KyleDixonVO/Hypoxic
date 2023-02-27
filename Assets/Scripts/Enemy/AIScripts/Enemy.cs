@@ -75,13 +75,19 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
                 agent.isStopped = true;
-                animator.speed = 0;
+                if (animator != null)
+                {
+                    animator.speed = 0;
+                }
                 return;
             }
             else
             {
                 agent.isStopped = false;
-                animator.speed = 1;
+                if (animator != null)
+                {
+                    animator.speed = 1;
+                }
             }
 
 
