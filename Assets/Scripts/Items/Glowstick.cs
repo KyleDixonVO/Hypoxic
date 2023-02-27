@@ -13,23 +13,17 @@ public class Glowstick : Item
     {
         light = GetComponent<Light>();
         light.enabled = false;
+        itemAudioSource = GetComponent<AudioSource>();
+        typeName = "Glowstick";
     }
 
     // Update is called once per frame
     void Update()
     {
-        //TEMP
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || UI_Manager.ui_Manager.PDAOpen())
         {
-            isEquiped = true;
-            gameObject.GetComponent<Renderer>().enabled = true;
-            light.enabled = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) | Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            isEquiped = false;
-            gameObject.GetComponent<Renderer>().enabled = false;
-            light.enabled = false;
+            AudioManager.audioManager.PauseSound(itemAudioSource);
+            return;
         }
 
         if (beingUsed)
@@ -40,22 +34,37 @@ public class Glowstick : Item
         if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
         {
             Unequip();
-            light.enabled = false;
             return;
         }
 
-        if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0))
+        if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
         {
+            AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.glowstickUsed);
+            light.enabled = true;
             beingUsed = true;
             TimeToEffect();
         }
+
+        if (gameObject.activeSelf == false)
+        {
+            AudioManager.audioManager.StopSound(itemAudioSource);
+        }
+    }
+
+    public void TurnOn()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
+    }
+    public void TurnOff()
+    {
+        gameObject.GetComponent<Renderer>().enabled = false;
     }
 
     protected override void ApplyEffect()
     {
         this.gameObject.transform.SetParent(null);
         Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
-        Vector3 forwardForce = strength * transform.forward;
+        Vector3 forwardForce = strength * transform.right;
         rigidbody.mass = 1f;       
         rigidbody.AddForce(forwardForce.x, forwardForce.y + 2f, forwardForce.z, ForceMode.Impulse);      
     }

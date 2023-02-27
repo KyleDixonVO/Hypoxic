@@ -5,7 +5,7 @@ using UnderwaterHorror;
 
 namespace UnderwaterHorror
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : Interactable
     {
         [Header("Refrences")]
         public Camera playerCamera;
@@ -15,7 +15,8 @@ namespace UnderwaterHorror
         [SerializeField]
         protected int damage;
         [SerializeField]
-        protected int currentAmmo;
+        public int currentAmmo;
+        public int reserves;
         [SerializeField]
         protected int maxAmmo;
         [SerializeField]
@@ -59,24 +60,11 @@ namespace UnderwaterHorror
                     blood.transform.position = hit.point;
                     StartCoroutine(waitTime(blood));
                 }
+
+                Debug.LogWarning("hit " + hit);
             }
             currentAmmo--;
         }
-
-        /*protected void EquipUnequip() // TEMP PUT ITEM AWAY
-        {
-            if (isEquiped)
-            {
-                isEquiped = false;
-                gameObject.GetComponent<Renderer>().enabled = false;
-                if (reloadProgress != 0) reloadProgress = reloadTime;
-            }
-            else if (!isEquiped)
-            {
-                isEquiped = true;
-                gameObject.GetComponent<Renderer>().enabled = true;
-            }
-        }*/
 
         public void GetAmmo(int ammoAmmount)
         {
@@ -105,6 +93,24 @@ namespace UnderwaterHorror
         {
             yield return new WaitForSeconds(2f);
             Destroy(sfx);
+        }
+
+        public override void OnInteract()
+        {
+            PlayerInventory.playerInventory.AddToInventory(this.gameObject);
+            // throw new System.NotImplementedException();
+        }
+
+        public override void OnFocus()
+        {
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+           // throw new System.NotImplementedException();
+        }
+
+        public override void OnLoseFocus()
+        {
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
+           // throw new System.NotImplementedException();
         }
     }
 

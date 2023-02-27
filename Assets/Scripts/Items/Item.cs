@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnderwaterHorror
 {
-    public class Item : MonoBehaviour
+    public class Item : Interactable
     {
         [Header("Usage Timers")]
         [SerializeField]
@@ -20,13 +20,17 @@ namespace UnderwaterHorror
 
         [Header("bools")]
         [SerializeField]
-        protected bool isEquiped;
+        public bool isEquiped;
         [SerializeField]
         protected bool beingUsed;
+        public bool isUsed = false;
+
+        // Tobias was here
+        protected AudioSource itemAudioSource;
 
         private void Start()
         {
-
+            
         }
 
         protected void TimeToEffect()
@@ -37,6 +41,7 @@ namespace UnderwaterHorror
                 // activets ApplyEffect()
                 ApplyEffect();
                 beingUsed = false;
+                isUsed = true;
             }
             else if (usageProgress > 0 && isEquiped) // Timer
             {
@@ -63,6 +68,25 @@ namespace UnderwaterHorror
         {
             isEquiped = true;
             gameObject.GetComponent<Renderer>().enabled = true;
+        }
+
+        // ----------------------------------- Interactable ---------------------- \\
+        public override void OnInteract()
+        {
+            PlayerInventory.playerInventory.AddToInventory(this.gameObject);
+            //throw new System.NotImplementedException();
+        }
+
+        public override void OnFocus()
+        {
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            //throw new System.NotImplementedException();
+        }
+
+        public override void OnLoseFocus()
+        {
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
+           // throw new System.NotImplementedException();
         }
     }
 

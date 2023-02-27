@@ -23,13 +23,14 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-            heavyObjects = new HeavyObject[Data_Manager.dataManager.numberOfObjectives - 1];
+            heavyObjects = new HeavyObject[Data_Manager.dataManager.numberOfObjectives - 2];
         }
 
         // Update is called once per frame
         void Update()
         {
             HeavyObjectSingleton();
+            ToggleRigidbodies();
             if (FirstPersonController_Sam.fpsSam == null || heavyObjects.Length == 0) return;
             WithinPickupRange();
         }
@@ -48,6 +49,7 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             for (int i = 0; i < heavyObjects.Length; i++)
             {
+ 
                 switch (i) 
                 {
                     case 0:
@@ -57,16 +59,16 @@ namespace UnderwaterHorror
                             {
                                 heavyObjects[i] = GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>();
                                 DontDestroyOnLoad(heavyObjects[i]);
+                                heavyObjects[i].singleton = true;
+                                Debug.Log("Found pipe red");
                             }
                             catch
                             {
                                 Debug.Log("Cannot find an instance of pipeFixedRed");
                             }
+                            
                         }
-                        else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>())
-                        {
-                            Destroy(GameObject.Find("pipeFixedRed"));
-                        }
+
                         break;
 
                     case 1:
@@ -76,23 +78,53 @@ namespace UnderwaterHorror
                             {
                                 heavyObjects[i] = GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>();
                                 DontDestroyOnLoad(heavyObjects[i]);
+                                heavyObjects[i].singleton = true;
+                                Debug.Log("Found pipe green");
                             }
                             catch
                             {
                                 Debug.Log("Cannot find an instance of pipeFixedGreen");
                             }
                         }
-                        else if (heavyObjects[i] != null && heavyObjects[i] != GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>())
+                        else if (heavyObjects[i] != null && GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>() != heavyObjects[i])
                         {
-                            Destroy(GameObject.Find("pipeFixedGreen"));
+                                Debug.Log("Attempting to destroy green pipe");
+                                Destroy(GameObject.Find("pipeFixedGreen"));
                         }
                         break;
 
                     case 2:
                         break;
                 }
+            }
 
-                
+            for (int i = 0; i < GameObject.FindGameObjectsWithTag("Pipe").Length; i++)
+            {
+                if (!GameObject.FindGameObjectsWithTag("Pipe")[i].GetComponent<HeavyObject>().singleton)
+                {
+                    Destroy(GameObject.FindGameObjectsWithTag("Pipe")[i]);
+                }
+            }
+        }
+
+        private void ToggleRigidbodies()
+        {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (Level_Manager.LM.IsSceneOpen("Outside"))
+            {
+                for (int i = 0; i < heavyObjects.Length; i++)
+                {
+                    if (heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == false) return;
+                    heavyObjects[i].GetComponent<Rigidbody>().WakeUp();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < heavyObjects.Length; i++)
+                {
+                    if (heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == true) return;
+                    heavyObjects[i].GetComponent<Rigidbody>().Sleep();
+                }
             }
         }
     }

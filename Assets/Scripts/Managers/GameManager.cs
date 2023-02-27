@@ -36,6 +36,7 @@ namespace UnderwaterHorror
         void Start()
         {
             _gameState = gameStates.menu;
+            gameState = _gameState;
             Data_Manager.dataManager.LoadGlobalData();
             Level_Manager.LM.LoadMainMenu();
             AudioManager.audioManager.LoadVolumePrefs();
@@ -60,6 +61,7 @@ namespace UnderwaterHorror
             {
                 case gameStates.gameplay:
                     GamestatePause();
+                    PDA_LockMovement();
                     SwitchEndgame();
                     break;
 
@@ -87,7 +89,18 @@ namespace UnderwaterHorror
             UI_Manager.ui_Manager.SwitchPause();
             FirstPersonController_Sam.fpsSam.LockPlayerMovement();
             _gameState = gameStates.paused;
-            
+        }
+
+        void PDA_LockMovement()
+        {
+            if (UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay)
+            {
+                FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+            }
+            else if (!UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay)
+            {
+                FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
+            }
         }
 
         public void GamestateCutscene()
@@ -128,6 +141,9 @@ namespace UnderwaterHorror
             //loads players last save
             Data_Manager.dataManager.LoadFromPlayerData();
             Objective_Manager.objective_Manager.LoadObjectiveStates();
+            Data_Manager.dataManager.LoadFromEnemyData();
+            Enemy_Manager.enemy_Manager.LoadEnemyStates();
+
 
             if (FirstPersonController_Sam.fpsSam == null) return;
             FirstPersonController_Sam.fpsSam.LoadCharacterState();

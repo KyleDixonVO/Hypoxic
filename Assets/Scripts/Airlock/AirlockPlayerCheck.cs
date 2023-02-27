@@ -17,7 +17,7 @@ namespace UnderwaterHorror
         {
             if (other.tag == "Player") AL.playerPresent = false;
 
-            AL.CloseDoor(2f);
+            AL.CloseDoor();
         }
     }
 }

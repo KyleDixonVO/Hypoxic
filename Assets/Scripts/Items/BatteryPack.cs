@@ -14,23 +14,23 @@ namespace UnderwaterHorror
         {
             usageTime = 2;
             usageProgress = usageTime;
+            typeName = "BatteryPack";
+
+            // Tobias is nuts
+            itemAudioSource = this.gameObject.GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || UI_Manager.ui_Manager.PDAOpen())
             {
-                Equip();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Unequip();
+                AudioManager.audioManager.PauseSound(itemAudioSource); 
+                return;
             }
 
             if (beingUsed)
-            {
+            {               
                 TimeToEffect();
             }
 
@@ -40,10 +40,16 @@ namespace UnderwaterHorror
                 return;
             }
 
-            if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0))
+            if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
             {
+                AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.batteryUsed);
                 beingUsed = true;
                 TimeToEffect();
+            }
+
+            if (gameObject.activeSelf == false)
+            {
+                AudioManager.audioManager.StopSound(itemAudioSource);
             }
         }
 

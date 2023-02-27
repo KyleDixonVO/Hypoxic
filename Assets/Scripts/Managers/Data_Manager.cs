@@ -5,8 +5,8 @@ using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace UnderwaterHorror 
-{ 
+namespace UnderwaterHorror
+{
     public class Data_Manager : MonoBehaviour
     {
         public static Data_Manager dataManager;
@@ -43,6 +43,10 @@ namespace UnderwaterHorror
         public float playerRotY;
         public float playerRotZ;
 
+        //enemyManager
+        public readonly int numberOfEnemies = 5;
+        Enemy[] enemies;
+
 
 
 
@@ -63,12 +67,22 @@ namespace UnderwaterHorror
         void Start()
         {
             objectives = new bool[numberOfObjectives];
+            enemies = new Enemy[numberOfEnemies];
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+
+        }
+
+        public bool SaveExists()
+        {
+            if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
+            {
+                return true;
+            }
+            return false;
         }
 
         //saves out settings prefs
@@ -152,7 +166,7 @@ namespace UnderwaterHorror
             else
             {
                 //set stats to default if save is missing or unreadable
-                Debug.Log("File not found, resetting player stats to default");
+                Debug.Log("File error, resetting player stats to default");
                 ResetPlayerData();
             }
         }
@@ -160,8 +174,6 @@ namespace UnderwaterHorror
         //saves to playerData from Data_Manager
         public void SaveToPlayerData()
         {
-            // Save does not work - Tobias
-            // Too bad - Who cares
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream playerFile = File.Create(Application.persistentDataPath + "/playerData.dat");
             saving = true;
@@ -323,6 +335,87 @@ namespace UnderwaterHorror
             SFXVolume = 1.0f;
         }
 
+        public void SaveToEnemyData()
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream enemyFile = File.Create(Application.persistentDataPath + "/enemyData.dat");
+            saving = true;
+            EnemyData enemyData = new EnemyData();
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemyData.health[i] = enemies[i]._enemyStats.health;
+                enemyData.alive[i] = enemies[i].isAlive;
+                enemyData.searching[i] = enemies[i].searching;
+                enemyData.currentPatrolPoints[i] = enemies[i].currentPatrolPoint;
+                enemyData.statesAsInt[i] = (int)enemies[i].enemyState;
+                enemyData.patrolPointParentNames[i] = enemies[i].patrolPointParentName;
+                enemyData.savePosX[i] = enemies[i].saveGamePos.x;
+                enemyData.savePosY[i] = enemies[i].saveGamePos.y;
+                enemyData.savePosZ[i] = enemies[i].saveGamePos.z;
+            }
+
+            binaryFormatter.Serialize(enemyFile, enemyData);
+            enemyFile.Close();
+            saving = false;
+        }
+
+        public void LoadFromEnemyData()
+        {
+            if (File.Exists(Application.persistentDataPath + "/enemyData.dat"))
+            {
+                Debug.Log("File found, loading enemy data");
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                FileStream enemyFile = File.Open(Application.persistentDataPath + "/enemyData.dat", FileMode.Open);
+                if (enemyFile.Length == 0)
+                {
+                    enemyFile.Close();
+                    Debug.Log("File length 0, closing file");
+                }
+                else
+                {
+                    enemyFile.Position = 0;
+                    EnemyData enemyData = (EnemyData)binaryFormatter.Deserialize(enemyFile);
+                    enemyFile.Close();
+
+                    for (int i = 0; i < enemies.Length; i++)
+                    {
+                        enemies[i]._enemyStats.health = enemyData.health[i];
+                        enemies[i].isAlive = enemyData.alive[i];
+                        enemies[i].searching = enemyData.searching[i];
+                        enemies[i].currentPatrolPoint = enemyData.currentPatrolPoints[i];
+                        enemies[i].enemyState = (Enemy.EnemyState)enemyData.statesAsInt[i];
+                        enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
+                        enemies[i].saveGamePos.x = enemyData.savePosX[i];
+                        enemies[i].saveGamePos.y = enemyData.savePosY[i];
+                        enemies[i].saveGamePos.z = enemyData.savePosZ[i];
+                    }
+                }
+            }
+            else
+            {
+                //set stats to default if save is missing or unreadable
+                Debug.Log("File not found, resetting player stats to default");
+            }
+        }
+
+        public void EnemyManagerToDataManager()
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i] = Enemy_Manager.enemy_Manager.enemies[i];
+            }
+
+            SaveToEnemyData();
+        }
+
+        public void DataManagerToEnemyManager()
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Enemy_Manager.enemy_Manager.enemies[i] = enemies[i];
+            }
+        }
     }
 
 
@@ -334,8 +427,6 @@ namespace UnderwaterHorror
         public float musicVolume;
         public float SFXVolume;
     }
-
-
 
     [Serializable]
     public class PlayerData
@@ -367,4 +458,19 @@ namespace UnderwaterHorror
         public float playerRotZ;
     }
 
+    [Serializable]
+    public class EnemyData
+    {
+        public int[] statesAsInt = new int[Data_Manager.dataManager.numberOfEnemies];
+        public float[] savePosX = new float[Data_Manager.dataManager.numberOfEnemies];
+        public float[] savePosY = new float[Data_Manager.dataManager.numberOfEnemies];
+        public float[] savePosZ = new float[Data_Manager.dataManager.numberOfEnemies];
+        public int[] health = new int[Data_Manager.dataManager.numberOfEnemies];
+        public bool[] searching = new bool[Data_Manager.dataManager.numberOfEnemies];
+        public string[] patrolPointParentNames = new string[Data_Manager.dataManager.numberOfEnemies];
+        public int[] currentPatrolPoints = new int[Data_Manager.dataManager.numberOfEnemies];
+        public bool[] alive = new bool[Data_Manager.dataManager.numberOfEnemies];
+
+
+    }
 }

@@ -47,7 +47,7 @@ namespace UnderwaterHorror
         void Update()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-            UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
+            //UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
         }
 
         public void UpdateObjectiveCompletion(int objectiveNumber)
@@ -62,7 +62,7 @@ namespace UnderwaterHorror
 
             if (isObjectiveComplete[objectiveNumber]) return;
             isObjectiveComplete[objectiveNumber] = true;
-            Debug.Log(objectiveNumber + " " + isObjectiveComplete[objectiveNumber]);
+            //Debug.Log(objectiveNumber + " " + isObjectiveComplete[objectiveNumber]);
         }
 
         public bool IfWonGame()

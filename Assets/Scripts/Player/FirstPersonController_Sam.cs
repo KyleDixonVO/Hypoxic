@@ -20,8 +20,8 @@ namespace UnderwaterHorror
 
         [Header("Functional Settings")]
         [SerializeField] private bool isDashing = false;
-        [SerializeField] public bool inWater = false;
-        [SerializeField] public bool carryingHeavyObj = false;
+        public bool inWater = false;
+        public bool carryingHeavyObj = false;
         [SerializeField] private bool canRun = true;
         [SerializeField] private bool canJump = true;
         [SerializeField] private bool canCrouch = true;
@@ -141,14 +141,14 @@ namespace UnderwaterHorror
 
         [Header("Interaction Settings")]
         [SerializeField] private Vector3 interactionRayPoint = new Vector3(0.5f, 0.5f, 0);
-        [SerializeField] private float interactionDistance = 2.0f;
+        [SerializeField] private float interactionDistance = 2.5f;
         [SerializeField] private LayerMask interactionLayer;
         [SerializeField] private Interactable currentInteractable;
 
         #endregion
 
         [SerializeField]
-        private Camera playerCamera;
+        public Camera playerCamera;
         private CharacterController characterController;
 
         private Vector3 moveDirection;
@@ -177,16 +177,11 @@ namespace UnderwaterHorror
             characterController = GetComponent<CharacterController>();
             defaultYPos = playerCamera.transform.localPosition.y;
             defaultFOV = playerCamera.fieldOfView;        
-
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         private void Start()
         {
-            Debug.Log(interactionLayer.value);
-           // interactionLayer = LayerMask.NameToLayer("Interactable");
+            LockPlayerMovement();
         }
 
         private void Update()
@@ -216,6 +211,7 @@ namespace UnderwaterHorror
 
         public void LockPlayerMovement()
         {
+            Debug.Log("Player Movement Locked");
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -223,6 +219,7 @@ namespace UnderwaterHorror
 
         public void UnlockPlayerMovement()
         {
+            Debug.Log("Player Movement Unlocked");
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -352,9 +349,13 @@ namespace UnderwaterHorror
 
         private void HandleInteractionInput()
         {
+            if (!InputManager.inputManager.eCycled) return;
             if (InputManager.inputManager.ePressed && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
-            {            
+            {
+                AudioManager.audioManager.StopSound(AudioManager.audioManager.playerInventoryAudio);
+                AudioManager.audioManager.PlaySound(AudioManager.audioManager.playerInventoryAudio, AudioManager.audioManager.pickupItem);
                 currentInteractable.OnInteract();
+                InputManager.inputManager.SetECycledfalse();
             }
         }
 
@@ -424,7 +425,7 @@ namespace UnderwaterHorror
             }
 
             // dashing
-            UnderwaterDash();
+            //UnderwaterDash();
         
         
 
@@ -577,6 +578,7 @@ namespace UnderwaterHorror
         {
             if (this.gameObject.GetComponent<CharacterController>().enabled == false) return;
             this.gameObject.GetComponent<CharacterController>().enabled = false;
+            
         }
 
         public void EnableCharacterController()

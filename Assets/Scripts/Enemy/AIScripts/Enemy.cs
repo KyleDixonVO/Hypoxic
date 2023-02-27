@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 namespace UnderwaterHorror
 {
-    //Code by Tobias
+    //Code by Tobias & Kyle
     public class Enemy : MonoBehaviour
     {
         public bool isAlive;
-        protected enum EnemyState
+        public enum EnemyState
         {
             patrolling,
             alerted,
@@ -19,40 +20,53 @@ namespace UnderwaterHorror
             defeated
         }
 
-        protected EnemyState enemyState;
+
+        public EnemyState enemyState;
+
 
         [Header("Scripts")]
-        [SerializeField] protected EnemyStats _enemyStats;
+        [SerializeField] public EnemyStats _enemyStats;
+
+
+        [Header("Components")]
+        protected AudioManager audioManager = AudioManager.audioManager;
+
 
         [Header("GameObjects")]
         [SerializeField] protected List<GameObject> patrolPoints = new List<GameObject>();
+        [SerializeField] protected GameObject patrolPointParent;
+        public string patrolPointParentName;
+
 
         [Header("Place desired patrol point here")]
-        [SerializeField] protected int currentPatrolPoint;
+        [SerializeField] public int currentPatrolPoint;
+
 
         [Header("NavMesh")]
         [SerializeField] protected NavMeshAgent agent;
 
+
         [Header("FOVRaycast")]
         [SerializeField] protected LayerMask layerMasks;
 
+
         [Header("Saved Vectors")]
-        [SerializeField] private Vector3 NewGamePos;
-        [SerializeField] private Vector3 SaveGamePos;
+        [SerializeField] public Vector3 newGamePos;
+        [SerializeField] public Vector3 saveGamePos;
         protected Vector3 playerPreviousLocation;
 
-        // lil addon by edmund
-        [Header("AudioSource")]
-        [SerializeField] protected AudioSource source;
 
-        private bool searching = false;
+        public bool searching = false;
+        public bool singleton = false;
         private Vector3 lookTarget;
+
 
         private void Start()
         {
             isAlive = true;
             enemyState = EnemyState.patrolling;
         }
+
 
         // Update is called once per frame
         protected void Update()
@@ -67,13 +81,16 @@ namespace UnderwaterHorror
                 agent.isStopped = false;
             }
 
+
             // Makes it so the enemy can bite you immediatly on contact
             // But have to recharge after a single bite
             _enemyStats.timeToAttack -= Time.deltaTime;
 
+            FindPatrolPoints();
             EnemyStateManager();
-            Debug.Log(enemyState);
+            //Debug.Log(enemyState);
         }
+
 
         void EnemyStateManager()
         {
@@ -81,6 +98,7 @@ namespace UnderwaterHorror
             {
                 enemyState = EnemyState.defeated;
             }
+
 
             switch (enemyState)
             {
@@ -165,27 +183,35 @@ namespace UnderwaterHorror
                     DefeatedManager();
                     break;
                     //-----------------------------------------  
+
+
             }
+            CheckSounds();
         }
+
 
         virtual protected void PatrollingManager()
         {
             agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
+            if (patrolPointParent == null) return;
             if (agent.destination != patrolPoints[currentPatrolPoint].transform.position)
             {
                 agent.SetDestination(patrolPoints[currentPatrolPoint].transform.position);
             }
 
+
             Vector3 targetPos = new Vector3(patrolPoints[currentPatrolPoint].transform.position.x, 0, patrolPoints[currentPatrolPoint].transform.position.z);
             Vector3 agentPos = new Vector3(agent.transform.position.x, 0, agent.transform.position.z);
             //--------------------------------------------------------------
+
 
             if (!WithinRange(_enemyStats.patrolRadius, targetPos, agentPos))
             {
                 _enemyStats.patrolRandomWaitTimer = Random.Range(0, _enemyStats.patrolRandomWaitTimerWeight);
                 return;
             }
+
 
             if (_enemyStats.patrolRandomWaitTimer <= 0)
             {
@@ -194,9 +220,11 @@ namespace UnderwaterHorror
                 else if (currentPatrolPoint + 1 < patrolPoints.Count) currentPatrolPoint++;
                 else if (currentPatrolPoint - 1 >= 0) currentPatrolPoint--;
 
+
             }
             else _enemyStats.patrolRandomWaitTimer -= Time.deltaTime;
         }
+
 
         void ChasingManager()
         {
@@ -204,10 +232,16 @@ namespace UnderwaterHorror
             // Chases after the players position
             agent.SetDestination(PlayerStats.playerStats.gameObject.transform.position);
 
+
             // Tracks player's previous location
             playerPreviousLocation = PlayerStats.playerStats.transform.position;
-            //---------------------------------------------------------
+            
+            if (this.gameObject.GetComponent<BigEnemyFish>() == null)
+            {
+                AlertBigFish(Enemy_Manager.enemy_Manager.enemies[0].GetComponent<BigEnemyFish>());
+            }
         }
+
 
         void AttackingManager()
         {
@@ -219,7 +253,8 @@ namespace UnderwaterHorror
             }
         }
 
-        void AlertedManager() 
+
+        void AlertedManager()
         {
             if (agent.isStopped == false)
             {
@@ -229,27 +264,33 @@ namespace UnderwaterHorror
                 _enemyStats.elapsedAlertTime = 0;
             }
 
+
             this.gameObject.transform.rotation = Quaternion.Slerp(this.gameObject.transform.rotation, Quaternion.LookRotation(lookTarget), agent.angularSpeed * Time.deltaTime);
             if (Vector3.Angle(transform.forward, lookTarget) > 5) return;
-            if (_enemyStats.elapsedAlertTime < _enemyStats.alertCheckingTime) 
+            if (_enemyStats.elapsedAlertTime < _enemyStats.alertCheckingTime)
             {
                 _enemyStats.elapsedAlertTime += Time.deltaTime;
                 return;
             }
 
-            
+
+
         }
+
 
         void SearchingManager()
         {
             agent.speed = _enemyStats.searchingMovementSpeed;
 
+
             Vector3 previousPos = new Vector3(playerPreviousLocation.x, 0, playerPreviousLocation.z);
             Vector3 agentPos = new Vector3(agent.transform.position.x, 0, agent.transform.position.z);
             // ------------------------------------------------------------------------
 
+
             // Goes to last spot the player was last scene
-            agent.SetDestination(playerPreviousLocation); //<--- playerPreviousLocation gets set in ChasingManager 
+            agent.SetDestination(playerPreviousLocation); //<--- playerPreviousLocation gets set in ChasingManager
+
 
             if (WithinRange(1, previousPos, agentPos) && !searching)
             {
@@ -264,15 +305,18 @@ namespace UnderwaterHorror
             }
         }
 
+
         virtual protected void DefeatedManager()
         {
             // DefeatedManager will be different for the two enemies
             // This is the defeated manager for the small fish, smallFish class has been deleted
 
+
             // Death Time
             agent.isStopped = true;
             _enemyStats.dyingTime -= Time.deltaTime;
             isAlive = false;
+
 
             if (_enemyStats.dyingTime <= 0)
             {
@@ -280,39 +324,106 @@ namespace UnderwaterHorror
             }
         }
 
+
+        virtual protected void CheckSounds()
+        {
+            if (this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<AudioSource>() == null) return;
+            if (this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<AudioSource>() == null) return;
+            AudioSource mainSource = this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<AudioSource>();
+            AudioSource combatSource = this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<AudioSource>();
+
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                audioManager.StopSound(mainSource); 
+                audioManager.StopSound(combatSource); 
+                return;
+
+            }
+
+            if (FirstPersonController_Sam.fpsSam.inWater == false)                
+            {
+                    audioManager.StopSound(mainSource);
+                    audioManager.StopSound(combatSource);
+                    return;     
+            }   
+
+            // Enemy Agro
+            if (enemyState == Enemy.EnemyState.chasing)
+            {
+                if (mainSource.isPlaying == false)
+                {
+                    audioManager.StopSound(mainSource);
+                    audioManager.PlaySound(mainSource, audioManager.smallFishAgro);
+                }
+            }
+
+
+            // Enemy fleeing
+            if (enemyState == Enemy.EnemyState.defeated)
+            {
+                if (mainSource.isPlaying)
+                {
+                    audioManager.StopSound(mainSource);
+                    audioManager.PlaySound(mainSource, audioManager.smallFishDying);
+                }
+            }
+
+
+            // Enemy hit
+            if (_enemyStats.hit)
+            {
+                audioManager.PlaySound(combatSource, audioManager.smallFishHurt);
+            }
+
+
+            // Enemy attack
+            if (enemyState == Enemy.EnemyState.attacking && _enemyStats.timeToAttack <= 0)
+            {
+                audioManager.PlaySound(combatSource, audioManager.smallFishBite);
+                Debug.LogWarning(combatSource.clip);
+            }
+        }
         // Made by Kyle
         //--------------------------------------------------------
+
+        public void AlertBigFish(BigEnemyFish bigEnemyFish)
+        {
+            bigEnemyFish.CallBigFish();
+        }
+
 
         protected bool HasLineOfSight()
         {
             Vector3 raycastDir = PlayerStats.playerStats.transform.position;
             if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
             {
-                Debug.Log("Has Line Of Sight ");
+               // Debug.Log("Has Line Of Sight ");
                 return true;
             }
             else
             {
-                Debug.Log("No Visual ");
+               // Debug.Log("No Visual ");
                 return false;
             }
         }
 
+
         protected bool InFOVCone()
         {
-            
+
             Debug.DrawRay(agent.transform.position, agent.transform.forward * _enemyStats.visionRayLength);
             Vector3 angleVector = FirstPersonController_Sam.fpsSam.transform.position - transform.position;
-            if (Vector3.Angle(angleVector, agent.transform.forward) < _enemyStats.visionConeHalved) 
+            if (Vector3.Angle(angleVector, agent.transform.forward) < _enemyStats.visionConeHalved)
             {
                 //Debug.Log("In FOV Cone " + Vector3.Angle(angleVector, agent.transform.forward));
                 Debug.DrawLine(FirstPersonController_Sam.fpsSam.transform.position, agent.transform.position, Color.green);
-                return true; 
+                return true;
             }
             //Debug.Log("Outside FOV Cone " + Vector3.Angle(angleVector, agent.transform.forward));
             Debug.DrawLine(FirstPersonController_Sam.fpsSam.transform.position, agent.transform.position, Color.red);
             return false;
         }
+
 
         protected bool WithinRange(float rangeToCheck, Vector3 firstPos, Vector3 secondPos)
         {
@@ -325,16 +436,42 @@ namespace UnderwaterHorror
             return false;
         }
 
-        //Don't call these yet, they aren't implemented properly
-        void ResetRun()
+        private void FindPatrolPoints()
         {
-            this.gameObject.transform.position = NewGamePos;
+            if (GameObject.Find(patrolPointParentName) == null)
+            {
+                agent.destination = this.transform.position;
+                patrolPoints.Clear();
+                return;
+            }
+            patrolPointParent = GameObject.Find(patrolPointParentName);
+            for (int i = 0; i < patrolPointParent.transform.childCount; i++)
+            {
+                if (patrolPoints.Contains(patrolPointParent.transform.GetChild(i).gameObject)) continue;
+                patrolPoints.Add(patrolPointParent.transform.GetChild(i).gameObject);
+            }
         }
 
-        void ReloadToSave()
+        public virtual void ResetRun()
         {
-            this.gameObject.transform.position = SaveGamePos;
+            this.gameObject.transform.position = newGamePos;
+            this._enemyStats.health = this._enemyStats.maxHealth;
+            this.isAlive = true;
+            this.enemyState = EnemyState.patrolling;
+            this.searching = false;
+        }
+
+
+        public virtual void ReloadToSave()
+        {
+            this.gameObject.transform.position = saveGamePos;
+        }
+
+        public virtual void SetSaveGamePos()
+        {
+            saveGamePos = this.gameObject.transform.position;
         }
         //--------------------------------------------------------
     }
 }
+

@@ -16,27 +16,36 @@ namespace UnderwaterHorror
             damage = 5;
             range = 15;
             maxAmmo = 6;
-            currentAmmo = 6;
-            reloadTime = 2;
+            reserves = maxAmmo;
+            currentAmmo = 1;
+            reloadTime = 5;
+            typeName = "HarpoonGun";
 
             // set bools
             canShoot = true;
             isEquiped = false;
 
-            // Tobias's Polymorph audio
+            // Tobias ;)
             weaponAudioSource = this.gameObject.GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || UI_Manager.ui_Manager.PDAOpen())
+            {
+                AudioManager.audioManager.PauseSound(weaponAudioSource);
+                return;
+            }
+
             // RELOAD COUTER
-            if (reloadProgress <= 0)
+            if (reloadProgress <= 0 && !canShoot && reserves > 0)
             {
                 AudioManager.audioManager.StopSound(weaponAudioSource);
                 reloadProgress = 0;
                 canShoot = true;
+                currentAmmo++;
+                reserves--;
             }
             else if (reloadProgress > 0 && isEquiped)
             {
@@ -60,23 +69,6 @@ namespace UnderwaterHorror
             {
                 Unequip();
                 return;
-            }
-
-            //TEMP
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                isEquiped = true;
-                gameObject.GetComponent<Renderer>().enabled = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) | Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                isEquiped = false;
-                gameObject.GetComponent<Renderer>().enabled = false;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                //EquipUnequip();
             }
         }
     }

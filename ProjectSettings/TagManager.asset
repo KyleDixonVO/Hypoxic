@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Water
+  - Pipe
+  - Enemy
   layers:
   - Default
   - TransparentFX

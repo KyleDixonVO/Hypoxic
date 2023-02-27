@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4565852536953833481}
   m_Layer: 8
   m_Name: SmallEnemyBundle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -444,20 +444,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 1
+  enemyState: 0
   _enemyStats: {fileID: 4565852538049996991}
   patrolPoints:
   - {fileID: 4565852538912098661}
   - {fileID: 4565852536974747474}
   - {fileID: 4565852537788936369}
   - {fileID: 4565852537810953863}
+  patrolPointParent: {fileID: 0}
+  patrolPointParentName: 
   currentPatrolPoint: 0
   agent: {fileID: 4565852538049996983}
   layerMasks:
     serializedVersion: 2
     m_Bits: 128
-  NewGamePos: {x: 0, y: 0, z: 0}
-  SaveGamePos: {x: 0, y: 0, z: 0}
-  source: {fileID: 2649097777528954064}
+  newGamePos: {x: 0, y: 0, z: 0}
+  saveGamePos: {x: 0, y: 0, z: 0}
+  searching: 0
+  singleton: 0
 --- !u!114 &4565852538049996991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +503,7 @@ MonoBehaviour:
   crouchingRadius: 4
   visionRayLength: 14
   visionConeHalved: 35
+  hit: 0
 --- !u!195 &4565852538049996983
 NavMeshAgent:
   m_ObjectHideFlags: 0

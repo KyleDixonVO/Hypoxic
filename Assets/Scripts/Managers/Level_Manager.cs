@@ -50,7 +50,7 @@ namespace UnderwaterHorror
             for (int i =0; i < openScenes.Count; i++)
             {
                 if (openScenes[i].name == sceneName) return true;
-                Debug.Log("Scene is already open: " + sceneName);
+                //Debug.Log("Scene is already open: " + sceneName);
             }
 
             return false;

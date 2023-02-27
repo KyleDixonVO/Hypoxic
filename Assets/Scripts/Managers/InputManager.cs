@@ -64,6 +64,7 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         UpdateInputs();
+        //Debug.Log(eCycled);
     }
 
     public void ResetEscape()
@@ -138,9 +139,7 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.E))
         {
-            if (!eCycled) return;
             _ePressed = true;
-            eCycled = false;
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
@@ -159,7 +158,7 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Debug.Log(_tabPressed);
+            //Debug.Log(_tabPressed);
             if (!tabCycled) return;
             _tabPressed = !_tabPressed;
             tabCycled = false;
@@ -179,6 +178,11 @@ public class InputManager : MonoBehaviour
         capsPressed = _capsPressed;
         ePressed = _ePressed;
         rPressed = _rPressed;
+    }
+
+    public void SetECycledfalse()
+    {
+        eCycled = false;
     }
 
 
