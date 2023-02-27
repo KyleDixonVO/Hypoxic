@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnderwaterHorror
 {
     public class PlayerInventory : MonoBehaviour
     {
         public GameObject[] inventory;
+        public GameObject[] PDAItems;
         int inventorySize = 3;
         Camera playerCam;
         public static PlayerInventory playerInventory;
         public int activeWeapon; // not actually a great name as it can be any item - Edmund
+        [SerializeField] Sprite emptySlot;
 
         Vector3 itemPos = new Vector3(.35f, -.35f, 1f);
         Quaternion itemRot = Quaternion.Euler(0f, 270f, 0f);
@@ -32,6 +35,7 @@ namespace UnderwaterHorror
         {
             inventory = new GameObject[inventorySize];
             playerCam = FirstPersonController_Sam.fpsSam.playerCamera.GetComponent<Camera>();
+
         }
 
         void Update()
@@ -53,15 +57,25 @@ namespace UnderwaterHorror
                     itemToAdd.transform.localPosition = itemPos;
                     itemToAdd.layer = 0;
                     if (itemToAdd.GetComponent<Rigidbody>()) Destroy(itemToAdd.GetComponent<Rigidbody>());
-                    if (itemToAdd.GetComponent<Weapon>()) itemToAdd.GetComponent<Weapon>().playerCamera = playerCam;
+                    if (itemToAdd.GetComponent<Weapon>())
+                    {
+                        itemToAdd.GetComponent<Weapon>().playerCamera = playerCam;
+                        PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Weapon>().icon;
+                    }
+                    else
+                    {
+                        PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Item>().icon;
+                    }
 
                     inventory[i] = itemToAdd;
+                    
 
                     for (int j = 0; j < inventory.Length; j++)
                     {
                         if (j == i) Equip(inventory[j], j);
                         else Unequip(inventory[j]);
                     }
+                    return;
                 }
             }
         }
@@ -105,10 +119,12 @@ namespace UnderwaterHorror
             if (inventory[activeWeapon].GetComponent<Weapon>() && inventory[activeWeapon].GetComponent<Weapon>().isEquiped)
             {
                 DropItem(activeWeapon);
+                // remove sprite
             }
             else if (inventory[activeWeapon].GetComponent<Item>() && inventory[activeWeapon].GetComponent<Item>().isEquiped)
             {
                 DropItem(activeWeapon);
+                // remove sprite
             }
         }
 
@@ -123,6 +139,7 @@ namespace UnderwaterHorror
             else if (inventory[index].GetComponent<Weapon>()) inventory[index].GetComponent<Weapon>().isEquiped = false;
 
             inventory[index] = null;
+            PDAItems[index].GetComponent<Image>().overrideSprite = emptySlot;
         }
 
         // ------------------------------------ Equip / Unequip ------------------------------------------------ \\

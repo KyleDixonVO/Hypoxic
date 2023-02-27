@@ -28,6 +28,8 @@ namespace UnderwaterHorror
         protected bool canShoot;
         [Header("SFX")]
         [SerializeField] GameObject bloodSFX;
+        [Header("sprite")]
+        public Sprite icon;
 
         // Sound Polymorphism
         protected AudioSource weaponAudioSource;
