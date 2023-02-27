@@ -43,7 +43,7 @@ namespace UnderwaterHorror
                 range = 0;
                 return;
             }
-            else if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || !InputManager.inputManager.tabPressed) return;
+            else if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
 
             range += pingSpeed * Time.deltaTime;
             if (range >= maxRange) 

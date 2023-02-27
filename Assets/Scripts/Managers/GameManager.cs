@@ -61,6 +61,7 @@ namespace UnderwaterHorror
             {
                 case gameStates.gameplay:
                     GamestatePause();
+                    PDA_LockMovement();
                     SwitchEndgame();
                     break;
 
@@ -88,7 +89,18 @@ namespace UnderwaterHorror
             UI_Manager.ui_Manager.SwitchPause();
             FirstPersonController_Sam.fpsSam.LockPlayerMovement();
             _gameState = gameStates.paused;
-            
+        }
+
+        void PDA_LockMovement()
+        {
+            if (UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay)
+            {
+                FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+            }
+            else if (!UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay)
+            {
+                FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
+            }
         }
 
         public void GamestateCutscene()

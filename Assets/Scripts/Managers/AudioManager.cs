@@ -92,6 +92,9 @@ namespace UnderwaterHorror
         public AudioClip swapItem;
         public AudioClip pickupItem;
 
+        [Header("Audio Logs")]
+        public AudioClip[] audioLogs;
+
         [Header("AudioSources")]
         public AudioSource musicAudio;
         public AudioSource enviromentAudio;
