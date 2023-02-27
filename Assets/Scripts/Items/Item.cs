@@ -25,6 +25,9 @@ namespace UnderwaterHorror
         protected bool beingUsed;
         public bool isUsed = false;
 
+        [Header("sprite")]
+        public Sprite icon;
+
         // Tobias was here
         protected AudioSource itemAudioSource;
 

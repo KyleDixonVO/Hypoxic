@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542269b4766738e4d9f80aea66cd98ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeName: 
   playerCamera: {fileID: 0}
   range: 3.5
   damage: 2
@@ -209,3 +210,4 @@ MonoBehaviour:
   reloadProgress: 0
   isEquiped: 0
   bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
+  icon: {fileID: 21300000, guid: 410113fe32c7b5c4da359426bfbd9acc, type: 3}
