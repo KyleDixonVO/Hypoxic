@@ -47,6 +47,11 @@ namespace UnderwaterHorror
         void Update()
         {
             EvaluateState();
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameManager.gameManager.SaveGame();
+            }
         }
 
 
@@ -74,6 +79,7 @@ namespace UnderwaterHorror
                     break;
 
                 case gameStates.menu:
+                    Data_Manager.dataManager.LoadGlobalData();
                     UpdateVolumePrefs();
                     DisplayEndgameText();
                     break;
@@ -156,6 +162,7 @@ namespace UnderwaterHorror
             //saves the game when at a checkpoint
             FirstPersonController_Sam.fpsSam.SaveCharacterState();
             Data_Manager.dataManager.SaveToDataManager();
+            Enemy_Manager.enemy_Manager.SetSavePositions();
         }
         
         void DisplayEndgameText()

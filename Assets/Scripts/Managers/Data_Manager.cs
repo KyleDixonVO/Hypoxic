@@ -33,18 +33,13 @@ namespace UnderwaterHorror
         public bool carryingHeavyObj;
 
         //vector3 floats
-        public float playerPosX;
-        public float playerPosY;
-        public float playerPosZ;
+        public SerializableVector3 playerSV = new SerializableVector3();
 
         //quaternion floats
-        public float playerRotW;
-        public float playerRotX;
-        public float playerRotY;
-        public float playerRotZ;
+        public SerializableQuaternion playerSQ = new SerializableQuaternion();
 
         //enemyManager
-        public readonly int numberOfEnemies = 5;
+        public int numberOfEnemies;
         Enemy[] enemies;
 
 
@@ -66,6 +61,7 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
+            numberOfEnemies = Enemy_Manager.enemy_Manager.enemyNames.Length;
             objectives = new bool[numberOfObjectives];
             enemies = new Enemy[numberOfEnemies];
         }
@@ -124,6 +120,7 @@ namespace UnderwaterHorror
             }
             else
             {
+                Debug.LogError("Error loading global data, resetting to default");
                 ResetGlobalPrefs();
             }
         }
@@ -216,61 +213,46 @@ namespace UnderwaterHorror
         }
 
         //converts vector3 to floats for serializing
-        public void SavedPosToFloats()
+        private void SavedPosToFloats()
         {
-            playerPosX = FirstPersonController_Sam.fpsSam.playerSavedPosition.x;
-            playerPosY = FirstPersonController_Sam.fpsSam.playerSavedPosition.y;
-            playerPosZ = FirstPersonController_Sam.fpsSam.playerSavedPosition.z;
+            playerSV.SetSerializableVector(FirstPersonController_Sam.fpsSam.playerSavedPosition);
         }
 
         //converts floats back to vector3 to pass into fpsSam
-        public void FloatsToSavedPos()
+        private void FloatsToSavedPos()
         {
-            FirstPersonController_Sam.fpsSam.playerSavedPosition = new Vector3(playerPosX, playerPosY, playerPosZ);
+            playerSV.GetSerializableVector(FirstPersonController_Sam.fpsSam.playerSavedPosition);
         }
 
         //converts vector4 to floats for serializing
-        public void SavedRotToFloats()
+        private void SavedRotToFloats()
         {
-            playerRotW = FirstPersonController_Sam.fpsSam.playerSavedRotation.w;
-            playerRotX = FirstPersonController_Sam.fpsSam.playerSavedRotation.x;
-            playerRotY = FirstPersonController_Sam.fpsSam.playerSavedRotation.y;
-            playerRotZ = FirstPersonController_Sam.fpsSam.playerSavedRotation.z;
+            playerSQ.SetSerializableQuaternion(FirstPersonController_Sam.fpsSam.playerSavedRotation);
         }
 
         //converts floats back to vector4 to pass into fpsSam
-        public void FloatsToSavedRot()
+        private void FloatsToSavedRot()
         {
-            FirstPersonController_Sam.fpsSam.playerSavedRotation = new Quaternion(playerRotW, playerRotY, playerRotZ, playerRotW);
+            playerSQ.GetSerializableQuaternion(FirstPersonController_Sam.fpsSam.playerSavedRotation);
         }
 
         //passing floats from Data_Manager to playerData
-        public void RotPosToPlayerData(PlayerData playerData)
+        private void RotPosToPlayerData(PlayerData playerData)
         {
-            playerData.playerRotW = playerRotW;
-            playerData.playerRotX = playerRotX;
-            playerData.playerRotY = playerRotY;
-            playerData.playerRotZ = playerRotZ;
+            playerData.playerSQ.SetSerializableQuaternion(new Quaternion(playerSQ.x, playerSQ.y, playerSQ.z, playerSQ.w));
 
-            playerData.playerPosX = playerPosX;
-            playerData.playerPosY = playerPosY;
-            playerData.playerPosZ = playerPosZ;
+            playerData.playerSV.SetSerializableVector(new Vector3(playerSV.x, playerSV.y, playerSV.z));
         }
 
         //passing floats from playerData to Data_Manager
-        public void RotPosToManager(PlayerData playerData)
+        private void RotPosToManager(PlayerData playerData)
         {
-            playerRotW = playerData.playerRotW;
-            playerRotX = playerData.playerRotX;
-            playerRotY = playerData.playerRotY;
-            playerRotZ = playerData.playerRotZ;
+            playerSQ.SetSerializableQuaternion(new Quaternion(playerData.playerSQ.x, playerData.playerSQ.y, playerData.playerSQ.z, playerData.playerSQ.w));
 
-            playerPosX = playerData.playerPosX;
-            playerPosY = playerData.playerPosY;
-            playerPosZ = playerData.playerPosZ;
+            playerSV.SetSerializableVector(new Vector3(playerData.playerSV.x, playerData.playerSV.y, playerData.playerSV.z));
         }
 
-        public void ResetPlayerData()
+        private void ResetPlayerData()
         {
             //reset player stats to default and then save stats
             //place default data here
@@ -328,14 +310,14 @@ namespace UnderwaterHorror
             FloatsToSavedRot();
         }
 
-        public void ResetGlobalPrefs()
+        private void ResetGlobalPrefs()
         {
             mastervolume = 1.0f;
             musicVolume = 1.0f;
             SFXVolume = 1.0f;
         }
 
-        public void SaveToEnemyData()
+        private void SaveToEnemyData()
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream enemyFile = File.Create(Application.persistentDataPath + "/enemyData.dat");
@@ -350,9 +332,8 @@ namespace UnderwaterHorror
                 enemyData.currentPatrolPoints[i] = enemies[i].currentPatrolPoint;
                 enemyData.statesAsInt[i] = (int)enemies[i].enemyState;
                 enemyData.patrolPointParentNames[i] = enemies[i].patrolPointParentName;
-                enemyData.savePosX[i] = enemies[i].saveGamePos.x;
-                enemyData.savePosY[i] = enemies[i].saveGamePos.y;
-                enemyData.savePosZ[i] = enemies[i].saveGamePos.z;
+                enemyData.enemySavePos[i] = new SerializableVector3();
+                enemyData.enemySavePos[i].SetSerializableVector(enemies[i].saveGamePos);
             }
 
             binaryFormatter.Serialize(enemyFile, enemyData);
@@ -386,9 +367,8 @@ namespace UnderwaterHorror
                         enemies[i].currentPatrolPoint = enemyData.currentPatrolPoints[i];
                         enemies[i].enemyState = (Enemy.EnemyState)enemyData.statesAsInt[i];
                         enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
-                        enemies[i].saveGamePos.x = enemyData.savePosX[i];
-                        enemies[i].saveGamePos.y = enemyData.savePosY[i];
-                        enemies[i].saveGamePos.z = enemyData.savePosZ[i];
+
+                        enemyData.enemySavePos[i].GetSerializableVector(enemies[i].saveGamePos);
                     }
                 }
             }
@@ -448,23 +428,16 @@ namespace UnderwaterHorror
         public bool inWater;
         public bool carryingHeavyObj;
 
-        public float playerPosX;
-        public float playerPosY;
-        public float playerPosZ;
-
-        public float playerRotW;
-        public float playerRotX;
-        public float playerRotY;
-        public float playerRotZ;
+        public SerializableVector3 playerSV = new SerializableVector3();
+        public SerializableQuaternion playerSQ = new SerializableQuaternion();
     }
 
     [Serializable]
     public class EnemyData
     {
         public int[] statesAsInt = new int[Data_Manager.dataManager.numberOfEnemies];
-        public float[] savePosX = new float[Data_Manager.dataManager.numberOfEnemies];
-        public float[] savePosY = new float[Data_Manager.dataManager.numberOfEnemies];
-        public float[] savePosZ = new float[Data_Manager.dataManager.numberOfEnemies];
+
+        public SerializableVector3[] enemySavePos = new SerializableVector3[Data_Manager.dataManager.numberOfEnemies];
         public int[] health = new int[Data_Manager.dataManager.numberOfEnemies];
         public bool[] searching = new bool[Data_Manager.dataManager.numberOfEnemies];
         public string[] patrolPointParentNames = new string[Data_Manager.dataManager.numberOfEnemies];
@@ -473,4 +446,11 @@ namespace UnderwaterHorror
 
 
     }
+
+    [Serializable]
+    public class InteractableData
+    { 
+        
+    }
+
 }

@@ -17546,6 +17546,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
+  enemyNames:
+  - BigEnemy
+  - SmallEnemy1
+  - SmallEnemy2
+  - SmallEnemy3
+  - SmallEnemy4
 --- !u!1 &992721794
 GameObject:
   m_ObjectHideFlags: 0
@@ -19929,18 +19935,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1638945312}
-        m_TargetAssemblyTypeName: UnderwaterHorror.Level_Manager, Assembly-CSharp
-        m_MethodName: LoadOutside
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 92916745}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: SwitchGameplay
@@ -19968,18 +19962,6 @@ MonoBehaviour:
       - m_Target: {fileID: 230024344}
         m_TargetAssemblyTypeName: UnderwaterHorror.GameManager, Assembly-CSharp
         m_MethodName: LoadLastSave
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 990806506}
-        m_TargetAssemblyTypeName: Enemy_Manager, Assembly-CSharp
-        m_MethodName: LoadEnemyStates
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20344,6 +20326,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heavyObjects: []
+  heavyObjectNames:
+  - pipeFixedRed
+  - pipeFixedGreen
 --- !u!4 &1258928970
 Transform:
   m_ObjectHideFlags: 0
@@ -24827,13 +24812,16 @@ MonoBehaviour:
   objectives: 
   inWater: 0
   carryingHeavyObj: 0
-  playerPosX: 0
-  playerPosY: 0
-  playerPosZ: 0
-  playerRotW: 0
-  playerRotX: 0
-  playerRotY: 0
-  playerRotZ: 0
+  playerSV:
+    x: 0
+    y: 0
+    z: 0
+  playerSQ:
+    w: 0
+    x: 0
+    y: 0
+    z: 0
+  numberOfEnemies: 0
 --- !u!4 &1790296321
 Transform:
   m_ObjectHideFlags: 0

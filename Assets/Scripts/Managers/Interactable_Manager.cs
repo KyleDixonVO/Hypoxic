@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item_Manager : MonoBehaviour
+public class Interactable_Manager : MonoBehaviour
 {
-    public static Item_Manager item_manager;
+    public static Interactable_Manager item_manager;
+    public Interactable[] interactables;
+    public string[] interactableNames;
 
     private void Awake()
     {
@@ -22,7 +24,7 @@ public class Item_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        interactables = new Interactable[interactableNames.Length];
     }
 
     // Update is called once per frame

@@ -435,12 +435,14 @@ namespace UnderwaterHorror
             musicVolume = UI_Manager.ui_Manager.sliderMusic.value;
             sfxVolume = UI_Manager.ui_Manager.sliderSFX.value;
             //Debug.Log("Master: " + masterVolume + "Music: " + musicVolume + "SFX: " + sfxVolume);
+            SaveVolumePrefs();
         }
 
 
         public void SaveVolumePrefs()
         {
             Debug.Log("Saving Volume Prefs");
+            if (Data_Manager.dataManager.mastervolume == masterVolume && Data_Manager.dataManager.musicVolume == musicVolume && Data_Manager.dataManager.SFXVolume == sfxVolume) return;
             Data_Manager.dataManager.musicVolume = musicVolume;
             Data_Manager.dataManager.mastervolume = masterVolume;
             Data_Manager.dataManager.SFXVolume = sfxVolume;

@@ -610,6 +610,10 @@ namespace UnderwaterHorror
         public void LoadCharacterState()
         {
             Data_Manager.dataManager.UpdateFPSSam();
+            DisableCharacterController();
+            transform.position = playerSavedPosition;
+            transform.rotation = playerSavedRotation;
+            EnableCharacterController();
         }
     }
 

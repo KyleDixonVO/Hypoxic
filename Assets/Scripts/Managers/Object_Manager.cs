@@ -8,6 +8,7 @@ namespace UnderwaterHorror
     {
         public static Object_Manager object_Manager;
         [SerializeField] HeavyObject[] heavyObjects;
+        [SerializeField] string[] heavyObjectNames;
         private void Awake()
         {
             if (object_Manager == null)
@@ -23,7 +24,7 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-            heavyObjects = new HeavyObject[Data_Manager.dataManager.numberOfObjectives - 2];
+            heavyObjects = new HeavyObject[heavyObjectNames.Length];
         }
 
         // Update is called once per frame
@@ -49,52 +50,19 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             for (int i = 0; i < heavyObjects.Length; i++)
             {
- 
-                switch (i) 
+                if(heavyObjects[i] == null)
                 {
-                    case 0:
-                        if (heavyObjects[i] == null)
-                        {
-                            try
-                            {
-                                heavyObjects[i] = GameObject.Find("pipeFixedRed").GetComponent<HeavyObject>();
-                                DontDestroyOnLoad(heavyObjects[i]);
-                                heavyObjects[i].singleton = true;
-                                Debug.Log("Found pipe red");
-                            }
-                            catch
-                            {
-                                Debug.Log("Cannot find an instance of pipeFixedRed");
-                            }
-                            
-                        }
-
-                        break;
-
-                    case 1:
-                        if (heavyObjects[i] == null)
-                        {
-                            try
-                            {
-                                heavyObjects[i] = GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>();
-                                DontDestroyOnLoad(heavyObjects[i]);
-                                heavyObjects[i].singleton = true;
-                                Debug.Log("Found pipe green");
-                            }
-                            catch
-                            {
-                                Debug.Log("Cannot find an instance of pipeFixedGreen");
-                            }
-                        }
-                        else if (heavyObjects[i] != null && GameObject.Find("pipeFixedGreen").GetComponent<HeavyObject>() != heavyObjects[i])
-                        {
-                                Debug.Log("Attempting to destroy green pipe");
-                                Destroy(GameObject.Find("pipeFixedGreen"));
-                        }
-                        break;
-
-                    case 2:
-                        break;
+                    try
+                    {
+                        heavyObjects[i] = GameObject.Find(heavyObjectNames[i]).GetComponent<HeavyObject>();
+                        DontDestroyOnLoad(heavyObjects[i]);
+                        heavyObjects[i].singleton = true;
+                        Debug.Log("Found " + heavyObjectNames[i]);
+                    }
+                    catch
+                    {
+                        Debug.Log("Cannot find an instance of " + heavyObjectNames[i]);
+                    }
                 }
             }
 
@@ -110,19 +78,15 @@ namespace UnderwaterHorror
         private void ToggleRigidbodies()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-            if (Level_Manager.LM.IsSceneOpen("Outside"))
+            for (int i = 0; i < heavyObjects.Length; i++)
             {
-                for (int i = 0; i < heavyObjects.Length; i++)
+                if (heavyObjects[i] == null) continue;
+                if (Level_Manager.LM.IsSceneOpen("Outside") && heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == true)
                 {
-                    if (heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == false) return;
                     heavyObjects[i].GetComponent<Rigidbody>().WakeUp();
                 }
-            }
-            else
-            {
-                for (int i = 0; i < heavyObjects.Length; i++)
+                else if (!Level_Manager.LM.IsSceneOpen("Outside") && heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == false)
                 {
-                    if (heavyObjects[i].GetComponent<Rigidbody>().IsSleeping() == true) return;
                     heavyObjects[i].GetComponent<Rigidbody>().Sleep();
                 }
             }
