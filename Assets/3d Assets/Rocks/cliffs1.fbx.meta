@@ -3,12 +3,7 @@ guid: 7617166d925805c4fbd5f47d2f260b59
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: cliffBigSide
-    second: {fileID: 2100000, guid: 91a259f12fe4b664487e8312e6675718, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
