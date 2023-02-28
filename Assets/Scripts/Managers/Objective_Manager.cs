@@ -110,7 +110,11 @@ namespace UnderwaterHorror
                 {
                     outgoingText += "\r\n" + objectiveText[i];
                 }
-                else if (!isObjectiveComplete[i] && i != (int)Objectives.goToElevator && isObjectiveComplete[(int)Objectives.repairTutorialPipe])
+                else if (!isObjectiveComplete[i] && i == (int)Objectives.enterMainHab && isObjectiveComplete[(int)Objectives.repairTutorialPipe])
+                {
+                    outgoingText += "\r\n" + objectiveText[i];
+                }
+                else if (!isObjectiveComplete[i] && i != (int)Objectives.goToElevator && isObjectiveComplete[(int)Objectives.repairTutorialPipe] && isObjectiveComplete[(int)Objectives.enterMainHab])
                 {
                     outgoingText += "\r\n" + objectiveText[i];
                 }
