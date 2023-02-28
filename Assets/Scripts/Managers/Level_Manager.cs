@@ -62,6 +62,7 @@ namespace UnderwaterHorror
             //Debug.Log("Loading Main Hab");
             SceneManager.LoadScene("DemoBuildingInside");
             FirstPersonController_Sam.fpsSam.IndoorTransition();
+            Objective_Manager.objective_Manager.UpdateObjectiveCompletion(1); // completes enter main hab -- will probably move to interction on terminal
         }
 
         public void LoadOutside()

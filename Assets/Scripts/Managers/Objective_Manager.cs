@@ -23,11 +23,11 @@ namespace UnderwaterHorror
 
         public enum Objectives 
         { 
-            repairFirstPipe,
-            repairSecondPipe,
-            repairThirdPipe,
-            anotherObjective,
-            anotherObjectiveAgain,
+            repairTutorialPipe,
+            enterMainHab,
+            repairRedPipe,
+            repairGreenPipe,
+            activateReactor,
             goToElevator
         }
 
@@ -106,7 +106,15 @@ namespace UnderwaterHorror
 
             for (int i = 0; i < isObjectiveComplete.Length; i++)
             {
-                if (!isObjectiveComplete[i] && i != (int)Objectives.goToElevator)
+                if (!isObjectiveComplete[i] && i == (int)Objectives.repairTutorialPipe)
+                {
+                    outgoingText += "\r\n" + objectiveText[i];
+                }
+                else if (!isObjectiveComplete[i] && i == (int)Objectives.enterMainHab && isObjectiveComplete[(int)Objectives.repairTutorialPipe])
+                {
+                    outgoingText += "\r\n" + objectiveText[i];
+                }
+                else if (!isObjectiveComplete[i] && i != (int)Objectives.goToElevator && isObjectiveComplete[(int)Objectives.repairTutorialPipe] && isObjectiveComplete[(int)Objectives.enterMainHab])
                 {
                     outgoingText += "\r\n" + objectiveText[i];
                 }

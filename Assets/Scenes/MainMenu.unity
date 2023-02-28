@@ -23657,12 +23657,12 @@ MonoBehaviour:
   objective: 0
   isObjectiveComplete: 000000000000
   objectiveText:
-  - '- 1'
-  - '- 2'
-  - '- 3'
-  - '- 4'
-  - '- 5'
-  - '- 6'
+  - Reapir the copper pipe
+  - Enter the hab
+  - Fix the red pipe
+  - Fix the green pipe
+  - Restart the reactor
+  - Escape to the elevator
 --- !u!4 &1668812122
 Transform:
   m_ObjectHideFlags: 0
