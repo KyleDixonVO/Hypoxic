@@ -402,8 +402,6 @@ namespace UnderwaterHorror
                 Debug.LogWarning(combatSource.clip);
             }
         }
-        // Made by Kyle
-        //--------------------------------------------------------
 
         public void AlertBigFish(BigEnemyFish bigEnemyFish)
         {

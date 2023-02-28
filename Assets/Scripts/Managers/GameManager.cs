@@ -103,7 +103,7 @@ namespace UnderwaterHorror
             {
                 FirstPersonController_Sam.fpsSam.LockPlayerMovement();
             }
-            else if (!UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay)
+            else if (!UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay && !PlayerStats.playerStats.IsDead())
             {
                 FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
             }
