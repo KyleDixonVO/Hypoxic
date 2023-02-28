@@ -151,10 +151,15 @@ namespace UnderwaterHorror
                     playerHealth = playerData.health;
                     maxSuitPower = playerData.maxSuitPower;
                     suitPower = playerData.suitPower;
-                    objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
-                    objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
-                    objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
-                    objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
+
+                    for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
+                    {
+                        objectives[i] = playerData.objectives[i];
+                    }
+                    //objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
+                    //objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
+                    //objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
+                    //objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
                     inWater = playerData.inWater;
                     carryingHeavyObj = playerData.carryingHeavyObj;
                     RotPosToManager(playerData);
@@ -180,10 +185,14 @@ namespace UnderwaterHorror
             playerData.suitPower = suitPower;
             playerData.maxHealth = maxPlayerHealth;
             playerData.health = playerHealth;
-            playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
-            playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
-            playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
-            playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = objectives[(int)Objective_Manager.Objectives.goToElevator];
+            for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
+            {
+                playerData.objectives[i] = objectives[i];
+            }
+            //playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
+            //playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
+            //playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
+            //playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = objectives[(int)Objective_Manager.Objectives.goToElevator];
             playerData.inWater = inWater;
             playerData.carryingHeavyObj = carryingHeavyObj;
             RotPosToPlayerData(playerData);
@@ -196,10 +205,14 @@ namespace UnderwaterHorror
         //saves to Data_Manager from source classes
         public void SaveToDataManager()
         {
-            objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairFirstPipe);
-            objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairSecondPipe);
-            objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairThirdPipe);
-            objectives[(int)Objective_Manager.Objectives.goToElevator] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.goToElevator);
+            for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
+            {
+                objectives[i] = Objective_Manager.objective_Manager.GetObjectiveState((Objective_Manager.Objectives)i);
+                //objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairSecondPipe);
+                //objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairThirdPipe);
+                //objectives[(int)Objective_Manager.Objectives.goToElevator] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.goToElevator);
+            } 
+
             if (PlayerStats.playerStats == null) return;
             maxSuitPower = PlayerStats.playerStats.maxSuitPower;
             suitPower = PlayerStats.playerStats.suitPower;
@@ -272,10 +285,14 @@ namespace UnderwaterHorror
             }
 
             //objectiveManager data
-            objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = false;
-            objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = false;
-            objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = false;
-            objectives[(int)Objective_Manager.Objectives.goToElevator] = false;
+            for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
+            {
+                objectives[i] = false;
+            }
+            //objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = false;
+            //objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = false;
+            //objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = false;
+            //objectives[(int)Objective_Manager.Objectives.goToElevator] = false;
 
             SaveToPlayerData();
         }

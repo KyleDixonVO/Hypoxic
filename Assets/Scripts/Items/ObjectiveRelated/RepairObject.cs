@@ -34,6 +34,7 @@ namespace UnderwaterHorror
 
         void Repair()
         {
+            if (repaired) return;
             repairPercentage = (elapsedRepairTime / repairTime) * 100;
             if (WithinRepairRange() && InputManager.inputManager.rPressed && this.GetComponent<HeavyObject>().isHeld)
             {

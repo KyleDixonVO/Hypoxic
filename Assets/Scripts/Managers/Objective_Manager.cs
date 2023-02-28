@@ -26,38 +26,44 @@ namespace UnderwaterHorror
             repairFirstPipe,
             repairSecondPipe,
             repairThirdPipe,
+            anotherObjective,
+            anotherObjectiveAgain,
             goToElevator
         }
 
         public Objectives objective;
 
         [Header("Objectives")]
-        [SerializeField] private bool[] isObjectiveComplete;
-        [SerializeField] private string[] objectiveText;
+        [SerializeField] private bool[] isObjectiveComplete = new bool[System.Enum.GetNames(typeof(Objectives)).Length];
+        [SerializeField] private string[] objectiveText = new string[System.Enum.GetNames(typeof(Objectives)).Length];
         private string outgoingText;
 
 
         // Start is called before the first frame update
         void Start()
         {
-        
+            
         }
 
         // Update is called once per frame
         void Update()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
-            //UpdateObjectiveCompletion((int)Objectives.repairThirdPipe);
         }
 
-        public void UpdateObjectiveCompletion(int objectiveNumber)
+        public void UpdateObjectiveCompletion(int objectiveNumber) // Objective_Manager.objectives.yourObjective -- (Objective_Manager.Objectives)yourNumber
         {
             if (objectiveNumber == (int)Objectives.goToElevator)
             {
-                if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
-                    || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
-                    || !isObjectiveComplete[(int)Objectives.repairThirdPipe])
-                    return;
+                for (int i = 0; i < isObjectiveComplete.Length - 1; i++)
+                {
+                    if (!isObjectiveComplete[i]) return;
+                }
+
+                //if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
+                //    || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
+                //    || !isObjectiveComplete[(int)Objectives.repairThirdPipe])
+                //    return;
             }
 
             if (isObjectiveComplete[objectiveNumber]) return;
@@ -104,16 +110,21 @@ namespace UnderwaterHorror
                 {
                     outgoingText += "\r\n" + objectiveText[i];
                 }
-                else if (i == (int)Objectives.goToElevator)
+                else if (i == (int)Objectives.goToElevator && CanCompleteFinalObjective())
                 {
-                    if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
-                    || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
-                    || !isObjectiveComplete[(int)Objectives.repairThirdPipe]) continue;
-
                     outgoingText += "\r\n" + objectiveText[i];
                 }
             }
             return outgoingText;
+        }
+
+        private bool CanCompleteFinalObjective()
+        {
+            for(int i = 0; i < System.Enum.GetNames(typeof(Objectives)).Length; i++)
+            {
+                if (!isObjectiveComplete[i]) return false;
+            }
+            return true;
         }
 
         public void LoadObjectiveStates()
