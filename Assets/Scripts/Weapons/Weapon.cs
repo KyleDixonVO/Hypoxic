@@ -30,6 +30,8 @@ namespace UnderwaterHorror
         [SerializeField] GameObject bloodSFX;
         [Header("sprite")]
         public Sprite icon;
+        [Header("save position")]
+        public Vector3 savePos;
 
         // Sound Polymorphism
         protected AudioSource weaponAudioSource;
@@ -114,6 +116,12 @@ namespace UnderwaterHorror
             UI_Manager.ui_Manager.DisablePrimaryInteractText();
            // throw new System.NotImplementedException();
         }
+
+        public void SetSaveGamePos()
+        {
+            savePos = this.gameObject.transform.position;
+        }
+
     }
 
 }
