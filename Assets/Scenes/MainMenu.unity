@@ -3629,6 +3629,7 @@ MonoBehaviour:
   sfxVolume: 0
   uIButton: {fileID: 8300000, guid: 5ab7301f4651eca4c98f4e8b643e2cdc, type: 3}
   uIButtonPassover: {fileID: 0}
+  sonarPing: {fileID: 8300000, guid: 65a2f243569eee2469d73a5da18a9faf, type: 3}
   doorOpening: {fileID: 8300000, guid: 6f43ae95159ff5d4ebf2cf0d6013d36f, type: 3}
   doorOpened: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
   doorClosing: {fileID: 8300000, guid: 6f43ae95159ff5d4ebf2cf0d6013d36f, type: 3}
@@ -3677,6 +3678,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   musicAudio: {fileID: 1087392431}
+  UiAudio: {fileID: 92916748}
   enviromentAudio: {fileID: 1124360025}
   playerVoiceAudio: {fileID: 359441948}
   playerSuitAudio: {fileID: 166824103}

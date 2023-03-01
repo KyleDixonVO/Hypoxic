@@ -16,10 +16,10 @@ namespace UnderwaterHorror
         public float musicVolume;
         public float sfxVolume;
 
-
         [Header("UIAudioClips")]
         public AudioClip uIButton;
         public AudioClip uIButtonPassover;
+        public AudioClip sonarPing;
 
         [Header("DoorAudioClips")]
         public AudioClip doorOpening;
@@ -65,7 +65,6 @@ namespace UnderwaterHorror
         public AudioClip smallFishDying;
         public AudioClip smallFishScream;
 
-
         [Header("SmallMonsterAudioClips")]
         public AudioClip smallBite;
 
@@ -95,9 +94,12 @@ namespace UnderwaterHorror
         [Header("Audio Logs")]
         public AudioClip[] audioLogs;
 
+        // -----------------AudioSources----------------------
         [Header("AudioSources")]
         public AudioSource musicAudio;
+        public AudioSource UiAudio;
         public AudioSource enviromentAudio;
+
 
         // Player Sounds Manager --------------------------------------------------------------------------
         public AudioSource playerVoiceAudio;
@@ -133,9 +135,6 @@ namespace UnderwaterHorror
 
         public bool playAudio = false;
         public bool touchingWall = false;
-
-
-
 
         private bool playedPowerBelowHalf = false;
         private bool playedPowerEmpty = false;
@@ -175,16 +174,13 @@ namespace UnderwaterHorror
             PlayRandomSound();
             StopSoundsIndoors();
 
-
             // Player sounds
             CheckPlayerVoiceSounds();
             CheckPlayerSuitSounds();
             CheckPlayerInventorySounds();
 
-
             // Pause
             ManagePausedSound();
-            FindPlayerSoundRefs();
         }
 
 
@@ -438,7 +434,6 @@ namespace UnderwaterHorror
             SaveVolumePrefs();
         }
 
-
         public void SaveVolumePrefs()
         {
             Debug.Log("Saving Volume Prefs");
@@ -447,6 +442,7 @@ namespace UnderwaterHorror
             Data_Manager.dataManager.mastervolume = masterVolume;
             Data_Manager.dataManager.SFXVolume = sfxVolume;
         }
+
         void PlayMusic()
         {
             if (musicAudio == null) return;
