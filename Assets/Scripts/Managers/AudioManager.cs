@@ -128,10 +128,9 @@ namespace UnderwaterHorror
         public float maxSoundRange = 10f;
         [Range(-5f, -20f)]
         public float minSoundRange = -10f;
-        [Range(1f, 100000f)]
+        [Range(1f, 10000f)]
         public int probabilityWeight;
         public int probability;
-
 
         public bool playAudio = false;
         public bool touchingWall = false;
@@ -166,9 +165,6 @@ namespace UnderwaterHorror
             // Referances
             FindPlayerSoundRefs();
 
-            // Randomness
-            ManageSoundRandomness();
-
             // Play
             PlayMusic();
             PlayRandomSound();
@@ -186,6 +182,7 @@ namespace UnderwaterHorror
 
         private void FixedUpdate()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             probability = Random.Range(0, probabilityWeight);
         }
 
@@ -225,6 +222,7 @@ namespace UnderwaterHorror
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay || FirstPersonController_Sam.fpsSam.inWater == false) return;
             if (enviromentAudio.isPlaying) return;
+
             // Starts numOfSounds at 0 in first loop
             int numOfSounds = 0;
             foreach (AudioClip clip in randomEnviromentSounds)
@@ -238,7 +236,7 @@ namespace UnderwaterHorror
         }
 
 
-        void MangeRandomPosition()
+        void MangaeRandomPosition()
         {
             Vector3 audioHolderPos = randomSoundsObj.transform.position;
             Vector3 playerPos = PlayerStats.playerStats.gameObject.transform.position;
@@ -262,10 +260,11 @@ namespace UnderwaterHorror
             //When sounds are finished playing and probability is 0. Choose a new spot for the sound to play.
             if (enviromentAudio.isPlaying == true) return;
 
+            ManageSoundRandomness();
 
-            if (probability == 0)
+            if (probability <= 1)
             {
-                MangeRandomPosition();
+                MangaeRandomPosition();
                 enviromentAudio.PlayOneShot(enviromentAudio.clip, (sfxVolume * masterVolume));
             }
 
