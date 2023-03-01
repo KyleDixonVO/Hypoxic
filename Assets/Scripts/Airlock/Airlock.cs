@@ -154,30 +154,29 @@ namespace UnderwaterHorror
         // ------------------------------------- isn't load door ----------------------------------------- \\
         void IsntLoadDoor()
         {
+
             // door closing
-            if (isOpening && playerPresent && otherAirlock.isOpening == false && !IsClosed()) // player is inside - close immediatly
+            if (isOpening && playerPresent && !IsClosed()) // player is inside - close immediatly
             {
                 CloseDoor();
-                //Debug.LogWarning("Case 1");
+                Debug.LogWarning("Case 1");
             }
-            else if (IsOpen() && !playerPresent) // door is open - wait to close
+            else if (!IsClosed() && !playerPresent && timerActive == false) // door is open - wait to close
             {
                 timerActive = true;
-                //Debug.LogWarning("Case 2");
+                Debug.LogWarning("Case 2");
             }
             else if (playerPresent && IsClosed() && otherAirlock.isOpening == false)
             {
                 OpenAirlock();
-                //Debug.LogWarning("Case 3");
+                Debug.LogWarning("Case 3");
             }
             else if (playerPresent && IsClosed() && isLoad && canLoad && otherAirlock.isOpening == false) // player is inside and the door is closed - Open other door
             {
                 otherAirlock.isOpening = true;
                 otherAirlock.timerActive = true;
-                //Debug.LogWarning("Case 4");
+                Debug.LogWarning("Case 4");
             }
-
-
         }
 
         // --------------------------------- Door Open / Close Checks ------------------------------------ \\
