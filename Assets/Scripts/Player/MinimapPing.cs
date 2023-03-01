@@ -43,7 +43,11 @@ namespace UnderwaterHorror
                 range = 0;
                 return;
             }
-            else if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            else if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
+            {
+                AudioManager.audioManager.PauseSound(AudioManager.audioManager.UiAudio);
+                return;
+            }
 
             range += pingSpeed * Time.deltaTime;
             if (range >= maxRange) 
@@ -61,6 +65,10 @@ namespace UnderwaterHorror
                 {
                     pingHitList.Add(raycastHit);
                     blipList.Add(GameObject.Instantiate(blipPrefab, new Vector3(raycastHit.transform.position.x, raycastHit.transform.position.y, raycastHit.transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0))));
+
+                    AudioManager.audioManager.PlaySound(AudioManager.audioManager.UiAudio, AudioManager.audioManager.sonarPing);
+
+                    if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay) AudioManager.audioManager.ResumeSound(AudioManager.audioManager.UiAudio);
                 }
             }
         }
