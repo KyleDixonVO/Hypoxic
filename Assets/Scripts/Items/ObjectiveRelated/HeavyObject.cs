@@ -8,7 +8,6 @@ namespace UnderwaterHorror
     {
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
-        public bool singleton;
         [SerializeField] private Vector3 heldPos;
         [SerializeField] private Vector3 heldRot;
         // Start is called before the first frame update
