@@ -63,6 +63,7 @@ public class Glowstick : Item
     protected override void ApplyEffect()
     {
         this.gameObject.transform.SetParent(null);
+        gameObject.GetComponent<Collider>().enabled = true;
         Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
         Vector3 forwardForce = strength * transform.right;
         rigidbody.mass = 1f;       

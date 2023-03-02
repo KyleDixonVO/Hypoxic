@@ -68,7 +68,9 @@ namespace UnderwaterHorror
                     }
 
                     inventory[i] = itemToAdd;
-                    
+                    inventory[i].gameObject.GetComponent<Collider>().enabled = false;
+
+
 
                     for (int j = 0; j < inventory.Length; j++)
                     {
@@ -130,6 +132,7 @@ namespace UnderwaterHorror
 
         void DropItem(int index)
         {
+            inventory[index].gameObject.GetComponent<Collider>().enabled = true;
             inventory[index].AddComponent<Rigidbody>();
             inventory[index].transform.SetParent(null);
             inventory[index].layer = 10; // interactable layer
@@ -138,7 +141,7 @@ namespace UnderwaterHorror
             if (inventory[index].GetComponent<Item>()) inventory[index].GetComponent<Item>().isEquiped = false;
             else if (inventory[index].GetComponent<Weapon>()) inventory[index].GetComponent<Weapon>().isEquiped = false;
 
-            inventory[index] = null;
+            inventory[index] = null;          
             PDAItems[index].GetComponent<Image>().overrideSprite = emptySlot;
         }
 
