@@ -22,12 +22,11 @@ namespace UnderwaterHorror
 
         [Header("Booleans")]
         public bool isOpening = false;
-        public bool isOpenable;
+        [SerializeField] bool isOpenable = true;
         public bool playerPresent = false;
         [SerializeField] bool isLoad;
         bool canLoad;
         public bool timerActive = false;
-        [SerializeField] Objective_Manager.Objectives objectiveToUnlock;
 
         [Header("Values")]
         [SerializeField] float openWaitTime = 10f;
@@ -60,14 +59,11 @@ namespace UnderwaterHorror
             }
             else if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && airlockAudioSource.isPlaying == false) airlockAudioSource.UnPause();
 
-            UnlockWhenConditionMet();
-
-            if (!isOpenable) return;
-            if (isLoad && isOpenable)
+            if (isLoad)
             {
                 IsLoadDoor();
             }
-            else if (!isLoad && isOpenable)
+            else if (!isLoad)
             {           
                 IsntLoadDoor();
             }
@@ -228,12 +224,6 @@ namespace UnderwaterHorror
                 LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
                 LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
             }
-        }
-
-        void UnlockWhenConditionMet()
-        {
-            if (isOpenable) return;
-            if (Objective_Manager.objective_Manager.GetObjectiveState(objectiveToUnlock)) isOpenable = true;
         }
     }
 }

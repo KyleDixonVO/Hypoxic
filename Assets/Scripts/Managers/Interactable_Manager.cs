@@ -47,8 +47,8 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            //ItemSingleton();
-            //ToggleRigidbodies();
+            ItemSingleton();
+            ToggleRigidbodies();
         }
 
         void ItemSingleton()
