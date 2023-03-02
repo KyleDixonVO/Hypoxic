@@ -25,12 +25,13 @@ namespace UnderwaterHorror
 
         public override void OnLoseFocus()
         {
-            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            UI_Manager.ui_Manager.DisablePrimaryInteractText();
         }
 
         public override void OnInteract()
         {
             GameManager.gameManager.SaveGame();
+            Debug.LogWarning("GameSaved");
         }
     }
 }
