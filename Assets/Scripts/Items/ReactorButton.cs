@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnderwaterHorror 
+namespace UnderwaterHorror
 {
     public class ReactorButton : Interactable
     {
@@ -34,5 +34,3 @@ namespace UnderwaterHorror
         }
     }
 }
-
-
