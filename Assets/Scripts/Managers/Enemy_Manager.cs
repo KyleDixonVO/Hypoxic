@@ -28,7 +28,7 @@ public class Enemy_Manager : MonoBehaviour
     {
         numberOfEnemies = enemyNames.Length;
         enemies = new Enemy[numberOfEnemies];
-        Debug.LogError(enemies.Length);
+        //Debug.LogError(enemies.Length);
     }
 
     // Update is called once per frame

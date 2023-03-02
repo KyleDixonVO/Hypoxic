@@ -10092,6 +10092,7 @@ MonoBehaviour:
   timeSinceLastPing: 0
   pingInterval: 3
   pingReady: 0
+  radarPingHeight: 13.5
 --- !u!4 &721264750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 715403889, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}

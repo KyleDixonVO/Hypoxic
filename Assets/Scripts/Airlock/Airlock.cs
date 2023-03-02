@@ -202,7 +202,7 @@ namespace UnderwaterHorror
         // --------------------------------------------- Timers -------------------------------------------- \\
         void CloseAirlock()
         {
-            if (IsOpen())
+            if (!IsClosed())
             {
                 Debug.LogError("Close Door");
                 LeanTween.move(doorRight, rightClosePos, 2f);
