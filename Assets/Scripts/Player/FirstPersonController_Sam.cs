@@ -186,6 +186,7 @@ namespace UnderwaterHorror
 
         private void Update()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             if (canMove)
             {
                 HandleMovementInput();
@@ -199,9 +200,12 @@ namespace UnderwaterHorror
                 if (useFootsteps)   { HandleFootsteps();                                    }
 
                 ApplyFinalMovement();
-                EnergyDrain();
-                PlayerStats.playerStats.RechargeSuit();
+                
+                
             }
+
+            EnergyDrain();
+            PlayerStats.playerStats.RechargeSuit();
         }
 
         private void LateUpdate()
@@ -522,10 +526,11 @@ namespace UnderwaterHorror
 
         private void EnergyDrain()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             if (!inWater) return;
             PlayerStats.playerStats.SuitPowerLogic();
 
-            if (!isRunning) return;
+            if (!isRunning || UI_Manager.ui_Manager.PDAOpen()) return;
             PlayerStats.playerStats.SuitSprintDrain();
         }
 

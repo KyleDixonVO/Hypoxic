@@ -41,6 +41,7 @@ namespace UnderwaterHorror
             if (!Level_Manager.LM.IsSceneOpen("Outside"))
             {
                 range = 0;
+                minimapRing.localScale = new Vector3(0, 0, 0);
                 return;
             }
             else if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
