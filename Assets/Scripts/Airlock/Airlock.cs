@@ -22,7 +22,7 @@ namespace UnderwaterHorror
 
         [Header("Booleans")]
         public bool isOpening = false;
-        public bool isOpenable;
+        public bool isOpenable = true;
         public bool playerPresent = false;
         [SerializeField] bool isLoad;
         bool canLoad;
@@ -62,7 +62,6 @@ namespace UnderwaterHorror
 
             UnlockWhenConditionMet();
 
-            if (!isOpenable) return;
             if (isLoad && isOpenable)
             {
                 IsLoadDoor();
