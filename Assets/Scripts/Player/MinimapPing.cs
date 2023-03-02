@@ -18,6 +18,7 @@ namespace UnderwaterHorror
         [SerializeField] private float timeSinceLastPing;
         [SerializeField] private float pingInterval;
         [SerializeField] private bool pingReady = true;
+        [SerializeField] private float radarPingHeight;
 
         // Start is called before the first frame update
         void Start()
@@ -65,7 +66,7 @@ namespace UnderwaterHorror
                 if (!pingHitList.Contains(raycastHit))
                 {
                     pingHitList.Add(raycastHit);
-                    blipList.Add(GameObject.Instantiate(blipPrefab, new Vector3(raycastHit.transform.position.x, raycastHit.transform.position.y, raycastHit.transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0))));
+                    blipList.Add(GameObject.Instantiate(blipPrefab, new Vector3(raycastHit.transform.position.x, radarPingHeight, raycastHit.transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0))));
 
                     AudioManager.audioManager.PlaySound(AudioManager.audioManager.UiAudio, AudioManager.audioManager.sonarPing);
 
