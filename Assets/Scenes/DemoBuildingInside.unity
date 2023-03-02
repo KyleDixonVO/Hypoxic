@@ -55160,7 +55160,9 @@ GameObject:
   - component: {fileID: 3480345170887056260}
   - component: {fileID: 8296293230263402053}
   - component: {fileID: 4137644761215311475}
-  m_Layer: 0
+  - component: {fileID: 8296293230263402054}
+  - component: {fileID: 8296293230263402055}
+  m_Layer: 10
   m_Name: Console_Geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62861,6 +62863,34 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635400680545490550}
+  m_Mesh: {fileID: -135393891310507675, guid: d96f15e512be1cb478de6beb79e6b44f, type: 3}
+--- !u!114 &8296293230263402054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635400680545490550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac49a9f0a36809419c018b7f0e61c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeName: 
+  singleton: 0
+--- !u!64 &8296293230263402055
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635400680545490550}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: -135393891310507675, guid: d96f15e512be1cb478de6beb79e6b44f, type: 3}
 --- !u!4 &8298997905175794148
 Transform:
