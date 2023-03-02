@@ -142,6 +142,22 @@ namespace UnderwaterHorror
             PDAItems[index].GetComponent<Image>().overrideSprite = emptySlot;
         }
 
+        void IsEquipedCheck(int i)
+        {
+            for (int y = 0; y < inventorySize; y++)
+            {
+                if (inventory[i] == inventory[y]) return;
+                else if (inventory[y].GetComponent<Item>())
+                {
+                    inventory[y].GetComponent<Item>().isEquiped = false;
+                }
+                else if (inventory[y].GetComponent<Weapon>())
+                {
+                    inventory[y].GetComponent<Weapon>().isEquiped = false;
+                }
+            }
+        }
+
         // ------------------------------------ Equip / Unequip ------------------------------------------------ \\
         void Equip(GameObject item, int slot)
         {
@@ -152,6 +168,7 @@ namespace UnderwaterHorror
             item.gameObject.GetComponent<Renderer>().enabled = true;
 
             activeWeapon = slot;
+            IsEquipedCheck(slot);
         }
 
         void Unequip(GameObject item)

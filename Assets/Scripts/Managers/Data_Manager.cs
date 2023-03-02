@@ -26,7 +26,6 @@ namespace UnderwaterHorror
 
         //objectiveManager data
         public bool[] objectives;
-        public readonly int numberOfObjectives = 4;
 
         //firstPersonControllerSam data
         public bool inWater;
@@ -62,7 +61,7 @@ namespace UnderwaterHorror
         void Start()
         {
             numberOfEnemies = Enemy_Manager.enemy_Manager.enemyNames.Length;
-            objectives = new bool[numberOfObjectives];
+            objectives = new bool[Enum.GetNames(typeof(Objective_Manager.Objectives)).Length];
             enemies = new Enemy[numberOfEnemies];
         }
 
@@ -205,6 +204,7 @@ namespace UnderwaterHorror
         //saves to Data_Manager from source classes
         public void SaveToDataManager()
         {
+            Debug.LogWarning(Enum.GetNames(typeof(Objective_Manager.Objectives)).Length);
             for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
             {
                 objectives[i] = Objective_Manager.objective_Manager.GetObjectiveState((Objective_Manager.Objectives)i);
@@ -436,7 +436,7 @@ namespace UnderwaterHorror
         public float maxSuitPower;
 
         //Data from objectiveManager
-        public bool[] objectives = new bool[Data_Manager.dataManager.numberOfObjectives];
+        public bool[] objectives = new bool[Enum.GetNames(typeof(Objective_Manager.Objectives)).Length];
         public bool finalObjectiveComplete;
         public int numberOfObjectivesComplete;
         public int objectivesToWin;
