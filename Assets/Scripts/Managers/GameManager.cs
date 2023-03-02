@@ -47,11 +47,6 @@ namespace UnderwaterHorror
         void Update()
         {
             EvaluateState();
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                GameManager.gameManager.SaveGame();
-            }
         }
 
 
@@ -117,7 +112,7 @@ namespace UnderwaterHorror
         public void GamestateGameplay()
         {
             _gameState = gameStates.gameplay;
-            Level_Manager.LM.LoadOutside();
+            //Level_Manager.LM.LoadOutside();
             if (FirstPersonController_Sam.fpsSam != null)
             {
                 FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
