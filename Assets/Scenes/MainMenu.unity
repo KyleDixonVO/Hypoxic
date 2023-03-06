@@ -516,7 +516,7 @@ RectTransform:
   m_Children:
   - {fileID: 1123965624}
   m_Father: {fileID: 386276432}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1973,7 +1973,7 @@ RectTransform:
   - {fileID: 231071571}
   - {fileID: 500445011}
   m_Father: {fileID: 386276432}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -2937,10 +2937,10 @@ RectTransform:
   - {fileID: 1667129829}
   - {fileID: 1927058427}
   - {fileID: 355749719}
-  - {fileID: 1138832253}
   - {fileID: 244178268}
   - {fileID: 51362534}
   - {fileID: 1809141804}
+  - {fileID: 1138832253}
   m_Father: {fileID: 92916746}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9971,6 +9971,22 @@ PrefabInstance:
       propertyPath: m_RenderingPath
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 145698183, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: orthographic size
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 952993821, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 952993821, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 952993821, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 952993821, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_LocalPosition.y
       value: 35
@@ -10033,7 +10049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: crouchingCenter.y
-      value: 0.8
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002495, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_Name
@@ -10085,8 +10101,8 @@ MonoBehaviour:
   pingParent: {fileID: 299096323}
   minimapRing: {fileID: 1983329170}
   range: 0
-  maxRange: 20
-  pingSpeed: 20
+  maxRange: 40
+  pingSpeed: 60
   pingHitList: []
   blipList: []
   pingMask:
@@ -10176,7 +10192,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 980}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &735492347
 MonoBehaviour:
@@ -19683,7 +19699,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 386276432}
-  m_RootOrder: 11
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24176,7 +24192,7 @@ MonoBehaviour:
   objective: 0
   isObjectiveComplete: 000000000000
   objectiveText:
-  - Reapir the copper pipe
+  - Repair the copper pipe
   - Enter the hab
   - Fix the red pipe
   - Fix the green pipe
@@ -25614,7 +25630,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 386276432}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}

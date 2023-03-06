@@ -349,6 +349,7 @@ MonoBehaviour:
   isAlive: 1
   enemyState: 0
   _enemyStats: {fileID: 4565852538049996991}
+  animator: {fileID: 0}
   patrolPoints:
   - {fileID: 4565852538912098661}
   - {fileID: 4565852536974747474}

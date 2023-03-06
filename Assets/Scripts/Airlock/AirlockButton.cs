@@ -19,6 +19,8 @@ namespace UnderwaterHorror
                 //AL.timeStamp = Time.time;
             }
             //AL.OpenDoor();
+
+            if (!AL.isOpenable) return;
             AL.isOpening = true;
             AL.timerActive = true;
         }

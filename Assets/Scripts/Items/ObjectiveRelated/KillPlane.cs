@@ -26,6 +26,11 @@ namespace UnderwaterHorror
                 Debug.Log("Entered KillPlane");
                 PlayerStats.playerStats.TakeDamage(10000);
             }
+            else if (other.tag == "Pipe")
+            {
+                Debug.Log("Pipe fell out of map");
+                other.GetComponent<HeavyObject>().ResetToStartingPosition();
+            }
         }
     }
 }
