@@ -91,6 +91,33 @@ namespace UnderwaterHorror
                 }
             }
         }
+
+        public void SetSavePositions()
+        {
+            for (int i = 0; i < heavyObjects.Length; i++)
+            {
+                if (heavyObjects[i] == null) continue;
+                heavyObjects[i].SetSavePos();
+            }
+        }
+
+        public void ReturnToSavedPositions()
+        {
+            for (int i = 0; i < heavyObjects.Length; i++)
+            {
+                if (heavyObjects[i] == null) continue;
+                heavyObjects[i].ReturnToSavePos();
+            }
+        }
+
+        public void ResetForNewRun()
+        {
+            for (int i = 0; i < heavyObjects.Length; i++)
+            {
+                if (heavyObjects[i] == null) continue;
+                heavyObjects[i].ResetToStartingPosition();
+            }
+        }
     }
 
 }

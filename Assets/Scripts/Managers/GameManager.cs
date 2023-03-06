@@ -195,6 +195,7 @@ namespace UnderwaterHorror
         {
             Objective_Manager.objective_Manager.ResetRun();
             InputManager.inputManager.ResetTab();
+            Object_Manager.object_Manager.ResetForNewRun();
             if (FirstPersonController_Sam.fpsSam == null) return;
             FirstPersonController_Sam.fpsSam.ResetRun();
             PlayerStats.playerStats.ResetRun();

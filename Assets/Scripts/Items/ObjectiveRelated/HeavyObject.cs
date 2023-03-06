@@ -8,6 +8,7 @@ namespace UnderwaterHorror
     {
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
+        public Vector3 savedPos;
         [SerializeField] private Vector3 initialPos;
         [SerializeField] private Vector3 heldPos;
         [SerializeField] private Vector3 heldRot;
@@ -96,6 +97,16 @@ namespace UnderwaterHorror
         public void ResetToStartingPosition()
         {
             this.transform.position = initialPos;
+        }
+
+        public void SetSavePos()
+        {
+            savedPos = this.transform.position;
+        }
+
+        public void ReturnToSavePos()
+        {
+            this.transform.position = savedPos;
         }
     }
 }

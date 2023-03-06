@@ -117,6 +117,9 @@ namespace UnderwaterHorror
                     isDead = true;
                     if (FirstPersonController_Sam.fpsSam == null) return;
                     FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+                    if (!FirstPersonController_Sam.fpsSam.carryingHeavyObj) return;
+                    FirstPersonController_Sam.fpsSam.GetComponentInChildren<HeavyObject>().ForceDropObject();
+
                     return;
             }
             //}
