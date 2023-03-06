@@ -65,8 +65,18 @@ public class Glowstick : Item
         this.gameObject.transform.SetParent(null);
         gameObject.GetComponent<Collider>().enabled = true;
         Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
+        rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         Vector3 forwardForce = strength * transform.right;
         //rigidbody.mass = 1f;       
         rigidbody.AddForce(forwardForce.x, forwardForce.y + 2f, forwardForce.z, ForceMode.Impulse);      
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+       if (GetComponent<Rigidbody>() != null && GetComponent<Rigidbody>().velocity.normalized == Vector3.zero && collision.transform.gameObject.layer == 7)
+       {
+            Debug.Log("hit");
+            Destroy(GetComponent<Rigidbody>());
+       }
     }
 }
