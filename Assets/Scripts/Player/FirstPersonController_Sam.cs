@@ -573,6 +573,8 @@ namespace UnderwaterHorror
             canInteract = true;
             useFootsteps = true;
             canMove = true;
+            carryingHeavyObj = false;
+            currentInteractable = null;
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;
             Debug.Log(this.gameObject.transform.position);
