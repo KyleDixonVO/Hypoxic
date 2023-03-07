@@ -107,7 +107,7 @@ namespace UnderwaterHorror
             animator.SetFloat("Speed", this.agent.velocity.magnitude);
             animator.SetFloat("Health", this._enemyStats.health);
             animator.SetBool("InAttackRange", WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
-            Debug.Log(animator.GetBool("InAttackRange") + " " + animator.GetFloat("Speed") + " " + animator.GetFloat("Health") + " " + gameObject.name);
+            //Debug.Log(animator.GetBool("InAttackRange") + " " + animator.GetFloat("Speed") + " " + animator.GetFloat("Health") + " " + gameObject.name);
         }
 
 
@@ -126,14 +126,14 @@ namespace UnderwaterHorror
                     PatrollingManager();
                     if (HasLineOfSight() && InFOVCone() && WithinRange(_enemyStats.GetDetectionDistance(), agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
-                        Debug.LogWarning("Switching to chasing state from patrolling");
+                        //Debug.LogWarning("Switching to chasing state from patrolling");
                         //Replace PlayAggroSound with the generic PlaySound from Audiomanager
                         //PlayAgroSound();
                         enemyState = EnemyState.chasing;
                     }
                     else if (HasLineOfSight() && WithinRange(_enemyStats.GetDetectionDistance() / 2, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
-                        Debug.LogWarning("Switching to alert state from patrolling");
+                        //Debug.LogWarning("Switching to alert state from patrolling");
                         enemyState = EnemyState.alerted;
                     }
                     break;
@@ -143,13 +143,13 @@ namespace UnderwaterHorror
                     AlertedManager();
                     if (HasLineOfSight() && InFOVCone() && WithinRange(_enemyStats.GetDetectionDistance(), agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
-                        Debug.LogWarning("Switching to chasing state from alerted");
+                        //Debug.LogWarning("Switching to chasing state from alerted");
                         agent.isStopped = false;
                         enemyState = EnemyState.chasing;
                     }
                     else if (agent.isStopped && _enemyStats.elapsedAlertTime >= _enemyStats.alertCheckingTime)
                     {
-                        Debug.LogWarning("Switching to patrolling state from alerted");
+                        //Debug.LogWarning("Switching to patrolling state from alerted");
                         agent.isStopped = false;
                         enemyState = EnemyState.patrolling;
                     }
@@ -159,12 +159,12 @@ namespace UnderwaterHorror
                     ChasingManager();
                     if (!HasLineOfSight())
                     {
-                        Debug.LogWarning("Switching to searching state from chasing");
+                        //Debug.LogWarning("Switching to searching state from chasing");
                         enemyState = EnemyState.searching;
                     }
                     else if (WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
-                        Debug.LogWarning("Switching to attaking state from chasing");
+                        //Debug.LogWarning("Switching to attaking state from chasing");
                         enemyState = EnemyState.attacking;
                     }
                     break;
@@ -185,13 +185,13 @@ namespace UnderwaterHorror
                     SearchingManager();
                     if (HasLineOfSight() && InFOVCone())
                     {
-                        Debug.LogWarning("Switching to chasing state from searching");
+                        //Debug.LogWarning("Switching to chasing state from searching");
                         searching = false;
                         enemyState = EnemyState.chasing;
                     }
                     else if (_enemyStats.searchingTime <= 0)
                     {
-                        Debug.LogWarning("Switching to patrolling state from searching");
+                       // Debug.LogWarning("Switching to patrolling state from searching");
                         searching = false;
                         enemyState = EnemyState.patrolling;
                     }
@@ -319,7 +319,7 @@ namespace UnderwaterHorror
             else if (searching)
             {
                 // Searching Movement...
-                Debug.Log(_enemyStats.searchingTime);
+                //Debug.Log(_enemyStats.searchingTime);
                 _enemyStats.searchingTime -= Time.deltaTime;
             }
         }
