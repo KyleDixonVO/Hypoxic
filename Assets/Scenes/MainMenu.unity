@@ -20578,6 +20578,7 @@ MonoBehaviour:
   heavyObjectNames:
   - pipeFixedRed
   - pipeFixedGreen
+  - pipeFixedTutorial
 --- !u!4 &1258928970
 Transform:
   m_ObjectHideFlags: 0
