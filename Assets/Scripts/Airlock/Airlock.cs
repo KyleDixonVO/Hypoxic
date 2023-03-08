@@ -57,49 +57,57 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
                 AudioManager.audioManager.PauseSound(airlockAudioSource);
+                LeanTween.pause(doorRight);
+                LeanTween.pause(doorLeft);
             }
-            else if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay && airlockAudioSource.isPlaying == false) airlockAudioSource.UnPause();
-
-            UnlockWhenConditionMet();
-
-            if (isLoad && isOpenable)
+            else if (GameManager.gameManager.gameState == GameManager.gameStates.gameplay)
             {
-                IsLoadDoor();
-            }
-            else if (!isLoad && isOpenable)
-            {           
-                IsntLoadDoor();
-            }
+                airlockAudioSource.UnPause();
+                LeanTween.resume(doorRight);
+                LeanTween.resume(doorLeft);
 
-            //-TIMER-------------------------------------------------------\\
-            if (timerActive)
-            {
-                timeStamp += Time.deltaTime;
-                if (IsClosed())
+                UnlockWhenConditionMet();
+
+                if (isLoad && isOpenable)
                 {
-                    // Tobias
-                    this.airlockAudioSource.loop = true;
-                    AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
-                    //-----------------------------------------------------------------------------------------
+                    IsLoadDoor();
+                }
+                else if (!isLoad && isOpenable)
+                {
+                    IsntLoadDoor();
                 }
 
-                if (timeStamp >= openWaitTime)
+                //-TIMER-------------------------------------------------------\\
+                if (timerActive)
                 {
-                    AudioManager.audioManager.StopSound(airlockAudioSource);
-                    if (isOpening)
+                    timeStamp += Time.deltaTime;
+                    if (IsClosed())
                     {
-                        OpenDoor();
-                        timerActive = false;
-                        timeStamp = 0;
+                        // Tobias
+                        this.airlockAudioSource.loop = true;
+                        AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
+                        //-----------------------------------------------------------------------------------------
                     }
-                    else if (!isOpening)
+
+                    if (timeStamp >= openWaitTime)
                     {
-                        CloseDoor();
-                        timerActive = false;
-                        timeStamp = 0;
-                    }
-                }         
+                        AudioManager.audioManager.StopSound(airlockAudioSource);
+                        if (isOpening)
+                        {
+                            OpenDoor();
+                            timerActive = false;
+                            timeStamp = 0;
+                        }
+                        else if (!isOpening)
+                        {
+                            CloseDoor();
+                            timerActive = false;
+                            timeStamp = 0;
+                        }
+                    }         
+                }
             }
+
             //-------------------------------------------------------TIMER-\\
         }
 
@@ -226,6 +234,8 @@ namespace UnderwaterHorror
                 Debug.LogError("Open Door");
                 LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
                 LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
+                AudioManager.audioManager.StopSound(airlockAudioSource);
+                AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
             }
         }
 
