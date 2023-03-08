@@ -72,7 +72,7 @@ namespace UnderwaterHorror
 
 
 
-                    for (int j = 0; j < inventory.Length; j++)
+                    for (int j = 0; j < inventory.Length; j++) // DONT REMOVE
                     {
                         if (j == i) Equip(inventory[j], j);
                         else Unequip(inventory[j]);
@@ -102,7 +102,14 @@ namespace UnderwaterHorror
                 Equip(inventory[2], 2);
                 Unequip(inventory[1]);
                 Unequip(inventory[0]);
-            }            
+            }
+
+            if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
+            {
+                Unequip(inventory[0]);
+                Unequip(inventory[1]);
+                Unequip(inventory[2]);
+            }
         }
 
         void HandleItemUsage()

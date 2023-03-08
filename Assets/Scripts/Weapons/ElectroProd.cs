@@ -64,7 +64,6 @@ namespace UnderwaterHorror
 
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
             {
-                Unequip();
                 return;
             }
 

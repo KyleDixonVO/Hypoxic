@@ -33,7 +33,6 @@ public class Glowstick : Item
 
         if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
         {
-            Unequip();
             return;
         }
 
