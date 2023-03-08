@@ -62,7 +62,8 @@ namespace UnderwaterHorror
             //Debug.Log("Loading Main Hab");
             SceneManager.LoadScene("DemoBuildingInside");
             FirstPersonController_Sam.fpsSam.IndoorTransition();
-            Objective_Manager.objective_Manager.UpdateObjectiveCompletion(1); // completes enter main hab -- will probably move to interction on terminal
+            Objective_Manager.objective_Manager.UpdateObjectiveCompletion(1); // completes enter main hab -- will probably move to interction on terminal <---- Interaction with terminal is currently the save station, this would cause conflicts
+            Interactable_Manager.interactable_manager.SetClearedJunkFalse();
         }
 
         public void LoadOutside()
@@ -70,6 +71,7 @@ namespace UnderwaterHorror
             if (IsSceneOpen("Outside")) return;
             Debug.Log("Loading Outside");
             SceneManager.LoadScene("Outside");
+            Interactable_Manager.interactable_manager.SetClearedJunkFalse();
         }
 
         public void LoadMainMenu()

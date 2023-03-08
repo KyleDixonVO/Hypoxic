@@ -71,7 +71,7 @@ namespace UnderwaterHorror
                         heavyObjects[i] = GameObject.Find(heavyObjectNames[i]).GetComponent<HeavyObject>();
                         DontDestroyOnLoad(heavyObjects[i]);
                         heavyObjects[i].singleton = true;
-                        Debug.Log("Found " + heavyObjectNames[i]);
+                        //Debug.Log("Found " + heavyObjectNames[i]);
                         
                     }
                     catch
