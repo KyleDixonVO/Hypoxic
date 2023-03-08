@@ -20579,6 +20579,7 @@ MonoBehaviour:
   - pipeFixedRed
   - pipeFixedGreen
   - pipeFixedTutorial
+  repairTargets: []
 --- !u!4 &1258928970
 Transform:
   m_ObjectHideFlags: 0
@@ -24199,6 +24200,7 @@ MonoBehaviour:
   - Fix the green pipe
   - Restart the reactor
   - Escape to the elevator
+  numberOfObjectives: 0
 --- !u!4 &1668812122
 Transform:
   m_ObjectHideFlags: 0
@@ -31381,6 +31383,72 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2065108690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2065108692}
+  - component: {fileID: 2065108691}
+  m_Layer: 0
+  m_Name: InteractableManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2065108691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065108690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808f49b7c08218145a6bbb4a96a7cd93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useRandomSpawns: 0
+  interactables: []
+  itemNames:
+  - Gun
+  - Shock_Prod_1
+  - Battery_1
+  - Battery_2
+  - Battery_3
+  - Battery_4
+  - GlowStick_1
+  - GlowStick_2
+  - GlowStick_3
+  - GlowStick_4
+  - Shock_Prod_2
+  - GlowStick_5
+  - GlowStick_6
+  - GlowStick_7
+  - Medkit
+  spawnedItems: 0
+  maxItems: 0
+  itemRNGCeiling: 0
+  spawnPoints: []
+--- !u!4 &2065108692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065108690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069652224
 GameObject:
   m_ObjectHideFlags: 0

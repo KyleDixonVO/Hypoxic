@@ -47,8 +47,8 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            //ItemSingleton();
-            //ToggleRigidbodies();
+            ItemSingleton();
+            ToggleRigidbodies();
         }
 
         void ItemSingleton()
@@ -74,7 +74,10 @@ namespace UnderwaterHorror
 
             for (int i = 0; i < GameObject.FindObjectsOfType<Interactable>().Length; i++)
             {
-                if (!GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<Interactable>().singleton)
+                if (!GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<Interactable>().singleton
+                    && GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<AirlockButton>() == null
+                    && GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<HeavyObject>() == null
+                    && GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<RepairTarget>() == null)
                 {
                     Destroy(GameObject.FindObjectsOfType<Interactable>()[i]);
                 }
@@ -87,6 +90,7 @@ namespace UnderwaterHorror
             for (int i = 0; i < interactables.Length; i++)
             {
                 if (interactables[i] == null) continue;
+                if (interactables[i].GetComponent<Rigidbody>() == null) return;
                 if (Level_Manager.LM.IsSceneOpen("Outside") && interactables[i].GetComponent<Rigidbody>().IsSleeping() == true)
                 {
                     interactables[i].GetComponent<Rigidbody>().WakeUp();
