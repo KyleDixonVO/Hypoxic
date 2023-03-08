@@ -60,11 +60,11 @@ namespace UnderwaterHorror
                     if (itemToAdd.GetComponent<Weapon>())
                     {
                         itemToAdd.GetComponent<Weapon>().playerCamera = playerCam;
-                        PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Weapon>().icon;
+                        //PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Weapon>().icon;
                     }
                     else
                     {
-                        PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Item>().icon;
+                        //PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Item>().icon;
                     }
 
                     inventory[i] = itemToAdd;
@@ -72,7 +72,7 @@ namespace UnderwaterHorror
 
 
 
-                    for (int j = 0; j < inventory.Length; j++)
+                    for (int j = 0; j < inventory.Length; j++) // DONT REMOVE
                     {
                         if (j == i) Equip(inventory[j], j);
                         else Unequip(inventory[j]);
@@ -102,7 +102,14 @@ namespace UnderwaterHorror
                 Equip(inventory[2], 2);
                 Unequip(inventory[1]);
                 Unequip(inventory[0]);
-            }            
+            }
+
+            if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
+            {
+                Unequip(inventory[0]);
+                Unequip(inventory[1]);
+                Unequip(inventory[2]);
+            }
         }
 
         void HandleItemUsage()
@@ -181,6 +188,14 @@ namespace UnderwaterHorror
             if (item.GetComponent<Weapon>()) item.GetComponent<Weapon>().isEquiped = false;
             else item.GetComponent<Item>().isEquiped = false;
             item.gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
+        public void ResetForNewRun()
+        {
+            for (int i = 0; i < inventory.Length; i++) 
+            {
+                inventory[i] = null;
+            }
         }
     }
 }

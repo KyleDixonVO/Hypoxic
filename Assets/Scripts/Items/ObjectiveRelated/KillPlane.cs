@@ -29,7 +29,7 @@ namespace UnderwaterHorror
             else if (other.tag == "Pipe")
             {
                 Debug.Log("Pipe fell out of map");
-                other.GetComponent<HeavyObject>().ResetToStartingPosition();
+                other.GetComponent<HeavyObject>().ResetForNewRun();
             }
         }
     }

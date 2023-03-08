@@ -32,7 +32,6 @@ public class MedKit : Item
 
         if (FirstPersonController_Sam.fpsSam.carryingHeavyObj) // might be able to send to item update()
         {
-            Unequip();
             return;
         }
 

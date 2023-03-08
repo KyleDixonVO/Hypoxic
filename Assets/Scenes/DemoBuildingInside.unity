@@ -3676,7 +3676,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8652803837888386490, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_Name
-      value: GlowStick (3)
+      value: GlowStick_7
       objectReference: {fileID: 0}
     - target: {fileID: 8652803837888386491, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_RootOrder
@@ -19698,7 +19698,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8652803837888386490, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_Name
-      value: GlowStick (1)
+      value: GlowStick_5
       objectReference: {fileID: 0}
     - target: {fileID: 8652803837888386491, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_RootOrder
@@ -43197,7 +43197,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8528196014280607635, guid: 186f977bdb8c3134d98701e4fb4451c5, type: 3}
       propertyPath: m_Name
-      value: Shock_Prod Variant 1
+      value: Shock_Prod_2
       objectReference: {fileID: 0}
     - target: {fileID: 9012245719656521001, guid: 186f977bdb8c3134d98701e4fb4451c5, type: 3}
       propertyPath: m_RootOrder
@@ -51716,7 +51716,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8652803837888386490, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_Name
-      value: GlowStick (2)
+      value: GlowStick_6
       objectReference: {fileID: 0}
     - target: {fileID: 8652803837888386491, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_RootOrder

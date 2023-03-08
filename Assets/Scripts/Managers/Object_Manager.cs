@@ -71,7 +71,7 @@ namespace UnderwaterHorror
                         heavyObjects[i] = GameObject.Find(heavyObjectNames[i]).GetComponent<HeavyObject>();
                         DontDestroyOnLoad(heavyObjects[i]);
                         heavyObjects[i].singleton = true;
-                        Debug.Log("Found " + heavyObjectNames[i]);
+                        //Debug.Log("Found " + heavyObjectNames[i]);
                         
                     }
                     catch
@@ -130,7 +130,8 @@ namespace UnderwaterHorror
             for (int i = 0; i < heavyObjects.Length; i++)
             {
                 if (heavyObjects[i] == null) continue;
-                heavyObjects[i].ResetToStartingPosition();
+                heavyObjects[i].ResetForNewRun();
+                heavyObjects[i].GetComponent<RepairObject>().ResetForNewRun();
             }
         }
 

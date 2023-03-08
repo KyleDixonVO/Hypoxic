@@ -7,7 +7,8 @@ namespace UnderwaterHorror
     public class Interactable_Manager : MonoBehaviour
     {
         [SerializeField] private bool useRandomSpawns;
-        public static Interactable_Manager item_manager;
+        private bool clearedJunk;
+        public static Interactable_Manager interactable_manager;
         public Interactable[] interactables;
         public string[] itemNames;
         [SerializeField] private bool spawnedItems;
@@ -19,12 +20,12 @@ namespace UnderwaterHorror
 
         private void Awake()
         {
-            if (item_manager == null)
+            if (interactable_manager == null)
             {
-                item_manager = this;
+                interactable_manager = this;
                 DontDestroyOnLoad(this);
             }
-            else if (item_manager != null && item_manager != this)
+            else if (interactable_manager != null && interactable_manager != this)
             {
                 Destroy(this);
             }
@@ -47,8 +48,8 @@ namespace UnderwaterHorror
         // Update is called once per frame
         void Update()
         {
-            //ItemSingleton();
-            //ToggleRigidbodies();
+            ItemSingleton();
+            ToggleRigidbodies();
         }
 
         void ItemSingleton()
@@ -63,7 +64,7 @@ namespace UnderwaterHorror
                         interactables[i] = GameObject.Find(itemNames[i]).GetComponent<Interactable>();
                         DontDestroyOnLoad(interactables[i]);
                         interactables[i].singleton = true;
-                        Debug.Log("Found " + interactables[i]);
+                        //Debug.Log("Found " + interactables[i]);
                     }
                     catch
                     {
@@ -72,13 +73,31 @@ namespace UnderwaterHorror
                 }
             }
 
-            for (int i = 0; i < GameObject.FindObjectsOfType<Interactable>().Length; i++)
+            RemoveDuplicates();
+        }
+
+        void RemoveDuplicates()
+        {
+            if (clearedJunk) return;
+            Debug.Log("Clearing Junk");
+            for (int i = 0; i < interactables.Length; i++)
             {
-                if (!GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<Interactable>().singleton)
+                if (GameObject.Find(itemNames[i]) == null) 
+                {
+                    Debug.Log(itemNames[i]);
+                    continue;
+                }
+                if (GameObject.Find(itemNames[i]).GetComponent<Interactable>().singleton == false && interactables[i] != null)
                 {
                     Destroy(GameObject.FindObjectsOfType<Interactable>()[i]);
                 }
             }
+            clearedJunk = true;
+        }
+
+        public void SetClearedJunkFalse()
+        {
+            clearedJunk = false;
         }
 
         private void ToggleRigidbodies()
@@ -87,6 +106,7 @@ namespace UnderwaterHorror
             for (int i = 0; i < interactables.Length; i++)
             {
                 if (interactables[i] == null) continue;
+                if (interactables[i].GetComponent<Rigidbody>() == null) return;
                 if (Level_Manager.LM.IsSceneOpen("Outside") && interactables[i].GetComponent<Rigidbody>().IsSleeping() == true)
                 {
                     interactables[i].GetComponent<Rigidbody>().WakeUp();
@@ -107,6 +127,17 @@ namespace UnderwaterHorror
             }
 
             Data_Manager.dataManager.EnemyManagerToDataManager();
+        }
+
+        public void ResetForNewRun()
+        {
+            for (int i = 0; i < interactables.Length; i++)
+            {
+                interactables[i] = null;
+            }
+
+            spawnedItems = false;
+            clearedJunk = false;
         }
 
         void SpawnInteractables()
