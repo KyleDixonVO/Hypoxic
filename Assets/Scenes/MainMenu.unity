@@ -3744,8 +3744,8 @@ MonoBehaviour:
   insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
   jets: {fileID: 8300000, guid: 896959a2115e7c44e88628de625903a4, type: 3}
   heavyBreathing: {fileID: 8300000, guid: 63095a5952128ce4f86fef35d7a4f52b, type: 3}
-  lowPower: {fileID: 8300000, guid: 1af773c41cd7fa745ab2ade2c53f64b0, type: 3}
-  noPower: {fileID: 8300000, guid: d799f734d2dee23419547b88050ceb05, type: 3}
+  lowPower: {fileID: 8300000, guid: 4993877336271784da31980510471d57, type: 3}
+  noPower: {fileID: 8300000, guid: 184e7a886dd5ab94d9a9ecaa429b206e, type: 3}
   bigFishBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
   bigFishAgro: {fileID: 8300000, guid: 06f77e2d9a70ea9468a07b3395c83ca1, type: 3}
   bigFishHurt: {fileID: 8300000, guid: 9e39e71402deb944fad746fa438f643b, type: 3}
@@ -20579,6 +20579,7 @@ MonoBehaviour:
   - pipeFixedRed
   - pipeFixedGreen
   - pipeFixedTutorial
+  repairTargets: []
 --- !u!4 &1258928970
 Transform:
   m_ObjectHideFlags: 0
@@ -24199,6 +24200,7 @@ MonoBehaviour:
   - Fix the green pipe
   - Restart the reactor
   - Escape to the elevator
+  numberOfObjectives: 0
 --- !u!4 &1668812122
 Transform:
   m_ObjectHideFlags: 0
