@@ -72,6 +72,7 @@ namespace UnderwaterHorror
         // Update is called once per frame
         protected void Update()
         {
+            CheckSounds();
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
                 agent.isStopped = true;
@@ -117,7 +118,6 @@ namespace UnderwaterHorror
             {
                 enemyState = EnemyState.defeated;
             }
-
 
             switch (enemyState)
             {
@@ -205,7 +205,6 @@ namespace UnderwaterHorror
 
 
             }
-            CheckSounds();
         }
 
 
