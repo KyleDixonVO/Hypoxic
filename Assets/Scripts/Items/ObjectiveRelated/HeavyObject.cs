@@ -94,9 +94,10 @@ namespace UnderwaterHorror
             return false;
         }
 
-        public void ResetToStartingPosition()
+        public void ResetForNewRun()
         {
             this.transform.position = initialPos;
+            _isHeld = false;
         }
 
         public void SetSavePos()

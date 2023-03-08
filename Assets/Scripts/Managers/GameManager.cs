@@ -195,10 +195,17 @@ namespace UnderwaterHorror
         {
             Objective_Manager.objective_Manager.ResetRun();
             InputManager.inputManager.ResetTab();
-            Object_Manager.object_Manager.ResetForNewRun();
-            if (FirstPersonController_Sam.fpsSam == null) return;
+            InputManager.inputManager.ResetEscape();
             FirstPersonController_Sam.fpsSam.ResetRun();
             PlayerStats.playerStats.ResetRun();
+            Object_Manager.object_Manager.ResetForNewRun();
+            Interactable_Manager.interactable_manager.ResetForNewRun();
+            Enemy_Manager.enemy_Manager.ResetForNewRun();
+            PlayerInventory.playerInventory.ResetForNewRun();
+            UI_Manager.ui_Manager.ResetForNewRun();
+
+            if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<MinimapPing>() == null) return;
+            FirstPersonController_Sam.fpsSam.GetComponentInChildren<MinimapPing>().ResetForNextRun();
         }
 
         public void ExitGame()

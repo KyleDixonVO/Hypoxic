@@ -130,7 +130,8 @@ namespace UnderwaterHorror
             for (int i = 0; i < heavyObjects.Length; i++)
             {
                 if (heavyObjects[i] == null) continue;
-                heavyObjects[i].ResetToStartingPosition();
+                heavyObjects[i].ResetForNewRun();
+                heavyObjects[i].GetComponent<RepairObject>().ResetForNewRun();
             }
         }
 

@@ -107,6 +107,14 @@ namespace UnderwaterHorror
             }
         }
 
+        public void ResetForNewRun()
+        {
+            elapsedRepairTime = 0;
+            this.gameObject.SetActive(true);
+            repairing = false;
+            repaired = false;
+        }
+
     }
 
 }

@@ -82,7 +82,12 @@ namespace UnderwaterHorror
             Debug.Log("Clearing Junk");
             for (int i = 0; i < interactables.Length; i++)
             {
-                if (GameObject.Find(itemNames[i]).GetComponent<Interactable>().singleton == false)
+                if (GameObject.Find(itemNames[i]) == null) 
+                {
+                    Debug.Log(itemNames[i]);
+                    continue;
+                }
+                if (GameObject.Find(itemNames[i]).GetComponent<Interactable>().singleton == false && interactables[i] != null)
                 {
                     Destroy(GameObject.FindObjectsOfType<Interactable>()[i]);
                 }
@@ -122,6 +127,17 @@ namespace UnderwaterHorror
             }
 
             Data_Manager.dataManager.EnemyManagerToDataManager();
+        }
+
+        public void ResetForNewRun()
+        {
+            for (int i = 0; i < interactables.Length; i++)
+            {
+                interactables[i] = null;
+            }
+
+            spawnedItems = false;
+            clearedJunk = false;
         }
 
         void SpawnInteractables()

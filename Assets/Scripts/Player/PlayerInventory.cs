@@ -60,11 +60,11 @@ namespace UnderwaterHorror
                     if (itemToAdd.GetComponent<Weapon>())
                     {
                         itemToAdd.GetComponent<Weapon>().playerCamera = playerCam;
-                        PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Weapon>().icon;
+                        //PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Weapon>().icon;
                     }
                     else
                     {
-                        PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Item>().icon;
+                        //PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Item>().icon;
                     }
 
                     inventory[i] = itemToAdd;
@@ -181,6 +181,14 @@ namespace UnderwaterHorror
             if (item.GetComponent<Weapon>()) item.GetComponent<Weapon>().isEquiped = false;
             else item.GetComponent<Item>().isEquiped = false;
             item.gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
+        public void ResetForNewRun()
+        {
+            for (int i = 0; i < inventory.Length; i++) 
+            {
+                inventory[i] = null;
+            }
         }
     }
 }

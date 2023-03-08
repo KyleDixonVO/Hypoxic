@@ -305,7 +305,7 @@ namespace UnderwaterHorror
         //PDA methods
         void TogglePDASubmenus()
         {
-            PDASubmenu passthrough = PDASubmenu.Objectives;
+            PDASubmenu passthrough = PDASubmenu.Inventory;
             if (SubmenuButton.caller != null) 
             {
                 passthrough = SubmenuButton.caller.activeSubmenu;
@@ -563,6 +563,12 @@ namespace UnderwaterHorror
         public void SwitchWinText()
         {
             textGameOver.text = "You Won!";
+        }
+
+        public void ResetForNewRun()
+        {
+            SubmenuButton.caller = null;
+            LogButton.caller = null;
         }
 
         //  Tobias's Amazing Code Powers
