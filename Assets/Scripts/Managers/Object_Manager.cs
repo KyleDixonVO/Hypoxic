@@ -9,6 +9,9 @@ namespace UnderwaterHorror
         public static Object_Manager object_Manager;
         [SerializeField] HeavyObject[] heavyObjects;
         [SerializeField] string[] heavyObjectNames;
+        [SerializeField] RepairTarget[] repairTargets;
+        private bool goneInside;
+
         private void Awake()
         {
             if (object_Manager == null)
@@ -25,6 +28,7 @@ namespace UnderwaterHorror
         void Start()
         {
             heavyObjects = new HeavyObject[heavyObjectNames.Length];
+            repairTargets = new RepairTarget[heavyObjectNames.Length];
         }
 
         // Update is called once per frame
@@ -34,6 +38,16 @@ namespace UnderwaterHorror
             ToggleRigidbodies();
             if (FirstPersonController_Sam.fpsSam == null || heavyObjects.Length == 0) return;
             WithinPickupRange();
+            if (!Level_Manager.LM.IsSceneOpen("Outside")) 
+            {
+                goneInside = true;
+                return;
+            } 
+            else if (goneInside && Level_Manager.LM.IsSceneOpen("Outside"))
+            {
+                SetRepairPipeStatus();
+                goneInside = false;
+            }
         }
 
         public bool WithinPickupRange()
@@ -58,6 +72,7 @@ namespace UnderwaterHorror
                         DontDestroyOnLoad(heavyObjects[i]);
                         heavyObjects[i].singleton = true;
                         Debug.Log("Found " + heavyObjectNames[i]);
+                        
                     }
                     catch
                     {
@@ -117,6 +132,15 @@ namespace UnderwaterHorror
                 if (heavyObjects[i] == null) continue;
                 heavyObjects[i].ResetToStartingPosition();
             }
+        }
+
+        void SetRepairPipeStatus()
+        {
+            repairTargets = GameObject.FindObjectsOfType<RepairTarget>();
+
+            if (Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairRedPipe) && repairTargets[0] != null) repairTargets[0].RepairedObject();
+            if (Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairGreenPipe) && repairTargets[1] != null) repairTargets[1].RepairedObject();
+            if (Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairTutorialPipe) && repairTargets[2] != null) repairTargets[2].RepairedObject();
         }
     }
 

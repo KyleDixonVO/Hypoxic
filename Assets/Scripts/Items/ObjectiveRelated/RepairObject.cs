@@ -70,6 +70,11 @@ namespace UnderwaterHorror
             Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)objective);
         }
 
+        public void SetTargetObjectRepaired()
+        {
+            targetObject.RepairedObject();
+        }
+
         public bool WithinRepairRange()
         {
             if (Vector3.Distance(this.gameObject.transform.position, repairDestination) < repairDistance) return true;

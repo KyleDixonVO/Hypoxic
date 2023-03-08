@@ -36,13 +36,14 @@ namespace UnderwaterHorror
         [Header("Objectives")]
         [SerializeField] private bool[] isObjectiveComplete = new bool[System.Enum.GetNames(typeof(Objectives)).Length];
         [SerializeField] private string[] objectiveText = new string[System.Enum.GetNames(typeof(Objectives)).Length];
+        public int numberOfObjectives;
         private string outgoingText;
 
 
         // Start is called before the first frame update
         void Start()
         {
-            
+            numberOfObjectives = isObjectiveComplete.Length;
         }
 
         // Update is called once per frame
