@@ -241,8 +241,10 @@ namespace UnderwaterHorror
 
         void UnlockWhenConditionMet()
         {
-            if (isOpenable) return;
-            if (Objective_Manager.objective_Manager.GetObjectiveState(objectiveToUnlock)) isOpenable = true;
+            //if (isOpenable) return;
+            isOpenable = Objective_Manager.objective_Manager.GetObjectiveState(objectiveToUnlock);
+            //if (Objective_Manager.objective_Manager.GetObjectiveState(objectiveToUnlock)) isOpenable = true;
+            //else if (!Objective_Manager.objective_Manager.GetObjectiveState(objectiveToUnlock)) isOpenable = false;
         }
     }
 }
