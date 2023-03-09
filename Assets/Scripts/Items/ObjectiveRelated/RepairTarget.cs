@@ -24,13 +24,13 @@ namespace UnderwaterHorror
         public void RepairedObject()
         {
             repairedObject.GetComponent<MeshRenderer>().enabled = true;
-            brokenObject.GetComponent<MeshRenderer>().enabled = false;
+            brokenObject.SetActive(false);
         }
 
         public void BrokenObject()
         {
             repairedObject.GetComponent<MeshRenderer>().enabled = false;
-            brokenObject.GetComponent<MeshRenderer>().enabled = true;
+            brokenObject.SetActive(true);
         }
 
         public override void OnFocus()
