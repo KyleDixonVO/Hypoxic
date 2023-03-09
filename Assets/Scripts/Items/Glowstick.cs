@@ -53,10 +53,12 @@ public class Glowstick : Item
     public void TurnOn()
     {
         gameObject.GetComponent<Renderer>().enabled = true;
+        light.enabled = true;
     }
     public void TurnOff()
     {
         gameObject.GetComponent<Renderer>().enabled = false;
+        light.enabled = false;
     }
 
     protected override void ApplyEffect()

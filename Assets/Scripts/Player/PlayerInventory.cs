@@ -40,8 +40,10 @@ namespace UnderwaterHorror
 
         void Update()
         {
+            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             HandleEquipUnequip(); // Checks for the input to switch to weapons
             HandleItemUsage(); // checks to see if an item is used, deletes it if so
+            InventorySlotUpdate();
             if (Input.GetKeyDown(KeyCode.Q)) HandleDrop(); // checks the input for droping an item
         }
 
@@ -74,7 +76,7 @@ namespace UnderwaterHorror
 
                     for (int j = 0; j < inventory.Length; j++) // DONT REMOVE
                     {
-                        if (j == i) Equip(inventory[j], j);
+                        if (j == i) Equip(j);
                         else Unequip(inventory[j]);
                     }
                     return;
@@ -85,7 +87,7 @@ namespace UnderwaterHorror
         // ------------------------------- Update Loop ------------------------------------------ \\
         void HandleEquipUnequip() // handles the old equip / unequip system
         {
-            activeWeapon = InputManager.inputManager.lastNumKeyPressed;
+
 
             for (int i = 0; i < inventory.Length; i++)
             {
@@ -96,34 +98,31 @@ namespace UnderwaterHorror
                     continue;
                 }
 
+  
                 if (i == activeWeapon)
                 {
-                    Equip(inventory[i], activeWeapon);
+                    Equip(activeWeapon);
                     continue;
                 }
 
                 Unequip(inventory[i]);
             }
+        }
 
-            //if (Input.GetKeyDown(KeyCode.Alpha1) && inventory[0] != null)
-            //{
-            //    Equip(inventory[0], 0);
-            //    Unequip(inventory[1]);
-            //    Unequip(inventory[2]);
-            //}
-            //else if (Input.GetKeyDown(KeyCode.Alpha2) && inventory[1] != null)
-            //{
-            //    Equip(inventory[1], 1);
-            //    Unequip(inventory[0]);
-            //    Unequip(inventory[2]);
-            //}
-            //else if (Input.GetKeyDown(KeyCode.Alpha3) && inventory[2] != null)
-            //{
-            //    Equip(inventory[2], 2);
-            //    Unequip(inventory[1]);
-            //    Unequip(inventory[0]);
-            //}
-
+        void InventorySlotUpdate()
+        {
+            if (UI_Manager.ui_Manager.PDAOpen() || InputManager.inputManager.lastNumKeyPressed == activeWeapon) return;
+            activeWeapon = InputManager.inputManager.lastNumKeyPressed;
+            for (int i = 0; i < UI_Manager.ui_Manager.inventoryButtons.Length; i++)
+            {
+                if (InventoryButton.caller == null) InventoryButton.caller = UI_Manager.ui_Manager.inventoryButtons[0];
+                if (UI_Manager.ui_Manager.inventoryButtons[i].slot == InventoryButton.caller.slot)
+                {
+                    Debug.LogError("Setting Caller to active weapon slot, caller is now slot: " + (activeWeapon));
+                    UI_Manager.ui_Manager.inventoryButtons[activeWeapon].SetThisAsCaller();
+                }
+            }
+            
         }
 
         void HandleItemUsage()
@@ -170,6 +169,7 @@ namespace UnderwaterHorror
         {
             for (int y = 0; y < inventorySize; y++)
             {
+                if (inventory[y] == null || inventory[i] == null) return;
                 if (inventory[i] == inventory[y]) return;
                 else if (inventory[y].GetComponent<Item>())
                 {
@@ -183,15 +183,15 @@ namespace UnderwaterHorror
         }
 
         // ------------------------------------ Equip / Unequip ------------------------------------------------ \\
-        void Equip(GameObject item, int slot)
+        void Equip(int slot)
         {
-            if (item.GetComponent<Glowstick>()) item.GetComponent<Glowstick>().TurnOn(); // enable light on glowstick, becasue it's special
+            if (inventory[slot].GetComponent<Glowstick>()) inventory[slot].GetComponent<Glowstick>().TurnOn(); // enable light on glowstick, becasue it's special
 
-            if (item.GetComponent<Weapon>()) item.GetComponent<Weapon>().isEquiped = true;
-            else item.GetComponent<Item>().isEquiped = true;
-            item.gameObject.GetComponent<Renderer>().enabled = true;
+            if (inventory[slot].GetComponent<Weapon>()) inventory[slot].GetComponent<Weapon>().isEquiped = true;
+            else inventory[slot].GetComponent<Item>().isEquiped = true;
+            inventory[slot].gameObject.GetComponent<Renderer>().enabled = true;
 
-            activeWeapon = slot;
+            //activeWeapon = slot;
             IsEquipedCheck(slot);
         }
 
