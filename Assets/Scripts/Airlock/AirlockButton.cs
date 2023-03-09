@@ -21,7 +21,7 @@ namespace UnderwaterHorror
             //AL.OpenDoor();
 
             if (!AL.isOpenable) return;
-            AL.isOpening = true;
+            if (AL.IsClosed()) AL.isOpening = true;
             AL.timerActive = true;
         }
 
