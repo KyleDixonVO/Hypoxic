@@ -10,6 +10,7 @@ namespace UnderwaterHorror
     {
         public static UI_Manager ui_Manager;
         public bool tooltipActiveElsewhere = false;
+        public bool pdaOpen;
 
         [Header("Main Menu Assets")]
         [SerializeField] private TMP_Text textStartTitle;
@@ -72,6 +73,7 @@ namespace UnderwaterHorror
         [SerializeField] private Sprite[] itemImages;
         [SerializeField] private string[] logTranscripts;
         [SerializeField] private PDASubmenu submenu;
+        public InventoryButton[] inventoryButtons;
 
         [SerializeField] private AudioSource logSource;
 
@@ -315,6 +317,7 @@ namespace UnderwaterHorror
             {
                 case PDASubmenu.Inventory:
                     UpdatePDAInventoryImages();
+                    SetActiveSlotInPDA();
                     if (submenu == passthrough) return;
                     pdaInventoryParent.SetActive(true);
                     pdaLogParent.SetActive(false);
@@ -337,6 +340,15 @@ namespace UnderwaterHorror
                     break;
             }
             submenu = passthrough;
+        }
+
+        void SetActiveSlotInPDA()
+        {
+            if (canvasArray[(int)ActiveUI.PDA].enabled == false) return;
+            if (InventoryButton.caller == null) return;
+            Debug.LogWarning("PDA open, setting lastNumPressed to: " + InventoryButton.caller.slot);
+            //PlayerInventory.playerInventory.activeWeapon = InventoryButton.caller.slot;
+            InputManager.inputManager.SetLastNumPressed(InventoryButton.caller.slot);
         }
 
         void UpdatePDAInventoryImages()
