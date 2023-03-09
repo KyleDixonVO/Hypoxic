@@ -79,6 +79,7 @@ namespace UnderwaterHorror
         {
             foreach(GameObject gameObject in blipList)
             {
+                if (gameObject == null) return;
                 gameObject.GetComponent<BlipController>().FadeOut();
             }
 
