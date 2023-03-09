@@ -85,31 +85,45 @@ namespace UnderwaterHorror
         // ------------------------------- Update Loop ------------------------------------------ \\
         void HandleEquipUnequip() // handles the old equip / unequip system
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1) && inventory[0] != null)
+            activeWeapon = InputManager.inputManager.lastNumKeyPressed;
+
+            for (int i = 0; i < inventory.Length; i++)
             {
-                Equip(inventory[0], 0);
-                Unequip(inventory[1]);
-                Unequip(inventory[2]);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) && inventory[1] != null)
-            {
-                Equip(inventory[1], 1);
-                Unequip(inventory[0]);
-                Unequip(inventory[2]);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && inventory[2] != null)
-            {
-                Equip(inventory[2], 2);
-                Unequip(inventory[1]);
-                Unequip(inventory[0]);
+                if (inventory[i] == null) continue;
+                if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
+                {
+                    Unequip(inventory[i]);
+                    continue;
+                }
+
+                if (i == activeWeapon)
+                {
+                    Equip(inventory[i], activeWeapon);
+                    continue;
+                }
+
+                Unequip(inventory[i]);
             }
 
-            if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
-            {
-                Unequip(inventory[0]);
-                Unequip(inventory[1]);
-                Unequip(inventory[2]);
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha1) && inventory[0] != null)
+            //{
+            //    Equip(inventory[0], 0);
+            //    Unequip(inventory[1]);
+            //    Unequip(inventory[2]);
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Alpha2) && inventory[1] != null)
+            //{
+            //    Equip(inventory[1], 1);
+            //    Unequip(inventory[0]);
+            //    Unequip(inventory[2]);
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Alpha3) && inventory[2] != null)
+            //{
+            //    Equip(inventory[2], 2);
+            //    Unequip(inventory[1]);
+            //    Unequip(inventory[0]);
+            //}
+
         }
 
         void HandleItemUsage()
