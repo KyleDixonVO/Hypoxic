@@ -169,6 +169,7 @@ namespace UnderwaterHorror
         {
             for (int y = 0; y < inventorySize; y++)
             {
+                if (inventory[y] == null || inventory[i] == null) return;
                 if (inventory[i] == inventory[y]) return;
                 else if (inventory[y].GetComponent<Item>())
                 {
