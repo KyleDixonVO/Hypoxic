@@ -38,6 +38,9 @@ public class InputManager : MonoBehaviour
     public bool tabPressed;
     private bool tabCycled;
 
+    private int _lastNumKeyPressed;
+    public int lastNumKeyPressed;
+
     private void Awake()
     {
         if (inputManager == null)
@@ -58,12 +61,14 @@ public class InputManager : MonoBehaviour
         eCycled = true;
         _tabPressed = false;
         tabCycled = true;
+        _lastNumKeyPressed = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateInputs();
+        UpdateLastNumPressed();
         //Debug.Log(eCycled);
     }
 
@@ -74,6 +79,15 @@ public class InputManager : MonoBehaviour
     public void ResetTab()
     {
         _tabPressed = false;
+    }
+
+    void UpdateLastNumPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) _lastNumKeyPressed = 0;
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) _lastNumKeyPressed = 1;
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) _lastNumKeyPressed = 2;
+
+        lastNumKeyPressed = _lastNumKeyPressed;
     }
 
     void UpdateInputs()

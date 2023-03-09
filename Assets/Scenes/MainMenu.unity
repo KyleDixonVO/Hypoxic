@@ -2067,7 +2067,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -31, y: 282}
-  m_SizeDelta: {x: 500, y: 50}
+  m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260682362
 MonoBehaviour:
@@ -2089,22 +2089,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '          Controls
+  m_text: 'Controls
 
 
-    Movement                = WASD
+    Movement                 = WASD
 
-    Primary Interact       
+    Primary Interact           
     = E
 
-    Reload / Repair Object  = R
+    Reload / Repair Object      = R
 
-    Dash                    = Caps
+    Sprint                  = Shift
 
-    Sprint                 
-    = Shift
+    Jump                   
+    = Space
 
-    Jump                    = Space'
+    Left Mouse      = Use Held Item
+
+    Change item slot      = 1,
+    2, 3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a291a4abae5d7344903147f81e12956, type: 2}
   m_sharedMaterial: {fileID: -1047944158881693523, guid: 8a291a4abae5d7344903147f81e12956, type: 2}
@@ -2138,7 +2141,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
