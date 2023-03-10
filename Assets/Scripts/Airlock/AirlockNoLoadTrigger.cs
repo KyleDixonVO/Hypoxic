@@ -39,7 +39,6 @@ namespace UnderwaterHorror
                 exteriorAirlock.CloseDoor();
                 interiorAirlock.CloseDoor();
             }
-
         }
     }
 }

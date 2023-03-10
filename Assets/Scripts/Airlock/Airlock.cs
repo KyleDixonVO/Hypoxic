@@ -81,16 +81,16 @@ namespace UnderwaterHorror
                 if (timerActive)
                 {
                     timeStamp += Time.deltaTime;
-                    if (IsClosed())
-                    {
-                        // Tobias
-                        this.airlockAudioSource.loop = true;
-                        AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
-                        //-----------------------------------------------------------------------------------------
-                    }
+
+                    // Tobias
+                    if (airlockAudioSource.clip == AudioManager.audioManager.doorOpening) this.airlockAudioSource.loop = true;
+                    AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorOpening);
+                    
+                    //-----------------------------------------------------------------------------------------
 
                     if (timeStamp >= openWaitTime)
                     {
+                        Debug.LogWarning(timeStamp);
                         AudioManager.audioManager.StopSound(airlockAudioSource);
                         if (isOpening)
                         {
@@ -146,7 +146,7 @@ namespace UnderwaterHorror
             }
             else if (IsOpen() && isOpening) // door is open - wait to close
             {
-                timerActive = true;
+                //timerActive = true;
                 //Debug.LogWarning("Case 2");
             }
             else if (playerPresent && IsClosed() && countDownProgress >= 5)
@@ -215,7 +215,7 @@ namespace UnderwaterHorror
         {
             if (!IsClosed())
             {
-                Debug.LogError("Close Door");
+                Debug.LogWarning("Close Door");
                 LeanTween.move(doorRight, rightClosePos, 2f);
                 LeanTween.move(doorLeft, leftClosePos, 2f);
                 // Tobias
@@ -231,11 +231,15 @@ namespace UnderwaterHorror
         {
             if (IsClosed())
             {
-                Debug.LogError("Open Door");
+                Debug.LogWarning("Open Door");
                 LeanTween.move(doorRight, rightOpenPos.transform.position, 2f);
                 LeanTween.move(doorLeft, leftOpenPos.transform.position, 2f);
+                // Tobias
                 AudioManager.audioManager.StopSound(airlockAudioSource);
                 AudioManager.audioManager.PlaySound(airlockAudioSource, AudioManager.audioManager.doorClosed);
+                airlockAudioSource.loop = false;
+                //-----------------------------------------------------------------------------------------
+                isOpening = true;
             }
         }
 
