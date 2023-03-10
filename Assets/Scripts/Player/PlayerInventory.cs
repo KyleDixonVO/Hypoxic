@@ -13,6 +13,8 @@ namespace UnderwaterHorror
         Camera playerCam;
         public static PlayerInventory playerInventory;
         public int activeWeapon; // not actually a great name as it can be any item - Edmund
+        public bool inventoryFull;
+        public string fullInventoryTooltip;
         [SerializeField] Sprite emptySlot;
 
         Vector3 itemPos = new Vector3(.35f, -.35f, 1f);
@@ -72,7 +74,14 @@ namespace UnderwaterHorror
                     inventory[i] = itemToAdd;
                     inventory[i].gameObject.GetComponent<Collider>().enabled = false;
 
-
+                    if (i == inventory.Length - 1)
+                    {
+                        inventoryFull = true;
+                    }
+                    else
+                    {
+                        inventoryFull = false;
+                    }
 
                     for (int j = 0; j < inventory.Length; j++) // DONT REMOVE
                     {
@@ -80,6 +89,8 @@ namespace UnderwaterHorror
                         else Unequip(inventory[j]);
                     }
                     return;
+
+
                 }
             }
         }

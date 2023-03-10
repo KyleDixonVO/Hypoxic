@@ -7,6 +7,7 @@ namespace UnderwaterHorror
     public class MiniButton : Interactable
     {
         public AirlockMini door;
+        [SerializeField] string tooltip;
 
         public override void OnInteract()
         {
@@ -15,7 +16,7 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
-            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText(tooltip);
         }
 
         public override void OnLoseFocus()

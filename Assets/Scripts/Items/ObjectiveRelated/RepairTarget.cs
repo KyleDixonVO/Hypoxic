@@ -8,6 +8,7 @@ namespace UnderwaterHorror
     {
         public GameObject brokenObject;
         public GameObject repairedObject;
+        [SerializeField] string tooltip;
 
         // Start is called before the first frame update
         void Start()
@@ -36,7 +37,7 @@ namespace UnderwaterHorror
         public override void OnFocus()
         {
             if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<RepairObject>() == null) return;
-            UI_Manager.ui_Manager.ActivateSecondaryInteractText();
+            UI_Manager.ui_Manager.ActivateSecondaryInteractText(tooltip);
         }
 
         public override void OnLoseFocus()

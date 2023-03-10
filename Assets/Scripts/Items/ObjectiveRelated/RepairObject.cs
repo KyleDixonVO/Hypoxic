@@ -12,6 +12,7 @@ namespace UnderwaterHorror
         [SerializeField] float repairDistance = 2.0f;
         [SerializeField] bool repaired = false;
         [SerializeField] string targetName;
+        [SerializeField] string tooltip;
         [SerializeField] Objective_Manager.Objectives objective;
         public bool repairing = false;
         public float repairPercentage;
@@ -99,7 +100,7 @@ namespace UnderwaterHorror
         {
             if (WithinRepairRange() && this.GetComponent<HeavyObject>().isHeld)
             {
-                UI_Manager.ui_Manager.ActivateSecondaryInteractText();
+                UI_Manager.ui_Manager.ActivateSecondaryInteractText(tooltip);
             }
             else if (!WithinRepairRange() && this.GetComponent<HeavyObject>().isHeld)
             {

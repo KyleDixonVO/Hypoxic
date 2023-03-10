@@ -347,9 +347,9 @@ namespace UnderwaterHorror
             if (canvasArray[(int)ActiveUI.PDA].enabled == false) return;
             if (InventoryButton.caller == null) return;
             Debug.LogWarning("PDA open, setting lastNumPressed to: " + InventoryButton.caller.slot);
-            //PlayerInventory.playerInventory.activeWeapon = InventoryButton.caller.slot;
             InputManager.inputManager.SetLastNumPressed(InventoryButton.caller.slot);
         }
+
 
         void UpdatePDAInventoryImages()
         {
@@ -494,8 +494,9 @@ namespace UnderwaterHorror
         }
 
         //Toggles for interaction UI text
-        public void ActivatePrimaryInteractText()
+        public void ActivatePrimaryInteractText(string tooltip)
         {
+            textToolTipE.text = tooltip;
             textToolTipE.gameObject.SetActive(true);
         }
 
@@ -504,8 +505,9 @@ namespace UnderwaterHorror
             textToolTipE.gameObject.SetActive(false);
         }
 
-        public void ActivateSecondaryInteractText()
+        public void ActivateSecondaryInteractText(string tooltip)
         {
+            textToolTipR.text = tooltip;
             textToolTipR.gameObject.SetActive(true);
         }
 

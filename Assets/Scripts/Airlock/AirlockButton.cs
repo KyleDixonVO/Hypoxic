@@ -7,8 +7,9 @@ namespace UnderwaterHorror
     public class AirlockButton : Interactable
     {
         public GameObject Door;
-        [SerializeField]
-        Airlock AL;
+        [SerializeField] Airlock AL;
+        [SerializeField] string tooltipOpen;
+        [SerializeField] string tooltipLocked;
 
         public override void OnInteract()
         {
@@ -27,7 +28,10 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
-            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            string tooltip;
+            if (AL.isOpenable) tooltip = tooltipOpen;
+            else tooltip = tooltipLocked;
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText(tooltip);
         }
 
         public override void OnLoseFocus()

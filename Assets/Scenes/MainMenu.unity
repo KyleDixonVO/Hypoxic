@@ -2112,7 +2112,9 @@ MonoBehaviour:
     Left Mouse      = Use Held Item
 
     Change item slot      = 1,
-    2, 3'
+    2, 3
+
+    Drop Item                   = Q'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a291a4abae5d7344903147f81e12956, type: 2}
   m_sharedMaterial: {fileID: -1047944158881693523, guid: 8a291a4abae5d7344903147f81e12956, type: 2}
