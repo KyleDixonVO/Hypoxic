@@ -6,6 +6,7 @@ namespace UnderwaterHorror
 {
     public class SaveStation : Interactable
     {
+        [SerializeField] string tooltip;
         // Start is called before the first frame update
         void Start()
         {
@@ -20,7 +21,7 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
-            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText(tooltip);
         }
 
         public override void OnLoseFocus()

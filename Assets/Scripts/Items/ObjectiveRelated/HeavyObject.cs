@@ -9,6 +9,7 @@ namespace UnderwaterHorror
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
         public Vector3 savedPos;
+        [SerializeField] string tooltip;
         [SerializeField] private Vector3 initialPos;
         [SerializeField] private Vector3 heldPos;
         [SerializeField] private Vector3 heldRot;
@@ -50,7 +51,7 @@ namespace UnderwaterHorror
         public override void OnFocus()
         {
             Debug.LogWarning("Looking at pipe");
-            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText(tooltip);
         }
 
         public override void OnLoseFocus()

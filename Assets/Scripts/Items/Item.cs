@@ -18,6 +18,8 @@ namespace UnderwaterHorror
         [SerializeField]
         protected PlayerStats PS;
 
+        [SerializeField] string tooltip;
+
         [Header("bools")]
         [SerializeField]
         public bool isEquiped;
@@ -90,7 +92,11 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
-            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            string tempTooltip;
+            if (PlayerInventory.playerInventory.inventoryFull) tempTooltip = PlayerInventory.playerInventory.fullInventoryTooltip;
+            else tempTooltip = tooltip;
+
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText(tempTooltip);
             //throw new System.NotImplementedException();
         }
 

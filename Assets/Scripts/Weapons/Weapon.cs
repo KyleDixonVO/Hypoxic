@@ -33,6 +33,8 @@ namespace UnderwaterHorror
         [Header("save position")]
         public Vector3 savePos;
 
+        [SerializeField] string tooltip;
+
         // Sound Polymorphism
         protected AudioSource weaponAudioSource;
 
@@ -107,7 +109,11 @@ namespace UnderwaterHorror
 
         public override void OnFocus()
         {
-            UI_Manager.ui_Manager.ActivatePrimaryInteractText();
+            string tempTooltip;
+            if (PlayerInventory.playerInventory.inventoryFull) tempTooltip = PlayerInventory.playerInventory.fullInventoryTooltip;
+            else tempTooltip = tooltip;
+
+            UI_Manager.ui_Manager.ActivatePrimaryInteractText(tempTooltip);
            // throw new System.NotImplementedException();
         }
 
