@@ -3722,6 +3722,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 8652803837888386495, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
+      propertyPath: tooltip
+      value: Press E to pickup Glowstick
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
 --- !u!1 &177145260
@@ -15699,6 +15703,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6425370985751280132, guid: c58127205784f384cb630cab2a8188e8, type: 3}
+      propertyPath: tooltip
+      value: Press E to pickup Medkit
+      objectReference: {fileID: 0}
     - target: {fileID: 6425370985751280135, guid: c58127205784f384cb630cab2a8188e8, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -19743,6 +19751,10 @@ PrefabInstance:
     - target: {fileID: 8652803837888386491, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652803837888386495, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
+      propertyPath: tooltip
+      value: Press E to pickup Glowstick
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
@@ -27965,6 +27977,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 93e4ffcd40492be4d85043b25d649c45, type: 2}
+    - target: {fileID: 8017013659472324093, guid: 08ffeeb1bdbc499499b476a8890bd239, type: 3}
+      propertyPath: tooltipOpen
+      value: Press E to open door
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017013659472324093, guid: 08ffeeb1bdbc499499b476a8890bd239, type: 3}
+      propertyPath: tooltipLocked
+      value: Door Locked
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08ffeeb1bdbc499499b476a8890bd239, type: 3}
 --- !u!1 &1087538766
@@ -43195,6 +43215,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5601041508905156345, guid: 186f977bdb8c3134d98701e4fb4451c5, type: 3}
+      propertyPath: tooltip
+      value: Another shock prod, press E to wield it
+      objectReference: {fileID: 0}
     - target: {fileID: 8528196014280607635, guid: 186f977bdb8c3134d98701e4fb4451c5, type: 3}
       propertyPath: m_Name
       value: Shock_Prod_2
@@ -51761,6 +51785,10 @@ PrefabInstance:
     - target: {fileID: 8652803837888386491, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652803837888386495, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
+      propertyPath: tooltip
+      value: Press E to pickup Glowstick
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
@@ -62878,6 +62906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeName: 
   singleton: 0
+  tooltip: Press E to save the game
 --- !u!64 &8296293230263402055
 MeshCollider:
   m_ObjectHideFlags: 0

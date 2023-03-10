@@ -10273,6 +10273,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7609900470108975190, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: fullInventoryTooltip
+      value: Oopsie Woopsie, full inventory!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609900470108975190, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: PDAItems.Array.data[0]
       value: 
       objectReference: {fileID: 1244075925}
