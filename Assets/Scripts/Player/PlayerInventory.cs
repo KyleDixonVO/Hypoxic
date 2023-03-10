@@ -173,7 +173,7 @@ namespace UnderwaterHorror
             else if (inventory[index].GetComponent<Weapon>()) inventory[index].GetComponent<Weapon>().isEquiped = false;
 
             inventory[index] = null;          
-            PDAItems[index].GetComponent<Image>().overrideSprite = emptySlot;
+           // PDAItems[index].GetComponent<Image>().overrideSprite = emptySlot;
         }
 
         void IsEquipedCheck(int i)

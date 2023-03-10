@@ -10,8 +10,12 @@ namespace UnderwaterHorror
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player") AL.playerPresent = true;
-            AL.CloseDoor();
+            if (other.tag == "Player")
+            {
+                AL.playerPresent = true;
+                AL.CloseDoor();
+            }
+
         }
 
         private void OnTriggerExit(Collider other)

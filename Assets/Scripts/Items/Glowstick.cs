@@ -63,13 +63,16 @@ public class Glowstick : Item
 
     protected override void ApplyEffect()
     {
+        if (gameObject.GetComponent<Rigidbody>() != null) return;
         this.gameObject.transform.SetParent(null);
         gameObject.GetComponent<Collider>().enabled = true;
-        Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
-        rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+        gameObject.AddComponent<Rigidbody>();
+        gameObject.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         Vector3 forwardForce = strength * transform.right;
         //rigidbody.mass = 1f;       
-        rigidbody.AddForce(forwardForce.x, forwardForce.y + 2f, forwardForce.z, ForceMode.Impulse);      
+        GetComponent<Rigidbody>().AddForce(forwardForce.x, forwardForce.y + 2f, forwardForce.z, ForceMode.Impulse);
+        isEquiped = false;
     }
 
     private void OnCollisionEnter(Collision collision)
