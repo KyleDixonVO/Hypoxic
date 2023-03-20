@@ -168,7 +168,7 @@ namespace UnderwaterHorror
                 }
             }
 
-            else
+            else if (!playerHit && suitPower > 0)
             {
                 UI_Manager.ui_Manager.PlayerHitEffectON(false);
                 UI_Manager.ui_Manager.PlayerDrownEffectON(false);
