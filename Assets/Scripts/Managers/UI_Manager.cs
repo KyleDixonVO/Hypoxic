@@ -587,12 +587,20 @@ namespace UnderwaterHorror
             LogButton.caller = null;
         }
 
-        public void VignetteEffectOn(bool isOn)
+        public void VignetteEffectOn()
         {
-            if (isOn) LeanTween.value(vignetteEffect.gameObject, vignetteEffect.color = new Color(0, 0, 0, 225), vignetteEffect.color = new Color(0, 0, 0, 0), 0.5f);
-            else LeanTween.value(vignetteEffect.gameObject, vignetteEffect.color = new Color(0, 0, 0, 0), vignetteEffect.color = new Color(0, 0, 0, 225), 0.5f);
-        }
+            int id = LeanTween.alpha(vignetteEffect.GetComponent<RectTransform>(), 1f, 0.75f).id;
+            LTDescr d = LeanTween.descr(id);
 
+            if (d != null)
+            {
+                d.setOnComplete(VignetteEffectOff).setEaseOutElastic();
+            };
+        }
+        void VignetteEffectOff()
+        {
+            LeanTween.alpha(vignetteEffect.GetComponent<RectTransform>(), 0f, 1.5f);
+        }
 
         //  Tobias's Amazing Code Powers
         public void PlayerHitEffectON(bool isON)
