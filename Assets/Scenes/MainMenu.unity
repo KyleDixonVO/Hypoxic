@@ -10249,12 +10249,48 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
-      propertyPath: defaultYPos
-      value: 0.749
+      propertyPath: perlinX
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
-      propertyPath: runBobSpeed
-      value: 12
+      propertyPath: perlinY
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: perlinZ
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: amplitudeX
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: amplitudeY
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: amplitudeZ
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: frequencyX
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: frequencyY
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: frequencyZ
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: defaultYPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: camShakeTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: crouchHeight
@@ -10279,6 +10315,10 @@ PrefabInstance:
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: waterWalkBobSpeed
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: recoveryTimeMultiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002495, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_Name

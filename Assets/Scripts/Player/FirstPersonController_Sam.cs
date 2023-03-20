@@ -94,6 +94,18 @@ namespace UnderwaterHorror
         [SerializeField] private float defaultYPos = 0;
         private float timer;
 
+        [Header("CameraShake Settings")]
+        [SerializeField] private float perlinY;
+        [SerializeField] private float perlinX;
+        [SerializeField] private float amplitudeY;
+        [SerializeField] private float amplitudeX;
+        [SerializeField] private float frequencyY;
+        [SerializeField] private float frequencyX;
+        [SerializeField] private float camShakeTime;
+        [SerializeField] private float recoveryTimeMultiplier;
+        [SerializeField] private bool camShakeReady;
+        private float elapsedCamShakeTime;
+
         [Header("Zoom Settings")]
         [SerializeField] private float timeToZoom = 0.2f;
         [SerializeField] private float zoomFOV = 30f;
@@ -199,11 +211,11 @@ namespace UnderwaterHorror
                 if (canZoom)        { HandleZoom();                                         }
                 if (canInteract)    { HandleInteractionCheck(); HandleInteractionInput();   }
                 //if (useFootsteps)   { HandleFootsteps();                                    }
-
+                CameraShake();
                 ApplyFinalMovement();
-                
-                
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4)) SetCamShakeReady();
 
             EnergyDrain();
             PlayerStats.playerStats.RechargeSuit();
@@ -303,7 +315,7 @@ namespace UnderwaterHorror
             
             if (inWater)
             {
-                timer += Time.fixedDeltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
+                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
                     defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobAmount : waterWalkBobAmount))/2,
@@ -311,15 +323,43 @@ namespace UnderwaterHorror
             }
             else
             {
-                timer += Time.fixedDeltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
+                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
                     defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : (isRunning && !carryingHeavyObj) ? runBobAmount : walkBobAmount))/2,
                     playerCamera.transform.localPosition.z);
             }
+        }
 
-            
+        public void SetCamShakeReady()
+        {
+            camShakeReady = true;
+        }
 
+        private void CameraShake()
+        {
+            if (camShakeReady)
+            {
+                if (elapsedCamShakeTime >= camShakeTime)
+                {
+                    elapsedCamShakeTime = 0;
+                    camShakeReady = false;
+                    return;
+                }
+                elapsedCamShakeTime += Time.deltaTime;
+                playerCamera.transform.localPosition = new Vector3(PerlinShake(frequencyX, perlinX, amplitudeX), defaultYPos + PerlinShake(frequencyY, perlinY, amplitudeY), playerCamera.transform.localPosition.z);
+            }
+            else if (playerCamera.transform.localPosition.y != defaultYPos)
+            {
+                playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, new Vector3(0, defaultYPos, 0), Time.deltaTime * recoveryTimeMultiplier);
+            }
+        }
+
+        private float PerlinShake(float frequency, float offset, float amplitude)
+        {
+            float value = ((Mathf.PerlinNoise(Time.time * frequency, offset) * 2) - 1) * amplitude;
+            Debug.Log(value);
+            return value;
         }
 
         private void HandleZoom()
@@ -403,10 +443,6 @@ namespace UnderwaterHorror
                             break;
                     }
                 }
-
-                //footstepTimer = GetCurrentOffset;
-
-            //}
 
         }
 
@@ -590,6 +626,8 @@ namespace UnderwaterHorror
             canMove = true;
             carryingHeavyObj = false;
             currentInteractable = null;
+            elapsedCamShakeTime = 0;
+            playerCamera.transform.localPosition = new Vector3(0, defaultYPos, 0);
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;
             Debug.Log(this.gameObject.transform.position);
