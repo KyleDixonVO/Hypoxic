@@ -24,6 +24,7 @@ namespace UnderwaterHorror
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Image playerHitEffect;
         [SerializeField] private Image playerDrownEffect;
+        [SerializeField] private Image vignetteEffect;      
         [SerializeField] private TMP_Text textToolTipE;
         [SerializeField] private TMP_Text textToolTipR;
         [SerializeField] private TMP_Text textObjectives;
@@ -164,6 +165,7 @@ namespace UnderwaterHorror
             buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
 
             playerHitEffect = GameObject.Find("PlayerHitEffect").GetComponent<Image>();
+            vignetteEffect = GameObject.Find("VignetteEffect").GetComponent<Image>();
             textToolTipE = GameObject.Find("TextToolTipE").GetComponent<TMP_Text>();
             textToolTipR = GameObject.Find("TextToolTipR").GetComponent<TMP_Text>();
             sliderRepair = GameObject.Find("SliderRepair").GetComponent<Slider>();
@@ -583,6 +585,21 @@ namespace UnderwaterHorror
         {
             SubmenuButton.caller = null;
             LogButton.caller = null;
+        }
+
+        public void VignetteEffectOn()
+        {
+            int id = LeanTween.alpha(vignetteEffect.GetComponent<RectTransform>(), 1f, 0.75f).id;
+            LTDescr d = LeanTween.descr(id);
+
+            if (d != null)
+            {
+                d.setOnComplete(VignetteEffectOff).setEaseOutElastic();
+            };
+        }
+        void VignetteEffectOff()
+        {
+            LeanTween.alpha(vignetteEffect.GetComponent<RectTransform>(), 0f, 1.5f);
         }
 
         //  Tobias's Amazing Code Powers
