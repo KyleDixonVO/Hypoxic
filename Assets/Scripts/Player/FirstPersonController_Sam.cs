@@ -394,12 +394,12 @@ namespace UnderwaterHorror
                     {
                         case true:
                             if (outsideFootstepClips.Length == 0) return;
-                            AudioManager.audioManager.PlaySound(footstepAudioSource, outsideFootstepClips[Random.Range(0, outsideFootstepClips.Length - 1)]);
+                            AudioManager.audioManager.PlaySound(footstepAudioSource, outsideFootstepClips[Random.Range(0, outsideFootstepClips.Length)]);
                             break;
 
                         case false:
                             if (insideFootstepClips.Length == 0) return;
-                            AudioManager.audioManager.PlaySound(footstepAudioSource, insideFootstepClips[Random.Range(0, insideFootstepClips.Length - 1)]);
+                            AudioManager.audioManager.PlaySound(footstepAudioSource, insideFootstepClips[Random.Range(0, insideFootstepClips.Length)]);
                             break;
                     }
                 }

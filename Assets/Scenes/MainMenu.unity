@@ -10249,8 +10249,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: defaultYPos
+      value: 0.749
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: runBobSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: crouchHeight
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1583538961}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: walkBobSpeed
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: waterRunBobSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: crouchingCenter.y
@@ -10258,7 +10278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: waterWalkBobSpeed
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002495, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_Name
@@ -23419,6 +23439,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578046180}
   m_CullTransparentMesh: 1
+--- !u!20 &1583538961 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1332587735617128734, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+  m_PrefabInstance: {fileID: 721264747}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1587985741
 GameObject:
   m_ObjectHideFlags: 0

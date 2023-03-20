@@ -631,26 +631,27 @@ MonoBehaviour:
   gravity: 30
   waterJumpForce: 5
   waterGravity: 15
-  crouchHeight: 0.5
+  crouchHeight: 0.8
   standingHeight: 1.8
   timeToCrouch: 0.15
-  crouchingCenter: {x: 0, y: 0.5, z: 0}
+  crouchingCenter: {x: 0, y: 0.4, z: 0}
   standingCenter: {x: 0, y: 0, z: 0}
   crouchBobSpeed: 6
-  walkBobSpeed: 9
+  walkBobSpeed: 8
   runBobSpeed: 12
   waterCrouchBobSpeed: 3
-  waterWalkBobSpeed: 6
-  waterRunBobSpeed: 9
+  waterWalkBobSpeed: 9
+  waterRunBobSpeed: 10
   crouchBobAmount: 0.15
   walkBobAmount: 0.3
   runBobAmount: 0.45
   waterCrouchBobAmount: 0.15
   waterWalkBobAmount: 0.3
   waterRunBobAmount: 0.45
+  footstepRangeTolerance: 0.1
   lowerBobLimit: 0.5
   upperBobLimit: 0.9
-  defaultYPos: 0
+  defaultYPos: 0.749
   timeToZoom: 0.2
   zoomFOV: 30
   baseStepSpeed: 0.55
