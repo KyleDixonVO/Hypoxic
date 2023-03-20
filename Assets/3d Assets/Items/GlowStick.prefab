@@ -112,12 +112,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306d7948de4f66d48aca2c039db5820d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeName: 
+  singleton: 0
   usageTime: 0.1
   usageProgress: 0.1
   playerStats: {fileID: 0}
   PS: {fileID: 0}
+  tooltip: 
   isEquiped: 0
   beingUsed: 0
+  isUsed: 0
+  icon: {fileID: 0}
+  savePos: {x: 0, y: 0, z: 0}
   strength: 12
   light: {fileID: 3108609485048551594}
 --- !u!108 &3108609485048551594
