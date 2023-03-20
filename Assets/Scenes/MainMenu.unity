@@ -791,6 +791,7 @@ MonoBehaviour:
   healthSlider: {fileID: 1061399856}
   playerHitEffect: {fileID: 1531055882}
   playerDrownEffect: {fileID: 352294333}
+  vignetteEffect: {fileID: 0}
   textToolTipE: {fileID: 0}
   textToolTipR: {fileID: 0}
   textObjectives: {fileID: 0}
