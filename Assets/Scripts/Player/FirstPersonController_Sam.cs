@@ -88,6 +88,7 @@ namespace UnderwaterHorror
         [SerializeField] private float waterWalkBobAmount = 0.3f;
         [SerializeField] private float waterRunBobAmount = 0.45f;
 
+        [SerializeField] private float footstepRangeTolerance = 0.1f;
         [SerializeField] private float lowerBobLimit = 0.5f;
         [SerializeField] private float upperBobLimit = 0.9f;
         [SerializeField] private float defaultYPos = 0;
@@ -197,7 +198,7 @@ namespace UnderwaterHorror
                 if (canUseHeadbob)  { HandleHeadBob();                                      }
                 if (canZoom)        { HandleZoom();                                         }
                 if (canInteract)    { HandleInteractionCheck(); HandleInteractionInput();   }
-                if (useFootsteps)   { HandleFootsteps();                                    }
+                //if (useFootsteps)   { HandleFootsteps();                                    }
 
                 ApplyFinalMovement();
                 
@@ -215,6 +216,7 @@ namespace UnderwaterHorror
 
         public void LockPlayerMovement()
         {
+            if (canMove == false && Cursor.lockState == CursorLockMode.None && Cursor.visible == true) return; 
             Debug.Log("Player Movement Locked");
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
@@ -223,6 +225,7 @@ namespace UnderwaterHorror
 
         public void UnlockPlayerMovement()
         {
+            if (canMove == true && Cursor.lockState == CursorLockMode.Locked && Cursor.visible == false) return;
             Debug.Log("Player Movement Unlocked");
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
@@ -283,14 +286,24 @@ namespace UnderwaterHorror
 
         private void HandleHeadBob()
         {
-        
-            if (!characterController.isGrounded) return;
 
-            if (Mathf.Abs(moveDirection.x) < 0.1f || Mathf.Abs(moveDirection.z) < 0.1f) return;
+            if (useFootsteps && playerCamera.transform.localPosition.y <= (lowerBobLimit + footstepRangeTolerance)) { HandleFootsteps(); }
+            if (!characterController.isGrounded)
+            {
+                Debug.Log("Character not grounded, cancelling headbob");
+                return;
+            }
+
+
+            if (Mathf.Abs(moveDirection.x) < 0.1f && Mathf.Abs(moveDirection.z) < 0.1f) 
+            {
+                Debug.Log("Movement Magnitude insufficient for headbob. " + Mathf.Abs(moveDirection.x) + " " + Mathf.Abs(moveDirection.z));
+                return;
+            } 
             
             if (inWater)
             {
-                timer += Time.deltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
+                timer += Time.fixedDeltaTime * (isCrouching ? waterCrouchBobSpeed : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobSpeed : waterWalkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
                     defaultYPos + (Mathf.Sin(timer) * (isCrouching ? waterCrouchBobAmount : (isRunning && PlayerStats.playerStats.suitPower > 0 && !carryingHeavyObj) ? waterRunBobAmount : waterWalkBobAmount))/2,
@@ -298,13 +311,15 @@ namespace UnderwaterHorror
             }
             else
             {
-                timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
+                timer += Time.fixedDeltaTime * (isCrouching ? crouchBobSpeed : (isRunning && !carryingHeavyObj) ? runBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
                     defaultYPos + (Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : (isRunning && !carryingHeavyObj) ? runBobAmount : walkBobAmount))/2,
                     playerCamera.transform.localPosition.z);
             }
+
             
+
         }
 
         private void HandleZoom()
@@ -368,11 +383,11 @@ namespace UnderwaterHorror
             if (!characterController.isGrounded) return;
             if (currentInput == Vector2.zero) return;
 
-            footstepTimer -= Time.deltaTime;
+            //footstepTimer -= Time.deltaTime;
               
 
-            if (footstepTimer <= 0)
-            {
+            //if (footstepTimer <= 0)
+            //{
                 if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 3))
                 {
                     switch (inWater)
@@ -389,9 +404,9 @@ namespace UnderwaterHorror
                     }
                 }
 
-                footstepTimer = GetCurrentOffset;
+                //footstepTimer = GetCurrentOffset;
 
-            }
+            //}
 
         }
 
