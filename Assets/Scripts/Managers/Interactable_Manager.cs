@@ -68,7 +68,7 @@ namespace UnderwaterHorror
                     }
                     catch
                     {
-                        Debug.Log("Cannot find an instance of " + interactables[i]);
+                        //Debug.Log("Cannot find an instance of " + interactables[i]);
                     }
                 }
             }
