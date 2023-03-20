@@ -162,7 +162,7 @@ namespace UnderwaterHorror
             }
 
             // Enemy Agro
-            if (enemyState == Enemy.EnemyState.chasing)
+            if (onFirstSight && HasLineOfSight() && InFOVCone() && WithinRange(_enemyStats.GetDetectionDistance(), agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
             {
                 if (mainSource.isPlaying == false)
                 {
