@@ -661,11 +661,11 @@ MonoBehaviour:
   waterRunStepMultiplier: 1.2
   footstepAudioSource: {fileID: 3373811097972850834}
   outsideFootstepClips:
-  - {fileID: 8300000, guid: 68bb243c216282c468b5c03232afd5a1, type: 3}
-  - {fileID: 8300000, guid: 4f0c2b1daa675fe4fb479c2ca25a5f3c, type: 3}
+  - {fileID: 8300000, guid: 23a62b440dd406f44a0253153ad703c9, type: 3}
+  - {fileID: 8300000, guid: 6892e5541bc1e5a41bf1840af41b5ecf, type: 3}
   insideFootstepClips:
-  - {fileID: 8300000, guid: 92b2346a234eba4428c7a0f052c55776, type: 3}
-  - {fileID: 8300000, guid: 34fec1f1bfb431646a5150567db8c35a, type: 3}
+  - {fileID: 8300000, guid: 0d8198459b15f8d40841f97ce2c6dab3, type: 3}
+  - {fileID: 8300000, guid: efa9acb9b3eb79a4bb9c6d741e0b298f, type: 3}
   grassFootstepClips: []
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
@@ -814,7 +814,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: []
+  PDAItems: []
   activeWeapon: 0
+  inventoryFull: 0
+  fullInventoryTooltip: 
+  emptySlot: {fileID: 0}
 --- !u!1 &1332587735617128729
 GameObject:
   m_ObjectHideFlags: 0
