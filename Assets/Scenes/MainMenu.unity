@@ -10256,6 +10256,10 @@ PrefabInstance:
       propertyPath: crouchingCenter.y
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: waterWalkBobSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002495, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_Name
       value: Player
