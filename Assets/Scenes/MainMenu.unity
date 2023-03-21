@@ -3863,7 +3863,7 @@ MonoBehaviour:
   uIButtonPassover: {fileID: 0}
   sonarPing: {fileID: 8300000, guid: 65a2f243569eee2469d73a5da18a9faf, type: 3}
   doorOpening: {fileID: 8300000, guid: 926066a57ea34a940996be000c2f656e, type: 3}
-  doorOpened: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
+  doorOpened: {fileID: 8300000, guid: 38860b8723b27544da688d8d491a346a, type: 3}
   doorClosing: {fileID: 8300000, guid: 6f43ae95159ff5d4ebf2cf0d6013d36f, type: 3}
   doorClosed: {fileID: 8300000, guid: 6a93b03b5f320cf4e99a8a18cb617a44, type: 3}
   doorButton: {fileID: 8300000, guid: b0e7133cac9ecc64d8488ad17c26fd0f, type: 3}

@@ -8,10 +8,15 @@ namespace UnderwaterHorror
     {
         public AirlockMini door;
         [SerializeField] string tooltip;
+        [SerializeField] AudioSource source;
 
         public override void OnInteract()
         {
-            door.buttonPress = true;
+            if (this.GetComponent<AudioSource>().isPlaying == false)
+            {
+                door.buttonPress = true;
+                AudioManager.audioManager.PlaySound(source, AudioManager.audioManager.doorOpened);
+            }
         }
 
         public override void OnFocus()

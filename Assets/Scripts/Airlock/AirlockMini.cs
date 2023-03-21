@@ -2,32 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirlockMini : MonoBehaviour
+namespace UnderwaterHorror
 {
-    public GameObject door;
-    bool canOpen;
-    public bool buttonPress;
-    int timeToOpen = 4;
-
-    // Start is called before the first frame update
-    void Start()
+    public class AirlockMini : MonoBehaviour
     {
-        canOpen = true;
-        buttonPress = false;
-    }
+        public GameObject door;
+        bool canOpen;
+        public bool buttonPress;
+        int timeToOpen = 4;
+        [SerializeField] AudioSource source;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (buttonPress && canOpen)
+        // Start is called before the first frame update
+        void Start()
         {
-            OnOpen();
-            canOpen = false;
+            canOpen = true;
+            buttonPress = false;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (buttonPress && canOpen)
+            {
+                OnOpen();
+                canOpen = false;
+            }
+        }
+
+        void OnOpen()
+        {
+            AudioManager.audioManager.PlaySound(source, AudioManager.audioManager.doorOpened);
+            LeanTween.rotateLocal(door, new Vector3(0, 105, 0), timeToOpen);
         }
     }
-
-    void OnOpen()
-    {
-        LeanTween.rotateLocal(door, new Vector3(0, 105, 0), timeToOpen);
-    }
 }
+
