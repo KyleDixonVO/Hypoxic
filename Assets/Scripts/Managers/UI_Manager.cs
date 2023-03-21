@@ -587,17 +587,17 @@ namespace UnderwaterHorror
             LogButton.caller = null;
         }
 
-        public void VignetteEffectOn()
+        public void VignetteEffectOn(bool autoComplete)
         {
             int id = LeanTween.alpha(vignetteEffect.GetComponent<RectTransform>(), 1f, 0.75f).id;
             LTDescr d = LeanTween.descr(id);
 
-            if (d != null)
+            if (d != null && autoComplete)
             {
                 d.setOnComplete(VignetteEffectOff).setEaseOutElastic();
             };
         }
-        void VignetteEffectOff()
+        public void VignetteEffectOff()
         {
             LeanTween.alpha(vignetteEffect.GetComponent<RectTransform>(), 0f, 1.5f);
         }

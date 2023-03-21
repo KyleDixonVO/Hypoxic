@@ -169,7 +169,7 @@ namespace UnderwaterHorror
                     audioManager.StopSound(mainSource);
                     audioManager.PlaySound(mainSource, audioManager.bigFishAgro);
                    
-                    UI_Manager.ui_Manager.VignetteEffectOn();
+                    UI_Manager.ui_Manager.VignetteEffectOn(true);
                     FirstPersonController_Sam.fpsSam.SetCamShakeReady();
                 }
             }
