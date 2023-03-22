@@ -24475,10 +24475,10 @@ MonoBehaviour:
   objective: 0
   isObjectiveComplete: 000000000000
   objectiveText:
-  - Repair the copper pipe
+  - Repair the broken pipe by the Hab
   - Enter the hab
-  - Fix the red pipe
-  - Fix the green pipe
+  - Fix the broken pipe by the Reactor
+  - Fix the broken pipe by the Research Station
   - Restart the reactor
   - Escape to the elevator
   numberOfObjectives: 0

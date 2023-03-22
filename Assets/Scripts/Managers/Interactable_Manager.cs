@@ -7,7 +7,7 @@ namespace UnderwaterHorror
     public class Interactable_Manager : MonoBehaviour
     {
         [SerializeField] private bool useRandomSpawns;
-        private bool clearedJunk;
+        [SerializeField] private bool clearedJunk = false;
         public static Interactable_Manager interactable_manager;
         public Interactable[] interactables;
         public string[] itemNames;
@@ -80,16 +80,13 @@ namespace UnderwaterHorror
         {
             if (clearedJunk) return;
             Debug.Log("Clearing Junk");
-            for (int i = 0; i < interactables.Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsOfType<Interactable>().Length; i++)
             {
-                if (GameObject.Find(itemNames[i]) == null) 
+                if (GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<HeavyObject>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<RepairTarget>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<AirlockButton>() != null) continue;
+                if (GameObject.FindObjectsOfType<Interactable>()[i].singleton == false)
                 {
-                    Debug.Log(itemNames[i]);
-                    continue;
-                }
-                if (GameObject.Find(itemNames[i]).GetComponent<Interactable>().singleton == false && interactables[i] != null)
-                {
-                    Destroy(GameObject.FindObjectsOfType<Interactable>()[i]);
+                    Destroy(GameObject.FindObjectsOfType<Interactable>()[i].gameObject);
+                    Debug.LogWarning("Destroyed Duplicate Item!");
                 }
             }
             clearedJunk = true;
