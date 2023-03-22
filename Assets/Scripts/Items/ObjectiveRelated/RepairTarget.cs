@@ -25,6 +25,7 @@ namespace UnderwaterHorror
         public void RepairedObject()
         {
             repairedObject.GetComponent<MeshRenderer>().enabled = true;
+            AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.repairingComplete);
             brokenObject.SetActive(false);
         }
 
