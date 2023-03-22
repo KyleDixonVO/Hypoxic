@@ -39,7 +39,7 @@ namespace UnderwaterHorror
 
         //enemyManager
         public int numberOfEnemies;
-        Enemy[] enemies;
+        [SerializeField] Enemy[] enemies;
 
 
 
@@ -63,6 +63,16 @@ namespace UnderwaterHorror
             numberOfEnemies = Enemy_Manager.enemy_Manager.enemyNames.Length;
             objectives = new bool[Enum.GetNames(typeof(Objective_Manager.Objectives)).Length];
             enemies = new Enemy[numberOfEnemies];
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                GameObject temp = new GameObject();
+                temp.AddComponent<Enemy>();
+                temp.AddComponent<EnemyStats>();
+                temp.GetComponent<Enemy>()._enemyStats = temp.GetComponent<EnemyStats>();
+                enemies[i] = temp.GetComponent<Enemy>();
+                enemies[i].singleton = true;
+                enemies[i].transform.parent = this.gameObject.transform;
+            }
         }
 
         // Update is called once per frame
@@ -234,7 +244,12 @@ namespace UnderwaterHorror
         //converts floats back to vector3 to pass into fpsSam
         private void FloatsToSavedPos()
         {
-            playerSV.GetSerializableVector(FirstPersonController_Sam.fpsSam.playerSavedPosition);
+            //playerSV.GetSerializableVector(FirstPersonController_Sam.fpsSam.playerSavedPosition);
+            FirstPersonController_Sam.fpsSam.playerSavedPosition.x = playerSV.x;
+            FirstPersonController_Sam.fpsSam.playerSavedPosition.y = playerSV.y;
+            FirstPersonController_Sam.fpsSam.playerSavedPosition.z = playerSV.z;
+            Debug.Log(playerSV.x + " " + playerSV.y + " " + playerSV.z);
+            Debug.Log(FirstPersonController_Sam.fpsSam.playerSavedPosition);
         }
 
         //converts vector4 to floats for serializing
@@ -261,8 +276,10 @@ namespace UnderwaterHorror
         private void RotPosToManager(PlayerData playerData)
         {
             playerSQ.SetSerializableQuaternion(new Quaternion(playerData.playerSQ.x, playerData.playerSQ.y, playerData.playerSQ.z, playerData.playerSQ.w));
+            
 
             playerSV.SetSerializableVector(new Vector3(playerData.playerSV.x, playerData.playerSV.y, playerData.playerSV.z));
+            Debug.Log(playerSV.x + " " + playerSV.y + " " + playerSV.z);
         }
 
         private void ResetPlayerData()
@@ -408,6 +425,7 @@ namespace UnderwaterHorror
 
         public void DataManagerToEnemyManager()
         {
+            
             for (int i = 0; i < enemies.Length; i++)
             {
                 Enemy_Manager.enemy_Manager.enemies[i] = enemies[i];

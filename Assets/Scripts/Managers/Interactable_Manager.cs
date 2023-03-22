@@ -82,7 +82,7 @@ namespace UnderwaterHorror
             Debug.Log("Clearing Junk");
             for (int i = 0; i < GameObject.FindObjectsOfType<Interactable>().Length; i++)
             {
-                if (GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<HeavyObject>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<RepairTarget>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<AirlockButton>() != null) continue;
+                if (GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<HeavyObject>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<RepairTarget>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<AirlockButton>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<SaveStation>() != null) continue;
                 if (GameObject.FindObjectsOfType<Interactable>()[i].singleton == false)
                 {
                     Destroy(GameObject.FindObjectsOfType<Interactable>()[i].gameObject);

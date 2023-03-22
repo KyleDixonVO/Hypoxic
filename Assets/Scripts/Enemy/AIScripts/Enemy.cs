@@ -76,6 +76,7 @@ namespace UnderwaterHorror
             CheckSounds();
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
+                if (agent == null) return;
                 agent.isStopped = true;
                 if (animator != null)
                 {
@@ -85,6 +86,7 @@ namespace UnderwaterHorror
             }
             else
             {
+                if (agent == null) return;
                 agent.isStopped = false;
                 if (animator != null)
                 {
@@ -351,6 +353,7 @@ namespace UnderwaterHorror
 
         virtual protected void CheckSounds()
         {
+            if (this.gameObject.transform.childCount == 0) return;
             if (this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<AudioSource>() == null) return;
             if (this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<AudioSource>() == null) return;
             AudioSource mainSource = this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<AudioSource>();
@@ -358,6 +361,7 @@ namespace UnderwaterHorror
 
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
+                if (mainSource.clip == null || combatSource.clip == null) return;
                 audioManager.StopSound(mainSource); 
                 audioManager.StopSound(combatSource); 
                 return;
@@ -366,6 +370,7 @@ namespace UnderwaterHorror
 
             if (FirstPersonController_Sam.fpsSam.inWater == false)                
             {
+                if (mainSource.clip == null || combatSource.clip == null) return;
                 audioManager.StopSound(mainSource);
                 audioManager.StopSound(combatSource);
                 return;     
