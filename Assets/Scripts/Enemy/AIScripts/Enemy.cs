@@ -60,6 +60,7 @@ namespace UnderwaterHorror
         public bool searching = false;
         public bool singleton = false;
         private Vector3 lookTarget;
+        [SerializeField] protected bool onFirstSight = true;
 
 
         private void Start()
@@ -157,10 +158,15 @@ namespace UnderwaterHorror
                 //-----------------------------------------  
                 case EnemyState.chasing:
                     ChasingManager();
+                    if (onFirstSight)
+                    {
+                       onFirstSight = false;
+                    }
                     if (!HasLineOfSight())
                     {
                         //Debug.LogWarning("Switching to searching state from chasing");
                         enemyState = EnemyState.searching;
+                        onFirstSight = true;
                     }
                     else if (WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
@@ -360,9 +366,9 @@ namespace UnderwaterHorror
 
             if (FirstPersonController_Sam.fpsSam.inWater == false)                
             {
-                    audioManager.StopSound(mainSource);
-                    audioManager.StopSound(combatSource);
-                    return;     
+                audioManager.StopSound(mainSource);
+                audioManager.StopSound(combatSource);
+                return;     
             }   
 
             // Enemy Agro
@@ -413,12 +419,13 @@ namespace UnderwaterHorror
             Vector3 raycastDir = PlayerStats.playerStats.transform.position;
             if (!Physics.Linecast(this.gameObject.transform.position, raycastDir, layerMasks))
             {
-               // Debug.Log("Has Line Of Sight ");
+                // Debug.Log("Has Line Of Sight ");
                 return true;
             }
+
             else
             {
-               // Debug.Log("No Visual ");
+                // Debug.Log("No Visual ");
                 return false;
             }
         }

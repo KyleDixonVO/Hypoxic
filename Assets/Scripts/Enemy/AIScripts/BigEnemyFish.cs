@@ -162,12 +162,15 @@ namespace UnderwaterHorror
             }
 
             // Enemy Agro
-            if (enemyState == Enemy.EnemyState.chasing)
+            if (onFirstSight && HasLineOfSight() && InFOVCone() && WithinRange(_enemyStats.GetDetectionDistance(), agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
             {
                 if (mainSource.isPlaying == false)
                 {
                     audioManager.StopSound(mainSource);
                     audioManager.PlaySound(mainSource, audioManager.bigFishAgro);
+                   
+                    UI_Manager.ui_Manager.VignetteEffectOn(true);
+                    FirstPersonController_Sam.fpsSam.SetCamShakeReady();
                 }
             }
 
