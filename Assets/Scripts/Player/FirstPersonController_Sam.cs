@@ -299,19 +299,19 @@ namespace UnderwaterHorror
         private void HandleHeadBob()
         {
 
+            if (Mathf.Abs(moveDirection.x) < 0.1f && Mathf.Abs(moveDirection.z) < 0.1f)
+            {
+                Debug.Log("Movement Magnitude insufficient for headbob. " + Mathf.Abs(moveDirection.x) + " " + Mathf.Abs(moveDirection.z));
+                return;
+            }
+
             if (useFootsteps && playerCamera.transform.localPosition.y <= (lowerBobLimit + footstepRangeTolerance)) { HandleFootsteps(); }
+            
             if (!characterController.isGrounded)
             {
                 Debug.Log("Character not grounded, cancelling headbob");
                 return;
             }
-
-
-            if (Mathf.Abs(moveDirection.x) < 0.1f && Mathf.Abs(moveDirection.z) < 0.1f) 
-            {
-                Debug.Log("Movement Magnitude insufficient for headbob. " + Mathf.Abs(moveDirection.x) + " " + Mathf.Abs(moveDirection.z));
-                return;
-            } 
             
             if (inWater)
             {
@@ -420,16 +420,18 @@ namespace UnderwaterHorror
 
         private void HandleFootsteps()
         {
-            if (!characterController.isGrounded) return;
-            if (currentInput == Vector2.zero) return;
+            //if (!characterController.isGrounded) return;
+            //if (currentInput == Vector2.zero) return;
 
             //footstepTimer -= Time.deltaTime;
-              
+
 
             //if (footstepTimer <= 0)
             //{
+            Debug.LogWarning("Playing footsteps");
                 if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 3))
                 {
+                    if (footstepAudioSource.isPlaying) return;
                     switch (inWater)
                     {
                         case true:

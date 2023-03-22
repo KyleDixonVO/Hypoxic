@@ -10307,6 +10307,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: crouchBobAmount
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: waterRunBobSpeed
       value: 10
       objectReference: {fileID: 0}
@@ -10317,6 +10321,18 @@ PrefabInstance:
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: waterWalkBobSpeed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: waterCrouchBobSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: waterCrouchBobAmount
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: footstepRangeTolerance
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: recoveryTimeMultiplier
