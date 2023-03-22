@@ -145,6 +145,7 @@ namespace UnderwaterHorror
         {
             base.ResetRun();
             isAware = false;
+            onFirstSight = false;
         }
 
 
