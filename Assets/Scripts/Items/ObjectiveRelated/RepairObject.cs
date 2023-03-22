@@ -41,7 +41,7 @@ namespace UnderwaterHorror
             {
                 repairing = true;
                 elapsedRepairTime += Time.deltaTime;
-                Debug.Log(elapsedRepairTime / repairTime);
+                //Debug.Log(elapsedRepairTime / repairTime);
                 // Play repairing audio
                 AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.repairing);
             }

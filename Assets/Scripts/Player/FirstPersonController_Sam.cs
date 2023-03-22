@@ -630,7 +630,7 @@ namespace UnderwaterHorror
             playerCamera.transform.localPosition = new Vector3(0, defaultYPos, 0);
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;
-            Debug.Log(this.gameObject.transform.position);
+            //Debug.Log(this.gameObject.transform.position);
             this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
 
