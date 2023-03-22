@@ -119,7 +119,9 @@ namespace UnderwaterHorror
         [SerializeField] private float waterStepSpeed = 1.8f;
         [SerializeField] private float waterCrouchStepMultiplier = 2.3f;
         [SerializeField] private float waterRunStepMultiplier = 1.2f;
-        [SerializeField] private AudioSource footstepAudioSource = default;
+        [SerializeField] private AudioSource movementAudioSource = default;
+        [SerializeField] private AudioClip jumpJetClip = default;
+        [SerializeField] private AudioClip jumpLandClip = default;
         [SerializeField] private AudioClip[] outsideFootstepClips = default;
         [SerializeField] private AudioClip[] insideFootstepClips = default;
         [SerializeField] private AudioClip[] grassFootstepClips = default;
@@ -277,6 +279,8 @@ namespace UnderwaterHorror
         {
             if (shouldJump)
             {
+                AudioManager.audioManager.StopSound(movementAudioSource);
+                AudioManager.audioManager.PlaySound(movementAudioSource, jumpJetClip);
                 if (inWater)
                 {
                     moveDirection.y = waterJumpForce;
@@ -431,17 +435,17 @@ namespace UnderwaterHorror
             Debug.LogWarning("Playing footsteps");
                 if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 3))
                 {
-                    if (footstepAudioSource.isPlaying) return;
+                    if (movementAudioSource.isPlaying) return;
                     switch (inWater)
                     {
                         case true:
                             if (outsideFootstepClips.Length == 0) return;
-                            AudioManager.audioManager.PlaySound(footstepAudioSource, outsideFootstepClips[Random.Range(0, outsideFootstepClips.Length)]);
+                            AudioManager.audioManager.PlaySound(movementAudioSource, outsideFootstepClips[Random.Range(0, outsideFootstepClips.Length)]);
                             break;
 
                         case false:
                             if (insideFootstepClips.Length == 0) return;
-                            AudioManager.audioManager.PlaySound(footstepAudioSource, insideFootstepClips[Random.Range(0, insideFootstepClips.Length)]);
+                            AudioManager.audioManager.PlaySound(movementAudioSource, insideFootstepClips[Random.Range(0, insideFootstepClips.Length)]);
                             break;
                     }
                 }
