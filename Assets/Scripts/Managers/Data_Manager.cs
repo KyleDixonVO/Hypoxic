@@ -45,6 +45,7 @@ namespace UnderwaterHorror
         public int numberOfItems;
         [SerializeField] GameObject[] items;
         [SerializeField] GameObject[] itemPrefabs;
+        [SerializeField] GameObject[] heldItems;
 
 
 
@@ -76,10 +77,16 @@ namespace UnderwaterHorror
 
         void PopulateArrays()
         {
+            heldItems = new GameObject[3];
             numberOfItems = Interactable_Manager.interactable_manager.itemNames.Length;
             numberOfEnemies = Enemy_Manager.enemy_Manager.enemyNames.Length;
             objectives = new bool[Enum.GetNames(typeof(Objective_Manager.Objectives)).Length];
             enemies = new Enemy[numberOfEnemies];
+            for (int i = 0; i < heldItems.Length; i++)
+            {
+                GameObject temp = new GameObject();
+                heldItems[i] = temp;
+            }
             for (int i = 0; i < enemies.Length; i++)
             {
                 GameObject temp = new GameObject();
@@ -91,54 +98,59 @@ namespace UnderwaterHorror
                 enemies[i].transform.parent = this.gameObject.transform;
             }
 
-            //items = new GameObject[numberOfItems];
-            //int prods = 1;
-            //int batteries = 1;
-            //int glowsticks = 1;
-            //for (int i = 0; i < items.Length; i++)
-            //{
+            items = new GameObject[numberOfItems];
+            int prods = 1;
+            int batteries = 1;
+            int glowsticks = 1;
+            for (int i = 0; i < items.Length; i++)
+            {
 
-            //    switch (i)
-            //    {
-            //        case 0:
-            //            //gun
-            //            items[i] = Instantiate(itemPrefabs[0], parent: this.gameObject.transform, false);
-            //            items[i].name = "Gun";
-            //            break;
+                switch (i)
+                {
+                    case 0:
+                        //gun
+                        items[i] = Instantiate(itemPrefabs[0], parent: this.gameObject.transform, false);
+                        items[i].name = "Gun";
+                        items[i].SetActive(false);
+                        break;
 
-            //        case 1:
-            //        case 10:
-            //            //prod
-            //            items[i] = Instantiate(itemPrefabs[1], parent: this.gameObject.transform, false);
-            //            items[i].name = ("Shock_Prod_" + prods);
-            //            prods++;
-            //            break;
+                    case 1:
+                    case 10:
+                        //prod
+                        items[i] = Instantiate(itemPrefabs[1], parent: this.gameObject.transform, false);
+                        items[i].name = ("Shock_Prod_" + prods);
+                        items[i].SetActive(false);
+                        prods++;
+                        break;
 
-            //        case 2:
-            //        case 3:
-            //        case 4:
-            //        case 5:
-            //            //battery
-            //            items[i] = Instantiate(itemPrefabs[2], parent: this.gameObject.transform, false);
-            //            items[i].name = ("Battery_" + batteries);
-            //            batteries++;
-            //            break;
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        //battery
+                        items[i] = Instantiate(itemPrefabs[2], parent: this.gameObject.transform, false);
+                        items[i].name = ("Battery_" + batteries);
+                        items[i].SetActive(false);
+                        batteries++;
+                        break;
 
-            //        case 14:
-            //            //Medkit
-            //            items[i] = Instantiate(itemPrefabs[3], parent: this.gameObject.transform, false);
-            //            items[i].name = ("Medkit");
-            //            break;
+                    case 14:
+                        //Medkit
+                        items[i] = Instantiate(itemPrefabs[3], parent: this.gameObject.transform, false);
+                        items[i].name = ("Medkit");
+                        items[i].SetActive(false);
+                        break;
 
-            //        default:
-            //            //glowstick
-            //            items[i] = Instantiate(itemPrefabs[4], parent: this.gameObject.transform, false);
-            //            items[i].name = ("GlowStick_" + glowsticks);
-            //            glowsticks++;
-            //            break;
-            //    }
+                    default:
+                        //glowstick
+                        items[i] = Instantiate(itemPrefabs[4], parent: this.gameObject.transform, false);
+                        items[i].name = ("GlowStick_" + glowsticks);
+                        items[i].SetActive(false);
+                        glowsticks++;
+                        break;
+                }
 
-            //}
+            }
         }
 
         public bool SaveExists()
@@ -155,10 +167,10 @@ namespace UnderwaterHorror
         //saves out settings prefs
         public void SaveGlobalData()
         {
+            saving = true;
             Debug.Log("Saving Global Data");
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream globalFile = File.Create(Application.persistentDataPath + "/globalData.dat");
-            saving = true;
             GlobalData globalData = new GlobalData();
 
             //save settings here---------------------------------
@@ -256,9 +268,9 @@ namespace UnderwaterHorror
         //saves to playerData from Data_Manager
         public void SaveToPlayerData()
         {
+            saving = true;
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream playerFile = File.Create(Application.persistentDataPath + "/playerData.dat");
-            saving = true;
             PlayerData playerData = new PlayerData();
 
             playerData.maxSuitPower = maxSuitPower;
@@ -501,14 +513,34 @@ namespace UnderwaterHorror
 
         private void SaveToInteractableData()
         {
+            saving = true;
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream itemFile = File.Create(Application.persistentDataPath + "/itemData.dat");
-            saving = true;
             InteractableData itemData = new InteractableData();
+
+            for (int i = 0; i < heldItems.Length; i++)
+            {
+                if (heldItems[i] == null) continue;
+                if (heldItems[i].GetComponent<Interactable>() == null) continue;
+                itemData.heldItems[i] = heldItems[i];
+            }
 
             for (int i = 0; i < items.Length; i++)
             {
-                
+                if (items[i].GetComponent<Weapon>())
+                {
+                    itemData.isEquipped[i] = items[i].GetComponent<Weapon>().isEquiped;
+                    itemData.currentAmmo[i] = items[i].GetComponent<Weapon>().currentAmmo;
+                    itemData.reserves[i] = items[i].GetComponent<Weapon>().reserves;
+                }
+                else if (items[i].GetComponent<Item>())
+                {
+                    itemData.isEquipped[i] = items[i].GetComponent<Item>().isEquiped;
+                    itemData.isUsed[i] = items[i].GetComponent<Item>().isUsed;
+                }
+                Debug.Log(i);
+                itemData.itemSavePos[i].SetSerializableVector(items[i].GetComponent<Interactable>().savePos);
+                Debug.Log("Saved item pos: " + items[i].GetComponent<Interactable>().savePos);
             }
 
             binaryFormatter.Serialize(itemFile, itemData);
@@ -531,12 +563,32 @@ namespace UnderwaterHorror
                 else
                 {
                     itemFile.Position = 0;
-                    InteractableData enemyData = (InteractableData)binaryFormatter.Deserialize(itemFile);
+                    InteractableData itemData = (InteractableData)binaryFormatter.Deserialize(itemFile);
                     itemFile.Close();
+
+                    for (int i = 0; i < heldItems.Length; i++)
+                    {
+                        if (itemData.heldItems[i] == null) continue;
+                        if (itemData.heldItems[i].GetComponent<Interactable>() == null) continue;
+                        heldItems[i] = itemData.heldItems[i];
+                    }
 
                     for (int i = 0; i < items.Length; i++)
                     {
-                        Debug.Log("Saved item pos: " + enemies[i].saveGamePos);
+                        if (items[i].GetComponent<Weapon>())
+                        {
+                            items[i].GetComponent<Weapon>().isEquiped = itemData.isEquipped[i];
+                            items[i].GetComponent<Weapon>().currentAmmo = itemData.currentAmmo[i];
+                            items[i].GetComponent<Weapon>().reserves = itemData.reserves[i];
+                        }
+                        else if (items[i].GetComponent<Item>())
+                        {
+                            items[i].GetComponent<Item>().isEquiped = itemData.isEquipped[i];
+                            items[i].GetComponent<Item>().isUsed = itemData.isUsed[i];
+                        }
+
+                        itemData.itemSavePos[i].GetSerializableVector(ref items[i].GetComponent<Interactable>().savePos);
+                        Debug.Log("Saved item pos: " + items[i].GetComponent<Interactable>().savePos);
                     }
                 }
             }
@@ -545,6 +597,8 @@ namespace UnderwaterHorror
                 //set stats to default if save is missing or unreadable
                 Debug.Log("File not found: itemData.dat");
             }
+
+            DataManagerToInteractableManager();
         }
 
         public void InteractableManagerToDataManager()
@@ -553,7 +607,7 @@ namespace UnderwaterHorror
             {
                 items[i] = Interactable_Manager.interactable_manager.interactables[i].gameObject;
             }
-
+            InventoryToDataManager();
             SaveToInteractableData();
         }
 
@@ -561,9 +615,42 @@ namespace UnderwaterHorror
         {
             for (int i = 0; i < items.Length; i++)
             {
+                if (items[i].GetComponent<Weapon>())
+                {
+                    Interactable_Manager.interactable_manager.interactables[i].GetComponent<Weapon>().isEquiped = items[i].GetComponent<Weapon>().isEquiped;
+                    Interactable_Manager.interactable_manager.interactables[i].GetComponent<Weapon>().reserves = items[i].GetComponent<Weapon>().reserves;
+                    Interactable_Manager.interactable_manager.interactables[i].GetComponent<Weapon>().currentAmmo = items[i].GetComponent<Weapon>().currentAmmo;
+                }
+                else if (items[i].GetComponent<Item>())
+                {
+                    Interactable_Manager.interactable_manager.interactables[i].GetComponent<Item>().isEquiped = items[i].GetComponent<Item>().isEquiped;
+                    Interactable_Manager.interactable_manager.interactables[i].GetComponent<Item>().isUsed = items[i].GetComponent<Item>().isUsed;
+                }
                 
             }
+
+            DataManagerToInventory();
         }
+
+        public void InventoryToDataManager()
+        {
+            for (int i = 0; i < heldItems.Length; i++)
+            {
+                if (PlayerInventory.playerInventory.inventory[i] == null) continue;
+                heldItems[i] = PlayerInventory.playerInventory.inventory[i];
+            }
+        }
+
+        public void DataManagerToInventory()
+        {
+            for (int i = 0; i < heldItems.Length; i++)
+            {
+                if (heldItems[i] == null) continue;
+                if (heldItems[i].GetComponent<Interactable>() == null) continue;
+                PlayerInventory.playerInventory.inventory[i] = heldItems[i];
+            }
+        }
+
     }
 
 
@@ -622,6 +709,13 @@ namespace UnderwaterHorror
     public class InteractableData
     {
         public SerializableVector3[] itemSavePos = new SerializableVector3[Data_Manager.dataManager.numberOfItems];
+
+        public bool[] isEquipped = new bool[Data_Manager.dataManager.numberOfItems];
+        public bool[] isUsed = new bool[Data_Manager.dataManager.numberOfItems];
+        public int[] currentAmmo = new int[Data_Manager.dataManager.numberOfItems];
+        public int[] reserves = new int[Data_Manager.dataManager.numberOfItems];
+        public GameObject[] heldItems = new GameObject[3];
+        
     }
 
 }

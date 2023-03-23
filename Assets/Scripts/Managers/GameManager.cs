@@ -143,6 +143,7 @@ namespace UnderwaterHorror
             Data_Manager.dataManager.LoadFromPlayerData();
             Objective_Manager.objective_Manager.LoadObjectiveStates();
             Data_Manager.dataManager.LoadFromEnemyData();
+            Data_Manager.dataManager.LoadFromInteractableData();
             //Enemy_Manager.enemy_Manager.LoadEnemyStates();
             Enemy_Manager.enemy_Manager.SetShouldLoadTrue();
 
@@ -159,6 +160,7 @@ namespace UnderwaterHorror
             FirstPersonController_Sam.fpsSam.SaveCharacterState();
             Data_Manager.dataManager.PlayerAndObjectiveDataToDataManager();
             Enemy_Manager.enemy_Manager.SetSavePositions();
+            Interactable_Manager.interactable_manager.SetSavePositions();
         }
         
         void DisplayEndgameText()

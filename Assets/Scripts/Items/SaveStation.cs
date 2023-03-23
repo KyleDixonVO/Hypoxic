@@ -31,6 +31,7 @@ namespace UnderwaterHorror
 
         public override void OnInteract()
         {
+            if (Data_Manager.dataManager.saving) return;
             GameManager.gameManager.SaveGame();
             Debug.LogWarning("GameSaved");
         }

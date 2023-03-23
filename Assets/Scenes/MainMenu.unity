@@ -25891,11 +25891,12 @@ MonoBehaviour:
   numberOfItems: 0
   items: []
   itemPrefabs:
-  - {fileID: 7087918817870231703, guid: cc019a44e02283446bee22a846864403, type: 3}
+  - {fileID: 4198999002374048364, guid: e5676866a42e0d049b865f5173881a8e, type: 3}
   - {fileID: 8528196014280607635, guid: 186f977bdb8c3134d98701e4fb4451c5, type: 3}
   - {fileID: 686337201650903463, guid: 38481d2336a92b747a6ed8e70bc44090, type: 3}
   - {fileID: 6425370985751280139, guid: c58127205784f384cb630cab2a8188e8, type: 3}
   - {fileID: 8652803837888386490, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
+  heldItems: []
 --- !u!4 &1790296321
 Transform:
   m_ObjectHideFlags: 0

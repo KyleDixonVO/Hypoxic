@@ -79,6 +79,7 @@ public class Enemy_Manager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Length; i++)
         {
+            if (enemies[i] == null) return;
             enemies[i].SetSaveGamePos();
         }
 
