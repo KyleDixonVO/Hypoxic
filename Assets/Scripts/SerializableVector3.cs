@@ -21,7 +21,7 @@ namespace UnderwaterHorror
             z = vectorToSaveOut.z;
         }
 
-        public void GetSerializableVector(Vector3 vectorToBeOverwritten)
+        public void GetSerializableVector(ref Vector3 vectorToBeOverwritten)
         {
             vectorToBeOverwritten.x = x;
             vectorToBeOverwritten.y = y;

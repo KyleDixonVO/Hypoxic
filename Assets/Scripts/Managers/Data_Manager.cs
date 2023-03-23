@@ -115,7 +115,7 @@ namespace UnderwaterHorror
         {
             if (File.Exists(Application.persistentDataPath + "/globalData.dat"))
             {
-                Debug.Log("Loading Global Data");
+                //Debug.Log("Loading Global Data");
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 FileStream globalFile = File.Open(Application.persistentDataPath + "/globalData.dat", FileMode.Open);
                 GlobalData globalData = (GlobalData)binaryFormatter.Deserialize(globalFile);
@@ -244,12 +244,12 @@ namespace UnderwaterHorror
         //converts floats back to vector3 to pass into fpsSam
         private void FloatsToSavedPos()
         {
-            //playerSV.GetSerializableVector(FirstPersonController_Sam.fpsSam.playerSavedPosition);
-            FirstPersonController_Sam.fpsSam.playerSavedPosition.x = playerSV.x;
-            FirstPersonController_Sam.fpsSam.playerSavedPosition.y = playerSV.y;
-            FirstPersonController_Sam.fpsSam.playerSavedPosition.z = playerSV.z;
-            Debug.Log(playerSV.x + " " + playerSV.y + " " + playerSV.z);
-            Debug.Log(FirstPersonController_Sam.fpsSam.playerSavedPosition);
+            playerSV.GetSerializableVector(ref FirstPersonController_Sam.fpsSam.playerSavedPosition);
+            //FirstPersonController_Sam.fpsSam.playerSavedPosition.x = playerSV.x;
+            //FirstPersonController_Sam.fpsSam.playerSavedPosition.y = playerSV.y;
+            //FirstPersonController_Sam.fpsSam.playerSavedPosition.z = playerSV.z;
+            //Debug.Log(playerSV.x + " " + playerSV.y + " " + playerSV.z);
+            //Debug.Log(FirstPersonController_Sam.fpsSam.playerSavedPosition);
         }
 
         //converts vector4 to floats for serializing
@@ -261,7 +261,11 @@ namespace UnderwaterHorror
         //converts floats back to vector4 to pass into fpsSam
         private void FloatsToSavedRot()
         {
-            playerSQ.GetSerializableQuaternion(FirstPersonController_Sam.fpsSam.playerSavedRotation);
+            playerSQ.GetSerializableQuaternion(ref FirstPersonController_Sam.fpsSam.playerSavedRotation);
+            //FirstPersonController_Sam.fpsSam.playerSavedRotation.w = playerSQ.w;
+            //FirstPersonController_Sam.fpsSam.playerSavedRotation.x = playerSQ.x;
+            //FirstPersonController_Sam.fpsSam.playerSavedRotation.y = playerSQ.y;
+            //FirstPersonController_Sam.fpsSam.playerSavedRotation.z = playerSQ.z;
         }
 
         //passing floats from Data_Manager to playerData
@@ -279,7 +283,7 @@ namespace UnderwaterHorror
             
 
             playerSV.SetSerializableVector(new Vector3(playerData.playerSV.x, playerData.playerSV.y, playerData.playerSV.z));
-            Debug.Log(playerSV.x + " " + playerSV.y + " " + playerSV.z);
+            //Debug.Log(playerSV.x + " " + playerSV.y + " " + playerSV.z);
         }
 
         private void ResetPlayerData()
@@ -402,14 +406,16 @@ namespace UnderwaterHorror
                         enemies[i].enemyState = (Enemy.EnemyState)enemyData.statesAsInt[i];
                         enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
 
-                        enemyData.enemySavePos[i].GetSerializableVector(enemies[i].saveGamePos);
+                        enemyData.enemySavePos[i].GetSerializableVector(ref enemies[i].saveGamePos);
+                        Debug.Log("Saved enemy pos: " + enemies[i].saveGamePos);
+                        
                     }
                 }
             }
             else
             {
                 //set stats to default if save is missing or unreadable
-                Debug.Log("File not found, resetting player stats to default");
+                Debug.Log("File not found: enemyData.dat");
             }
         }
 
@@ -428,7 +434,14 @@ namespace UnderwaterHorror
             
             for (int i = 0; i < enemies.Length; i++)
             {
-                Enemy_Manager.enemy_Manager.enemies[i] = enemies[i];
+                Enemy_Manager.enemy_Manager.enemies[i].transform.position = enemies[i].saveGamePos;
+                Enemy_Manager.enemy_Manager.enemies[i].enemyState = enemies[i].enemyState;
+                Enemy_Manager.enemy_Manager.enemies[i]._enemyStats.health = enemies[i]._enemyStats.health;
+                Enemy_Manager.enemy_Manager.enemies[i].searching = enemies[i].searching;
+                Enemy_Manager.enemy_Manager.enemies[i].patrolPointParentName = enemies[i].patrolPointParentName;
+                Enemy_Manager.enemy_Manager.enemies[i].currentPatrolPoint = enemies[i].currentPatrolPoint;
+                Enemy_Manager.enemy_Manager.enemies[i].isAlive = enemies[i].isAlive;
+
             }
         }
     }

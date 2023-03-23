@@ -359,7 +359,7 @@ namespace UnderwaterHorror
             {
                 if (PlayerInventory.playerInventory.inventory[i] == null)
                 {
-                    Debug.LogWarning("No item in inventory slot");
+                    //Debug.LogWarning("No item in inventory slot");
                     playerInventoryImages[i].sprite = itemImages[(int)Items.NoItem];
                     continue;
                 }

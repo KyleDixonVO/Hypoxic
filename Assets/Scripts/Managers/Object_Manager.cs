@@ -76,7 +76,7 @@ namespace UnderwaterHorror
                     }
                     catch
                     {
-                        Debug.Log("Cannot find an instance of " + heavyObjectNames[i]);
+                        //Debug.Log("Cannot find an instance of " + heavyObjectNames[i]);
                     }
                 }
             }

@@ -143,7 +143,8 @@ namespace UnderwaterHorror
             Data_Manager.dataManager.LoadFromPlayerData();
             Objective_Manager.objective_Manager.LoadObjectiveStates();
             Data_Manager.dataManager.LoadFromEnemyData();
-            Enemy_Manager.enemy_Manager.LoadEnemyStates();
+            //Enemy_Manager.enemy_Manager.LoadEnemyStates();
+            Enemy_Manager.enemy_Manager.SetShouldLoadTrue();
 
 
             if (FirstPersonController_Sam.fpsSam == null) return;
