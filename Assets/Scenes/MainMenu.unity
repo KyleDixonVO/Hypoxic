@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04726988, g: 0.14967135, b: 0.15432644, a: 1}
+  m_IndirectSpecularColor: {r: 0.047386073, g: 0.14469647, b: 0.14864686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12196,7 +12196,6 @@ MonoBehaviour:
   target: {r: 1, g: 0, b: 0, a: 1}
   cam: {fileID: 1583538961}
   crosshair: {fileID: 892121975}
-  range: 0
 --- !u!1 &893808678
 GameObject:
   m_ObjectHideFlags: 0
@@ -32151,7 +32150,12 @@ MonoBehaviour:
   maxItems: 0
   itemRNGCeiling: 0
   spawnPoints: []
-  itemPrefabs: []
+  itemPrefabs:
+  - {fileID: 4198999002374048364, guid: e5676866a42e0d049b865f5173881a8e, type: 3}
+  - {fileID: 8528196014280607635, guid: 186f977bdb8c3134d98701e4fb4451c5, type: 3}
+  - {fileID: 686337201650903463, guid: 38481d2336a92b747a6ed8e70bc44090, type: 3}
+  - {fileID: 6425370985751280139, guid: c58127205784f384cb630cab2a8188e8, type: 3}
+  - {fileID: 8652803837888386490, guid: dcf3e3bf274c21848bf963409d72c47d, type: 3}
   startingPositions:
   - {x: 79.21815, y: 1.519, z: 293.60876}
   - {x: 175.202, y: -5.8810163, z: 151.15671}
