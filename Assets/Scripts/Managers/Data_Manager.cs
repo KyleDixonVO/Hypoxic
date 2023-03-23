@@ -41,6 +41,11 @@ namespace UnderwaterHorror
         public int numberOfEnemies;
         [SerializeField] Enemy[] enemies;
 
+        //interactableManager
+        public int numberOfItems;
+        [SerializeField] GameObject[] items;
+        [SerializeField] GameObject[] itemPrefabs;
+
 
 
 
@@ -60,6 +65,18 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
+            PopulateArrays();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        void PopulateArrays()
+        {
+            numberOfItems = Interactable_Manager.interactable_manager.itemNames.Length;
             numberOfEnemies = Enemy_Manager.enemy_Manager.enemyNames.Length;
             objectives = new bool[Enum.GetNames(typeof(Objective_Manager.Objectives)).Length];
             enemies = new Enemy[numberOfEnemies];
@@ -73,12 +90,55 @@ namespace UnderwaterHorror
                 enemies[i].singleton = true;
                 enemies[i].transform.parent = this.gameObject.transform;
             }
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
+            //items = new GameObject[numberOfItems];
+            //int prods = 1;
+            //int batteries = 1;
+            //int glowsticks = 1;
+            //for (int i = 0; i < items.Length; i++)
+            //{
 
+            //    switch (i)
+            //    {
+            //        case 0:
+            //            //gun
+            //            items[i] = Instantiate(itemPrefabs[0], parent: this.gameObject.transform, false);
+            //            items[i].name = "Gun";
+            //            break;
+
+            //        case 1:
+            //        case 10:
+            //            //prod
+            //            items[i] = Instantiate(itemPrefabs[1], parent: this.gameObject.transform, false);
+            //            items[i].name = ("Shock_Prod_" + prods);
+            //            prods++;
+            //            break;
+
+            //        case 2:
+            //        case 3:
+            //        case 4:
+            //        case 5:
+            //            //battery
+            //            items[i] = Instantiate(itemPrefabs[2], parent: this.gameObject.transform, false);
+            //            items[i].name = ("Battery_" + batteries);
+            //            batteries++;
+            //            break;
+
+            //        case 14:
+            //            //Medkit
+            //            items[i] = Instantiate(itemPrefabs[3], parent: this.gameObject.transform, false);
+            //            items[i].name = ("Medkit");
+            //            break;
+
+            //        default:
+            //            //glowstick
+            //            items[i] = Instantiate(itemPrefabs[4], parent: this.gameObject.transform, false);
+            //            items[i].name = ("GlowStick_" + glowsticks);
+            //            glowsticks++;
+            //            break;
+            //    }
+
+            //}
         }
 
         public bool SaveExists()
@@ -90,6 +150,8 @@ namespace UnderwaterHorror
             return false;
         }
 
+        // -------------------------------------------------------------------------------------------------------------------------------------------------- Global Data
+        
         //saves out settings prefs
         public void SaveGlobalData()
         {
@@ -133,6 +195,15 @@ namespace UnderwaterHorror
                 ResetGlobalPrefs();
             }
         }
+
+        private void ResetGlobalPrefs()
+        {
+            mastervolume = 1.0f;
+            musicVolume = 1.0f;
+            SFXVolume = 1.0f;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------- Player & Objective Data
 
         //loads from playerData into Data_Manager
         public void LoadFromPlayerData()
@@ -212,15 +283,12 @@ namespace UnderwaterHorror
         }
 
         //saves to Data_Manager from source classes
-        public void SaveToDataManager()
+        public void PlayerAndObjectiveDataToDataManager()
         {
             Debug.LogWarning(Enum.GetNames(typeof(Objective_Manager.Objectives)).Length);
             for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
             {
                 objectives[i] = Objective_Manager.objective_Manager.GetObjectiveState((Objective_Manager.Objectives)i);
-                //objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairSecondPipe);
-                //objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.repairThirdPipe);
-                //objectives[(int)Objective_Manager.Objectives.goToElevator] = Objective_Manager.objective_Manager.GetObjectiveState(Objective_Manager.Objectives.goToElevator);
             } 
 
             if (PlayerStats.playerStats == null) return;
@@ -231,7 +299,7 @@ namespace UnderwaterHorror
             inWater = FirstPersonController_Sam.fpsSam.inWater;
             carryingHeavyObj = FirstPersonController_Sam.fpsSam.carryingHeavyObj;
             SavedPosToFloats();
-            SavedRotToFloats();
+            PlayerRotationToPlayerSQ();
             SaveToPlayerData();
         }
 
@@ -245,27 +313,20 @@ namespace UnderwaterHorror
         private void FloatsToSavedPos()
         {
             playerSV.GetSerializableVector(ref FirstPersonController_Sam.fpsSam.playerSavedPosition);
-            //FirstPersonController_Sam.fpsSam.playerSavedPosition.x = playerSV.x;
-            //FirstPersonController_Sam.fpsSam.playerSavedPosition.y = playerSV.y;
-            //FirstPersonController_Sam.fpsSam.playerSavedPosition.z = playerSV.z;
             //Debug.Log(playerSV.x + " " + playerSV.y + " " + playerSV.z);
             //Debug.Log(FirstPersonController_Sam.fpsSam.playerSavedPosition);
         }
 
         //converts vector4 to floats for serializing
-        private void SavedRotToFloats()
+        private void PlayerRotationToPlayerSQ()
         {
             playerSQ.SetSerializableQuaternion(FirstPersonController_Sam.fpsSam.playerSavedRotation);
         }
 
         //converts floats back to vector4 to pass into fpsSam
-        private void FloatsToSavedRot()
+        private void PlayerSQToPlayerRotation()
         {
             playerSQ.GetSerializableQuaternion(ref FirstPersonController_Sam.fpsSam.playerSavedRotation);
-            //FirstPersonController_Sam.fpsSam.playerSavedRotation.w = playerSQ.w;
-            //FirstPersonController_Sam.fpsSam.playerSavedRotation.x = playerSQ.x;
-            //FirstPersonController_Sam.fpsSam.playerSavedRotation.y = playerSQ.y;
-            //FirstPersonController_Sam.fpsSam.playerSavedRotation.z = playerSQ.z;
         }
 
         //passing floats from Data_Manager to playerData
@@ -310,10 +371,6 @@ namespace UnderwaterHorror
             {
                 objectives[i] = false;
             }
-            //objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = false;
-            //objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = false;
-            //objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = false;
-            //objectives[(int)Objective_Manager.Objectives.goToElevator] = false;
 
             SaveToPlayerData();
         }
@@ -345,15 +402,10 @@ namespace UnderwaterHorror
             FirstPersonController_Sam.fpsSam.inWater = inWater;
             FirstPersonController_Sam.fpsSam.carryingHeavyObj = carryingHeavyObj;
             FloatsToSavedPos();
-            FloatsToSavedRot();
+            PlayerSQToPlayerRotation();
         }
 
-        private void ResetGlobalPrefs()
-        {
-            mastervolume = 1.0f;
-            musicVolume = 1.0f;
-            SFXVolume = 1.0f;
-        }
+        // -------------------------------------------------------------------------------------------------------------------------------------------------- Enemy Data
 
         private void SaveToEnemyData()
         {
@@ -444,8 +496,79 @@ namespace UnderwaterHorror
 
             }
         }
+
+        // -------------------------------------------------------------------------------------------------------------------------------------------------- Interactable Data
+
+        private void SaveToInteractableData()
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream itemFile = File.Create(Application.persistentDataPath + "/itemData.dat");
+            saving = true;
+            InteractableData itemData = new InteractableData();
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                
+            }
+
+            binaryFormatter.Serialize(itemFile, itemData);
+            itemFile.Close();
+            saving = false;
+        }
+
+        public void LoadFromInteractableData()
+        {
+            if (File.Exists(Application.persistentDataPath + "/itemData.dat"))
+            {
+                Debug.Log("File found, loading item data");
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                FileStream itemFile = File.Open(Application.persistentDataPath + "/itemData.dat", FileMode.Open);
+                if (itemFile.Length == 0)
+                {
+                    itemFile.Close();
+                    Debug.Log("File length 0, closing file");
+                }
+                else
+                {
+                    itemFile.Position = 0;
+                    InteractableData enemyData = (InteractableData)binaryFormatter.Deserialize(itemFile);
+                    itemFile.Close();
+
+                    for (int i = 0; i < items.Length; i++)
+                    {
+                        Debug.Log("Saved item pos: " + enemies[i].saveGamePos);
+                    }
+                }
+            }
+            else
+            {
+                //set stats to default if save is missing or unreadable
+                Debug.Log("File not found: itemData.dat");
+            }
+        }
+
+        public void InteractableManagerToDataManager()
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                items[i] = Interactable_Manager.interactable_manager.interactables[i].gameObject;
+            }
+
+            SaveToInteractableData();
+        }
+
+        public void DataManagerToInteractableManager()
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                
+            }
+        }
     }
 
+
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------ Serializable Classes
 
     //containers to store stats as files
     [Serializable]
@@ -497,8 +620,8 @@ namespace UnderwaterHorror
 
     [Serializable]
     public class InteractableData
-    { 
-        
+    {
+        public SerializableVector3[] itemSavePos = new SerializableVector3[Data_Manager.dataManager.numberOfItems];
     }
 
 }

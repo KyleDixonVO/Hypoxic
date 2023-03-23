@@ -157,7 +157,7 @@ namespace UnderwaterHorror
         {
             //saves the game when at a checkpoint
             FirstPersonController_Sam.fpsSam.SaveCharacterState();
-            Data_Manager.dataManager.SaveToDataManager();
+            Data_Manager.dataManager.PlayerAndObjectiveDataToDataManager();
             Enemy_Manager.enemy_Manager.SetSavePositions();
         }
         

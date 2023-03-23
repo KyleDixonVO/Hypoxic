@@ -21,7 +21,7 @@ namespace UnderwaterHorror
             }
             else if (object_Manager != null && object_Manager != this)
             {
-                Destroy(this);
+                Destroy(this.gameObject);
             }
         }
         // Start is called before the first frame update

@@ -98,13 +98,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d921d225b9e7043aed298ad714b5e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeName: 
+  singleton: 0
+  savePos: {x: 0, y: 0, z: 0}
   usageTime: 2
   usageProgress: 2
   playerStats: {fileID: 0}
   PS: {fileID: 0}
+  tooltip: Press E to pick up Medkit
   isEquiped: 0
   beingUsed: 0
   isUsed: 0
+  icon: {fileID: 0}
   healthGain: 50
 --- !u!82 &1470740679301197876
 AudioSource:

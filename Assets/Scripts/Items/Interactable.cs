@@ -6,9 +6,25 @@ public abstract class Interactable : MonoBehaviour
 {
     public string typeName;
     public bool singleton;
+
+    [Header("save position")]
+    public Vector3 savePos;
+    public Vector3 initalPos;
+
+    public void SetSaveGamePos()
+    {
+        savePos = this.gameObject.transform.position;
+    }
+
+    public void ReloadToSave()
+    {
+        this.gameObject.transform.position = savePos;
+    }
+
     public virtual void Awake()
     {
         gameObject.layer = 10;
+        initalPos = transform.position;
     }
     
     public abstract void OnInteract(); 

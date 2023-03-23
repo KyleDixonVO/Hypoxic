@@ -15,6 +15,8 @@ namespace UnderwaterHorror
         [SerializeField] private int maxItems;
         [SerializeField] private int itemRNGCeiling;
         [SerializeField] private GameObject[] spawnPoints;
+        [SerializeField] private GameObject[] itemPrefabs;
+        [SerializeField] Vector3[] startingPositions;
         private List<int> occupiedSpawns;
 
 
@@ -27,7 +29,7 @@ namespace UnderwaterHorror
             }
             else if (interactable_manager != null && interactable_manager != this)
             {
-                Destroy(this);
+                Destroy(this.gameObject);
             }
         }
 
@@ -41,20 +43,22 @@ namespace UnderwaterHorror
             else
             {
                 interactables = new Interactable[itemNames.Length];
+                StaticSpawnInteractables();
             }
-
+            ItemSingleton();
         }
 
         // Update is called once per frame
         void Update()
         {
-            ItemSingleton();
+            //ItemSingleton();
             ToggleRigidbodies();
+            RemoveDuplicates();
         }
 
         void ItemSingleton()
         {
-            if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            //if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
             for (int i = 0; i < interactables.Length; i++)
             {
                 if (interactables[i] == null)
@@ -64,15 +68,18 @@ namespace UnderwaterHorror
                         interactables[i] = GameObject.Find(itemNames[i]).GetComponent<Interactable>();
                         DontDestroyOnLoad(interactables[i]);
                         interactables[i].singleton = true;
-                        //Debug.Log("Found " + interactables[i]);
+                        Debug.Log("Found " + interactables[i]);
                     }
                     catch
                     {
-                        //Debug.Log("Cannot find an instance of " + interactables[i]);
+                        Debug.Log("Cannot find an instance of " + itemNames[i]);
                     }
                 }
+                else if (!interactables[i].singleton)
+                {
+                    interactables[i].singleton = true;
+                }
             }
-
             RemoveDuplicates();
         }
 
@@ -82,6 +89,7 @@ namespace UnderwaterHorror
             Debug.Log("Clearing Junk");
             for (int i = 0; i < GameObject.FindObjectsOfType<Interactable>().Length; i++)
             {
+                //Debug.Log(i);
                 if (GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<HeavyObject>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<RepairTarget>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<AirlockButton>() != null || GameObject.FindObjectsOfType<Interactable>()[i].GetComponent<SaveStation>() != null) continue;
                 if (GameObject.FindObjectsOfType<Interactable>()[i].singleton == false)
                 {
@@ -119,11 +127,18 @@ namespace UnderwaterHorror
         {
             for (int i = 0; i < interactables.Length; i++)
             {
-                if (interactables[i].GetComponent<Item>()) interactables[i].GetComponent<Item>().SetSaveGamePos();
-                else if (interactables[i].GetComponent<Weapon>()) interactables[i].GetComponent<Weapon>().SetSaveGamePos();
+                interactables[i].SetSaveGamePos();
             }
 
-            Data_Manager.dataManager.EnemyManagerToDataManager();
+            Data_Manager.dataManager.InteractableManagerToDataManager();
+        }
+
+        public void ReloadToSavePositions()
+        {
+            for (int i = 0; i < interactables.Length; i++)
+            {
+                interactables[i].ReloadToSave();
+            }
         }
 
         public void ResetForNewRun()
@@ -137,7 +152,7 @@ namespace UnderwaterHorror
             clearedJunk = false;
         }
 
-        void SpawnInteractables()
+        void RandomSpawnInteractables()
         {
             int itemRNG;
             int spawnRNG;
@@ -172,6 +187,64 @@ namespace UnderwaterHorror
 
             }
 
+        }
+
+        void StaticSpawnInteractables()
+        {
+            int prods = 1;
+            int batteries = 1;
+            int glowsticks = 1;
+            for (int i = 0; i < interactables.Length; i++)
+            {
+
+                switch (i)
+                {
+                    case 0:
+                        //gun
+                        interactables[i] = Instantiate(itemPrefabs[0], parent: this.gameObject.transform, false).GetComponent<Interactable>();
+                        interactables[i].name = "Gun";
+                        interactables[i].transform.position = startingPositions[i];
+                        break;
+
+                    case 1:
+                    case 10:
+                        //prod
+                        interactables[i] = Instantiate(itemPrefabs[1], parent: this.gameObject.transform, false).GetComponent<Interactable>();
+                        interactables[i].name = ("Shock_Prod_" + prods);
+                        interactables[i].transform.position = startingPositions[i];
+                        prods++;
+                        break;
+
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        //battery
+                        interactables[i] = Instantiate(itemPrefabs[2], parent: this.gameObject.transform, false).GetComponent<Interactable>();
+                        interactables[i].name = ("Battery_" + batteries);
+                        interactables[i].transform.position = startingPositions[i];
+                        batteries++;
+                        break;
+
+                    case 14:
+                        //Medkit
+                        interactables[i] = Instantiate(itemPrefabs[3], parent: this.gameObject.transform, false).GetComponent<Interactable>();
+                        interactables[i].name = ("Medkit");
+                        interactables[i].transform.position = startingPositions[i];
+                        break;
+
+                    default:
+                        //glowstick
+                        interactables[i] = Instantiate(itemPrefabs[4], parent: this.gameObject.transform, false).GetComponent<Interactable>();
+                        interactables[i].name = ("GlowStick_" + glowsticks);
+                        interactables[i].transform.position = startingPositions[i];
+                        glowsticks++;
+                        break;
+                }
+
+                
+
+            }
         }
     }
 }

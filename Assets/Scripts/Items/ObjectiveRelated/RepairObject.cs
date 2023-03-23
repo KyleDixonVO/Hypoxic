@@ -22,6 +22,7 @@ namespace UnderwaterHorror
         void Start()
         {
             repairDestination = targetObject.transform.position;
+            RepairCheckOnLoad();
         }
 
         // Update is called once per frame
@@ -110,6 +111,15 @@ namespace UnderwaterHorror
             this.gameObject.SetActive(true);
             repairing = false;
             repaired = false;
+        }
+
+        void RepairCheckOnLoad()
+        {
+            if (Objective_Manager.objective_Manager.GetObjectiveState(objective))
+            {
+                targetObject.RepairedObject();
+                this.gameObject.SetActive(false);
+            }
         }
 
     }

@@ -30,9 +30,6 @@ namespace UnderwaterHorror
         [Header("sprite")]
         public Sprite icon;
 
-        [Header("save position")]
-        public Vector3 savePos;
-
         // Tobias was here
         protected AudioSource itemAudioSource;
 
@@ -76,11 +73,6 @@ namespace UnderwaterHorror
         {
             isEquiped = true;
             gameObject.GetComponent<Renderer>().enabled = true;
-        }
-
-        public void SetSaveGamePos()
-        {
-            savePos = this.gameObject.transform.position;
         }
 
         // ----------------------------------- Interactable ---------------------- \\

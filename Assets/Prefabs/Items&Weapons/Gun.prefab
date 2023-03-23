@@ -207,6 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4615c10fff36ee742a4dfdb7f4e6f024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeName: 
+  singleton: 0
+  savePos: {x: 0, y: 0, z: 0}
   playerCamera: {fileID: 0}
   range: 15
   damage: 1
@@ -217,3 +220,5 @@ MonoBehaviour:
   reloadProgress: 0
   isEquiped: 0
   bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
+  icon: {fileID: 0}
+  tooltip: Press E to pick up Gun

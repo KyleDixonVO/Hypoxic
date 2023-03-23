@@ -21,7 +21,7 @@ public class Enemy_Manager : MonoBehaviour
         }
         else if (enemy_Manager != null && enemy_Manager != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
