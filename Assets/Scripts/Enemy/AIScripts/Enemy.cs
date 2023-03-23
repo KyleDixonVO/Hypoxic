@@ -127,6 +127,7 @@ namespace UnderwaterHorror
                 //-----------------------------------------  
                 case EnemyState.patrolling:
                     PatrollingManager();
+                    if (!onFirstSight) onFirstSight = true;
                     if (HasLineOfSight() && InFOVCone() && WithinRange(_enemyStats.GetDetectionDistance(), agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
                         //Debug.LogWarning("Switching to chasing state from patrolling");
@@ -168,7 +169,7 @@ namespace UnderwaterHorror
                     {
                         //Debug.LogWarning("Switching to searching state from chasing");
                         enemyState = EnemyState.searching;
-                        onFirstSight = true;
+                        if (!onFirstSight) onFirstSight = true;
                     }
                     else if (WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
@@ -208,6 +209,7 @@ namespace UnderwaterHorror
                 case EnemyState.defeated:
                     // Starts dying animation
                     DefeatedManager();
+                    if (!onFirstSight) onFirstSight = true;
                     break;
                     //-----------------------------------------  
 
@@ -374,10 +376,10 @@ namespace UnderwaterHorror
                 audioManager.StopSound(mainSource);
                 audioManager.StopSound(combatSource);
                 return;     
-            }   
+            }
 
             // Enemy Agro
-            if (enemyState == Enemy.EnemyState.chasing)
+            if (onFirstSight && HasLineOfSight() && InFOVCone() && WithinRange(_enemyStats.GetDetectionDistance(), agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
             {
                 if (mainSource.isPlaying == false)
                 {
