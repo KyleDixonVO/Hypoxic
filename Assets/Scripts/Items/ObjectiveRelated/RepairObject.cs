@@ -52,12 +52,7 @@ namespace UnderwaterHorror
             }
 
             if (elapsedRepairTime < repairTime) return;
-            // Play sound Once when complete
-            else if (!repaired)
-            {
-                AudioManager.audioManager.StopSound(this.gameObject.GetComponent<AudioSource>());
-                AudioManager.audioManager.PlaySound(this.gameObject.GetComponent<AudioSource>(), AudioManager.audioManager.repairingComplete);
-            }
+
             repaired = true;
             
         }
@@ -110,6 +105,7 @@ namespace UnderwaterHorror
 
         public void ResetForNewRun()
         {
+            AudioManager.audioManager.StopSound(this.gameObject.GetComponent<AudioSource>());
             elapsedRepairTime = 0;
             this.gameObject.SetActive(true);
             repairing = false;

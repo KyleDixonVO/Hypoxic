@@ -652,6 +652,15 @@ MonoBehaviour:
   lowerBobLimit: 0.5
   upperBobLimit: 0.9
   defaultYPos: 0.749
+  perlinY: 0
+  perlinX: 0
+  amplitudeY: 0
+  amplitudeX: 0
+  frequencyY: 0
+  frequencyX: 0
+  camShakeTime: 0
+  recoveryTimeMultiplier: 0
+  camShakeReady: 0
   timeToZoom: 0.2
   zoomFOV: 30
   baseStepSpeed: 0.55
@@ -660,7 +669,9 @@ MonoBehaviour:
   waterStepSpeed: 1.8
   waterCrouchStepMultiplier: 2.3
   waterRunStepMultiplier: 1.2
-  footstepAudioSource: {fileID: 3373811097972850834}
+  movementAudioSource: {fileID: 3373811097972850834}
+  jumpJetClip: {fileID: 8300000, guid: d189a776c3391f64e8c7fac9a7e52652, type: 3}
+  jumpLandClip: {fileID: 8300000, guid: 8eef3b9bcc41e7840b37b3730c04a404, type: 3}
   outsideFootstepClips:
   - {fileID: 8300000, guid: 23a62b440dd406f44a0253153ad703c9, type: 3}
   - {fileID: 8300000, guid: 6892e5541bc1e5a41bf1840af41b5ecf, type: 3}

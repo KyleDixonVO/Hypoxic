@@ -100,7 +100,6 @@ namespace UnderwaterHorror
         public AudioSource UiAudio;
         public AudioSource enviromentAudio;
 
-
         // Player Sounds Manager --------------------------------------------------------------------------
         public AudioSource playerVoiceAudio;
         public AudioSource playerSuitAudio;
