@@ -63,7 +63,9 @@ namespace UnderwaterHorror
             }
 
             // deactivates the object not allowing it to be used
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            isUsed = true;
+
         }
     }
 

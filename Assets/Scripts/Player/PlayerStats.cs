@@ -180,6 +180,7 @@ namespace UnderwaterHorror
             playerHealth = maxPlayerHealth;
             suitPower = maxSuitPower;
             isDead = false;
+            UI_Manager.ui_Manager.VignetteEffectOff();
         }
 
         public void LoadPlayerStats()

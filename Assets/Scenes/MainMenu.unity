@@ -3863,13 +3863,14 @@ MonoBehaviour:
   uIButtonPassover: {fileID: 0}
   sonarPing: {fileID: 8300000, guid: 65a2f243569eee2469d73a5da18a9faf, type: 3}
   doorOpening: {fileID: 8300000, guid: 926066a57ea34a940996be000c2f656e, type: 3}
-  doorOpened: {fileID: 8300000, guid: 38860b8723b27544da688d8d491a346a, type: 3}
+  doorOpened: {fileID: 8300000, guid: 61d79536f34df7448acd694c722b0671, type: 3}
   doorClosing: {fileID: 8300000, guid: 6f43ae95159ff5d4ebf2cf0d6013d36f, type: 3}
-  doorClosed: {fileID: 8300000, guid: 6a93b03b5f320cf4e99a8a18cb617a44, type: 3}
+  doorClosed: {fileID: 8300000, guid: 61d79536f34df7448acd694c722b0671, type: 3}
   doorButton: {fileID: 8300000, guid: b0e7133cac9ecc64d8488ad17c26fd0f, type: 3}
   randomEnviromentSounds:
   - {fileID: 8300000, guid: aadfebec93bdb964c8ef0a7cbfd55d62, type: 3}
   - {fileID: 8300000, guid: 3808d420d1dad4b48bfedf000052d14e, type: 3}
+  - {fileID: 8300000, guid: e607683cd392eda4b9425116393e1482, type: 3}
   titleMusic: {fileID: 8300000, guid: 28f97e7e35a8a744f84c60779677235a, type: 3}
   outsideAmbiance: {fileID: 8300000, guid: 4ee15832f7913394b9edc21e27d89f7e, type: 3}
   insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
@@ -3882,17 +3883,17 @@ MonoBehaviour:
   bigFishHurt: {fileID: 8300000, guid: 9e39e71402deb944fad746fa438f643b, type: 3}
   bigFishFleeing: {fileID: 0}
   smallFishBite: {fileID: 8300000, guid: 6c688d98f37e4c64faca18d822f6c653, type: 3}
-  smallFishAgro: {fileID: 8300000, guid: fde8e93e30fd7cd4f8266ac9c2f4dbed, type: 3}
-  smallFishHurt: {fileID: 8300000, guid: 4678b68d2df1f7a4abac598562c34d6c, type: 3}
-  smallFishDying: {fileID: 0}
+  smallFishAgro: {fileID: 8300000, guid: 7e3c9e578c63cb644b40c6245b546a4d, type: 3}
+  smallFishHurt: {fileID: 8300000, guid: e3c5d4db2d6a28c4fa9ef2e5cd510afc, type: 3}
+  smallFishDying: {fileID: 8300000, guid: e3c5d4db2d6a28c4fa9ef2e5cd510afc, type: 3}
   smallFishScream: {fileID: 8300000, guid: 3fd3fd63f1d96b64f9592f02fa92b5f0, type: 3}
   smallBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
   electricProdShock: {fileID: 8300000, guid: b9af852d809ee0d4ba4d6f22f5cbd49b, type: 3}
   electricProdRecharge: {fileID: 8300000, guid: 646edb6bd42c6984b98fb499702c6378, type: 3}
   electricProdNoCharge: {fileID: 8300000, guid: 2bb2f629943e38e459932ab628ec413d, type: 3}
   harpoonShot: {fileID: 8300000, guid: de9fbb641e400b24da989536aba7f9de, type: 3}
-  harpoonReloading: {fileID: 8300000, guid: 1520678a42432ff4097b692bee378b45, type: 3}
-  harpoonNoAmmo: {fileID: 8300000, guid: 01869770ff5ae2e4c825c00189f94247, type: 3}
+  harpoonReloading: {fileID: 8300000, guid: c3500016a9575a745a74a4c55c0f3cf0, type: 3}
+  harpoonNoAmmo: {fileID: 8300000, guid: cef4bfdfb3869524c9f8e0c7f4c29b42, type: 3}
   batteryUsed: {fileID: 8300000, guid: 3f55cbd76f6d7e846a2f3867c51ef526, type: 3}
   glowstickUsed: {fileID: 8300000, guid: 94d2599dd54d1444d95b31e87e0e46c1, type: 3}
   syringeUsed: {fileID: 8300000, guid: 968667d02a920a745be3df5815b0731d, type: 3}
