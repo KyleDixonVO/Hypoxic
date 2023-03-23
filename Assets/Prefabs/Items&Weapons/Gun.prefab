@@ -263,9 +263,8 @@ GameObject:
   - component: {fileID: 3290487177083348064}
   - component: {fileID: 3149312027898083097}
   - component: {fileID: 3996272683756276913}
-  - component: {fileID: 5376800981336028878}
   m_Layer: 10
-  m_Name: Gun_Base
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,30 +474,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.133336, y: 27.213531, z: 49.093445}
   m_Center: {x: 0.09383823, y: 0.25916696, z: 10.921675}
---- !u!114 &5376800981336028878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4198999002374048364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4615c10fff36ee742a4dfdb7f4e6f024, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  typeName: 
-  singleton: 0
-  playerCamera: {fileID: 0}
-  range: 20
-  damage: 1
-  currentAmmo: 1
-  reserves: 6
-  maxAmmo: 6
-  reloadTime: 3
-  reloadProgress: 0
-  isEquiped: 0
-  bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
-  icon: {fileID: 0}
-  savePos: {x: 79.11546, y: 1.346, z: 293.383}
-  tooltip: Press E to equip Harpoon Gun
