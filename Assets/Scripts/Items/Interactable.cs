@@ -24,7 +24,12 @@ public abstract class Interactable : MonoBehaviour
     public virtual void Awake()
     {
         gameObject.layer = 10;
-        initalPos = transform.position;
+        //initalPos = transform.position;
+    }
+
+    public virtual void ResetForNewRun()
+    {
+        this.gameObject.transform.position = initalPos;
     }
     
     public abstract void OnInteract(); 

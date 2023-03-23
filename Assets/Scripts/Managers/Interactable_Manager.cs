@@ -151,11 +151,10 @@ namespace UnderwaterHorror
         {
             for (int i = 0; i < interactables.Length; i++)
             {
-                interactables[i] = null;
+                interactables[i].ResetForNewRun();
             }
 
             spawnedItems = false;
-            clearedJunk = false;
         }
 
         void RandomSpawnInteractables()

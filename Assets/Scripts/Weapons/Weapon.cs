@@ -42,6 +42,17 @@ namespace UnderwaterHorror
             // Debug.LogWarning("time to reload: " + reloadProgress);
         }
 
+        public override void ResetForNewRun()
+        {
+            base.ResetForNewRun();
+            isEquiped = false;
+            transform.parent = Interactable_Manager.interactable_manager.transform;
+            reserves = maxAmmo;
+            currentAmmo = 1;
+            reloadProgress = 0;
+            canShoot = true;
+        }
+
         protected void ShootWeapon(int damage)
         {
             Debug.LogWarning("BANG");

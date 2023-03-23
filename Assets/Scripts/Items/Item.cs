@@ -38,6 +38,16 @@ namespace UnderwaterHorror
             
         }
 
+        public override void ResetForNewRun()
+        {
+            base.ResetForNewRun();
+            isUsed = false;
+            isEquiped = false;
+            transform.parent = Interactable_Manager.interactable_manager.gameObject.transform;
+            beingUsed = false;
+            usageProgress = usageTime;
+        }
+
         protected void TimeToEffect()
         {      
             if (usageProgress <= 0) // Apply effect

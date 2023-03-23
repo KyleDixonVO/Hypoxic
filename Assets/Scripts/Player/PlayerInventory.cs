@@ -233,6 +233,8 @@ namespace UnderwaterHorror
             {
                 inventory[i] = null;
             }
+            inventoryFull = false;
+            activeWeapon = 0;
         }
     }
 }

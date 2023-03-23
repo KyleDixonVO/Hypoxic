@@ -50,6 +50,12 @@ public class Glowstick : Item
         }
     }
 
+    public override void ResetForNewRun()
+    {
+        base.ResetForNewRun();
+        light.enabled = false;
+    }
+
     public void TurnOn()
     {
         gameObject.GetComponent<Renderer>().enabled = true;
