@@ -113,7 +113,7 @@ namespace UnderwaterHorror
                 }
 
   
-                if (i == activeWeapon)
+                if (i == activeWeapon && !inventory[i].GetComponent<Item>().isUsed)
                 {
                     Equip(activeWeapon);
                     continue;
