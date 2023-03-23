@@ -11,7 +11,7 @@ namespace UnderwaterHorror
         public Camera playerCamera;
         [Header("Weapon Values")]
         [SerializeField]
-        protected float range;
+        public float range;
         [SerializeField]
         protected int damage;
         [SerializeField]

@@ -61,6 +61,6 @@ public class MedKit : Item
         }
 
         // deactivates the object not allowing it to be used
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

@@ -18,7 +18,7 @@ namespace UnderwaterHorror
         [SerializeField] Sprite emptySlot;
 
         Vector3 itemPos = new Vector3(.35f, -.35f, 1f);
-        Quaternion itemRot = Quaternion.Euler(0f, 270f, 0f);
+        Quaternion itemRot = Quaternion.Euler(0f, -90f, 0f);
 
         void Awake()
         {
@@ -57,7 +57,10 @@ namespace UnderwaterHorror
                 if (inventory[i] == null)
                 {
                     itemToAdd.transform.SetParent(FirstPersonController_Sam.fpsSam.playerCamera.transform);
-                    itemToAdd.transform.localRotation = itemRot;
+
+                    if (!itemToAdd.GetComponent<HarpoonGun>()) itemToAdd.transform.localRotation = itemRot;
+                    else itemToAdd.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
                     itemToAdd.transform.localPosition = itemPos;
                     itemToAdd.layer = 0;
                     if (itemToAdd.GetComponent<Rigidbody>()) Destroy(itemToAdd.GetComponent<Rigidbody>());
@@ -200,7 +203,7 @@ namespace UnderwaterHorror
 
             if (inventory[slot].GetComponent<Weapon>()) inventory[slot].GetComponent<Weapon>().isEquiped = true;
             else inventory[slot].GetComponent<Item>().isEquiped = true;
-            inventory[slot].gameObject.GetComponent<Renderer>().enabled = true;
+            inventory[slot].gameObject.SetActive(true);
 
             //activeWeapon = slot;
             IsEquipedCheck(slot);
@@ -212,7 +215,7 @@ namespace UnderwaterHorror
 
             if (item.GetComponent<Weapon>()) item.GetComponent<Weapon>().isEquiped = false;
             else item.GetComponent<Item>().isEquiped = false;
-            item.gameObject.GetComponent<Renderer>().enabled = false;
+            item.gameObject.SetActive(false);
         }
 
         public void ResetForNewRun()
