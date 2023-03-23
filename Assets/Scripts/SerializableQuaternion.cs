@@ -21,7 +21,7 @@ namespace UnderwaterHorror
             z = quaternionToSaveOut.z;
         }
 
-        public void GetSerializableQuaternion(Quaternion quaternionToBeOverwritten)
+        public void GetSerializableQuaternion(ref Quaternion quaternionToBeOverwritten)
         {
             quaternionToBeOverwritten.w = w;
             quaternionToBeOverwritten.x = x;

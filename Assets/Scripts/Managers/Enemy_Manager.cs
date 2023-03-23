@@ -9,6 +9,8 @@ public class Enemy_Manager : MonoBehaviour
     public Enemy[] enemies;
     public string[] enemyNames;
     private int numberOfEnemies;
+    [SerializeField] private bool dataLoaded;
+    public bool shouldLoad = false;
 
     private void Awake()
     {
@@ -26,6 +28,7 @@ public class Enemy_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dataLoaded = false;
         numberOfEnemies = enemyNames.Length;
         enemies = new Enemy[numberOfEnemies];
         //Debug.LogError(enemies.Length);
@@ -35,6 +38,10 @@ public class Enemy_Manager : MonoBehaviour
     void Update()
     {
         EnemySingleton();
+        if (shouldLoad)
+        {
+            LoadEnemyStates();
+        }
     }
 
     void EnemySingleton()
@@ -42,7 +49,7 @@ public class Enemy_Manager : MonoBehaviour
         if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (enemies[i] == null)
+            if (enemies[i] == null && GameObject.Find(enemyNames[i]) != null)
             {
                 enemies[i] = GameObject.Find(enemyNames[i]).GetComponent<Enemy>();
                 enemies[i].singleton = true;
@@ -86,8 +93,16 @@ public class Enemy_Manager : MonoBehaviour
         }
     }
 
+    public void SetShouldLoadTrue()
+    {
+        shouldLoad = true;
+    }
+
     public void LoadEnemyStates()
     {
+        for (int i = 0; i < enemies.Length; i++) if (enemies[i] == null) return;
+        if (dataLoaded) return;
         Data_Manager.dataManager.DataManagerToEnemyManager();
+        dataLoaded = true;
     }
 }

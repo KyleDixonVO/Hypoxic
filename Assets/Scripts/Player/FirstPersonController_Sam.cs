@@ -305,7 +305,7 @@ namespace UnderwaterHorror
 
             if (Mathf.Abs(moveDirection.x) < 0.1f && Mathf.Abs(moveDirection.z) < 0.1f)
             {
-                Debug.Log("Movement Magnitude insufficient for headbob. " + Mathf.Abs(moveDirection.x) + " " + Mathf.Abs(moveDirection.z));
+                //Debug.Log("Movement Magnitude insufficient for headbob. " + Mathf.Abs(moveDirection.x) + " " + Mathf.Abs(moveDirection.z));
                 return;
             }
 
@@ -313,7 +313,7 @@ namespace UnderwaterHorror
             
             if (!characterController.isGrounded)
             {
-                Debug.Log("Character not grounded, cancelling headbob");
+                //Debug.Log("Character not grounded, cancelling headbob");
                 return;
             }
             

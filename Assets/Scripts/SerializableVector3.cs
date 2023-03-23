@@ -10,9 +10,9 @@ namespace UnderwaterHorror
     {
         public SerializableVector3() { }
 
-        public float x = 0;
-        public float y = 0;
-        public float z = 0;
+        public float x;
+        public float y;
+        public float z;
         
         public void SetSerializableVector(Vector3 vectorToSaveOut)
         {
@@ -21,11 +21,12 @@ namespace UnderwaterHorror
             z = vectorToSaveOut.z;
         }
 
-        public void GetSerializableVector(Vector3 vectorToBeOverwritten)
+        public void GetSerializableVector(ref Vector3 vectorToBeOverwritten)
         {
             vectorToBeOverwritten.x = x;
             vectorToBeOverwritten.y = y;
             vectorToBeOverwritten.z = z;
+            Debug.Log(vectorToBeOverwritten.x + " " + vectorToBeOverwritten.y + " " + vectorToBeOverwritten.z);
         }
     }
 }
