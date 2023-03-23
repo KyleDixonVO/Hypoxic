@@ -45,15 +45,13 @@ namespace UnderwaterHorror
                 interactables = new Interactable[itemNames.Length];
                 StaticSpawnInteractables();
             }
-            ItemSingleton();
         }
 
         // Update is called once per frame
         void Update()
         {
-            //ItemSingleton();
+            ItemSingleton();
             ToggleRigidbodies();
-            RemoveDuplicates();
         }
 
         void ItemSingleton()
@@ -77,10 +75,17 @@ namespace UnderwaterHorror
                 }
                 else if (!interactables[i].singleton)
                 {
+                    DontDestroyOnLoad(interactables[i]);
                     interactables[i].singleton = true;
                 }
+
+
+                if (interactables[i].GetComponent<Item>() == null) continue;
+                if (!interactables[i].GetComponent<Item>().isUsed) continue;
+                //Debug.Log(i);
+                interactables[i].gameObject.SetActive(false);
+                
             }
-            RemoveDuplicates();
         }
 
         void RemoveDuplicates()
@@ -135,6 +140,7 @@ namespace UnderwaterHorror
 
         public void ReloadToSavePositions()
         {
+            Debug.Log("Resetting to save positions");
             for (int i = 0; i < interactables.Length; i++)
             {
                 interactables[i].ReloadToSave();

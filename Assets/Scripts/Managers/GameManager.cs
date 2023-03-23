@@ -146,6 +146,7 @@ namespace UnderwaterHorror
             Data_Manager.dataManager.LoadFromInteractableData();
             //Enemy_Manager.enemy_Manager.LoadEnemyStates();
             Enemy_Manager.enemy_Manager.SetShouldLoadTrue();
+            Interactable_Manager.interactable_manager.ReloadToSavePositions();
 
 
             if (FirstPersonController_Sam.fpsSam == null) return;

@@ -26,7 +26,7 @@ namespace UnderwaterHorror
             vectorToBeOverwritten.x = x;
             vectorToBeOverwritten.y = y;
             vectorToBeOverwritten.z = z;
-            Debug.Log(vectorToBeOverwritten.x + " " + vectorToBeOverwritten.y + " " + vectorToBeOverwritten.z);
+            //Debug.Log(vectorToBeOverwritten.x + " " + vectorToBeOverwritten.y + " " + vectorToBeOverwritten.z);
         }
     }
 }

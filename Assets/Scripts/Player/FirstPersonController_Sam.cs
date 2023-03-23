@@ -231,7 +231,7 @@ namespace UnderwaterHorror
         public void LockPlayerMovement()
         {
             if (canMove == false && Cursor.lockState == CursorLockMode.None && Cursor.visible == true) return; 
-            Debug.Log("Player Movement Locked");
+            //Debug.Log("Player Movement Locked");
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -240,7 +240,7 @@ namespace UnderwaterHorror
         public void UnlockPlayerMovement()
         {
             if (canMove == true && Cursor.lockState == CursorLockMode.Locked && Cursor.visible == false) return;
-            Debug.Log("Player Movement Unlocked");
+            //Debug.Log("Player Movement Unlocked");
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

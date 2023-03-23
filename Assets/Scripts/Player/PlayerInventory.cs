@@ -46,55 +46,52 @@ namespace UnderwaterHorror
             HandleEquipUnequip(); // Checks for the input to switch to weapons
             HandleItemUsage(); // checks to see if an item is used, deletes it if so
             InventorySlotUpdate();
+            AdjustEquippedItemLocalPos();
+            //Debug.Log(inventory[activeWeapon].transform.position + " " + inventory[activeWeapon].gameObject.name);
             if (Input.GetKeyDown(KeyCode.Q)) HandleDrop(); // checks the input for droping an item
         }
 
         // ---------------------------------- Inventory --------------------------------------- \\
         public void AddToInventory(GameObject itemToAdd)
         {
+            int firstOpenSlot = 99;
             for (int i = 0; i < inventory.Length; i++) // finds first available inventory slot for item
             {
                 if (inventory[i] == null)
                 {
-                    itemToAdd.transform.SetParent(FirstPersonController_Sam.fpsSam.playerCamera.transform);
-
-                    if (!itemToAdd.GetComponent<HarpoonGun>()) itemToAdd.transform.localRotation = itemRot;
-                    else itemToAdd.transform.localRotation = Quaternion.Euler(0, 0, 0);
-
-                    itemToAdd.transform.localPosition = itemPos;
-                    itemToAdd.layer = 0;
-                    if (itemToAdd.GetComponent<Rigidbody>()) Destroy(itemToAdd.GetComponent<Rigidbody>());
-                    if (itemToAdd.GetComponent<Weapon>())
-                    {
-                        itemToAdd.GetComponent<Weapon>().playerCamera = playerCam;
-                        //PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Weapon>().icon;
-                    }
-                    else
-                    {
-                        //PDAItems[i].gameObject.GetComponent<Image>().overrideSprite = itemToAdd.GetComponent<Item>().icon;
-                    }
-
-                    inventory[i] = itemToAdd;
-                    inventory[i].gameObject.GetComponent<Collider>().enabled = false;
-
-                    if (i == inventory.Length - 1)
-                    {
-                        inventoryFull = true;
-                    }
-                    else
-                    {
-                        inventoryFull = false;
-                    }
-
-                    for (int j = 0; j < inventory.Length; j++) // DONT REMOVE
-                    {
-                        if (j == i) Equip(j);
-                        else Unequip(inventory[j]);
-                    }
-                    return;
-
-
+                    firstOpenSlot = i;
+                    //Debug.Log(firstOpenSlot);
+                    break;
                 }
+            }
+
+            if (firstOpenSlot > inventory.Length - 1)inventoryFull = true;
+            else inventoryFull = false;
+            
+
+            if (firstOpenSlot > inventory.Length - 1) return;
+
+            inventory[firstOpenSlot] = itemToAdd;
+            inventory[firstOpenSlot].gameObject.GetComponent<Collider>().enabled = false;
+
+            inventory[firstOpenSlot].transform.SetParent(FirstPersonController_Sam.fpsSam.playerCamera.transform);
+            inventory[firstOpenSlot].transform.position = Vector3.zero;
+            Debug.Log(inventory[firstOpenSlot].transform.position + " " + inventory[firstOpenSlot].gameObject.name + " " + firstOpenSlot);
+            inventory[firstOpenSlot].transform.localPosition = itemPos;
+            inventory[firstOpenSlot].layer = 0;
+            
+
+            if (!inventory[firstOpenSlot].GetComponent<HarpoonGun>()) itemToAdd.transform.localRotation = itemRot;
+            else inventory[firstOpenSlot].transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+            if (inventory[firstOpenSlot].GetComponent<Rigidbody>()) Destroy(itemToAdd.GetComponent<Rigidbody>());
+            if (inventory[firstOpenSlot].GetComponent<Weapon>()) inventory[firstOpenSlot].GetComponent<Weapon>().playerCamera = playerCam;
+            
+
+            for (int j = 0; j < inventory.Length; j++) // DONT REMOVE
+            {
+                if (j == firstOpenSlot) Equip(j);
+                else if (inventory[j] != null) Unequip(inventory[j]);
             }
         }
 
@@ -113,14 +110,24 @@ namespace UnderwaterHorror
                 }
 
   
-                if (i == activeWeapon && !inventory[i].GetComponent<Item>().isUsed)
+                if (i == activeWeapon)
                 {
+                    if (inventory[i].GetComponent<Item>() != null)
+                    {
+                        if (inventory[i].GetComponent<Item>().isUsed) continue;
+                    }
                     Equip(activeWeapon);
                     continue;
                 }
 
                 Unequip(inventory[i]);
             }
+        }
+
+        void AdjustEquippedItemLocalPos()
+        {
+            if (inventory[activeWeapon] == null) return;
+            if (inventory[activeWeapon].transform.localPosition != itemPos) inventory[activeWeapon].transform.localPosition = itemPos;
         }
 
         void InventorySlotUpdate()
@@ -145,6 +152,7 @@ namespace UnderwaterHorror
             {
                 if (inventory[i] != null && inventory[i].GetComponent<Item>() && inventory[i].GetComponent<Item>().isUsed)
                 {
+                    inventory[i].GetComponent<Item>().isEquiped = false;
                     inventory[i] = null;
                 }
             }
@@ -199,6 +207,7 @@ namespace UnderwaterHorror
         // ------------------------------------ Equip / Unequip ------------------------------------------------ \\
         void Equip(int slot)
         {
+            if (inventory[slot] == null) return;
             if (inventory[slot].GetComponent<Glowstick>()) inventory[slot].GetComponent<Glowstick>().TurnOn(); // enable light on glowstick, becasue it's special
 
             if (inventory[slot].GetComponent<Weapon>()) inventory[slot].GetComponent<Weapon>().isEquiped = true;

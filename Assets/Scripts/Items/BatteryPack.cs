@@ -29,17 +29,17 @@ namespace UnderwaterHorror
                 return;
             }
 
-            if (beingUsed)
-            {               
-                TimeToEffect();
-            }
+            //if (beingUsed)
+            //{               
+            //    TimeToEffect();
+            //}
 
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
             {
                 return;
             }
 
-            if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false)
+            if (isEquiped && Input.GetKeyDown(KeyCode.Mouse0) && beingUsed == false && !isUsed)
             {
                 AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.batteryUsed);
                 beingUsed = true;
@@ -64,7 +64,7 @@ namespace UnderwaterHorror
 
             // deactivates the object not allowing it to be used
             gameObject.SetActive(false);
-            isUsed = true;
+            //isUsed = true;
 
         }
     }

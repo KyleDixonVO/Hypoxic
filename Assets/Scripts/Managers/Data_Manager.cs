@@ -213,6 +213,8 @@ namespace UnderwaterHorror
             mastervolume = 1.0f;
             musicVolume = 1.0f;
             SFXVolume = 1.0f;
+
+            SaveGlobalData();
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------- Player & Objective Data
@@ -471,7 +473,7 @@ namespace UnderwaterHorror
                         enemies[i].patrolPointParentName = enemyData.patrolPointParentNames[i];
 
                         enemyData.enemySavePos[i].GetSerializableVector(ref enemies[i].saveGamePos);
-                        Debug.Log("Saved enemy pos: " + enemies[i].saveGamePos);
+                        //Debug.Log("Saved enemy pos: " + enemies[i].saveGamePos);
                         
                     }
                 }
@@ -522,7 +524,7 @@ namespace UnderwaterHorror
             {
                 if (heldItems[i] == null) continue;
                 if (heldItems[i].GetComponent<Interactable>() == null) continue;
-                itemData.heldItems[i] = heldItems[i];
+                itemData.heldItems[i] = heldItems[i].name;
             }
 
             for (int i = 0; i < items.Length; i++)
@@ -539,6 +541,7 @@ namespace UnderwaterHorror
                     itemData.isUsed[i] = items[i].GetComponent<Item>().isUsed;
                 }
                 Debug.Log(i);
+                itemData.itemSavePos[i] = new SerializableVector3();
                 itemData.itemSavePos[i].SetSerializableVector(items[i].GetComponent<Interactable>().savePos);
                 Debug.Log("Saved item pos: " + items[i].GetComponent<Interactable>().savePos);
             }
@@ -566,13 +569,6 @@ namespace UnderwaterHorror
                     InteractableData itemData = (InteractableData)binaryFormatter.Deserialize(itemFile);
                     itemFile.Close();
 
-                    for (int i = 0; i < heldItems.Length; i++)
-                    {
-                        if (itemData.heldItems[i] == null) continue;
-                        if (itemData.heldItems[i].GetComponent<Interactable>() == null) continue;
-                        heldItems[i] = itemData.heldItems[i];
-                    }
-
                     for (int i = 0; i < items.Length; i++)
                     {
                         if (items[i].GetComponent<Weapon>())
@@ -588,7 +584,18 @@ namespace UnderwaterHorror
                         }
 
                         itemData.itemSavePos[i].GetSerializableVector(ref items[i].GetComponent<Interactable>().savePos);
-                        Debug.Log("Saved item pos: " + items[i].GetComponent<Interactable>().savePos);
+                        //Debug.Log("Saved item pos: " + items[i].GetComponent<Interactable>().savePos);
+                    }
+
+                    for (int i = 0; i < heldItems.Length; i++)
+                    {
+                        if (itemData.heldItems[i] == null) continue;
+                        for (int j = 0; j < items.Length; j++)
+                        {
+                            
+                            if (itemData.heldItems[i] == items[j].name)
+                            heldItems[i] = items[j];
+                        }  
                     }
                 }
             }
@@ -626,7 +633,8 @@ namespace UnderwaterHorror
                     Interactable_Manager.interactable_manager.interactables[i].GetComponent<Item>().isEquiped = items[i].GetComponent<Item>().isEquiped;
                     Interactable_Manager.interactable_manager.interactables[i].GetComponent<Item>().isUsed = items[i].GetComponent<Item>().isUsed;
                 }
-                
+
+                Interactable_Manager.interactable_manager.interactables[i].savePos = items[i].GetComponent<Interactable>().savePos;
             }
 
             DataManagerToInventory();
@@ -645,9 +653,30 @@ namespace UnderwaterHorror
         {
             for (int i = 0; i < heldItems.Length; i++)
             {
-                if (heldItems[i] == null) continue;
-                if (heldItems[i].GetComponent<Interactable>() == null) continue;
-                PlayerInventory.playerInventory.inventory[i] = heldItems[i];
+                //Debug.Log(i);
+                if (heldItems[i] == null)
+                {
+                    Debug.LogWarning("heldItems " + i + " is null");
+                    continue;
+                }
+                if (heldItems[i].GetComponent<Interactable>() == null)
+                {
+                    Debug.LogWarning("not an interactable" + i);
+                    continue;
+                }
+                for (int j = 0; j < items.Length; j++)
+                {
+                    if (heldItems[i].name != Interactable_Manager.interactable_manager.interactables[j].name)
+                    {
+                        continue;
+                    }
+                    Debug.Log("Setting player inventory slot");
+                    Debug.Log(heldItems[i].name + " " + Interactable_Manager.interactable_manager.interactables[j].name);
+                    //PlayerInventory.playerInventory.inventory[i] = Interactable_Manager.interactable_manager.interactables[j].gameObject;
+                    PlayerInventory.playerInventory.AddToInventory(Interactable_Manager.interactable_manager.interactables[j].gameObject);
+                    Debug.Log(Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.localPosition + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.position + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.parent.gameObject.name);
+                    return;
+                }
             }
         }
 
@@ -714,7 +743,7 @@ namespace UnderwaterHorror
         public bool[] isUsed = new bool[Data_Manager.dataManager.numberOfItems];
         public int[] currentAmmo = new int[Data_Manager.dataManager.numberOfItems];
         public int[] reserves = new int[Data_Manager.dataManager.numberOfItems];
-        public GameObject[] heldItems = new GameObject[3];
+        public string[] heldItems = new string[3];
         
     }
 
