@@ -64,4 +64,10 @@ public class MedKit : Item
         gameObject.SetActive(false);
         isUsed = true;
     }
+
+    public override void ResetForNewRun()
+    {
+        base.ResetForNewRun();
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+    }
 }

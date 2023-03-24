@@ -8,9 +8,8 @@ namespace UnderwaterHorror
     {
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
-        public Vector3 savedPos;
         [SerializeField] string tooltip;
-        [SerializeField] private Vector3 initialPos;
+        //[SerializeField] private Vector3 initialPos;
         [SerializeField] private Vector3 heldPos;
         [SerializeField] private Vector3 heldRot;
         [SerializeField] private float interactDistance = 5;
@@ -104,12 +103,12 @@ namespace UnderwaterHorror
 
         public void SetSavePos()
         {
-            savedPos = this.transform.position;
+            savePos = this.transform.position;
         }
 
         public void ReturnToSavePos()
         {
-            this.transform.position = savedPos;
+            this.transform.position = savePos;
         }
     }
 }
