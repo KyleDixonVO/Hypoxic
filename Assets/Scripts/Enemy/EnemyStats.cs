@@ -65,6 +65,11 @@ namespace UnderwaterHorror
         public bool hit = false;
         private float hitTimer = 0.2f;
 
+        private void Start()
+        {
+            elapsedFleeingTime = fleeingTime;
+        }
+
         // Tobias was here
         public void Update()
         {
@@ -81,6 +86,7 @@ namespace UnderwaterHorror
 
         public void TakeDamage(int playerAttack)
         {
+            Debug.LogError("Recived " + playerAttack + " damage");
             health -= playerAttack;
 
             if (health <= 0)
