@@ -54,6 +54,7 @@ public class Glowstick : Item
     {
         base.ResetForNewRun();
         light.enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = true;
     }
 
     public void TurnOn()

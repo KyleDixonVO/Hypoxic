@@ -154,6 +154,7 @@ namespace UnderwaterHorror
                 {
                     inventory[i].GetComponent<Item>().isEquiped = false;
                     inventory[i] = null;
+                    inventoryFull = false;
                 }
             }
         }
@@ -174,6 +175,7 @@ namespace UnderwaterHorror
 
         void DropItem(int index)
         {
+            inventoryFull = false;
             inventory[index].gameObject.GetComponent<Collider>().enabled = true;
             inventory[index].AddComponent<Rigidbody>();
             inventory[index].transform.SetParent(null);
