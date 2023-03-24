@@ -146,6 +146,7 @@ namespace UnderwaterHorror
             base.ResetRun();
             isAware = false;
             onFirstSight = false;
+            _enemyStats.elapsedAwareTime = 0;
         }
 
 
