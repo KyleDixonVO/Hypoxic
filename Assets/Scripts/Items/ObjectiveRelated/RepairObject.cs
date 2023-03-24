@@ -117,7 +117,7 @@ namespace UnderwaterHorror
         {
             if (Objective_Manager.objective_Manager.GetObjectiveState(objective))
             {
-                targetObject.RepairedObject();
+                //targetObject.RepairedObject();
                 this.gameObject.SetActive(false);
             }
         }
