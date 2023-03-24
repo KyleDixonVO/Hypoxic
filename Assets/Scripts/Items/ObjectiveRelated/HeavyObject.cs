@@ -13,6 +13,7 @@ namespace UnderwaterHorror
         [SerializeField] private Vector3 initialPos;
         [SerializeField] private Vector3 heldPos;
         [SerializeField] private Vector3 heldRot;
+        [SerializeField] private float interactDistance = 5;
         // Start is called before the first frame update
         void Start()
         {
@@ -91,13 +92,13 @@ namespace UnderwaterHorror
 
         public bool WithinPickupRange()
         {
-            if (Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position) < 2.5) return true;
+            if (Vector3.Distance(this.transform.position, FirstPersonController_Sam.fpsSam.transform.position) < interactDistance) return true;
             return false;
         }
 
-        public void ResetForNewRun()
+        public override void ResetForNewRun()
         {
-            this.transform.position = initialPos;
+            base.ResetForNewRun();
             _isHeld = false;
         }
 
