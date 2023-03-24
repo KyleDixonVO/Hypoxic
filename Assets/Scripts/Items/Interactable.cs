@@ -31,6 +31,7 @@ public abstract class Interactable : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         this.gameObject.transform.position = initalPos;
+        gameObject.layer = 10;
     }
     
     public abstract void OnInteract(); 

@@ -345,7 +345,7 @@ namespace UnderwaterHorror
 
 
             // Plays running sound
-            if (FirstPersonController_Sam.fpsSam.IsRunning())
+            if (FirstPersonController_Sam.fpsSam.IsRunning() && !FirstPersonController_Sam.fpsSam.IsCrouching())
             {
                 if (!suitThrusterAudio.isPlaying) PlaySound(suitThrusterAudio, jets);
             }
