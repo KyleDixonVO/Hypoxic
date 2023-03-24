@@ -24,20 +24,21 @@ namespace UnderwaterHorror
         {
             pointsOrderedByDist = new List<DistSort>();
             distSorts = new List<DistSort>();
+            
         }
 
 
         override protected void DefeatedManager()
         {
             // Fleeing Time
-            _enemyStats.fleeingTime -= Time.deltaTime;
+            _enemyStats.elapsedFleeingTime -= Time.deltaTime;
 
 
             agent.speed = _enemyStats.fleeingSpeed;
             agent.SetDestination(FirstPersonController_Sam.fpsSam.transform.position - transform.position);
 
 
-            if (_enemyStats.fleeingTime <= 0)
+            if (_enemyStats.elapsedFleeingTime <= 0)
             {
                 enemyState = EnemyState.patrolling;
                 _enemyStats.health = _enemyStats.maxHealth;

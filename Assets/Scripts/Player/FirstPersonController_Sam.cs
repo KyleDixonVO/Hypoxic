@@ -367,7 +367,7 @@ namespace UnderwaterHorror
         private float PerlinShake(float frequency, float offset, float amplitude)
         {
             float value = ((Mathf.PerlinNoise(Time.time * frequency, offset) * 2) - 1) * amplitude;
-            Debug.Log(value);
+            //Debug.Log(value);
             return value;
         }
 
@@ -437,7 +437,7 @@ namespace UnderwaterHorror
 
             //if (footstepTimer <= 0)
             //{
-            Debug.LogWarning("Playing footsteps");
+            //Debug.LogWarning("Playing footsteps");
                 if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 3))
                 {
                     if (movementAudioSource.isPlaying) return;

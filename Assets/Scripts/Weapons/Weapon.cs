@@ -68,12 +68,12 @@ namespace UnderwaterHorror
                 if (hit.transform.gameObject.layer == 8) // layer 8 == Enemy
                 {
                     Debug.LogWarning("hit enemy");
-                    EnemyStats stats = hit.transform.GetComponent<EnemyStats>();
-                    stats.TakeDamage(damage);
+                    Debug.Log("damage: " + damage);
+                    hit.transform.GetComponent<EnemyStats>().TakeDamage(damage);
 
                     GameObject blood = Instantiate(bloodSFX);
                     blood.transform.position = hit.point;
-                    StartCoroutine(waitTime(blood));
+                    //StartCoroutine(waitTime(blood));
                 }
 
                 Debug.LogWarning("hit " + hit);
