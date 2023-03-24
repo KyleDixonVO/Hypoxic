@@ -29,6 +29,7 @@ public abstract class Interactable : MonoBehaviour
 
     public virtual void ResetForNewRun()
     {
+        this.gameObject.SetActive(true);
         this.gameObject.transform.position = initalPos;
     }
     

@@ -41,7 +41,7 @@ public class Glowstick : Item
             AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.glowstickUsed);
             light.enabled = true;
             beingUsed = true;
-            TimeToEffect();
+            //TimeToEffect();
         }
 
         if (gameObject.activeSelf == false)
@@ -70,6 +70,7 @@ public class Glowstick : Item
     protected override void ApplyEffect()
     {
         if (gameObject.GetComponent<Rigidbody>() != null) return;
+        Debug.Log("Throwing glowstick");
         this.gameObject.transform.SetParent(null);
         gameObject.GetComponent<Collider>().enabled = true;
 

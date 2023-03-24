@@ -29,10 +29,10 @@ namespace UnderwaterHorror
                 return;
             }
 
-            //if (beingUsed)
-            //{               
-            //    TimeToEffect();
-            //}
+            if (beingUsed)
+            {               
+                TimeToEffect();
+            }
 
             if (FirstPersonController_Sam.fpsSam.carryingHeavyObj)
             {
@@ -43,7 +43,7 @@ namespace UnderwaterHorror
             {
                 AudioManager.audioManager.PlaySound(itemAudioSource, AudioManager.audioManager.batteryUsed);
                 beingUsed = true;
-                TimeToEffect();
+                //TimeToEffect();
             }
 
             if (gameObject.activeSelf == false)

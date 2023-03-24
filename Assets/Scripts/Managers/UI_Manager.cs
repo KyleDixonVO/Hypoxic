@@ -585,6 +585,8 @@ namespace UnderwaterHorror
         {
             SubmenuButton.caller = null;
             LogButton.caller = null;
+            DisablePrimaryInteractText();
+            DisableSecondaryInteractText();
         }
 
         public void VignetteEffectOn(bool autoComplete)

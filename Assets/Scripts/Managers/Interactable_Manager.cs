@@ -81,7 +81,7 @@ namespace UnderwaterHorror
 
 
                 if (interactables[i].GetComponent<Item>() == null) continue;
-                if (!interactables[i].GetComponent<Item>().isUsed) continue;
+                if (!interactables[i].GetComponent<Item>().isUsed || interactables[i].GetComponent<Glowstick>() != null) continue;
                 //Debug.Log(i);
                 interactables[i].gameObject.SetActive(false);
                 
@@ -209,6 +209,7 @@ namespace UnderwaterHorror
                         interactables[i] = Instantiate(itemPrefabs[0], parent: this.gameObject.transform, false).GetComponent<Interactable>();
                         interactables[i].name = "Gun";
                         interactables[i].transform.position = startingPositions[i];
+                        interactables[i].initalPos = startingPositions[i];
                         break;
 
                     case 1:
@@ -217,6 +218,7 @@ namespace UnderwaterHorror
                         interactables[i] = Instantiate(itemPrefabs[1], parent: this.gameObject.transform, false).GetComponent<Interactable>();
                         interactables[i].name = ("Shock_Prod_" + prods);
                         interactables[i].transform.position = startingPositions[i];
+                        interactables[i].initalPos = startingPositions[i];
                         prods++;
                         break;
 
@@ -228,6 +230,7 @@ namespace UnderwaterHorror
                         interactables[i] = Instantiate(itemPrefabs[2], parent: this.gameObject.transform, false).GetComponent<Interactable>();
                         interactables[i].name = ("Battery_" + batteries);
                         interactables[i].transform.position = startingPositions[i];
+                        interactables[i].initalPos = startingPositions[i];
                         batteries++;
                         break;
 
@@ -236,6 +239,7 @@ namespace UnderwaterHorror
                         interactables[i] = Instantiate(itemPrefabs[3], parent: this.gameObject.transform, false).GetComponent<Interactable>();
                         interactables[i].name = ("Medkit");
                         interactables[i].transform.position = startingPositions[i];
+                        interactables[i].initalPos = startingPositions[i];
                         break;
 
                     default:
@@ -243,6 +247,7 @@ namespace UnderwaterHorror
                         interactables[i] = Instantiate(itemPrefabs[4], parent: this.gameObject.transform, false).GetComponent<Interactable>();
                         interactables[i].name = ("GlowStick_" + glowsticks);
                         interactables[i].transform.position = startingPositions[i];
+                        interactables[i].initalPos = startingPositions[i];
                         glowsticks++;
                         break;
                 }
