@@ -121,6 +121,10 @@ namespace UnderwaterHorror
             {
                 enemyState = EnemyState.defeated;
             }
+            if (FirstPersonController_Sam.fpsSam.inWater == false)
+            {
+                enemyState = EnemyState.searching;
+            }
 
             switch (enemyState)
             {
@@ -484,7 +488,9 @@ namespace UnderwaterHorror
 
         public virtual void ResetRun()
         {
+            this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
             this.gameObject.transform.position = newGamePos;
+            this.gameObject.GetComponent<NavMeshAgent>().enabled = true;
             this._enemyStats.health = this._enemyStats.maxHealth;
             this.isAlive = true;
             this.enemyState = EnemyState.patrolling;
