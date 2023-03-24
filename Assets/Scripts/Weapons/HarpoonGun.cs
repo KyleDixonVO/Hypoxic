@@ -70,6 +70,12 @@ namespace UnderwaterHorror
                 return;
             }
         }
+
+        public override void ResetForNewRun()
+        {
+            base.ResetForNewRun();
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+        }
     }
 
 }

@@ -72,6 +72,12 @@ namespace UnderwaterHorror
                 //EquipUnequip();
             }
         }
+
+        public override void ResetForNewRun()
+        {
+            base.ResetForNewRun();
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+        }
     }
 
 }

@@ -213,6 +213,11 @@ namespace UnderwaterHorror
                 if (canZoom)        { HandleZoom();                                         }
                 if (canInteract)    { HandleInteractionCheck(); HandleInteractionInput();   }
                 //if (useFootsteps)   { HandleFootsteps();                                    }
+                if (!inWater && carryingHeavyObj) 
+                {
+                    if (gameObject.GetComponentInChildren<HeavyObject>() == null) return;
+                    gameObject.GetComponentInChildren<HeavyObject>().ForceDropObject();
+                } 
                 CameraShake();
                 ApplyFinalMovement();
             }
