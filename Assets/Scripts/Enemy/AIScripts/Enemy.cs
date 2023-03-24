@@ -495,6 +495,7 @@ namespace UnderwaterHorror
             this.isAlive = true;
             this.enemyState = EnemyState.patrolling;
             this.searching = false;
+            patrolPointParent = null;
         }
 
 
