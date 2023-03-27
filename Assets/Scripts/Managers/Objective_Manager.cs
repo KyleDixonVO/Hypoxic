@@ -38,6 +38,8 @@ namespace UnderwaterHorror
         [SerializeField] private string[] objectiveText = new string[System.Enum.GetNames(typeof(Objectives)).Length];
         public int numberOfObjectives;
         private string outgoingText;
+        public float elapsedCountdownTime;
+        [SerializeField] private float countdownTime;
 
 
         // Start is called before the first frame update
@@ -60,11 +62,6 @@ namespace UnderwaterHorror
                 {
                     if (!isObjectiveComplete[i]) return;
                 }
-
-                //if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
-                //    || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
-                //    || !isObjectiveComplete[(int)Objectives.repairThirdPipe])
-                //    return;
             }
 
             if (isObjectiveComplete[objectiveNumber]) return;
@@ -99,6 +96,7 @@ namespace UnderwaterHorror
         public void ResetRun()
         {
             ResetObjectives();
+            elapsedCountdownTime = countdownTime;
         }
 
         public string AssignObjectiveText()
@@ -125,6 +123,18 @@ namespace UnderwaterHorror
                 }
             }
             return outgoingText;
+        }
+
+        private void FinalObjCountdown()
+        {
+            if (elapsedCountdownTime <= 0)
+            {
+                elapsedCountdownTime = 0;
+                return;
+            }
+
+            elapsedCountdownTime -= Time.deltaTime;
+
         }
 
         private bool CanCompleteFinalObjective()

@@ -36,6 +36,7 @@ namespace UnderwaterHorror
                 else if (hit.transform.gameObject.layer == 10) 
                 {
                     // can also change color if in range for interactable
+                    crosshair.color = normal;
                 }
                 else
                 {
@@ -53,6 +54,11 @@ namespace UnderwaterHorror
                 range = PlayerInventory.playerInventory.inventory[PlayerInventory.playerInventory.activeWeapon].GetComponent<Weapon>().range;
             }
             else range = defaultRange; // can and probably should be interactable range
+        }
+
+        public void ResetCrosshair()
+        {
+            crosshair.color = normal;
         }
     }
 }

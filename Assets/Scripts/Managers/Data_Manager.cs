@@ -26,6 +26,7 @@ namespace UnderwaterHorror
 
         //objectiveManager data
         public bool[] objectives;
+        public float elapsedCountdownTime;
 
         //firstPersonControllerSam data
         public bool inWater;
@@ -250,10 +251,7 @@ namespace UnderwaterHorror
                     {
                         objectives[i] = playerData.objectives[i];
                     }
-                    //objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
-                    //objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
-                    //objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
-                    //objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
+                    elapsedCountdownTime = playerData.elapsedCountdownTime;
                     inWater = playerData.inWater;
                     carryingHeavyObj = playerData.carryingHeavyObj;
                     RotPosToManager(playerData);
@@ -283,10 +281,7 @@ namespace UnderwaterHorror
             {
                 playerData.objectives[i] = objectives[i];
             }
-            //playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
-            //playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
-            //playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
-            //playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = objectives[(int)Objective_Manager.Objectives.goToElevator];
+            playerData.elapsedCountdownTime = elapsedCountdownTime;
             playerData.inWater = inWater;
             playerData.carryingHeavyObj = carryingHeavyObj;
             RotPosToPlayerData(playerData);
@@ -303,7 +298,9 @@ namespace UnderwaterHorror
             for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
             {
                 objectives[i] = Objective_Manager.objective_Manager.GetObjectiveState((Objective_Manager.Objectives)i);
-            } 
+            }
+
+            elapsedCountdownTime = Objective_Manager.objective_Manager.elapsedCountdownTime;
 
             if (PlayerStats.playerStats == null) return;
             maxSuitPower = PlayerStats.playerStats.maxSuitPower;
@@ -407,6 +404,8 @@ namespace UnderwaterHorror
                 if (!objectives[i]) continue;
                 Objective_Manager.objective_Manager.UpdateObjectiveCompletion(i);
             }
+
+            Objective_Manager.objective_Manager.elapsedCountdownTime = elapsedCountdownTime;
         }
 
         //passes Data_Manager references out to fpsSam
@@ -719,6 +718,7 @@ namespace UnderwaterHorror
         public bool finalObjectiveComplete;
         public int numberOfObjectivesComplete;
         public int objectivesToWin;
+        public float elapsedCountdownTime;
 
         //Data from firstPersonController_Sam
         public bool inWater;

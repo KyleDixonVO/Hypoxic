@@ -798,6 +798,7 @@ MonoBehaviour:
   textAmmoCounter: {fileID: 0}
   fade: {fileID: 92916747}
   sliderRepair: {fileID: 0}
+  crosshairController: {fileID: 892121977}
   textPauseTitle: {fileID: 0}
   buttonResumeGame: {fileID: 0}
   buttonExitGame: {fileID: 0}
@@ -836,12 +837,30 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0f864c1a96198bc49b534b5f9f33101d, type: 3}
   - {fileID: 21300000, guid: 0f864c1a96198bc49b534b5f9f33101d, type: 3}
   logTranscripts:
-  - Log 1 Transcript
-  - Log 2 Transcipt
-  - Log 3 Transcipt
-  - Log 4 Transcipt
-  - Log 5 Transcipt
-  - Log 6 Transcipt
+  - "Day 1. We\u2019ve just finished unpacking the last of the equipment and we\u2019re
+    getting settled in. We\u2019ll begin required calibrations in the morning, not
+    that it\u2019ll look any different out there. I\u2019m itching to get started,
+    the fossils they recovered from the drilling rig are fascinating. "
+  - "Day 10. We\u2019ve made massive progress thus far. There\u2019s fossils all
+    along the cavern wall, probably even more at the bottom of the chasm. We\u2019re
+    struggling to classify what we\u2019ve found, the bones don\u2019t match up with
+    anything discovered up to this point. We\u2019ll likely only find fossils though,
+    the oxygen levels down here are far too low to support living fauna. "
+  - "Day 33. This is incredible! I didn\u2019t believe him at first when (Name) said
+    he saw something swimming by the chasm. I was returning from the lab when my
+    suit sonar picked something up, normally we don\u2019t get anything but the rocks
+    and cavern walls, and occasionally each other in the suits. I was the only one
+    on a seawalk, and I pinged something moving."
+  - "Day 50. These creatures are truly remarkable, they\u2019ve adapted to the poor
+    visibility of their environment by relying on sonar. Based on our observations
+    the creatures also use sonar to communicate, although we haven\u2019t managed
+    to ascribe meaning to the different calls as of yet. "
+  - "Day 73. Reactor is down, we\u2019re running on auxiliary power. We should have
+    72 hours until the batteries run out, hopefully repairs don\u2019t take longer
+    than that, or we\u2019ll have to wear the dive suits indoors. "
+  - '*muffled static-y audio* - Lost *muffled*. Big one got him. The small ones started
+    going crazy and it just showed up. I managed to lose it in the kelp. Gotta get
+    to the elevator. '
   submenu: 2
   inventoryButtons:
   - {fileID: 1682499398}

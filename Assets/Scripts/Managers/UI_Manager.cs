@@ -31,6 +31,7 @@ namespace UnderwaterHorror
         [SerializeField] private TMP_Text textAmmoCounter;
         [SerializeField] public Animator fade;
         [SerializeField] private Slider sliderRepair;
+        [SerializeField] private CrosshairController crosshairController;
 
         [Header("Pause Assets")]
         [SerializeField] private TMP_Text textPauseTitle;
@@ -588,6 +589,7 @@ namespace UnderwaterHorror
             DisablePrimaryInteractText();
             DisableSecondaryInteractText();
             VignetteEffectOff();
+            crosshairController.ResetCrosshair();
         }
 
         public void VignetteEffectOn(bool autoComplete)
