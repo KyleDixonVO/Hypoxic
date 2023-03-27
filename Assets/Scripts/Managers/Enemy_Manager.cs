@@ -70,6 +70,8 @@ public class Enemy_Manager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Length; i++)
         {
+            shouldLoad = false;
+            dataLoaded = false;
             if (enemies[i] == null) return;
             enemies[i].ResetRun();
         }
@@ -90,6 +92,7 @@ public class Enemy_Manager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Length; i++)
         {
+            if (enemies[i] == null) continue;
             enemies[i].ReloadToSave();
         }
     }
