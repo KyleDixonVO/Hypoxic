@@ -189,7 +189,7 @@ namespace UnderwaterHorror
                     AttackingManager();
                     if (!WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position))
                     {
-                        Debug.LogWarning("Switching to chasing state from attacking");
+                        //Debug.LogWarning("Switching to chasing state from attacking");
                         enemyState = EnemyState.chasing;
                     }
                     break;

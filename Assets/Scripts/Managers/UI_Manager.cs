@@ -31,6 +31,8 @@ namespace UnderwaterHorror
         [SerializeField] private TMP_Text textAmmoCounter;
         [SerializeField] public Animator fade;
         [SerializeField] private Slider sliderRepair;
+        [SerializeField] private CrosshairController crosshairController;
+        [SerializeField] private TMP_Text textCountdownTime;
 
         [Header("Pause Assets")]
         [SerializeField] private TMP_Text textPauseTitle;
@@ -254,6 +256,7 @@ namespace UnderwaterHorror
                 case ActiveUI.Gameplay:
                     UpdateGameplayHUD();
                     UpdateRepairSliderValue();
+                    UpdateCoundownTimer();
                     break;
 
                 case ActiveUI.Pause:
@@ -445,6 +448,18 @@ namespace UnderwaterHorror
             suitPower.value = PlayerStats.playerStats.suitPower;
         }
 
+        void UpdateCoundownTimer()
+        {
+            if (Objective_Manager.objective_Manager.CanCompleteFinalObjective())
+            {
+                textCountdownTime.gameObject.SetActive(true);
+                textCountdownTime.text = "Reactor Explodes in: " + (int)Objective_Manager.objective_Manager.elapsedCountdownTime + " seconds";
+                return;
+            }
+
+            textCountdownTime.gameObject.SetActive(false);
+        }
+
         //Updating various slider values
         public void UpdateOptionsSliderText()
         {
@@ -588,6 +603,7 @@ namespace UnderwaterHorror
             DisablePrimaryInteractText();
             DisableSecondaryInteractText();
             VignetteEffectOff();
+            crosshairController.ResetCrosshair();
         }
 
         public void VignetteEffectOn(bool autoComplete)

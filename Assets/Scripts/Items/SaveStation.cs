@@ -33,7 +33,7 @@ namespace UnderwaterHorror
         {
             if (Data_Manager.dataManager.saving) return;
             GameManager.gameManager.SaveGame();
-            Debug.LogWarning("GameSaved");
+            //Debug.LogWarning("GameSaved");
         }
     }
 }

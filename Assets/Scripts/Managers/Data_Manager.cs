@@ -26,6 +26,7 @@ namespace UnderwaterHorror
 
         //objectiveManager data
         public bool[] objectives;
+        public float elapsedCountdownTime;
 
         //firstPersonControllerSam data
         public bool inWater;
@@ -250,10 +251,7 @@ namespace UnderwaterHorror
                     {
                         objectives[i] = playerData.objectives[i];
                     }
-                    //objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
-                    //objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
-                    //objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
-                    //objectives[(int)Objective_Manager.Objectives.goToElevator] = playerData.objectives[(int)Objective_Manager.Objectives.goToElevator];
+                    elapsedCountdownTime = playerData.elapsedCountdownTime;
                     inWater = playerData.inWater;
                     carryingHeavyObj = playerData.carryingHeavyObj;
                     RotPosToManager(playerData);
@@ -283,10 +281,7 @@ namespace UnderwaterHorror
             {
                 playerData.objectives[i] = objectives[i];
             }
-            //playerData.objectives[(int)Objective_Manager.Objectives.repairFirstPipe] = objectives[(int)Objective_Manager.Objectives.repairFirstPipe];
-            //playerData.objectives[(int)Objective_Manager.Objectives.repairSecondPipe] = objectives[(int)Objective_Manager.Objectives.repairSecondPipe];
-            //playerData.objectives[(int)Objective_Manager.Objectives.repairThirdPipe] = objectives[(int)Objective_Manager.Objectives.repairThirdPipe];
-            //playerData.objectives[(int)Objective_Manager.Objectives.goToElevator] = objectives[(int)Objective_Manager.Objectives.goToElevator];
+            playerData.elapsedCountdownTime = elapsedCountdownTime;
             playerData.inWater = inWater;
             playerData.carryingHeavyObj = carryingHeavyObj;
             RotPosToPlayerData(playerData);
@@ -299,11 +294,13 @@ namespace UnderwaterHorror
         //saves to Data_Manager from source classes
         public void PlayerAndObjectiveDataToDataManager()
         {
-            Debug.LogWarning(Enum.GetNames(typeof(Objective_Manager.Objectives)).Length);
+            //Debug.LogWarning(Enum.GetNames(typeof(Objective_Manager.Objectives)).Length);
             for (int i = 0; i < Enum.GetNames(typeof(Objective_Manager.Objectives)).Length; i++)
             {
                 objectives[i] = Objective_Manager.objective_Manager.GetObjectiveState((Objective_Manager.Objectives)i);
-            } 
+            }
+
+            elapsedCountdownTime = Objective_Manager.objective_Manager.elapsedCountdownTime;
 
             if (PlayerStats.playerStats == null) return;
             maxSuitPower = PlayerStats.playerStats.maxSuitPower;
@@ -407,6 +404,8 @@ namespace UnderwaterHorror
                 if (!objectives[i]) continue;
                 Objective_Manager.objective_Manager.UpdateObjectiveCompletion(i);
             }
+
+            Objective_Manager.objective_Manager.elapsedCountdownTime = elapsedCountdownTime;
         }
 
         //passes Data_Manager references out to fpsSam
@@ -542,7 +541,9 @@ namespace UnderwaterHorror
                 }
                 Debug.Log(i);
                 itemData.itemSavePos[i] = new SerializableVector3();
+                itemData.itemSaveRotation[i] = new SerializableQuaternion();
                 itemData.itemSavePos[i].SetSerializableVector(items[i].GetComponent<Interactable>().savePos);
+                itemData.itemSaveRotation[i].SetSerializableQuaternion(items[i].GetComponent<Interactable>().saveRotation);
                 Debug.Log("Saved item pos: " + items[i].GetComponent<Interactable>().savePos);
             }
 
@@ -584,6 +585,7 @@ namespace UnderwaterHorror
                         }
 
                         itemData.itemSavePos[i].GetSerializableVector(ref items[i].GetComponent<Interactable>().savePos);
+                        itemData.itemSaveRotation[i].GetSerializableQuaternion(ref items[i].GetComponent<Interactable>().saveRotation);
                         //Debug.Log("Saved item pos: " + items[i].GetComponent<Interactable>().savePos);
                     }
 
@@ -635,6 +637,7 @@ namespace UnderwaterHorror
                 }
 
                 Interactable_Manager.interactable_manager.interactables[i].savePos = items[i].GetComponent<Interactable>().savePos;
+                Interactable_Manager.interactable_manager.interactables[i].saveRotation = items[i].GetComponent<Interactable>().saveRotation;
             }
 
             DataManagerToInventory();
@@ -644,16 +647,21 @@ namespace UnderwaterHorror
         {
             for (int i = 0; i < heldItems.Length; i++)
             {
-                if (PlayerInventory.playerInventory.inventory[i] == null) continue;
+                if (PlayerInventory.playerInventory.inventory[i] == null)
+                {
+                    heldItems[i] = null;
+                    continue;
+                }
                 heldItems[i] = PlayerInventory.playerInventory.inventory[i];
             }
         }
 
         public void DataManagerToInventory()
         {
+            Debug.LogWarning(heldItems.Length);
             for (int i = 0; i < heldItems.Length; i++)
             {
-                //Debug.Log(i);
+                Debug.Log(i);
                 if (heldItems[i] == null)
                 {
                     Debug.LogWarning("heldItems " + i + " is null");
@@ -670,12 +678,12 @@ namespace UnderwaterHorror
                     {
                         continue;
                     }
-                    Debug.Log("Setting player inventory slot");
-                    Debug.Log(heldItems[i].name + " " + Interactable_Manager.interactable_manager.interactables[j].name);
+                    Debug.LogWarning("Setting player inventory slot " + i);
+                    Debug.LogWarning(heldItems[i].name + " " + Interactable_Manager.interactable_manager.interactables[j].name);
                     //PlayerInventory.playerInventory.inventory[i] = Interactable_Manager.interactable_manager.interactables[j].gameObject;
                     PlayerInventory.playerInventory.AddToInventory(Interactable_Manager.interactable_manager.interactables[j].gameObject);
-                    Debug.Log(Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.localPosition + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.position + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.parent.gameObject.name);
-                    return;
+                    //Debug.Log(Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.localPosition + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.position + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.parent.gameObject.name);
+                    //return;
                 }
             }
         }
@@ -710,6 +718,7 @@ namespace UnderwaterHorror
         public bool finalObjectiveComplete;
         public int numberOfObjectivesComplete;
         public int objectivesToWin;
+        public float elapsedCountdownTime;
 
         //Data from firstPersonController_Sam
         public bool inWater;
@@ -738,6 +747,7 @@ namespace UnderwaterHorror
     public class InteractableData
     {
         public SerializableVector3[] itemSavePos = new SerializableVector3[Data_Manager.dataManager.numberOfItems];
+        public SerializableQuaternion[] itemSaveRotation = new SerializableQuaternion[Data_Manager.dataManager.numberOfItems];
 
         public bool[] isEquipped = new bool[Data_Manager.dataManager.numberOfItems];
         public bool[] isUsed = new bool[Data_Manager.dataManager.numberOfItems];

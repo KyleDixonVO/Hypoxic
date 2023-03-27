@@ -17,6 +17,7 @@ namespace UnderwaterHorror
         [SerializeField] private GameObject[] spawnPoints;
         [SerializeField] private GameObject[] itemPrefabs;
         [SerializeField] Vector3[] startingPositions;
+        [SerializeField] Quaternion[] startingRotations;
         private List<int> occupiedSpawns;
 
 
@@ -80,6 +81,7 @@ namespace UnderwaterHorror
                 }
 
 
+                if (interactables[i] == null) continue;
                 if (interactables[i].GetComponent<Item>() == null) continue;
                 if (!interactables[i].GetComponent<Item>().isUsed || interactables[i].GetComponent<Glowstick>() != null) continue;
                 //Debug.Log(i);
@@ -210,6 +212,8 @@ namespace UnderwaterHorror
                         interactables[i].name = "Gun";
                         interactables[i].transform.position = startingPositions[i];
                         interactables[i].initalPos = startingPositions[i];
+                        interactables[i].transform.rotation = startingRotations[i];
+                        interactables[i].initalRotation = startingRotations[i];
                         break;
 
                     case 1:
@@ -219,6 +223,8 @@ namespace UnderwaterHorror
                         interactables[i].name = ("Shock_Prod_" + prods);
                         interactables[i].transform.position = startingPositions[i];
                         interactables[i].initalPos = startingPositions[i];
+                        interactables[i].transform.rotation = startingRotations[i];
+                        interactables[i].initalRotation = startingRotations[i];
                         prods++;
                         break;
 
@@ -231,6 +237,8 @@ namespace UnderwaterHorror
                         interactables[i].name = ("Battery_" + batteries);
                         interactables[i].transform.position = startingPositions[i];
                         interactables[i].initalPos = startingPositions[i];
+                        interactables[i].transform.rotation = startingRotations[i];
+                        interactables[i].initalRotation = startingRotations[i];
                         batteries++;
                         break;
 
@@ -240,6 +248,8 @@ namespace UnderwaterHorror
                         interactables[i].name = ("Medkit");
                         interactables[i].transform.position = startingPositions[i];
                         interactables[i].initalPos = startingPositions[i];
+                        interactables[i].transform.rotation = startingRotations[i];
+                        interactables[i].initalRotation = startingRotations[i];
                         break;
 
                     default:
@@ -248,6 +258,8 @@ namespace UnderwaterHorror
                         interactables[i].name = ("GlowStick_" + glowsticks);
                         interactables[i].transform.position = startingPositions[i];
                         interactables[i].initalPos = startingPositions[i];
+                        interactables[i].transform.rotation = startingRotations[i];
+                        interactables[i].initalRotation = startingRotations[i];
                         glowsticks++;
                         break;
                 }

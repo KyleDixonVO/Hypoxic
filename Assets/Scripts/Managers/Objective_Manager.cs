@@ -38,6 +38,8 @@ namespace UnderwaterHorror
         [SerializeField] private string[] objectiveText = new string[System.Enum.GetNames(typeof(Objectives)).Length];
         public int numberOfObjectives;
         private string outgoingText;
+        public float elapsedCountdownTime;
+        [SerializeField] private float countdownTime;
 
 
         // Start is called before the first frame update
@@ -50,6 +52,7 @@ namespace UnderwaterHorror
         void Update()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            FinalObjCountdown();
         }
 
         public void UpdateObjectiveCompletion(int objectiveNumber) // Objective_Manager.objectives.yourObjective -- (Objective_Manager.Objectives)yourNumber
@@ -60,11 +63,6 @@ namespace UnderwaterHorror
                 {
                     if (!isObjectiveComplete[i]) return;
                 }
-
-                //if (!isObjectiveComplete[(int)Objectives.repairFirstPipe]
-                //    || !isObjectiveComplete[(int)Objectives.repairSecondPipe]
-                //    || !isObjectiveComplete[(int)Objectives.repairThirdPipe])
-                //    return;
             }
 
             if (isObjectiveComplete[objectiveNumber]) return;
@@ -99,6 +97,7 @@ namespace UnderwaterHorror
         public void ResetRun()
         {
             ResetObjectives();
+            elapsedCountdownTime = countdownTime;
         }
 
         public string AssignObjectiveText()
@@ -127,10 +126,29 @@ namespace UnderwaterHorror
             return outgoingText;
         }
 
-        private bool CanCompleteFinalObjective()
+        private void FinalObjCountdown()
         {
-            for(int i = 0; i < System.Enum.GetNames(typeof(Objectives)).Length; i++)
+            if (!CanCompleteFinalObjective()) 
             {
+                Debug.LogWarning("Cannot complete final objective");
+                return;
+            }
+            if (elapsedCountdownTime <= 0)
+            {
+                elapsedCountdownTime = 0;
+                if (!IfWonGame()) PlayerStats.playerStats.TakeDamage(999);
+                return;
+            }
+
+            elapsedCountdownTime -= Time.deltaTime;
+
+        }
+
+        public bool CanCompleteFinalObjective()
+        {
+            for(int i = 0; i < System.Enum.GetNames(typeof(Objectives)).Length -1; i++)
+            {
+                Debug.Log(i + " " + isObjectiveComplete[i]);
                 if (!isObjectiveComplete[i]) return false;
             }
             return true;

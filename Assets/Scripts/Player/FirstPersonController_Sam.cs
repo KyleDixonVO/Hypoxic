@@ -172,6 +172,7 @@ namespace UnderwaterHorror
         private float rotationX = 0;
 
         [SerializeField] private Vector3 NewGamePos = new Vector3(-0.1f, 1.71f, -20.95f);
+        [SerializeField] private Quaternion NewGameRot = new Quaternion();
         public Vector3 playerSavedPosition;
         public Quaternion playerSavedRotation;
 
@@ -641,6 +642,7 @@ namespace UnderwaterHorror
             playerCamera.transform.localPosition = new Vector3(0, defaultYPos, 0);
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;
+            this.gameObject.transform.rotation = NewGameRot;
             //Debug.Log(this.gameObject.transform.position);
             this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
