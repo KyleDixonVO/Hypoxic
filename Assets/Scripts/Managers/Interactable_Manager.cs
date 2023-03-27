@@ -81,6 +81,7 @@ namespace UnderwaterHorror
                 }
 
 
+                if (interactables[i] == null) continue;
                 if (interactables[i].GetComponent<Item>() == null) continue;
                 if (!interactables[i].GetComponent<Item>().isUsed || interactables[i].GetComponent<Glowstick>() != null) continue;
                 //Debug.Log(i);
