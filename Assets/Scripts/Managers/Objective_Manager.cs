@@ -52,6 +52,7 @@ namespace UnderwaterHorror
         void Update()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+            FinalObjCountdown();
         }
 
         public void UpdateObjectiveCompletion(int objectiveNumber) // Objective_Manager.objectives.yourObjective -- (Objective_Manager.Objectives)yourNumber
@@ -127,9 +128,15 @@ namespace UnderwaterHorror
 
         private void FinalObjCountdown()
         {
+            if (!CanCompleteFinalObjective()) 
+            {
+                Debug.LogWarning("Cannot complete final objective");
+                return;
+            }
             if (elapsedCountdownTime <= 0)
             {
                 elapsedCountdownTime = 0;
+                if (!IfWonGame()) PlayerStats.playerStats.TakeDamage(999);
                 return;
             }
 
@@ -137,10 +144,11 @@ namespace UnderwaterHorror
 
         }
 
-        private bool CanCompleteFinalObjective()
+        public bool CanCompleteFinalObjective()
         {
-            for(int i = 0; i < System.Enum.GetNames(typeof(Objectives)).Length; i++)
+            for(int i = 0; i < System.Enum.GetNames(typeof(Objectives)).Length -1; i++)
             {
+                Debug.Log(i + " " + isObjectiveComplete[i]);
                 if (!isObjectiveComplete[i]) return false;
             }
             return true;
