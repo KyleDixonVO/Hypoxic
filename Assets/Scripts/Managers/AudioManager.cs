@@ -65,9 +65,6 @@ namespace UnderwaterHorror
         public AudioClip smallFishDying;
         public AudioClip smallFishScream;
 
-        [Header("SmallMonsterAudioClips")]
-        public AudioClip smallBite;
-
         [Header("WeaponAudioClips")]
         public AudioClip electricProdShock;
         public AudioClip electricProdRecharge;
@@ -347,7 +344,10 @@ namespace UnderwaterHorror
             // Plays running sound
             if (FirstPersonController_Sam.fpsSam.IsRunning() && !FirstPersonController_Sam.fpsSam.IsCrouching())
             {
-                if (!suitThrusterAudio.isPlaying) PlaySound(suitThrusterAudio, jets);
+                if (PlayerStats.playerStats.suitPower != 0)
+                {
+                    if (!suitThrusterAudio.isPlaying) PlaySound(suitThrusterAudio, jets);
+                }
             }
 
             if (FirstPersonController_Sam.fpsSam.IsRunning() == false) StopSound(suitThrusterAudio);
