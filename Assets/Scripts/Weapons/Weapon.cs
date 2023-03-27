@@ -67,8 +67,8 @@ namespace UnderwaterHorror
 
                 if (hit.transform.gameObject.layer == 8) // layer 8 == Enemy
                 {
-                    Debug.LogWarning("hit enemy");
-                    Debug.Log("damage: " + damage);
+                    //Debug.LogWarning("hit enemy");
+                    //Debug.Log("damage: " + damage);
                     hit.transform.GetComponent<EnemyStats>().TakeDamage(damage);
 
                     GameObject blood = Instantiate(bloodSFX);
@@ -76,7 +76,7 @@ namespace UnderwaterHorror
                     //StartCoroutine(waitTime(blood));
                 }
 
-                Debug.LogWarning("hit " + hit);
+                //Debug.LogWarning("hit " + hit);
             }
             currentAmmo--;
         }

@@ -10217,11 +10217,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002373, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9745245
+      value: 1.474
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002373, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -19.668396
+      value: -23.16
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002373, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10290,6 +10290,18 @@ PrefabInstance:
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: defaultYPos
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: NewGamePos.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: NewGamePos.y
+      value: 24.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: NewGamePos.z
+      value: -27.97
       objectReference: {fileID: 0}
     - target: {fileID: 1332587734821002494, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: camShakeTime
