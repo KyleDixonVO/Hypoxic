@@ -10,15 +10,19 @@ public abstract class Interactable : MonoBehaviour
     [Header("save position")]
     public Vector3 savePos;
     public Vector3 initalPos;
+    public Quaternion initalRotation;
+    public Quaternion saveRotation;
 
     public void SetSaveGamePos()
     {
         savePos = this.gameObject.transform.position;
+        saveRotation = this.gameObject.transform.rotation;
     }
 
     public void ReloadToSave()
     {
         this.gameObject.transform.position = savePos;
+        this.gameObject.transform.rotation = saveRotation;
     }
 
     public virtual void Awake()
@@ -31,6 +35,7 @@ public abstract class Interactable : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         this.gameObject.transform.position = initalPos;
+        this.gameObject.transform.rotation = initalRotation;
         gameObject.layer = 10;
     }
     

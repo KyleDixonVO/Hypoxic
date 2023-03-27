@@ -128,6 +128,7 @@ namespace UnderwaterHorror
         {
             if (inventory[activeWeapon] == null) return;
             if (inventory[activeWeapon].transform.localPosition != itemPos) inventory[activeWeapon].transform.localPosition = itemPos;
+            if (inventory[activeWeapon].transform.localRotation != itemRot) inventory[activeWeapon].transform.localRotation = itemRot;
         }
 
         void InventorySlotUpdate()
@@ -139,7 +140,7 @@ namespace UnderwaterHorror
                 if (InventoryButton.caller == null) InventoryButton.caller = UI_Manager.ui_Manager.inventoryButtons[0];
                 if (UI_Manager.ui_Manager.inventoryButtons[i].slot == InventoryButton.caller.slot)
                 {
-                    Debug.LogError("Setting Caller to active weapon slot, caller is now slot: " + (activeWeapon));
+                    //Debug.LogError("Setting Caller to active weapon slot, caller is now slot: " + (activeWeapon));
                     UI_Manager.ui_Manager.inventoryButtons[activeWeapon].SetThisAsCaller();
                 }
             }
