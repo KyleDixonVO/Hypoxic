@@ -680,13 +680,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: efa9acb9b3eb79a4bb9c6d741e0b298f, type: 3}
   grassFootstepClips: []
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
-  interactionDistance: 2
+  interactionDistance: 3
   interactionLayer:
     serializedVersion: 2
     m_Bits: 1024
   currentInteractable: {fileID: 0}
   playerCamera: {fileID: 0}
   NewGamePos: {x: -0.1, y: 1.71, z: -20.95}
+  NewGameRot: {x: 0, y: 0, z: 0, w: 0}
   playerSavedPosition: {x: 0, y: 0, z: 0}
   playerSavedRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1332587734821002372

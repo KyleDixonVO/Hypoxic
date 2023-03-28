@@ -3893,7 +3893,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3808d420d1dad4b48bfedf000052d14e, type: 3}
   - {fileID: 8300000, guid: e607683cd392eda4b9425116393e1482, type: 3}
   titleMusic: {fileID: 8300000, guid: 28f97e7e35a8a744f84c60779677235a, type: 3}
-  outsideAmbiance: {fileID: 8300000, guid: 4ee15832f7913394b9edc21e27d89f7e, type: 3}
+  outsideAmbiance: {fileID: 8300000, guid: d7faaf4ded286ac4db9cc2d0614cba05, type: 3}
   insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
   jets: {fileID: 8300000, guid: 896959a2115e7c44e88628de625903a4, type: 3}
   heavyBreathing: {fileID: 8300000, guid: 63095a5952128ce4f86fef35d7a4f52b, type: 3}
@@ -3908,7 +3908,6 @@ MonoBehaviour:
   smallFishHurt: {fileID: 8300000, guid: e3c5d4db2d6a28c4fa9ef2e5cd510afc, type: 3}
   smallFishDying: {fileID: 8300000, guid: e3c5d4db2d6a28c4fa9ef2e5cd510afc, type: 3}
   smallFishScream: {fileID: 8300000, guid: 3fd3fd63f1d96b64f9592f02fa92b5f0, type: 3}
-  smallBite: {fileID: 8300000, guid: a0a1f67cc88d1b046aa0e4ac75b4df16, type: 3}
   electricProdShock: {fileID: 8300000, guid: b9af852d809ee0d4ba4d6f22f5cbd49b, type: 3}
   electricProdRecharge: {fileID: 8300000, guid: 646edb6bd42c6984b98fb499702c6378, type: 3}
   electricProdNoCharge: {fileID: 8300000, guid: 2bb2f629943e38e459932ab628ec413d, type: 3}

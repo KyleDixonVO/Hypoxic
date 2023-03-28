@@ -11,6 +11,14 @@ namespace UnderwaterHorror
         [SerializeField] string tooltipOpen;
         [SerializeField] string tooltipLocked;
 
+        protected Outline _outline;
+
+        private void Start()
+        {
+            _outline = GetComponent<Outline>();
+            _outline.enabled = false;
+        }
+
         public override void OnInteract()
         {
             Debug.Log("Button pressed");
@@ -32,11 +40,13 @@ namespace UnderwaterHorror
             if (AL.isOpenable) tooltip = tooltipOpen;
             else tooltip = tooltipLocked;
             UI_Manager.ui_Manager.ActivatePrimaryInteractText(tooltip);
+            _outline.enabled = true;
         }
 
         public override void OnLoseFocus()
         {
             UI_Manager.ui_Manager.DisablePrimaryInteractText();
+            _outline.enabled = false;
         }
     }
 

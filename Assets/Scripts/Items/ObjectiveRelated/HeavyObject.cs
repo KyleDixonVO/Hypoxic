@@ -6,6 +6,10 @@ namespace UnderwaterHorror
 {
     public class HeavyObject : Interactable
     {
+        // Tobias
+        [Header("Outline")]
+        [SerializeField] public Outline _outline;
+
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
         [SerializeField] string tooltip;
@@ -16,7 +20,7 @@ namespace UnderwaterHorror
         // Start is called before the first frame update
         void Start()
         {
-            
+            _outline.enabled = false;
         }
 
         // Update is called once per frame
@@ -52,12 +56,14 @@ namespace UnderwaterHorror
         {
             Debug.LogWarning("Looking at pipe");
             UI_Manager.ui_Manager.ActivatePrimaryInteractText(tooltip);
+            _outline.enabled = true;
         }
 
         public override void OnLoseFocus()
         {
             UI_Manager.ui_Manager.DisablePrimaryInteractText();
             //Debug.LogWarning("not looking at pipe");
+            _outline.enabled = false;
         }
 
         void UpdateObjectParent()

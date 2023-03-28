@@ -27,6 +27,8 @@ namespace UnderwaterHorror
 
             // Tobias ;)
             weaponAudioSource = this.gameObject.GetComponent<AudioSource>();
+            _outline = GetComponent<Outline>();
+            _outline.enabled = false;
         }
 
         // Update is called once per frame

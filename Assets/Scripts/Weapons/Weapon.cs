@@ -33,8 +33,9 @@ namespace UnderwaterHorror
 
         [SerializeField] string tooltip;
 
-        // Sound Polymorphism
+        // toooooooooooooooooooooooooooooooooooooooooooobias
         protected AudioSource weaponAudioSource;
+        protected Outline _outline;
 
         void Update()
         {
@@ -123,13 +124,17 @@ namespace UnderwaterHorror
             else tempTooltip = tooltip;
 
             UI_Manager.ui_Manager.ActivatePrimaryInteractText(tempTooltip);
-           // throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
+
+            _outline.enabled = true;
         }
 
         public override void OnLoseFocus()
         {
             UI_Manager.ui_Manager.DisablePrimaryInteractText();
-           // throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
+
+            _outline.enabled = false;
         }
 
     }

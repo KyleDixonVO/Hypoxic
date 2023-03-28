@@ -14,6 +14,8 @@ public class MedKit : Item
         usageProgress = usageTime;
         itemAudioSource = GetComponent<AudioSource>();
         typeName = "MedKit";
+        _outline = GetComponent<Outline>();
+        _outline.enabled = false;
     }
 
     // Update is called once per frame
