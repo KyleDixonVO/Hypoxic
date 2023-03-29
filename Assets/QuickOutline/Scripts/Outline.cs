@@ -14,6 +14,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 
 public class Outline : MonoBehaviour {
+
+    public static Outline activeOutline;
   private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
   public enum Mode {
@@ -130,6 +132,8 @@ public class Outline : MonoBehaviour {
   }
 
   void Update() {
+        if (activeOutline != this && this.enabled == true) this.enabled = false;
+        else if (activeOutline == this && this.enabled == false) this.enabled = true;
     if (needsUpdate) {
       needsUpdate = false;
 
@@ -306,4 +310,11 @@ public class Outline : MonoBehaviour {
         break;
     }
   }
+
+    public void SetAsActiveOutline()
+    {
+        if (activeOutline != null) Debug.Log(activeOutline.gameObject.name);
+        if (activeOutline == this) return;
+        activeOutline = this;
+    }
 }

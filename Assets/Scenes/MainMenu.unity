@@ -10375,6 +10375,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1332587735617128732, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: m_ShowToolkit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587735617128732, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: antialiasingMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332587735617128732, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
+      propertyPath: m_ShowCustomSorter
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1332587735617128734, guid: 1d7f5024a973b074d902c1e2684cd6ef, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 1527

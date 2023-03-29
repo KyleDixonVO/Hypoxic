@@ -148,7 +148,7 @@ namespace UnderwaterHorror
         {
             for(int i = 0; i < System.Enum.GetNames(typeof(Objectives)).Length -1; i++)
             {
-                Debug.Log(i + " " + isObjectiveComplete[i]);
+                //Debug.Log(i + " " + isObjectiveComplete[i]);
                 if (!isObjectiveComplete[i]) return false;
             }
             return true;

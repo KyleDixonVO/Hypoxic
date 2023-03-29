@@ -13,7 +13,6 @@ namespace UnderwaterHorror
         [SerializeField] private bool _isHeld = false;
         public bool isHeld;
         [SerializeField] string tooltip;
-        //[SerializeField] private Vector3 initialPos;
         [SerializeField] private Vector3 heldPos;
         [SerializeField] private Vector3 heldRot;
         [SerializeField] private float interactDistance = 5;
@@ -56,7 +55,13 @@ namespace UnderwaterHorror
         {
             Debug.LogWarning("Looking at pipe");
             UI_Manager.ui_Manager.ActivatePrimaryInteractText(tooltip);
-            _outline.enabled = true;
+
+            if (this.gameObject.GetComponent<Outline>() != null && transform.parent != FirstPersonController_Sam.fpsSam.playerCamera.gameObject)
+            {
+                Debug.Log("Setting active outline");
+                Outline.activeOutline = gameObject.GetComponent<Outline>();
+                _outline.enabled = true;
+            }
         }
 
         public override void OnLoseFocus()
