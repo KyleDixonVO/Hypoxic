@@ -100,16 +100,18 @@ namespace UnderwaterHorror
             else tempTooltip = tooltip;
 
             UI_Manager.ui_Manager.ActivatePrimaryInteractText(tempTooltip);
-            //throw new System.NotImplementedException();
 
-            _outline.enabled = true;
+            if (this.gameObject.GetComponent<Outline>() != null && transform.parent != FirstPersonController_Sam.fpsSam.playerCamera.gameObject)
+            {
+                Debug.Log("Setting active outline");
+                gameObject.GetComponent<Outline>().SetAsActiveOutline();
+                _outline.enabled = true;
+            }
         }
 
         public override void OnLoseFocus()
         {
             UI_Manager.ui_Manager.DisablePrimaryInteractText();
-            // throw new System.NotImplementedException();
-
             _outline.enabled = false;
         }
     }
