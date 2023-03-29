@@ -54736,6 +54736,7 @@ GameObject:
   - component: {fileID: 4832845882109156517}
   - component: {fileID: 6412864888828719280}
   - component: {fileID: 6109275523968309915}
+  - component: {fileID: 6412864888828719281}
   m_Layer: 7
   m_Name: TableTop
   m_TagString: Untagged
@@ -60533,6 +60534,7 @@ GameObject:
   - component: {fileID: 7353375783479601943}
   - component: {fileID: 6020428142960285944}
   - component: {fileID: 4390931108635436349}
+  - component: {fileID: 7353375783479601944}
   m_Layer: 7
   m_Name: TableBtm
   m_TagString: Untagged
@@ -60650,6 +60652,20 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242749089553346998}
+  m_Mesh: {fileID: 321778115980344744, guid: 16cae24dbbc0dbc44a7a2a30dea4dc60, type: 3}
+--- !u!64 &6412864888828719281
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242749089553346998}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 321778115980344744, guid: 16cae24dbbc0dbc44a7a2a30dea4dc60, type: 3}
 --- !u!1 &6417797373210866621
 GameObject:
@@ -61545,6 +61561,20 @@ Transform:
   m_Father: {fileID: 3832010768427026302}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &7353375783479601944
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6227836356662303985}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3309281606015324554, guid: 16cae24dbbc0dbc44a7a2a30dea4dc60, type: 3}
 --- !u!1 &7415311385173166453
 GameObject:
   m_ObjectHideFlags: 0
