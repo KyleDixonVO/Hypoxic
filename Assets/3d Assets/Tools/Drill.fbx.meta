@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9b3a3937c058b714f8faa8a3da336312
+guid: e069b1db3fb46a54dae230fd2a88be64
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -8,22 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: standardSurface2
-    second: {fileID: 2100000, guid: 64905e9c8debcc94fabae80961cfac40, type: 2}
+    second: {fileID: 2100000, guid: 1d2af609eab7cc14ba947ff96ec8c529, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Glowstick_Glowstick_BaseColor
-    second: {fileID: 2800000, guid: 8760638f995407c49bbc2cf2477b79bf, type: 3}
+      name: Drill_Drill_BaseColor
+    second: {fileID: 2800000, guid: 604a3ccac8b5f05408026eb3ee899e5c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Glowstick_Glowstick_Emissive
-    second: {fileID: 2800000, guid: 8fd24cae61d83b64889242b01baee915, type: 3}
+      name: Drill_Drill_Metallic
+    second: {fileID: 2800000, guid: 7f37f34726faac746888039d5ac70f15, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Glowstick_Glowstick_Roughness
-    second: {fileID: 2800000, guid: 3ab50ec54f395524a8d19ce6b9d37dcb, type: 3}
+      name: Drill_Drill_Normal
+    second: {fileID: 2800000, guid: 03e120a685709e24499b99fa341606fb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Drill_Drill_Roughness
+    second: {fileID: 2800000, guid: d03c747c0911d6243b2d72712916c21a, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

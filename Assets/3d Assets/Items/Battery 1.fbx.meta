@@ -1,9 +1,34 @@
 fileFormatVersion: 2
-guid: c9988b4083c8c424787de63fbc3cf4c2
+guid: 72519f7e03466464d9bbc90d09c1945f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface2
+    second: {fileID: 2100000, guid: e3add53725e91c94caa0f877f4596251, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Battery_lambert1_BaseColor
+    second: {fileID: 2800000, guid: 2a0d51bd86a96534e9a7ac872cabead7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Battery_lambert1_Metallic
+    second: {fileID: 2800000, guid: 2da7e6d2766c10749adf83f148192474, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Battery_lambert1_Normal
+    second: {fileID: 2800000, guid: 0263dcd0de8beba48b06644819bc1db9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Battery_lambert1_Roughness
+    second: {fileID: 2800000, guid: cc6b0e514d13cf540a81c9ef93fa8537, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
