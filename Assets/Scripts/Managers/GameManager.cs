@@ -107,6 +107,7 @@ namespace UnderwaterHorror
         public void GamestateCutscene()
         {
             _gameState = gameStates.cutscene;
+            if (FirstPersonController_Sam.fpsSam != null) FirstPersonController_Sam.fpsSam.LockPlayerMovement();
         }
 
         public void GamestateGameplay()
