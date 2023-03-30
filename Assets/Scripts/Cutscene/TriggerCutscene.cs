@@ -11,8 +11,9 @@ namespace UnderwaterHorror
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag != "Player") return;
-            if (other.transform.tag == "Player" && Objective_Manager.objective_Manager.CanCompleteFinalObjective())
+            if (Objective_Manager.objective_Manager.CanCompleteFinalObjective())
             {
+                Debug.Log("here");
                 animator.SetBool("MissionComplete", true);
             }
         }
