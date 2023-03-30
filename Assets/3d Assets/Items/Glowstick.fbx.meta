@@ -1,9 +1,29 @@
 fileFormatVersion: 2
-guid: ca249aa443dc60a4b8ec17f5ae00975b
+guid: 9b3a3937c058b714f8faa8a3da336312
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface2
+    second: {fileID: 2100000, guid: 64905e9c8debcc94fabae80961cfac40, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glowstick_Glowstick_BaseColor
+    second: {fileID: 2800000, guid: 2d9c2c5b7d495e44e8eada05e38918e1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glowstick_Glowstick_Emissive
+    second: {fileID: 2800000, guid: 9954dbfb5a9cf6b4787ff2c888e9e0bb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glowstick_Glowstick_Roughness
+    second: {fileID: 2800000, guid: f2dcfe085491c5640a2a69879568a051, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

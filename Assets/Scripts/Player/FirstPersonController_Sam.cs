@@ -223,8 +223,6 @@ namespace UnderwaterHorror
                 ApplyFinalMovement();
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4)) SetCamShakeReady();
-
             EnergyDrain();
             PlayerStats.playerStats.RechargeSuit();
         }
