@@ -128,7 +128,7 @@ namespace UnderwaterHorror
         {
             if (inventory[activeWeapon] == null) return;
             if (inventory[activeWeapon].transform.localPosition != itemPos) inventory[activeWeapon].transform.localPosition = itemPos;
-            if (inventory[activeWeapon].transform.localRotation != itemRot) inventory[activeWeapon].transform.localRotation = itemRot;
+            if (inventory[activeWeapon].transform.localRotation != itemRot && inventory[activeWeapon].GetComponent<HarpoonGun>() == null) inventory[activeWeapon].transform.localRotation = itemRot;
         }
 
         void InventorySlotUpdate()
