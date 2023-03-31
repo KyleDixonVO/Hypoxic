@@ -15,10 +15,10 @@ namespace UnderwaterHorror
             // set weapon stats
             damage = 5;
             range = 15;
-            maxAmmo = 6;
+            maxAmmo = 2;
             reserves = maxAmmo;
             currentAmmo = 1;
-            reloadTime = 5;
+            reloadTime = 2;
             typeName = "HarpoonGun";
 
             // set bools
