@@ -113,7 +113,7 @@ MonoBehaviour:
   isEquiped: 0
   beingUsed: 0
   isUsed: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 16417e10655487e46a0a9691e9e3e565, type: 3}
   healthGain: 50
 --- !u!82 &1470740679301197876
 AudioSource:
