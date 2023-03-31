@@ -83,6 +83,8 @@ namespace UnderwaterHorror
         public AudioClip repairingComplete;
         public AudioClip pickupPipe;
         public AudioClip dropPipe;
+        public AudioClip reactorStartUp;
+        public AudioClip reactorOn;
 
         [Header("Inventory")]
         public AudioClip swapItem;

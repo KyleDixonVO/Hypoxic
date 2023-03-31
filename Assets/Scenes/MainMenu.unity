@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.047386073, g: 0.14469647, b: 0.14864686, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3923,6 +3923,8 @@ MonoBehaviour:
   repairingComplete: {fileID: 8300000, guid: ccfe9c7cf43388f408f48770620468ae, type: 3}
   pickupPipe: {fileID: 8300000, guid: 84d95eba1a15c4344b7e2a81429683ef, type: 3}
   dropPipe: {fileID: 8300000, guid: 7c255b620269652468ab396eb1ab8aea, type: 3}
+  reactorStartUp: {fileID: 8300000, guid: a9c519e5d4471964fa65bcce64e90ef8, type: 3}
+  reactorOn: {fileID: 8300000, guid: 963cf649365610c4a986f68ae7b27962, type: 3}
   swapItem: {fileID: 8300000, guid: 5f6d8827811392547a0b917d4738420f, type: 3}
   pickupItem: {fileID: 8300000, guid: 28972fde8237d284ab33977810e256e0, type: 3}
   audioLogs:
