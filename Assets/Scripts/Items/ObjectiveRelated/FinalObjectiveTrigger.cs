@@ -6,6 +6,8 @@ namespace UnderwaterHorror
 {
     public class FinalObjectiveTrigger : MonoBehaviour
     {
+        [SerializeField] GameObject lift;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -21,7 +23,14 @@ namespace UnderwaterHorror
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag != "Player") return;
-            Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)Objective_Manager.Objectives.goToElevator);
+            Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)Objective_Manager.Objectives.goToElevator);        
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.tag != "Player" || other.transform.parent == lift.transform) return;
+            other.transform.SetParent(lift.transform);
+            FirstPersonController_Sam.fpsSam.DisableCharacterController();
         }
     }
 
