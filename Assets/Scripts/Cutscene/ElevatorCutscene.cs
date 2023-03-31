@@ -38,7 +38,7 @@ namespace UnderwaterHorror
         public void GoToGameplay()
         {
             FirstPersonController_Sam.fpsSam.EnableCharacterController();
-            FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(null);
+            FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(GameManager.gameManager.transform);
         }
     }
 }
