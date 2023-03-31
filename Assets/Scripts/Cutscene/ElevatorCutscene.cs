@@ -7,6 +7,7 @@ namespace UnderwaterHorror
     public class ElevatorCutscene : MonoBehaviour
     {
         Animator animator;
+        [SerializeField] GameObject lift;
 
         // Start is called before the first frame update
         void Start()
@@ -31,11 +32,13 @@ namespace UnderwaterHorror
 
         public void GoToCutScene()
         {
-            GameManager.gameManager.gameState = GameManager.gameStates.cutscene;
+            FirstPersonController_Sam.fpsSam.DisableCharacterController();
+            FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(lift.transform);
         }
         public void GoToGameplay()
         {
-            GameManager.gameManager.gameState = GameManager.gameStates.gameplay;
+            FirstPersonController_Sam.fpsSam.EnableCharacterController();
+            FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(null);
         }
     }
 }
