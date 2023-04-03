@@ -3,7 +3,32 @@ guid: 38b012e43e5ce8b43bdc381d67925df5
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CounterCeiling
+    second: {fileID: 2100000, guid: 3fa69c5006344ef429071c1f309e8244, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CeilingCounter_Base_color
+    second: {fileID: 2800000, guid: d0059b231d0ea4047bb153b3430df377, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CeilingCounter_Metallic
+    second: {fileID: 2800000, guid: b19883ad76458194b9623d3891881c57, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CeilingCounter_Normal
+    second: {fileID: 2800000, guid: cde88f309e05c8c438c323f53358a7f5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CeilingCounter_Roughness
+    second: {fileID: 2800000, guid: 51a33c7fd2f14504bb4a23c83bd50b03, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,7 +3,32 @@ guid: f95fb08ebbfd48047a36b479ab315eea
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CornerLeft
+    second: {fileID: 2100000, guid: 3b99408cd17346b4c81c957214d34db0, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterCornerLeft_Base_color
+    second: {fileID: 2800000, guid: ce1708483ff5b81499d0079e5b3eec10, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterCornerLeft_Metallic
+    second: {fileID: 2800000, guid: 58ddd5491a261d5458befbdd6381f483, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterCornerLeft_Normal
+    second: {fileID: 2800000, guid: 9a93bb1e8b15da642b4b55801cc3850a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterCornerLeft_Roughness
+    second: {fileID: 2800000, guid: 934b86287c4fab740aefca4026b63a65, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

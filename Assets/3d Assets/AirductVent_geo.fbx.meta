@@ -3,7 +3,27 @@ guid: fa4c91fcb9fa5f6488fbbcea5dea0fe2
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: venttall
+    second: {fileID: 2100000, guid: 007e0b576ae5bd3438bbbd5b19ee8ba3, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: VentTall_Base_color
+    second: {fileID: 2800000, guid: 355d1bcf0abf35242a202b7bc7351d9c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: VentTall_Metallic
+    second: {fileID: 2800000, guid: eed34357a830c1b40a0d47d2b24c8af7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: VentTall_Normal
+    second: {fileID: 2800000, guid: b4306fa231b4c9848a6c00d7a32de217, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,7 +3,32 @@ guid: 87cefb40a4f8e1343b8f8ae864492d25
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: airductStraight
+    second: {fileID: 2100000, guid: 6046bd256b1064c40bb30d70c58f9f07, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StraightVent_Base_color
+    second: {fileID: 2800000, guid: 4d38941921919b64ba09321f3dc78e1d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StraightVent_Metallic
+    second: {fileID: 2800000, guid: 8d3c9cebf8bcc104a832d8f1ac1f0008, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StraightVent_Normal
+    second: {fileID: 2800000, guid: 6d8e4b7ec04f1484188133d5a7288548, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StraightVent_Roughness
+    second: {fileID: 2800000, guid: b4ace387770630942a925c55aaa7f5ff, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

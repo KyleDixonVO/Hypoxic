@@ -3,7 +3,32 @@ guid: 7bb6b76a01b6d654aad1a8da4e7a2c2a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChairB
+    second: {fileID: 2100000, guid: 09fca6401d92db14f843d75cddad4b16, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ChairB_Base_color
+    second: {fileID: 2800000, guid: e6ff0d97634dd554a989e6a9f80c7c1b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ChairB_Metallic
+    second: {fileID: 2800000, guid: c2937407aa8e90f47b1236885640f2d7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ChairB_Normal
+    second: {fileID: 2800000, guid: 52c2da0f9ae90764b9556b68db6d0602, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ChairB_Roughness
+    second: {fileID: 2800000, guid: 6bc1bac21d4dd76428a781a474186428, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

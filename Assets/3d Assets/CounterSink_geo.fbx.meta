@@ -3,7 +3,32 @@ guid: 99b23a2d864453a4fa0cef52e2a1cabf
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sink
+    second: {fileID: 2100000, guid: 9c8f99efbde5abb42839aa633b27928d, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterSink_Base_color
+    second: {fileID: 2800000, guid: dc7f7a63a4e74eb45b7e3173f7f94ff1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterSink_Metallic
+    second: {fileID: 2800000, guid: 65f61fa3a8b9ea741b58717ab2aa4aae, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterSink_Normal
+    second: {fileID: 2800000, guid: 760c4ea4b6b5e954eb3359cb07ca70c0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterSink_Roughness
+    second: {fileID: 2800000, guid: 3cedf484b3dfbd54bb6123298a272243, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

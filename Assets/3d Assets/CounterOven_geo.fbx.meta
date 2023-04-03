@@ -3,7 +3,32 @@ guid: 522ca6c5a4b710a4aa6c290714e0cc1c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CounterOven
+    second: {fileID: 2100000, guid: 2c080a09e51897144817a0ba93954dc2, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterOven_Base_color
+    second: {fileID: 2800000, guid: f7ffaca4a554e6e44863150007402bb4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterOven_Metallic
+    second: {fileID: 2800000, guid: 90d1c9d34117ced4984e614cfa446a41, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterOven_Normal
+    second: {fileID: 2800000, guid: 7203f7ba508e70747a2d53b252996583, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CounterOven_Roughness
+    second: {fileID: 2800000, guid: 0c1b2394c1db5be47b94036ab279f3ef, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

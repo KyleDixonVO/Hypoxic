@@ -3,7 +3,32 @@ guid: 150a12632336e09469b2cb069efd4649
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CornerRight
+    second: {fileID: 2100000, guid: 69f8e295a8ffa304bb526d900937692e, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CornerRight_Base_color
+    second: {fileID: 2800000, guid: 152417a91919d5f43ac4a1971b23e6f7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CornerRight_Metallic
+    second: {fileID: 2800000, guid: cd564e771bef2ee40b22b0f78c736b8d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CornerRight_Normal
+    second: {fileID: 2800000, guid: eb94291dd85eae540a0a02b56b6eb684, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CornerRight_Roughness
+    second: {fileID: 2800000, guid: 6bd2d90835967654c9f385009562ee48, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

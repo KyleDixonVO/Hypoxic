@@ -3,7 +3,32 @@ guid: c3e0d1acee27060478372b189b861ce1
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface4
+    second: {fileID: 2100000, guid: 837007b99ef1b9740b31ac3570a6d62e, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CurveVent_Base_color
+    second: {fileID: 2800000, guid: 8a2b53dcda3fc494f9ebba70bd242a38, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CurveVent_Metallic
+    second: {fileID: 2800000, guid: 64e69b70d548ec04180afe720a48a3ff, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CurveVent_Normal
+    second: {fileID: 2800000, guid: 9e71634e5f348fd4fb4b891c402b881e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CurveVent_Roughness
+    second: {fileID: 2800000, guid: 7de8356327bf4454aabe62003eb98d3e, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

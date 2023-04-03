@@ -3,7 +3,32 @@ guid: d72fff6fff9be33449f8e2c986aea043
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PoolTable
+    second: {fileID: 2100000, guid: c56c86aa220a8ab4aa13da3fe240c90d, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PoolTable_Base_color
+    second: {fileID: 2800000, guid: 822dbd93b1fb2e148bf5859b8031584c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PoolTable_Metallic
+    second: {fileID: 2800000, guid: 37bfb745caf11f149a6f42c4864dc04d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PoolTable_Normal
+    second: {fileID: 2800000, guid: 426edac566c804b40a7574b700ee4747, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PoolTable_Roughness
+    second: {fileID: 2800000, guid: c21b001996a297946bd5933cb91fa6e4, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
