@@ -554,6 +554,7 @@ GameObject:
   - component: {fileID: 1662200383709298145}
   - component: {fileID: 1662200383709298144}
   - component: {fileID: 1173662450}
+  - component: {fileID: 1766911459655396108}
   m_Layer: 8
   m_Name: BigEnemy
   m_TagString: Untagged
@@ -593,6 +594,7 @@ MonoBehaviour:
   isAlive: 1
   enemyState: 0
   _enemyStats: {fileID: 1662200383709298150}
+  animator: {fileID: 0}
   patrolPoints:
   - {fileID: 1662200384297165502}
   - {fileID: 1662200382841185867}
@@ -621,6 +623,7 @@ MonoBehaviour:
   saveGamePos: {x: 0, y: 0, z: 0}
   searching: 0
   singleton: 0
+  onFirstSight: 1
   isAware: 0
   pointsListPopulated: 0
   numberOfPointsNearPlayer: 3
@@ -718,6 +721,26 @@ CapsuleCollider:
   m_Height: 16
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: -6}
+--- !u!95 &1766911459655396108
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662200383709298146}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1662200383849593909
 GameObject:
   m_ObjectHideFlags: 0
