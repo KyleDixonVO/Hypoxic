@@ -14,15 +14,12 @@ public class FogEffect : MonoBehaviour
     void Start()
     {
         GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
-        effectActive = false;
+        effectActive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //_mat.SetColor("_FogColor", _fogColor);
-        //_mat.SetFloat("_DepthStart", _depthStart);
-        //_mat.SetFloat("_DepthDistance", _depthDistance);
 
     }
 
@@ -37,6 +34,5 @@ public class FogEffect : MonoBehaviour
 
         RenderSettings.fog = true;
         Graphics.Blit(source, destination);
-        //Graphics.Blit(source, destination, _mat);
     }
 }
