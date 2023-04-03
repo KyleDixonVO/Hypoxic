@@ -15,7 +15,7 @@ namespace UnderwaterHorror
             other.transform.SetParent(lift.transform, true);
             FirstPersonController_Sam.fpsSam.DisableCharacterController();
             FirstPersonController_Sam.fpsSam.inWater = true;
-            FirstPersonController_Sam.fpsSam.GetComponent<FogEffect>().effectActive = true;
+            FirstPersonController_Sam.fpsSam.playerCamera.GetComponent<FogEffect>().effectActive = true;
             //RenderSettings.fog = true;
             //Debug.Log(RenderSettings.fog);
         }
