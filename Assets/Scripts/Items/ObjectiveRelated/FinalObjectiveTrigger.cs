@@ -22,7 +22,7 @@ namespace UnderwaterHorror
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag != "Player" || other.tag != "lift") return;
+            if (other.tag != "lift") return;
             Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)Objective_Manager.Objectives.goToElevator);        
         }
 
