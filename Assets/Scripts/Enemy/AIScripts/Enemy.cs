@@ -112,7 +112,7 @@ namespace UnderwaterHorror
             animator.SetFloat("Health", this._enemyStats.health);
             animator.SetBool("InAttackRange", WithinRange(_enemyStats.attackStateRadius, agent.transform.position, FirstPersonController_Sam.fpsSam.transform.position));
             animator.SetBool("Searching", enemyState == EnemyState.searching);
-            //Debug.Log(animator.GetBool("InAttackRange") + " " + animator.GetFloat("Speed") + " " + animator.GetFloat("Health") + " " + gameObject.name);
+            Debug.Log(animator.GetBool("InAttackRange") + " " + animator.GetFloat("Speed") + " " + animator.GetFloat("Health") + " " + animator.GetBool("Searching") + " " + gameObject.name);
         }
 
 

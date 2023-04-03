@@ -130,7 +130,7 @@ namespace UnderwaterHorror
         {
             if (!CanCompleteFinalObjective()) 
             {
-                Debug.LogWarning("Cannot complete final objective");
+                //Debug.LogWarning("Cannot complete final objective");
                 return;
             }
             if (elapsedCountdownTime <= 0)
