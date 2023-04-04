@@ -4096,7 +4096,7 @@ MonoBehaviour:
   currentAmmo: 1
   reserves: 3
   maxAmmo: 3
-  reloadTime: 2
+  reloadTime: 1
   reloadProgress: 0
   isEquiped: 0
   bloodSFX: {fileID: 202445287390131053, guid: e4f9ed1c320d7ff4b84eb9823951162f, type: 3}
