@@ -13,6 +13,7 @@ namespace UnderwaterHorror
         void Start()
         {
             animator = GetComponent<Animator>();
+            AudioManager.audioManager.playIntroAudio = true;
         }
 
         // Update is called once per frame
