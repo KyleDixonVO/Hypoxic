@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.047386073, g: 0.14469647, b: 0.14864686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21869,7 +21869,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -436.06482, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -24558,12 +24558,12 @@ MonoBehaviour:
   objective: 0
   isObjectiveComplete: 000000000000
   objectiveText:
-  - Repair the broken pipe by the Hab
-  - Enter the hab
-  - Fix the broken pipe by the Reactor
-  - Fix the broken pipe by the Research Station
-  - Restart the reactor
-  - Escape to the elevator
+  - '- Repair the broken pipe by the Hab'
+  - '- Enter the hab'
+  - '- Fix the broken pipe by the Reactor'
+  - '- Fix the broken pipe by the Research Station'
+  - '- Restart the reactor'
+  - '- Escape to the elevator'
   numberOfObjectives: 0
   elapsedCountdownTime: 0
   countdownTime: 90
