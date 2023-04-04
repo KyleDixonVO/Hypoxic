@@ -3889,11 +3889,9 @@ MonoBehaviour:
   doorClosed: {fileID: 8300000, guid: 61d79536f34df7448acd694c722b0671, type: 3}
   doorButton: {fileID: 8300000, guid: b0e7133cac9ecc64d8488ad17c26fd0f, type: 3}
   randomEnviromentSounds:
-  - {fileID: 8300000, guid: d6f11472048c4774d92fab906489e1a3, type: 3}
   - {fileID: 8300000, guid: 2f0091f540aa7514ca6de2c109a7169a, type: 3}
   - {fileID: 8300000, guid: e607683cd392eda4b9425116393e1482, type: 3}
   - {fileID: 8300000, guid: 4bb6d81bf8fb22b46b542702509d2706, type: 3}
-  - {fileID: 8300000, guid: 2232854837bc1e34f97f4263d61b497c, type: 3}
   titleMusic: {fileID: 8300000, guid: 28f97e7e35a8a744f84c60779677235a, type: 3}
   outsideAmbiance: {fileID: 8300000, guid: d7faaf4ded286ac4db9cc2d0614cba05, type: 3}
   insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
@@ -3950,8 +3948,8 @@ MonoBehaviour:
     m_Bits: 128
   maxSoundRange: 20
   minSoundRange: -20
-  probabilityWeight: 10000
-  probability: 1
+  probabilityWeight: 5
+  probability: 20000
   playAudio: 0
   touchingWall: 0
 --- !u!1 &500445010
@@ -19936,7 +19934,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
