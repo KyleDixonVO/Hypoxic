@@ -3,7 +3,32 @@ guid: 9ae5af47a717ee14692da77dc90f4cab
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Garbage_Can
+    second: {fileID: 2100000, guid: fded908743c0abc42a7a96c70f31931b, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Garbage_Can_base_color
+    second: {fileID: 2800000, guid: 0e89053f06717ae40b518e8e788b055a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Garbage_Can_metallness
+    second: {fileID: 2800000, guid: 3ed1a22d9220ef241a07532cd3bd6962, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Garbage_Can_normal_map
+    second: {fileID: 2800000, guid: 126b182e7f75611408865c58f991d0fb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Garbage_Can_roughness
+    second: {fileID: 2800000, guid: 6c1e71f5ea2636c43a53c6429b4791ca, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
