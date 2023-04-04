@@ -41,6 +41,11 @@ namespace UnderwaterHorror
             FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(null);
             DontDestroyOnLoad(FirstPersonController_Sam.fpsSam);
         }
+
+        public void EndGameObjective()
+        {
+            Objective_Manager.objective_Manager.UpdateObjectiveCompletion((int)Objective_Manager.Objectives.goToElevator);
+        }
     }
 }
 
