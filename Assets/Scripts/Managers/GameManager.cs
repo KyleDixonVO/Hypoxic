@@ -117,7 +117,7 @@ namespace UnderwaterHorror
             if (FirstPersonController_Sam.fpsSam != null)
             {
                 FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
-                FirstPersonController_Sam.fpsSam.EnableCharacterController();
+                FirstPersonController_Sam.fpsSam.EnableCharacterMovement();
             }
         }
 

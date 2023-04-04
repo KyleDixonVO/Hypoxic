@@ -647,20 +647,20 @@ namespace UnderwaterHorror
             this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
 
-        public void DisableCharacterController()
+        public void DisableCharacterMovement()
         {
-            if (this.gameObject.GetComponent<CharacterController>().enabled == false) return;
+            if (canMove == false) return;
             //canMove = false;
-            this.gameObject.GetComponent<CharacterController>().enabled = false;
+            canMove = false;
             //Debug.LogError("Character controller disabled!");
             
         }
 
-        public void EnableCharacterController()
+        public void EnableCharacterMovement()
         {
-            if (this.gameObject.GetComponent<CharacterController>().enabled == true) return;
+            if (canMove) return;
             //canMove = true;
-            this.gameObject.GetComponent<CharacterController>().enabled = true;
+            canMove = true;
             //Debug.LogError("Character controller disabled!");
         }
 
@@ -687,10 +687,10 @@ namespace UnderwaterHorror
         public void LoadCharacterState()
         {
             Data_Manager.dataManager.UpdateFPSSam();
-            DisableCharacterController();
+            DisableCharacterMovement();
             transform.position = playerSavedPosition;
             transform.rotation = playerSavedRotation;
-            EnableCharacterController();
+            EnableCharacterMovement();
         }
     }
 

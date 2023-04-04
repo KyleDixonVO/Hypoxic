@@ -13,7 +13,6 @@ namespace UnderwaterHorror
         void Start()
         {
             animator = GetComponent<Animator>();
-            AudioManager.audioManager.playIntroAudio = true;
         }
 
         // Update is called once per frame
@@ -33,12 +32,12 @@ namespace UnderwaterHorror
 
         public void GoToCutScene()
         {
-            FirstPersonController_Sam.fpsSam.DisableCharacterController();
+            FirstPersonController_Sam.fpsSam.DisableCharacterMovement();
             FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(lift.transform);
         }
         public void GoToGameplay()
         {
-            FirstPersonController_Sam.fpsSam.EnableCharacterController();
+            FirstPersonController_Sam.fpsSam.EnableCharacterMovement();
             FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(null);
             DontDestroyOnLoad(FirstPersonController_Sam.fpsSam);
         }
