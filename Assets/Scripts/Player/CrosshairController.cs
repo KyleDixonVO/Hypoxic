@@ -9,7 +9,6 @@ namespace UnderwaterHorror
     {
         [SerializeField] Color normal;
         [SerializeField] Color target;
-        [SerializeField] Camera cam;
         [SerializeField] Image crosshair;
 
         float range;
@@ -27,7 +26,7 @@ namespace UnderwaterHorror
             GetCurrentWeapon();
 
             RaycastHit hit;
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
+            if (Physics.Raycast(FirstPersonController_Sam.fpsSam.playerCamera.transform.position, FirstPersonController_Sam.fpsSam.playerCamera.transform.forward, out hit, range))
             {
                 if (hit.transform.gameObject.layer == 8)
                 {

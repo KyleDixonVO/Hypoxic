@@ -132,7 +132,7 @@ namespace UnderwaterHorror
         public void ReturnToGameplay()
         {
             if (InputManager.inputManager.escapePressed) return;
-            Debug.Log("Returning to gameplay");;
+            Debug.Log("Returning to gameplay");
             UI_Manager.ui_Manager.SwitchGameplay();
             _gameState = gameStates.gameplay;
             FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
