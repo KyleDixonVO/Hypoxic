@@ -243,8 +243,9 @@ namespace UnderwaterHorror
 
         public void UnlockPlayerMovement()
         {
+            if (gameObject.transform.parent != null) return;
             if (canMove == true && Cursor.lockState == CursorLockMode.Locked && Cursor.visible == false) return;
-            //Debug.Log("Player Movement Unlocked");
+            Debug.Log("Player Movement Unlocked");
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -618,6 +619,7 @@ namespace UnderwaterHorror
             this.inWater = false;
             this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
             this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
+            Debug.Log("Out of water");
         }
 
         public void ResetRun()
@@ -648,14 +650,18 @@ namespace UnderwaterHorror
         public void DisableCharacterController()
         {
             if (this.gameObject.GetComponent<CharacterController>().enabled == false) return;
+            //canMove = false;
             this.gameObject.GetComponent<CharacterController>().enabled = false;
+            //Debug.LogError("Character controller disabled!");
             
         }
 
         public void EnableCharacterController()
         {
             if (this.gameObject.GetComponent<CharacterController>().enabled == true) return;
+            //canMove = true;
             this.gameObject.GetComponent<CharacterController>().enabled = true;
+            //Debug.LogError("Character controller disabled!");
         }
 
         public bool IsCrouching()
