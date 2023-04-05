@@ -50,6 +50,9 @@ namespace UnderwaterHorror
         [Header("AIVoiceClips")]
         public AudioClip lowPower;
         public AudioClip noPower;
+        public AudioClip intro;
+
+        public bool playIntroAudio = false;
 
 
         [Header("BigMonsterAudioClips")]
@@ -83,6 +86,8 @@ namespace UnderwaterHorror
         public AudioClip repairingComplete;
         public AudioClip pickupPipe;
         public AudioClip dropPipe;
+        public AudioClip reactorStartUp;
+        public AudioClip reactorOn;
 
         [Header("Inventory")]
         public AudioClip swapItem;
@@ -131,7 +136,7 @@ namespace UnderwaterHorror
         public bool playAudio = false;
         public bool touchingWall = false;
 
-        private bool playedPowerBelowHalf = false;
+        private bool playerPowerBelowHalf = false;
         private bool playedPowerEmpty = false;
 
         private void Awake()
@@ -321,14 +326,21 @@ namespace UnderwaterHorror
                 return;
             }
 
+            if (playIntroAudio)
+            {
+                StopSound(playerSuitAudio);
+                PlaySound(playerSuitAudio, intro);
+                playIntroAudio = false;
+            }
+
             // Plays low power sound
-            if (PlayerStats.playerStats.suitPower <= PlayerStats.playerStats.maxSuitPower / 2 && playedPowerBelowHalf == false)
+            if (PlayerStats.playerStats.suitPower <= PlayerStats.playerStats.maxSuitPower / 2 && playerPowerBelowHalf == false)
             {
                 StopSound(playerSuitAudio);
                 PlaySound(playerSuitAudio, lowPower);
-                playedPowerBelowHalf = true;
+                playerPowerBelowHalf = true;
             }
-            else if (PlayerStats.playerStats.suitPower > PlayerStats.playerStats.maxSuitPower / 2) playedPowerBelowHalf = false;
+            else if (PlayerStats.playerStats.suitPower > PlayerStats.playerStats.maxSuitPower / 2) playerPowerBelowHalf = false;
 
 
             // Plays no power sound

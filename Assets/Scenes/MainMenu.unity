@@ -3889,11 +3889,9 @@ MonoBehaviour:
   doorClosed: {fileID: 8300000, guid: 61d79536f34df7448acd694c722b0671, type: 3}
   doorButton: {fileID: 8300000, guid: b0e7133cac9ecc64d8488ad17c26fd0f, type: 3}
   randomEnviromentSounds:
-  - {fileID: 8300000, guid: d6f11472048c4774d92fab906489e1a3, type: 3}
   - {fileID: 8300000, guid: 2f0091f540aa7514ca6de2c109a7169a, type: 3}
   - {fileID: 8300000, guid: e607683cd392eda4b9425116393e1482, type: 3}
   - {fileID: 8300000, guid: 4bb6d81bf8fb22b46b542702509d2706, type: 3}
-  - {fileID: 8300000, guid: 2232854837bc1e34f97f4263d61b497c, type: 3}
   titleMusic: {fileID: 8300000, guid: 28f97e7e35a8a744f84c60779677235a, type: 3}
   outsideAmbiance: {fileID: 8300000, guid: d7faaf4ded286ac4db9cc2d0614cba05, type: 3}
   insideAmbiance: {fileID: 8300000, guid: 9c35932a7d64c76419618ff2fb6dc7fa, type: 3}
@@ -3901,7 +3899,9 @@ MonoBehaviour:
   heavyBreathing: {fileID: 8300000, guid: 63095a5952128ce4f86fef35d7a4f52b, type: 3}
   lowPower: {fileID: 8300000, guid: 4993877336271784da31980510471d57, type: 3}
   noPower: {fileID: 8300000, guid: 184e7a886dd5ab94d9a9ecaa429b206e, type: 3}
-  bigFishBite: {fileID: 8300000, guid: 38e435c461b9cf64daa6e341072afcff, type: 3}
+  intro: {fileID: 8300000, guid: 34c8302ea52d32b42bbbef84525018f2, type: 3}
+  playIntroAudio: 0
+  bigFishBite: {fileID: 8300000, guid: 2cebe1733e2f10a4ebe5f875e142d921, type: 3}
   bigFishAgro: {fileID: 8300000, guid: 0b02ce5e3db600d45b5cd1e2fe839969, type: 3}
   bigFishHurt: {fileID: 8300000, guid: 9e39e71402deb944fad746fa438f643b, type: 3}
   bigFishFleeing: {fileID: 0}
@@ -3923,6 +3923,8 @@ MonoBehaviour:
   repairingComplete: {fileID: 8300000, guid: ccfe9c7cf43388f408f48770620468ae, type: 3}
   pickupPipe: {fileID: 8300000, guid: 84d95eba1a15c4344b7e2a81429683ef, type: 3}
   dropPipe: {fileID: 8300000, guid: 7c255b620269652468ab396eb1ab8aea, type: 3}
+  reactorStartUp: {fileID: 8300000, guid: a9c519e5d4471964fa65bcce64e90ef8, type: 3}
+  reactorOn: {fileID: 8300000, guid: 963cf649365610c4a986f68ae7b27962, type: 3}
   swapItem: {fileID: 8300000, guid: 5f6d8827811392547a0b917d4738420f, type: 3}
   pickupItem: {fileID: 8300000, guid: 28972fde8237d284ab33977810e256e0, type: 3}
   audioLogs:
@@ -3949,7 +3951,7 @@ MonoBehaviour:
   maxSoundRange: 20
   minSoundRange: -20
   probabilityWeight: 10000
-  probability: 1
+  probability: 0
   playAudio: 0
   touchingWall: 0
 --- !u!1 &500445010
@@ -19934,7 +19936,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -21867,7 +21869,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -436.06482, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -24556,12 +24558,12 @@ MonoBehaviour:
   objective: 0
   isObjectiveComplete: 000000000000
   objectiveText:
-  - Repair the broken pipe by the Hab
-  - Enter the hab
-  - Fix the broken pipe by the Reactor
-  - Fix the broken pipe by the Research Station
-  - Restart the reactor
-  - Escape to the elevator
+  - '- Repair the broken pipe by the Hab'
+  - '- Enter the hab'
+  - '- Fix the broken pipe by the Reactor'
+  - '- Fix the broken pipe by the Research Station'
+  - '- Restart the reactor'
+  - '- Escape to the elevator'
   numberOfObjectives: 0
   elapsedCountdownTime: 0
   countdownTime: 90
