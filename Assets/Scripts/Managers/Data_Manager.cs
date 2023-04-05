@@ -499,7 +499,7 @@ namespace UnderwaterHorror
             
             for (int i = 0; i < enemies.Length; i++)
             {
-                Enemy_Manager.enemy_Manager.enemies[i].transform.position = enemies[i].saveGamePos;
+                Enemy_Manager.enemy_Manager.enemies[i].saveGamePos = enemies[i].saveGamePos;
                 Enemy_Manager.enemy_Manager.enemies[i].enemyState = enemies[i].enemyState;
                 Enemy_Manager.enemy_Manager.enemies[i]._enemyStats.health = enemies[i]._enemyStats.health;
                 Enemy_Manager.enemy_Manager.enemies[i].searching = enemies[i].searching;
@@ -661,7 +661,7 @@ namespace UnderwaterHorror
             Debug.LogWarning(heldItems.Length);
             for (int i = 0; i < heldItems.Length; i++)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 if (heldItems[i] == null)
                 {
                     Debug.LogWarning("heldItems " + i + " is null");
@@ -680,10 +680,7 @@ namespace UnderwaterHorror
                     }
                     Debug.LogWarning("Setting player inventory slot " + i);
                     Debug.LogWarning(heldItems[i].name + " " + Interactable_Manager.interactable_manager.interactables[j].name);
-                    //PlayerInventory.playerInventory.inventory[i] = Interactable_Manager.interactable_manager.interactables[j].gameObject;
                     PlayerInventory.playerInventory.AddToInventory(Interactable_Manager.interactable_manager.interactables[j].gameObject);
-                    //Debug.Log(Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.localPosition + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.position + " " + Interactable_Manager.interactable_manager.interactables[j].gameObject.transform.parent.gameObject.name);
-                    //return;
                 }
             }
         }

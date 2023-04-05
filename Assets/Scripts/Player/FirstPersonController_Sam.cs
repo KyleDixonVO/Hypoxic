@@ -638,7 +638,7 @@ namespace UnderwaterHorror
             this.inWater = false;
             this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
             this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
-            Debug.Log("Out of water");
+            //Debug.Log("Out of water");
         }
 
         public void ResetRun()
@@ -659,6 +659,7 @@ namespace UnderwaterHorror
             carryingHeavyObj = false;
             currentInteractable = null;
             elapsedCamShakeTime = 0;
+            transform.parent = null;
             playerCamera.transform.localPosition = new Vector3(0, defaultYPos, 0);
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;

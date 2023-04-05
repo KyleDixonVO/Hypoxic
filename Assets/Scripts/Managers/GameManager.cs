@@ -162,6 +162,9 @@ namespace UnderwaterHorror
             if (FirstPersonController_Sam.fpsSam == null) return;
             FirstPersonController_Sam.fpsSam.LoadCharacterState();
             PlayerStats.playerStats.LoadPlayerStats();
+
+            if (FirstPersonController_Sam.fpsSam.GetComponentInChildren<MinimapPing>() == null) return;
+            FirstPersonController_Sam.fpsSam.GetComponentInChildren<MinimapPing>().ResetForNextRun();
         }
 
         public void SaveGame()

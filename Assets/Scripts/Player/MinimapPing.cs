@@ -114,6 +114,7 @@ namespace UnderwaterHorror
         {
             range = 0f;
             pingHitList.Clear();
+            blipList.Clear();
             pingReady = false;
             timeSinceLastPing = 0;
         }
