@@ -34,7 +34,7 @@ namespace UnderwaterHorror
             Debug.Log("name: " + other.name);
             if (other.tag != "Player" || other.transform.parent == lift.transform) return;
             other.transform.SetParent(lift.transform);
-            FirstPersonController_Sam.fpsSam.DisableCharacterMovement();
+            FirstPersonController_Sam.fpsSam.LockPlayerMovement();
         }
     }
 
