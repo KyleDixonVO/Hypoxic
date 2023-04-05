@@ -619,7 +619,7 @@ namespace UnderwaterHorror
             this.inWater = false;
             this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
             this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
-            Debug.Log("Out of water");
+            //Debug.Log("Out of water");
         }
 
         public void ResetRun()
