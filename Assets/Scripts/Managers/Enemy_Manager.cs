@@ -11,6 +11,7 @@ public class Enemy_Manager : MonoBehaviour
     private int numberOfEnemies;
     [SerializeField] private bool dataLoaded;
     public bool shouldLoad = false;
+    private bool loadedPositions = false;
 
     private void Awake()
     {
@@ -41,6 +42,8 @@ public class Enemy_Manager : MonoBehaviour
         if (shouldLoad)
         {
             LoadEnemyStates();
+            if (loadedPositions) return;
+            ResetToLastSave();
         }
     }
 
@@ -72,6 +75,7 @@ public class Enemy_Manager : MonoBehaviour
         {
             shouldLoad = false;
             dataLoaded = false;
+            loadedPositions = false;
             if (enemies[i] == null) return;
             enemies[i].ResetRun();
         }
@@ -92,9 +96,11 @@ public class Enemy_Manager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (enemies[i] == null) continue;
+            if (enemies[i] == null) return;
             enemies[i].ReloadToSave();
         }
+
+        loadedPositions = true;
     }
 
     public void SetShouldLoadTrue()

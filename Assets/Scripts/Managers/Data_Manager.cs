@@ -499,7 +499,7 @@ namespace UnderwaterHorror
             
             for (int i = 0; i < enemies.Length; i++)
             {
-                Enemy_Manager.enemy_Manager.enemies[i].transform.position = enemies[i].saveGamePos;
+                Enemy_Manager.enemy_Manager.enemies[i].saveGamePos = enemies[i].saveGamePos;
                 Enemy_Manager.enemy_Manager.enemies[i].enemyState = enemies[i].enemyState;
                 Enemy_Manager.enemy_Manager.enemies[i]._enemyStats.health = enemies[i]._enemyStats.health;
                 Enemy_Manager.enemy_Manager.enemies[i].searching = enemies[i].searching;

@@ -77,6 +77,7 @@ namespace UnderwaterHorror
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay)
             {
                 if (agent == null) return;
+                if (!agent.isOnNavMesh) return;
                 agent.isStopped = true;
                 if (animator != null)
                 {
@@ -87,6 +88,7 @@ namespace UnderwaterHorror
             else
             {
                 if (agent == null) return;
+                if (!agent.isOnNavMesh) return;
                 agent.isStopped = false;
                 if (animator != null)
                 {
@@ -502,7 +504,11 @@ namespace UnderwaterHorror
 
         public virtual void ReloadToSave()
         {
+            this.agent.enabled = false;
             this.gameObject.transform.position = saveGamePos;
+            this.agent.enabled = true;
+            patrolPointParent = null;
+            patrolPoints.Clear();
         }
 
         public virtual void SetSaveGamePos()
