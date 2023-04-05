@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: c134c45bdeb650049b3aa233d708a516
+guid: 6a4680ebed483ab4db306518c5ee8fcf
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: aiStandardSurface1
-    second: {fileID: 2100000, guid: 19e000011a50d33478f0835b6b2d258b, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: TallLampOn_Base_color
-    second: {fileID: 2800000, guid: c0b8eb09124ca69479a49a1c49f28d43, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: TallLampOn_Metallic
-    second: {fileID: 2800000, guid: fdc490f14963c1641a7aeed9cc2f7e8f, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: TallLampOn_Normal
-    second: {fileID: 2800000, guid: e57c7ae4f35833b4cb99a264950cef69, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: TallLampOn_Roughness
-    second: {fileID: 2800000, guid: b55fd7b797b23364285a7c4c83666437, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
