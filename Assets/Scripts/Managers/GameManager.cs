@@ -89,6 +89,7 @@ namespace UnderwaterHorror
             Debug.Log("Game Paused");
             UI_Manager.ui_Manager.SwitchPause();
             FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+            FirstPersonController_Sam.fpsSam.UnlockPlayerCamera();
             _gameState = gameStates.paused;
         }
 
@@ -97,17 +98,23 @@ namespace UnderwaterHorror
             if (UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay)
             {
                 FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+                FirstPersonController_Sam.fpsSam.UnlockPlayerCamera();
             }
             else if (!UI_Manager.ui_Manager.PDAOpen() && _gameState == gameStates.gameplay && !PlayerStats.playerStats.IsDead())
             {
                 FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
+                FirstPersonController_Sam.fpsSam.LockPlayerCamera();
             }
         }
 
         public void GamestateCutscene()
         {
             _gameState = gameStates.cutscene;
-            if (FirstPersonController_Sam.fpsSam != null) FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+            if (FirstPersonController_Sam.fpsSam != null)
+            {
+                FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+                FirstPersonController_Sam.fpsSam.LockPlayerCamera();
+            }
         }
 
         public void GamestateGameplay()
@@ -117,7 +124,8 @@ namespace UnderwaterHorror
             if (FirstPersonController_Sam.fpsSam != null)
             {
                 FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
-                FirstPersonController_Sam.fpsSam.EnableCharacterMovement();
+                FirstPersonController_Sam.fpsSam.LockPlayerCamera();
+                FirstPersonController_Sam.fpsSam.EnableCharacterController();
             }
         }
 
@@ -136,6 +144,7 @@ namespace UnderwaterHorror
             UI_Manager.ui_Manager.SwitchGameplay();
             _gameState = gameStates.gameplay;
             FirstPersonController_Sam.fpsSam.UnlockPlayerMovement();
+            FirstPersonController_Sam.fpsSam.LockPlayerCamera();
         }
 
         public void LoadLastSave()
