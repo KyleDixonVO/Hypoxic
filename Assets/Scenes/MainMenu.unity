@@ -24562,15 +24562,15 @@ MonoBehaviour:
   objective: 0
   isObjectiveComplete: 000000000000
   objectiveText:
-  - '- Repair the broken pipe by the Hab'
-  - '- Enter the hab'
-  - '- Fix the broken pipe by the Reactor'
-  - '- Fix the broken pipe by the Research Station'
-  - '- Restart the reactor'
-  - '- Escape to the elevator'
+  - '- Replace the broken pipe by the Habitat'
+  - '- Enter the Habitat'
+  - '- Replace the broken pipe by the Power Station'
+  - '- Replace the broken pipe by the Research Station'
+  - '- Restart the Reactor'
+  - '- Escape to the Elevator'
   numberOfObjectives: 0
   elapsedCountdownTime: 0
-  countdownTime: 90
+  countdownTime: 120
 --- !u!4 &1668812122
 Transform:
   m_ObjectHideFlags: 0
