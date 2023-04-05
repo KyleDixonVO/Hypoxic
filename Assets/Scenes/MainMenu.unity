@@ -3899,7 +3899,7 @@ MonoBehaviour:
   heavyBreathing: {fileID: 8300000, guid: 63095a5952128ce4f86fef35d7a4f52b, type: 3}
   lowPower: {fileID: 8300000, guid: 4993877336271784da31980510471d57, type: 3}
   noPower: {fileID: 8300000, guid: 184e7a886dd5ab94d9a9ecaa429b206e, type: 3}
-  intro: {fileID: 8300000, guid: 34c8302ea52d32b42bbbef84525018f2, type: 3}
+  intro: {fileID: 8300000, guid: 9e93e86f387dd9a4f914fd001026c646, type: 3}
   playIntroAudio: 0
   bigFishBite: {fileID: 8300000, guid: 2cebe1733e2f10a4ebe5f875e142d921, type: 3}
   bigFishAgro: {fileID: 8300000, guid: 0b02ce5e3db600d45b5cd1e2fe839969, type: 3}
