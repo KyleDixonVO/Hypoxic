@@ -179,6 +179,7 @@ namespace UnderwaterHorror
         void DisplayEndgameText()
         {
             if (PlayerStats.playerStats == null) return;
+            FirstPersonController_Sam.fpsSam.UnlockPlayerCamera();
             if (PlayerStats.playerStats.IsDead())
             {
                 UI_Manager.ui_Manager.SwitchGameOverWin();

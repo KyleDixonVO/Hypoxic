@@ -77,6 +77,7 @@ public class Enemy_Manager : MonoBehaviour
             dataLoaded = false;
             loadedPositions = false;
             if (enemies[i] == null) return;
+            enemies[i].gameObject.SetActive(true);
             enemies[i].ResetRun();
         }
     }
