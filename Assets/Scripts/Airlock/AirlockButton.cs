@@ -43,7 +43,7 @@ namespace UnderwaterHorror
 
             if (this.gameObject.GetComponent<Outline>() != null && transform.parent != FirstPersonController_Sam.fpsSam.playerCamera.gameObject)
             {
-                Debug.Log("Setting active outline");
+                //Debug.Log("Setting active outline");
                 Outline.activeOutline = gameObject.GetComponent<Outline>();
                 _outline.enabled = true;
             }

@@ -114,6 +114,7 @@ namespace UnderwaterHorror
         public override void OnInteract()
         {
             PlayerInventory.playerInventory.AddToInventory(this.gameObject);
+            _outline.enabled = false;
             // throw new System.NotImplementedException();
         }
 

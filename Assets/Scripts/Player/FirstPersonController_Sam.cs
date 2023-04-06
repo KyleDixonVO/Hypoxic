@@ -12,6 +12,7 @@ namespace UnderwaterHorror
     {
         public static FirstPersonController_Sam fpsSam;
         public bool canMove { get; private set; } = true;
+        public bool canLook { get; private set; } = true;
         private bool isRunning => canRun && Input.GetKey(runKey);
         private bool shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded;
         private bool shouldCrouch => Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
@@ -203,10 +204,10 @@ namespace UnderwaterHorror
         private void Update()
         {
             if (GameManager.gameManager.gameState != GameManager.gameStates.gameplay) return;
+
             if (canMove)
             {
                 HandleMovementInput();
-                HandleMouseLook(); // look into moving into Lateupdate if motion is jittery
 
                 if (canJump)        { HandleJump();                                         }
                 if (canCrouch)      { HandleCrouch();                                       }
@@ -223,6 +224,11 @@ namespace UnderwaterHorror
                 ApplyFinalMovement();
             }
 
+            if (canLook)
+            {
+                HandleMouseLook(); // look into moving into Lateupdate if motion is jittery
+            }
+
             EnergyDrain();
             PlayerStats.playerStats.RechargeSuit();
         }
@@ -234,21 +240,34 @@ namespace UnderwaterHorror
 
         public void LockPlayerMovement()
         {
-            if (canMove == false && Cursor.lockState == CursorLockMode.None && Cursor.visible == true) return; 
+            if (canMove == false) return; 
             //Debug.Log("Player Movement Locked");
             canMove = false;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            
         }
 
         public void UnlockPlayerMovement()
         {
             if (gameObject.transform.parent != null) return;
-            if (canMove == true && Cursor.lockState == CursorLockMode.Locked && Cursor.visible == false) return;
+            if (canMove == true) return;
             Debug.Log("Player Movement Unlocked");
-            canMove = true;
+            canMove = true;           
+        }
+        
+        public void UnlockPlayerCamera()
+        {
+            //if (Cursor.lockState == CursorLockMode.None) return;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            canLook = false;
+        }
+
+        public void LockPlayerCamera()
+        {
+            //if (Cursor.lockState == CursorLockMode.Locked) return;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            canLook = true;
         }
 
         private void HandleMovementInput()
@@ -619,7 +638,7 @@ namespace UnderwaterHorror
             this.inWater = false;
             this.gameObject.transform.GetComponentInChildren<FogEffect>().effectActive = false;
             this.gameObject.transform.GetComponentInChildren<UnderWaterEffect>().effectActive = false;
-            Debug.Log("Out of water");
+            //Debug.Log("Out of water");
         }
 
         public void ResetRun()
@@ -636,9 +655,11 @@ namespace UnderwaterHorror
             canInteract = true;
             useFootsteps = true;
             canMove = true;
+            canLook = true;
             carryingHeavyObj = false;
             currentInteractable = null;
             elapsedCamShakeTime = 0;
+            transform.parent = null;
             playerCamera.transform.localPosition = new Vector3(0, defaultYPos, 0);
             this.gameObject.GetComponent<CharacterController>().enabled = false;
             this.gameObject.transform.position = NewGamePos;
@@ -647,21 +668,17 @@ namespace UnderwaterHorror
             this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
 
-        public void DisableCharacterMovement()
+        public void DisableCharacterController()
         {
-            if (canMove == false) return;
-            //canMove = false;
-            canMove = false;
-            //Debug.LogError("Character controller disabled!");
-            
+            if (this.gameObject.GetComponent<CharacterController>().enabled == false) return;
+            this.gameObject.GetComponent<CharacterController>().enabled = false;
+
         }
 
-        public void EnableCharacterMovement()
+        public void EnableCharacterController()
         {
-            if (canMove) return;
-            //canMove = true;
-            canMove = true;
-            //Debug.LogError("Character controller disabled!");
+            if (this.gameObject.GetComponent<CharacterController>().enabled == true) return;
+            this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
 
         public bool IsCrouching()
@@ -687,10 +704,10 @@ namespace UnderwaterHorror
         public void LoadCharacterState()
         {
             Data_Manager.dataManager.UpdateFPSSam();
-            DisableCharacterMovement();
+            DisableCharacterController();
             transform.position = playerSavedPosition;
             transform.rotation = playerSavedRotation;
-            EnableCharacterMovement();
+            EnableCharacterController();
         }
     }
 

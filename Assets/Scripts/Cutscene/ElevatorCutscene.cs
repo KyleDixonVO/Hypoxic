@@ -23,21 +23,23 @@ namespace UnderwaterHorror
 
         void PauseCheck()
         {
-            if (GameManager.gameManager.gameState == GameManager.gameStates.paused || UI_Manager.ui_Manager.PDAOpen())
+            if (GameManager.gameManager.gameState == GameManager.gameStates.paused)
             {
                 animator.speed = 0;
             }
-            else if (GameManager.gameManager.gameState != GameManager.gameStates.paused || UI_Manager.ui_Manager.PDAOpen() == false && animator.speed != 1) animator.speed = 1;
+            else if (GameManager.gameManager.gameState != GameManager.gameStates.paused) animator.speed = 1;
         }
 
         public void GoToCutScene()
         {
-            FirstPersonController_Sam.fpsSam.DisableCharacterMovement();
+            FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+            FirstPersonController_Sam.fpsSam.LockPlayerCamera();
             FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(lift.transform);
         }
         public void GoToGameplay()
         {
-            FirstPersonController_Sam.fpsSam.EnableCharacterMovement();
+            FirstPersonController_Sam.fpsSam.LockPlayerMovement();
+            FirstPersonController_Sam.fpsSam.LockPlayerCamera();
             FirstPersonController_Sam.fpsSam.gameObject.transform.SetParent(null);
             DontDestroyOnLoad(FirstPersonController_Sam.fpsSam);
         }
