@@ -126,7 +126,7 @@ namespace UnderwaterHorror
             }
             if (FirstPersonController_Sam.fpsSam.inWater == false)
             {
-                enemyState = EnemyState.searching;
+                enemyState = EnemyState.patrolling;
             }
 
             switch (enemyState)
