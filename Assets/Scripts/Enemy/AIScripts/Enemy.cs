@@ -229,7 +229,7 @@ namespace UnderwaterHorror
         {
             agent.speed = _enemyStats.patrolSpeed;
             // Follow patrol points in random order
-            if (patrolPointParent == null) return;
+            if (patrolPointParent == null || patrolPoints == null) return;
             if (agent.destination != patrolPoints[currentPatrolPoint].transform.position)
             {
                 agent.SetDestination(patrolPoints[currentPatrolPoint].transform.position);
