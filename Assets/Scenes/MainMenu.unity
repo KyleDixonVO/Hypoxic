@@ -12267,7 +12267,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -63}
-  m_SizeDelta: {x: 900, y: 700}
+  m_SizeDelta: {x: 1200, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893808680
 MonoBehaviour:
@@ -19851,7 +19851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1124360024
 Transform:
   m_ObjectHideFlags: 0
@@ -21856,7 +21856,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -436.06482, w: 0}
+  m_margin: {x: 0, y: 0, z: -1029.5928, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -24553,7 +24553,7 @@ MonoBehaviour:
   - '- Escape to the Elevator'
   numberOfObjectives: 0
   elapsedCountdownTime: 0
-  countdownTime: 120
+  countdownTime: 200
 --- !u!4 &1668812122
 Transform:
   m_ObjectHideFlags: 0
