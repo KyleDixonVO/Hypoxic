@@ -499,6 +499,7 @@ namespace UnderwaterHorror
             this.enemyState = EnemyState.patrolling;
             this.searching = false;
             patrolPointParent = null;
+            patrolPoints.Clear();
         }
 
 
