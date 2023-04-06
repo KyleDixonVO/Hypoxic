@@ -834,8 +834,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0f864c1a96198bc49b534b5f9f33101d, type: 3}
   - {fileID: 21300000, guid: 410113fe32c7b5c4da359426bfbd9acc, type: 3}
   - {fileID: 21300000, guid: 5c23039756fc6d54d93f26c908548f23, type: 3}
-  - {fileID: 21300000, guid: 0f864c1a96198bc49b534b5f9f33101d, type: 3}
-  - {fileID: 21300000, guid: 0f864c1a96198bc49b534b5f9f33101d, type: 3}
+  - {fileID: 21300000, guid: 6822994be88943645931e119c9f12dba, type: 3}
+  - {fileID: 21300000, guid: 058896abb66a50f4985453b9136003c6, type: 3}
   - {fileID: 21300000, guid: 0f864c1a96198bc49b534b5f9f33101d, type: 3}
   logTranscripts:
   - "Day 1. We\u2019ve just finished unpacking the last of the equipment and we\u2019re
