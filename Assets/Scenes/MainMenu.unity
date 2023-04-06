@@ -2092,7 +2092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -31, y: 282}
+  m_AnchoredPosition: {x: -31, y: 330}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260682362
@@ -2115,27 +2115,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Controls
-
-
-    Movement                 = WASD
-
-    Primary Interact           
-    = E
-
-    Reload / Repair Object      = R
-
-    Sprint                  = Shift
-
-    Jump                   
-    = Space
-
-    Left Mouse      = Use Held Item
-
-    Change item slot      = 1,
-    2, 3
-
-    Drop Item                   = Q'
+  m_text: "Controls\n\nMovement                 = WASD\nPrimary Interact           
+    = E\nReload / Repair Object      = R\nSprint                  = Shift\nJump                   
+    = Space\nCrouch\t\t    = Control\nLeft Mouse      = Use Held Item\nRight Mouse\t      
+    = Zoom\nChange item slot      = 1, 2, 3\nDrop Item                   = Q"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a291a4abae5d7344903147f81e12956, type: 2}
   m_sharedMaterial: {fileID: -1047944158881693523, guid: 8a291a4abae5d7344903147f81e12956, type: 2}
