@@ -3,7 +3,27 @@ guid: 4440e658de67a6e4fa03e0d9a5390c14
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CornerTank_Matt
+    second: {fileID: 2100000, guid: af1b7aaf221eb744ea2b39b766695ff7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SpotLight
+    second: {fileID: 2100000, guid: 3c9faa1533a41b54b82879c42b2af2c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Staircase
+    second: {fileID: 2100000, guid: 28be349b7f9510149a7e25d9a680a9e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 0e318fec0da80a84893feb6960764e4e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
